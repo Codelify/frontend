@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { AppContext } from '../utils/wrapper/AppProvider';
+import { AppContext } from '../utils/AppProvider';
 import {
   Box,
   Flex,

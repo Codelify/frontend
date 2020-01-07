@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 // import './App.css';
 import {
   ThemeProvider,
@@ -9,14 +9,14 @@ import {
   Button,
   Grid,
   Flex,
-  Image,
+  Image
 } from "@chakra-ui/core";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Container from "./components/Container";
 //import GoogleButton from './components/GoogleButton';
 import { MdBookmark, MdFindInPage, MdDescription } from "react-icons/md";
-import screeShot from "./assets/img/app-shot.png"
+import screeShot from "./assets/img/app-shot.png";
 
 const Feature = ({ title, icon, children, ...props }) => {
   return (
@@ -27,10 +27,10 @@ const Feature = ({ title, icon, children, ...props }) => {
         bg="teal.500"
         align="center"
         justify="center"
-    >
+      >
         <Box size={12} color="white" as={icon} />
-    </Flex>
-    <Heading as="h2" size="md" fontWeight="semibold" mt="1em" mb="0.5em">
+      </Flex>
+      <Heading as="h2" size="md" fontWeight="semibold" mt="1em" mb="0.5em">
         {title}
       </Heading>
       <Text>{children}</Text>
@@ -38,12 +38,11 @@ const Feature = ({ title, icon, children, ...props }) => {
   );
 };
 
-
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.localStorage.getItem('token')) {
+    if (typeof window !== "undefined" && window.localStorage.getItem("token")) {
       setIsLoggedIn(true);
     } else setIsLoggedIn(false);
   }, [isLoggedIn]);
@@ -56,14 +55,14 @@ function App() {
           <Header />
           <Container>
             <Box maxW="xl" mx="auto" textAlign="center">
-                <Heading as="h1" size="xl" fontWeight="bold">
+              <Heading as="h1" size="xl" fontWeight="bold">
                 Your
                 <Box as="span" color="teal.500">
-                    {" "}
-                    code snippets
-                </Box>
-                {" "}library
-                </Heading>
+                  {" "}
+                  code snippets
+                </Box>{" "}
+                library
+              </Heading>
 
               <Text opacity="0.7" fontSize="md" mt="6">
                 Codelify give developers a central place to easily Store, Manage
@@ -71,13 +70,7 @@ function App() {
               </Text>
 
               <Box mt="6">
-                <Button
-                  mr="10px"
-                  size="lg"
-                  as="a"
-                  variantColor="teal"
-                  href="/app"
-                >
+                <Button mr="10px" size="lg" as="a" variantColor="teal" href="/">
                   Get Started
                 </Button>
                 {/* {!isLoggedIn && <GoogleButton setIsLoggedIn={setIsLoggedIn} />} */}
@@ -87,16 +80,25 @@ function App() {
         </Box>
 
         <Container>
-            <Box style={{
-                boxShadow:"0 10px 6px -6px #777"
-                }} mx="auto" minWidth="330px" w="80%">
-                <Image borderRadius="5px" src={screeShot} alt="Codelify app screenshot" />
-            </Box>
+          <Box
+            style={{
+              boxShadow: "0 10px 6px -6px #777"
+            }}
+            mx="auto"
+            minWidth="330px"
+            w="80%"
+          >
+            <Image
+              borderRadius="5px"
+              src={screeShot}
+              alt="Codelify app screenshot"
+            />
+          </Box>
         </Container>
 
         <Container mt="60px">
           <Grid
-            templateColumns={{ sm: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }}
+            templateColumns={{ sm: "repeat(1, 1fr)", md: "repeat(3, 1fr)" }}
             gap={10}
             px={{ md: 12 }}
           >

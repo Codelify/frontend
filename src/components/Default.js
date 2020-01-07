@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { AppContext } from '../utils/wrapper/AppProvider';
+import { AppContext } from '../utils/AppProvider';
 import EmptyView from './EmptyView';
 import SnippetList from './List';
 import FuzzySearch from 'react-fuzzy';

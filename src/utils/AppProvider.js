@@ -1,6 +1,6 @@
 import React, { useReducer, createContext, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { MY_SNIPPETs } from '../../graphql/query';
+import { MY_SNIPPETs } from '../graphql/query';
 
 const FETCH_SNIPPETS_DATA = 'FETCH_SNIPPETS_DATA';
 const ADD_SNIPPET = 'ADD_SNIPPET';
