@@ -172,7 +172,8 @@ const a = 10;
                     borderRadius: "5px",
                     flex: 2,
                     fontSize: "14px",
-                    minHeight: "300px"
+                    minHeight: "300px",
+                    boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
                   }}
                 />
               </LiveProvider>
