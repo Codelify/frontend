@@ -1,13 +1,11 @@
-import React, { useContext } from 'react';
-import { AppContext } from '../utils/AppProvider';
-import EmptyView from './EmptyView';
-import SnippetList from './List';
-import FuzzySearch from 'react-fuzzy';
+import React, { useContext } from "react";
+import { AppContext } from "../utils/AppProvider";
+import EmptyView from "./EmptyView";
+import SnippetList from "./List";
 
 const Default = () => {
   const { state } = useContext(AppContext);
-  const token =
-    typeof window !== 'undefined' && window.localStorage.getItem('token');
+  const token = window.localStorage.getItem("token");
 
   //Render filterd Snippets if there are any
   if (state.filteredSnippets) {
@@ -16,7 +14,7 @@ const Default = () => {
 
   // Render the list of snippets if their are any
   if (state.snippetsData && state.snippetsData.length && token) {
-    return <SnippetList data={state.snippetsData} />;
+    return <SnippetList data={state.snippetsData} search="22" />;
   }
   // default view if there is no snippets
   else {

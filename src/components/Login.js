@@ -14,6 +14,7 @@ import {
 import { AiOutlineGoogle } from 'react-icons/ai';
 import GoogleLogin from 'react-google-login';
 import GoogleButton from './GoogleButton';
+import MainLayout from "../views/layout";
 
 const Login = () => {
   const [show, setShow] = React.useState(false);
@@ -22,7 +23,7 @@ const Login = () => {
       console.log(response);
   }
   return (
-    <>
+    <MainLayout>
       <Heading mt="50px" as="h3" size="lg">
         Please login to enable this action
       </Heading>
@@ -67,7 +68,7 @@ const Login = () => {
         </FormControl>
       </Flex>
       <Flex mt="20px" justify="flex-end"></Flex>
-    </>
+    </MainLayout>
   );
 };
 

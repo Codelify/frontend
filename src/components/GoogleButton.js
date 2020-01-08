@@ -65,9 +65,9 @@ export default function GoogleButton() {
               toast.error("Oops, an error occurred trying to save snippet 😔");
             }
           }
-          navigate("/");
+          navigate("/app");
         }
-        navigate("/");
+        navigate("/app");
       } catch (err) {
         console.log(err);
       }

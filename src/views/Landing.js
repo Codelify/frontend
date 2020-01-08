@@ -11,12 +11,12 @@ import {
   Flex,
   Image
 } from "@chakra-ui/core";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Container from "./components/Container";
-//import GoogleButton from './components/GoogleButton';
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import Container from "../components/Container";
+import GoogleButton from '../components/GoogleButton';
 import { MdBookmark, MdFindInPage, MdDescription } from "react-icons/md";
-import screeShot from "./assets/img/app-shot.png";
+import screeShot from "../assets/img/app-shot.png";
 
 const Feature = ({ title, icon, children, ...props }) => {
   return (
@@ -38,7 +38,7 @@ const Feature = ({ title, icon, children, ...props }) => {
   );
 };
 
-function App() {
+function Landing() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -70,10 +70,10 @@ function App() {
               </Text>
 
               <Box mt="6">
-                <Button mr="10px" size="lg" as="a" variantColor="teal" href="/">
+                <Button mr="10px" size="lg" as="a" variantColor="teal" href="/app">
                   Get Started
                 </Button>
-                {/* {!isLoggedIn && <GoogleButton setIsLoggedIn={setIsLoggedIn} />} */}
+                {!isLoggedIn && <GoogleButton setIsLoggedIn={setIsLoggedIn} />}
               </Box>
             </Box>
           </Container>
@@ -124,4 +124,4 @@ function App() {
   );
 }
 
-export default App;
+export default Landing;
