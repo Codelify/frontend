@@ -4,7 +4,7 @@ const DropDown = styled.div`
   position: absolute;
   width: 100%;
   z-index: 2;
-  border: 1px solid lightgrey;
+  /* border: 1px solid lightgrey; */
 `;
 
 const DropDownItem = styled.div`

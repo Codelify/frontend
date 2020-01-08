@@ -55,7 +55,7 @@ const NewSnippet = props => {
       });
       onClose(false);
       toast("Snippet successfully save 🍹");
-      navigate("/");
+      navigate("/app");
     }
     if (error) {
       toast.error("Oops, an error occurred trying to save snippet 😔");
