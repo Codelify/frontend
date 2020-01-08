@@ -53,14 +53,15 @@ const SideNavContent = ({
 }) => {
     const [navMenu, setNavMenu] = useState("FiHome")
 
-    const onActivate = (navMenu) =>{
-        console.log("Event " + navMenu);
-        document.getElementById(navMenu).classList.add('active');
-        setNavMenu(navMenu);
+    const onActivate = (newVavMenu) =>{
+        // first we remove the class active from current link
+        document.getElementById(navMenu).classList.remove('active');
+        // then we update the state with the new active link
+        setNavMenu(newVavMenu);
     }    
 
-    useEffect( (event) => {
-        document.getElementById(navMenu).focus();
+    useEffect( () => {
+        document.getElementById(navMenu).classList.add('active');
     },[navMenu]
 
     );
