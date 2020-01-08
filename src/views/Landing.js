@@ -14,7 +14,7 @@ import {
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Container from "../components/Container";
-//import GoogleButton from './components/GoogleButton';
+import GoogleButton from '../components/GoogleButton';
 import { MdBookmark, MdFindInPage, MdDescription } from "react-icons/md";
 import screeShot from "../assets/img/app-shot.png";
 
@@ -73,7 +73,7 @@ function Landing() {
                 <Button mr="10px" size="lg" as="a" variantColor="teal" href="/app">
                   Get Started
                 </Button>
-                {/* {!isLoggedIn && <GoogleButton setIsLoggedIn={setIsLoggedIn} />} */}
+                {!isLoggedIn && <GoogleButton setIsLoggedIn={setIsLoggedIn} />}
               </Box>
             </Box>
           </Container>
