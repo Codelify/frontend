@@ -1,10 +1,9 @@
 import React from "react";
-// import './App.css';
+import './App.css';
 import Default from "./components/Default";
 import Login from "./components/Login";
 import Landing from "./views/Landing";
 import { Router } from "@reach/router";
-import MainLayout from "./views/layout";
 
 function App() {
   return (
