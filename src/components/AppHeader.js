@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/core';
 import NewSnippet from './NewSnippet';
 import { MdAdd } from 'react-icons/md';
-import { FaUserAlt, FaSearch } from 'react-icons/fa';
+import { FaUserAlt } from 'react-icons/fa';
 import Logo from './Logo';
 import SearchBox from './SearchBox';
 

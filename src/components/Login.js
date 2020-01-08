@@ -11,17 +11,13 @@ import {
   InputRightElement,
   Heading,
 } from '@chakra-ui/core';
-import { AiOutlineGoogle } from 'react-icons/ai';
-import GoogleLogin from 'react-google-login';
 import GoogleButton from './GoogleButton';
 import MainLayout from "../views/layout";
 
 const Login = () => {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
-  const responseGoogle = (response) => {
-      console.log(response);
-  }
+  
   return (
     <MainLayout>
       <Heading mt="50px" as="h3" size="lg">

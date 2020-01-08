@@ -54,10 +54,12 @@ const SideNavContent = ({
     const [navMenu, setNavMenu] = useState("FiHome")
 
     const onActivate = (navMenu) =>{
+        console.log("Event " + navMenu);
+        document.getElementById(navMenu).classList.add('active');
         setNavMenu(navMenu);
     }    
 
-    useEffect( () => {
+    useEffect( (event) => {
         document.getElementById(navMenu).focus();
     },[navMenu]
 
