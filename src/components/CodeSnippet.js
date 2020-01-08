@@ -136,15 +136,15 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Archive Snippet</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>Are you sure?</ModalBody>
+        <ModalContent borderRadius="5px" >
+          <ModalHeader>This will archive this Snippet</ModalHeader>
+          <ModalCloseButton _focus={{outline: 'none'}}/>
+          <ModalBody>Do you want to continue ?</ModalBody>
           <ModalFooter>
-            <Button variantColor="blue" mr={3} onClick={onClose}>
-              Close
+            <Button variantColor="teal" mr={3} onClick={onClose}>
+              Cancel
             </Button>
-            <Button variant="ghost" onClick={handleDelete}>
+            <Button onClick={handleDelete}>
               Yes
             </Button>
           </ModalFooter>
