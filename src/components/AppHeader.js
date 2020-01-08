@@ -79,6 +79,9 @@ const AppHeader = props => {
                 aria-label="Call Sage"
                 fontSize={['18px', '20px', '20px', '20px']}
                 icon={FaUserAlt}
+                _focus={{
+                  outline: "none",
+                }}
               />
               <IconButton
                 aria-label={`Switch to ${
@@ -90,6 +93,9 @@ const AppHeader = props => {
                 fontSize={['18px', '20px', '20px', '20px']}
                 onClick={toggleColorMode}
                 icon={colorMode === 'light' ? 'moon' : 'sun'}
+                _focus={{
+                  outline: "none",
+                }}   
               />
               {/* <MobileNav /> */}
             </Flex>
