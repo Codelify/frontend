@@ -82,11 +82,12 @@ function Landing() {
         <Container>
           <Box
             style={{
-              boxShadow: "0 10px 6px -6px #777"
+              boxShadow: "0 20px 40px rgba(0,0,0,0.5)"
             }}
             mx="auto"
             minWidth="330px"
             w="80%"
+            borderRadius="5px"
           >
             <Image
               borderRadius="5px"

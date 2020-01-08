@@ -79,7 +79,11 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
             <Badge variantColor="purple">Object Keys</Badge> */}
           </Stack>
         </Stack>
-        <Box minWidth="310px" w={['100%', '100%', '100%', '60%']}>
+        <Box 
+        minWidth="310px" 
+        w={['100%', '100%', '100%', '60%']}
+        borderRadius="5px"
+        >
           <LiveProvider
             theme={theme}
             language="javascript"
@@ -94,12 +98,13 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
                 fontSize: '14px',
                 minHeight: '300px',
                 borderRadius: '5px',
+                boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
               }}
             />
           </LiveProvider>
         </Box>
       </Flex>
-      <Flex justify="flex-end" w="100%">
+      <Flex mt="20px" justify="flex-end" w="100%">
         <IconButton
           variant="ghost"
           variantColor="teal"
