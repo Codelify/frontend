@@ -53,12 +53,15 @@ const SideNavContent = ({
 }) => {
     const [navMenu, setNavMenu] = useState("FiHome")
 
-    const onActivate = (navMenu) =>{
-        setNavMenu(navMenu);
+    const onActivate = (newVavMenu) =>{
+        // first we remove the class active from current link
+        document.getElementById(navMenu).classList.remove('active');
+        // then we update the state with the new active link
+        setNavMenu(newVavMenu);
     }    
 
     useEffect( () => {
-        document.getElementById(navMenu).focus();
+        document.getElementById(navMenu).classList.add('active');
     },[navMenu]
 
     );
@@ -98,13 +101,10 @@ const SideNavContent = ({
                 }}
                 id={linkObject.id}            
                 key={linkObject.id} 
-                _hover={{ color: "#319795" }}
+                _hover={{ color: "#319795" }}      
                 _focus={{
                     outline: "none",
-                    bg: "teal.50",
-                    borderColor: "none",
-                    color: "#319795"
-                }}                                
+                }}                          
                 >
     
                 <Box mr="10px" fontSize="20px" as={linkObject.icon} />
@@ -132,9 +132,6 @@ const SideNavContent = ({
                 _hover={{ color: "#319795" }}
                 _focus={{
                     outline: "none",
-                    bg: "teal.50",
-                    borderColor: "none",
-                    color: "#319795"
                 }}                  
                 >
     
