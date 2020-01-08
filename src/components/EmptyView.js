@@ -3,6 +3,7 @@ import { Text, Box, IconButton, useDisclosure } from "@chakra-ui/core";
 import NewSnippet from "./NewSnippet";
 import { MdAddCircle } from "react-icons/md";
 import { FaRegSadTear } from "react-icons/fa";
+import MainLayout from "../views/layout";
 
 const EmptyView = () => {
   const [size, setSize] = React.useState("md");
@@ -16,7 +17,7 @@ const EmptyView = () => {
   };
 
   return (
-    <>
+    <MainLayout>
       <Box w="100%" mt="120px" textAlign="center">
         <Box mx="auto" as={FaRegSadTear} size="60px" color="#F56565" />
         <Text textColor="teal" fontSize="4xl" color="teal">
@@ -48,7 +49,7 @@ const EmptyView = () => {
         size={size}
         setSize={setSize}
       />
-    </>
+    </MainLayout>
   );
 };
 
