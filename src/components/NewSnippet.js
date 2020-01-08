@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { AppContext } from '../utils/AppProvider';
+import React, { useState, useContext } from "react";
+import { AppContext } from "../utils/AppProvider";
 import {
   Box,
   Flex,
@@ -15,50 +15,50 @@ import {
   FormLabel,
   InputGroup,
   InputLeftAddon,
-  Textarea,
-} from '@chakra-ui/core';
-import { LiveProvider, LiveEditor } from 'react-live';
-import theme from 'prism-react-renderer/themes/nightOwl';
-import { navigate } from '@reach/router';
-import { useMutation } from '@apollo/react-hooks';
-import { toast } from 'react-toastify';
-import { CREATE_SNIPPET } from '../graphql/mutation';
+  Textarea
+} from "@chakra-ui/core";
+import { LiveProvider, LiveEditor } from "react-live";
+import theme from "prism-react-renderer/themes/nightOwl";
+import { navigate } from "@reach/router";
+import { useMutation } from "@apollo/react-hooks";
+import { toast } from "react-toastify";
+import { CREATE_SNIPPET } from "../graphql/mutation";
 
 const NewSnippet = props => {
   const { isOpen, onClose, firstField, btnRef, size } = props;
   const { dispatch } = useContext(AppContext);
 
   const initialFormValues = {
-    sourceUrl: '',
-    description: '',
-    title: '',
+    sourceUrl: "",
+    description: "",
+    title: ""
   };
 
   const [createSnippet] = useMutation(CREATE_SNIPPET);
   const handleSubmit = async () => {
     const snippetData = { ...formData, content: code };
     const token =
-      (typeof window !== 'undefined' && window.localStorage.getItem('token')) ||
-      '';
+      (typeof window !== "undefined" && window.localStorage.getItem("token")) ||
+      "";
     const variables = { input: { ...snippetData }, token };
     if (!token) {
-      typeof window !== 'undefined' &&
-        window.localStorage.setItem('snippetData', JSON.stringify(variables));
+      typeof window !== "undefined" &&
+        window.localStorage.setItem("snippetData", JSON.stringify(variables));
       onClose(false);
-      navigate('/app/login');
+      navigate("/app/login");
     }
     const { data, error } = await createSnippet({ variables });
     if (data) {
       dispatch({
-        type: 'ADD_SNIPPET',
-        payload: { ...data.createSnippet, title: formData.title },
+        type: "ADD_SNIPPET",
+        payload: { ...data.createSnippet, title: formData.title }
       });
       onClose(false);
-      toast('Snippet successfully save 🍹');
-      navigate('/app');
+      toast("Snippet successfully save 🍹");
+      navigate("/");
     }
     if (error) {
-      toast.error('Oops, an error occurred trying to save snippet 😔');
+      toast.error("Oops, an error occurred trying to save snippet 😔");
     }
   };
 
@@ -79,7 +79,7 @@ const a = 10;
   const handleChange = ({ target: { name, value } }) => {
     setFormData(prevState => ({
       ...prevState,
-      [name]: value,
+      [name]: value
     }));
   };
 
@@ -168,11 +168,11 @@ const a = 10;
                   padding={10}
                   onChange={code => handleSnippetChange(code)}
                   style={{
-                    fontFamily: 'Menlo,monospace',
-                    borderRadius: '5px',
+                    fontFamily: "Menlo,monospace",
+                    borderRadius: "5px",
                     flex: 2,
-                    fontSize: '14px',
-                    minHeight: '300px',
+                    fontSize: "14px",
+                    minHeight: "300px"
                   }}
                 />
               </LiveProvider>

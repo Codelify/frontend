@@ -10,8 +10,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import AppProvider from "../AppProvider";
 
-console.log("@@@@@@@ ", client);
-
 export const WrapRootElement = ({ props, children }) => {
   return (
     <ApolloProvider client={client}>

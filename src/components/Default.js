@@ -5,7 +5,6 @@ import SnippetList from './List';
 import FuzzySearch from 'react-fuzzy';
 
 const Default = () => {
-  console.log("calling defaukl")
   const { state } = useContext(AppContext);
   const token =
     typeof window !== 'undefined' && window.localStorage.getItem('token');
