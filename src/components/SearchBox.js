@@ -2,9 +2,13 @@ import React, { useContext, useState } from "react";
 import { AppContext } from "../utils/AppProvider";
 import { Icon, Input, InputGroup, InputLeftElement } from "@chakra-ui/core";
 import matchSorter from "match-sorter";
-import DownShift from "downshift";
+import Downshift from "downshift";
 import styled from "styled-components";
-import { DropDown, DropDownItem } from "../utils/searchStyles/Dropdown";
+import {
+  DropDown,
+  DropDownItem,
+  SearchStyles
+} from "../utils/searchStyles/Dropdown";
 
 // const filteredSnippets = (e, setFilteredSnippets, snippetsData) => {
 //   let inputValue = e.target.value;
@@ -21,7 +25,6 @@ import { DropDown, DropDownItem } from "../utils/searchStyles/Dropdown";
 
 const Search = () => {
   const { state, setFilteredSnippets } = useContext(AppContext);
-  console.log("FILTERED SNIPPETS ", state.filteredSnippets);
   const handleOnchange = e => {
     const input = e.target.value;
     filterItems(input);
@@ -34,25 +37,10 @@ const Search = () => {
     setFilteredSnippets(result);
   };
 
-  const handleDownshift = e => {
-    if (e) {
-      filterItems(e.title);
-    }
-  };
-
   return (
     <Root>
-      <DownShift
-        onChange={handleDownshift}
-        itemToString={item => (item === null ? " " : item.title)}
-      >
-        {({
-          getInputProps,
-          getMenuProps,
-          isOpen,
-          getItemProps,
-          highlightedIndex,
-        }) => (
+      <Downshift itemToString={item => (item === null ? " " : item.title)}>
+        {({ getInputProps, getItemProps, isOpen, highlightedIndex }) => (
           <div>
             <InputGroup mt="5px" w={["90%", "90%", "90%", "50%"]}>
               <InputLeftElement>
@@ -60,8 +48,7 @@ const Search = () => {
               </InputLeftElement>
               <Input
                 variant="filled"
-                placeholder="Find a snippet"
-                focusBorderColor="#319795"
+                _focusBorderColor="teal"
                 _placeholder={{ color: "gray.500", opacity: 1 }}
                 rounded="lg"
                 {...getInputProps({
@@ -70,34 +57,33 @@ const Search = () => {
                   id: "search",
                   onChange: e => {
                     e.persist();
-                    handleOnchange(e);
+                    // handleOnChange(e);
                   }
                 })}
+                onKeyUp={e => handleOnchange(e)}
               />
             </InputGroup>
-            <ul
-              {...getMenuProps({
-                style: { height: 20, overFlowY: "scroll" }
-              })}
-            >
-              {isOpen && (
-                <DropDown>
-                  {state.filteredSnippets.length &&
-                    state.filteredSnippets.map((item, index) => (
-                      <DropDownItem
-                        key={item.id}
-                        {...getItemProps({ item, key: item.id })}
-                        highlighted={index === highlightedIndex}
-                      >
-                        {item.title}
-                      </DropDownItem>
-                    ))}
-                </DropDown>
-              )}
-            </ul>
+            {isOpen && (
+              <DropDown>
+                {state.filteredSnippets &&
+                  state.filteredSnippets.map((item, index) => (
+                    <DropDownItem
+                      {...getItemProps({ item })}
+                      key={item.id}
+                      highlighted={index === highlightedIndex}
+                    >
+                      {item.title}
+                    </DropDownItem>
+                  ))}
+                {state.filteredSnippets &&
+                  state.filteredSnippets.length === 0 && (
+                    <DropDownItem>No Snippets Found</DropDownItem>
+                  )}
+              </DropDown>
+            )}
           </div>
         )}
-      </DownShift>
+      </Downshift>
     </Root>
   );
 };
