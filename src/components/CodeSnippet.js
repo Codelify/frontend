@@ -20,6 +20,7 @@ import {
   ModalCloseButton,
   useDisclosure,
   Button,
+  useToast,
 } from '@chakra-ui/core';
 import { LiveProvider, LiveEditor } from 'react-live';
 import theme from 'prism-react-renderer/themes/nightOwl';
@@ -33,6 +34,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
   const { dispatch } = useContext(AppContext);
   const [deleteSnippet] = useMutation(DELETE_SNIPPET);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast()
   const handleDelete = async () => {
     const token =
       typeof window !== 'undefined' && window.localStorage.getItem('token');
@@ -43,6 +45,14 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
         });
         dispatch({ type: 'DELETE_SNIPPET', payload: id });
         onClose(false);
+        toast({
+          position: "top-right",
+          title: "Archived",
+          description: "Your snippet has been successfully archived",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
       } catch (error) {
         console.log(error);
       }
@@ -108,7 +118,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
         <IconButton
           variant="ghost"
           variantColor="teal"
-          aria-label="Delete Snippet"
+          aria-label="Edit Snippet"
           fontSize="22px"
           icon={FaEdit}
         />
