@@ -101,13 +101,10 @@ const SideNavContent = ({
                 }}
                 id={linkObject.id}            
                 key={linkObject.id} 
-                _hover={{ color: "#319795" }}
+                _hover={{ color: "#319795" }}      
                 _focus={{
                     outline: "none",
-                    bg: "teal.50",
-                    borderColor: "none",
-                    color: "#319795"
-                }}                                
+                }}                          
                 >
     
                 <Box mr="10px" fontSize="20px" as={linkObject.icon} />
@@ -135,9 +132,6 @@ const SideNavContent = ({
                 _hover={{ color: "#319795" }}
                 _focus={{
                     outline: "none",
-                    bg: "teal.50",
-                    borderColor: "none",
-                    color: "#319795"
                 }}                  
                 >
     
