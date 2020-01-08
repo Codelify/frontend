@@ -61,7 +61,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
           <Heading mb={4} as="h3" size="lg">
             {title}
           </Heading>
-          <Text fontSize="md"> {description}</Text>
+          <Text fontSize="sm"> {description}</Text>
           <Link color="teal.500" href={url} isExternal>
             Link <Icon name="external-link" mx="2px" />
           </Link>
