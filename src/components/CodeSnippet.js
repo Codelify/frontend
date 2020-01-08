@@ -130,6 +130,9 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
           icon={MdDelete}
           color="#FEB2B2"
           onClick={onOpen}
+          _focus={{
+            outline: 'none',
+          }}
         />
       </Flex>
       <Divider />
