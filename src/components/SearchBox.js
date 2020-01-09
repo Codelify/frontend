@@ -4,17 +4,14 @@ import { Icon, Input, InputGroup, InputLeftElement } from "@chakra-ui/core";
 import matchSorter from "match-sorter";
 import Downshift from "downshift";
 import styled from "styled-components";
-import {
-  DropDown,
-  DropDownItem,
-  SearchStyles
-} from "../utils/searchStyles/Dropdown";
+import { DropDown, DropDownItem, Root } from "../utils/searchStyles/Dropdown";
 
 // const filteredSnippets = (e, setFilteredSnippets, snippetsData) => {
 //   let inputValue = e.target.value;
 //   handleFiler(inputValue, snippetsData, setFilteredSnippets);
 // };
 
+// use debounce in case we don't want to fire so many action on search
 // const handleFiler = _.debounce(
 //   (inputValue, snippetList, setFilteredSnippets) => {
 //     //example of debunce
@@ -37,9 +34,16 @@ const Search = () => {
     setFilteredSnippets(result);
   };
 
+  const handleDownshiftChange = searchTerm => {
+    searchTerm && filterItems(searchTerm.title);
+  };
+
   return (
     <Root>
-      <Downshift itemToString={item => (item === null ? " " : item.title)}>
+      <Downshift
+        onChange={handleDownshiftChange}
+        itemToString={item => (item === null ? " " : item.title)}
+      >
         {({ getInputProps, getItemProps, isOpen, highlightedIndex }) => (
           <div>
             <InputGroup mt="5px" w={["90%", "90%", "90%", "50%"]}>
@@ -89,7 +93,3 @@ const Search = () => {
 };
 
 export default Search;
-
-const Root = styled.div`
-  width: 100%;
-`;

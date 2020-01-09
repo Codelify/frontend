@@ -8,6 +8,7 @@ const DropDown = styled.div`
 `;
 
 const DropDownItem = styled.div`
+  width: 50%;
   border-bottom: 1px solid lightgrey;
   background: ${props => (props.highlighted ? "#f7f7f7" : "white")};
   padding: 0.1rem;
@@ -35,18 +36,15 @@ const glow = keyframes`
   }
 `;
 
-const SearchStyles = styled.div`
+const Root = styled.div`
   position: relative;
   width: 100%;
-  input {
-    /* width: 100%;
-    padding: 10px;
-    border: 0;
-    font-size: 2rem; */
+  /* case loading is taking time we can use a className and set loading state */
+  /* input {
     &.loading {
       animation: ${glow} 0.5s ease-in-out infinite alternate;
     }
-  }
+  } */
 `;
 
-export { DropDown, DropDownItem, SearchStyles };
+export { DropDown, DropDownItem, Root };
