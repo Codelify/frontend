@@ -27,6 +27,7 @@ import { navigate } from "@reach/router";
 import { useMutation } from "@apollo/react-hooks";
 //import { toast } from "react-toastify";
 import { CREATE_SNIPPET } from "../graphql/mutation";
+import { height } from "dom-helpers";
 
 const NewSnippet = props => {
   const { isOpen, onClose, firstField, btnRef, size } = props;
@@ -98,6 +99,15 @@ const a = 10;
     setCode(code);
   };
 
+  const handleDeleteTag = (index) => {
+    console.log("deleting tag at index " + index)
+    let newTags =  tags;
+    newTags.splice(index, 1)
+    setTags(() => ([
+      ...newTags
+    ]));
+  }
+
   // specfifid function to managed entered tags
   const handleTags = (event) => {
     let newTag = false;
@@ -151,9 +161,8 @@ const a = 10;
         </DrawerHeader>
 
         <DrawerBody>
-          <Flex flexWrap="wrap" w="100%">
+          <Flex borderWidth="1px" flexWrap="wrap" w="100%">
             <Stack
-              borderWidth="1px"
               padding="10px"
               rounded="10px"
               minWidth="330px"
@@ -191,9 +200,10 @@ const a = 10;
               </Box>
               <Stack flexWrap="wrap" justify="flex-start" isInline>
               {tags &&
-              tags.map(tag => {
+              tags.map((tag, index) => {
                 return (
                   <Tag
+                  id={index}
                   size={size}
                   key={size}
                   variant="solid"
@@ -202,7 +212,12 @@ const a = 10;
                   my="3px"
                   >
                   <TagLabel paddingX="10px">{tag}</TagLabel>
-                  <TagCloseButton mx="5px"/>
+                  <TagCloseButton 
+                  onClick={ ()=>{
+                    handleDeleteTag(index);
+                  }} 
+                  mx="5px"
+                  />
                   </Tag>
                 );
               })}
@@ -238,13 +253,15 @@ const a = 10;
                 <LiveEditor
                   padding={10}
                   onChange={code => handleSnippetChange(code)}
+                  h="100%"
                   style={{
                     fontFamily: "Menlo,monospace",
                     borderRadius: "5px",
                     flex: 2,
                     fontSize: "14px",
                     minHeight: "300px",
-                    boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
+                    boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
+                    height:"90%"
                   }}
                 />
               </LiveProvider>
