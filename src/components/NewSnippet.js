@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AppContext } from "../utils/AppProvider";
 import {
   Box,
@@ -44,44 +44,46 @@ const NewSnippet = props => {
   const [createSnippet] = useMutation(CREATE_SNIPPET);
 
   const handleSubmit = async () => {
-    const snippetData = { ...formData, content: code };
-    const token =
-      (typeof window !== "undefined" && window.localStorage.getItem("token")) ||
-      "";
-    const variables = { input: { ...snippetData }, token };
-    if (!token) {
-      localStorage.setItem("snippetData", JSON.stringify(variables));
-      onClose(false);
-      navigate("/login");
-    } else {
-      const { data, error } = await createSnippet({ variables });
-      if (data) {
-        dispatch({
-          type: "ADD_SNIPPET",
-          payload: { ...data.createSnippet, title: formData.title }
-        });
-        onClose(false);
-        toastin({
-          position: "top-right",
-          title: "Yooohooo ! 🍹",
-          description: "Your snippet has been saved",
-          status: "success",
-          duration: 9000,
-          isClosable: true
-        });
-        navigate("/app");
-      }
-      if (error) {
-        toastin({
-          position: "top-right",
-          title: "An error occurred.",
-          description: "Unable to create this snippet.",
-          status: "error",
-          duration: 9000,
-          isClosable: true
-        });
-      }
-    }
+
+    console.dir(formData);
+    // const snippetData = { ...formData, content: code };
+    // const token =
+    //   (typeof window !== "undefined" && window.localStorage.getItem("token")) ||
+    //   "";
+    // const variables = { input: { ...snippetData }, token };
+    // if (!token) {
+    //   localStorage.setItem("snippetData", JSON.stringify(variables));
+    //   onClose(false);
+    //   navigate("/login");
+    // } else {
+    //   const { data, error } = await createSnippet({ variables });
+    //   if (data) {
+    //     dispatch({
+    //       type: "ADD_SNIPPET",
+    //       payload: { ...data.createSnippet, title: formData.title }
+    //     });
+    //     onClose(false);
+    //     toastin({
+    //       position: "top-right",
+    //       title: "Yooohooo ! 🍹",
+    //       description: "Your snippet has been saved",
+    //       status: "success",
+    //       duration: 9000,
+    //       isClosable: true
+    //     });
+    //     navigate("/app");
+    //   }
+    //   if (error) {
+    //     toastin({
+    //       position: "top-right",
+    //       title: "An error occurred.",
+    //       description: "Unable to create this snippet.",
+    //       status: "error",
+    //       duration: 9000,
+    //       isClosable: true
+    //     });
+    //   }
+    // }
   };
 
   const snippetPlaceHolder = `
@@ -109,7 +111,7 @@ const a = 10;
   }
 
   // specfifid function to managed entered tags
-  const handleTags = (event) => {
+  const handleAddTags = (event) => {
     let newTag = false;
     let tag = event.target.value;
     if(tag.charAt(tag.length-1) === ','){
@@ -123,10 +125,11 @@ const a = 10;
         ...prevState,
         tag
       ]));
+    
+      console.dir(formData)
       // clear the value held in the input field
       event.target.value = '';   
     }
-
 
   }
 
@@ -136,6 +139,17 @@ const a = 10;
       [name]: value
     }));
   };
+
+  useEffect(()=>{
+      // update the main form overall state
+      setFormData(prevState => ({
+        ...prevState,
+        tags: tags
+      })); 
+  },[tags]
+
+  );
+
 
   return (
     <Drawer
@@ -210,6 +224,7 @@ const a = 10;
                   variantColor="teal"
                   mx="3px"
                   my="3px"
+                  paddingY="3px"
                   >
                   <TagLabel paddingX="10px">{tag}</TagLabel>
                   <TagCloseButton 
@@ -230,7 +245,7 @@ const a = 10;
                   placeholder="Add a tags separated by comma"
                   focusBorderColor="#319795"
                   name="tags"
-                  onKeyUp={handleTags}
+                  onKeyUp={handleAddTags}
                 />
               </Box>              <Box>
                 <FormLabel htmlFor="desc">Description</FormLabel>
