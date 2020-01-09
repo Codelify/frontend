@@ -1,9 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { AppContext } from "../utils/AppProvider";
 import { Icon, Input, InputGroup, InputLeftElement } from "@chakra-ui/core";
 import matchSorter from "match-sorter";
 import Downshift from "downshift";
-import styled from "styled-components";
 import { DropDown, DropDownItem, Root } from "../utils/searchStyles/Dropdown";
 
 // const filteredSnippets = (e, setFilteredSnippets, snippetsData) => {
