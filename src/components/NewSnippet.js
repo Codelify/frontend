@@ -25,9 +25,7 @@ import { LiveProvider, LiveEditor } from "react-live";
 import theme from "prism-react-renderer/themes/nightOwl";
 import { navigate } from "@reach/router";
 import { useMutation } from "@apollo/react-hooks";
-//import { toast } from "react-toastify";
 import { CREATE_SNIPPET } from "../graphql/mutation";
-import { height } from "dom-helpers";
 
 const NewSnippet = props => {
   const { isOpen, onClose, firstField, btnRef, size } = props;
