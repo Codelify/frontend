@@ -1,11 +1,10 @@
 import React from "react";
 import { AiOutlineGoogle } from "react-icons/ai";
 import GoogleLogin from "react-google-login";
-import { Button } from "@chakra-ui/core";
+import { Button, useToast } from "@chakra-ui/core";
 import { navigate } from "@reach/router";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
-import { toast } from "react-toastify";
 import { CREATE_SNIPPET } from "../graphql/mutation";
 const LOGIN_WITH_GOOGLE = gql`
   mutation authWithGoogle($input: RegisterInput!) {
@@ -22,6 +21,7 @@ const LOGIN_WITH_GOOGLE = gql`
 export default function GoogleButton() {
   const [login] = useMutation(LOGIN_WITH_GOOGLE);
   const [createSnippet] = useMutation(CREATE_SNIPPET);
+  const toasting = useToast();
 
   const responseGoogle = async response => {
     const { profileObj } = response;
@@ -55,10 +55,24 @@ export default function GoogleButton() {
             if (res) {
               typeof window !== "undefined" &&
                 window.localStorage.removeItem("snippetData");
-              toast("Snippet successfully save 🍹");
+                toasting({
+                  position: "top-right",
+                  title: "Yooohooo ! 🍹",
+                  description: "Your snippet has been saved",
+                  status: "success",
+                  duration: 9000,
+                  isClosable: true
+                });
             }
             if (error) {
-              toast.error("Oops, an error occurred trying to save snippet 😔");
+              toasting({
+                position: "top-right",
+                title: "An error occurred.",
+                description: "Unable to create this snippet.",
+                status: "error",
+                duration: 9000,
+                isClosable: true
+              });
             }
           }
           navigate("/app");
