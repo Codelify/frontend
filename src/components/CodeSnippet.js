@@ -21,6 +21,9 @@ import {
   useDisclosure,
   Button,
   useToast,
+  Editable, 
+  EditableInput, 
+  EditablePreview
 } from '@chakra-ui/core';
 import { LiveProvider, LiveEditor } from 'react-live';
 import theme from 'prism-react-renderer/themes/nightOwl';
@@ -59,6 +62,10 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
     }
   };
 
+  const handleEditable = (value) => {
+    console.log("edited to " + value)
+  }
+
   return (
     <>
       <Flex flexWrap="wrap" mt="30px">
@@ -69,7 +76,10 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
           spacing="14px"
         >
           <Heading mb={4} as="h3" size="lg">
-            {title}
+            <Editable onSubmit={handleEditable} submitOnBlur={true} defaultValue={title}>
+              <EditablePreview />
+              <EditableInput />
+            </Editable>            
           </Heading>
           <Text fontSize="sm"> {description}</Text>
           <Link color="teal.500" href={url} isExternal>
