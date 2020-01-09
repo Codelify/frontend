@@ -4,24 +4,23 @@ const DropDown = styled.div`
   position: absolute;
   width: 100%;
   z-index: 2;
-  /* border: 1px solid lightgrey; */
+  border-bottom-right-radius:5px;
+  border-bottom-left-radius:5px;
+  padding-bottom:10px;
+  background-color: rgba(237, 242, 248, 0.97);
 `;
 
 const DropDownItem = styled.div`
-  width: 80%;
-  border-bottom: 1px solid lightgrey;
-  background: ${props => (props.highlighted ? "#f7f7f7" : "white")};
-  padding: 0.1rem;
+  width: 100%;
+  padding-left:10px;
+  padding-top:5px;
+  padding-bottom:3px; 
+  background-color: none;
   transition: all 0.2s;
-  ${props => (props.highlighted ? "padding-left: 2rem;" : null)};
+  ${props => (props.highlighted ? "padding-left: 1rem;" : null)};
   display: flex;
-  align-items: center;
-  border-left: 10px solid
-    ${props => (props.highlighted ? "lightgrey" : "white")};
-  img {
-    margin-right: 10px;
-  }
-
+  color: ${props => (props.highlighted ? "#319795" : "#2D3748")};
+  font-weight: ${props => (props.highlighted ? "bold" : "regular")};
   &:hover {
     cursor: pointer;
   }

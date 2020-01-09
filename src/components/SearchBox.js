@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { AppContext } from "../utils/AppProvider";
-import { Icon, Input, InputGroup, InputLeftElement } from "@chakra-ui/core";
+import { Icon, Input, InputGroup, InputLeftElement, Box } from "@chakra-ui/core";
 import matchSorter from "match-sorter";
 import Downshift from "downshift";
 import { DropDown, DropDownItem, Root } from "../utils/searchStyles/Dropdown";
@@ -38,6 +38,7 @@ const Search = () => {
   };
 
   return (
+    <Box w={["90%", "90%", "90%", "50%"]}>
     <Root>
       <Downshift
         onChange={handleDownshiftChange}
@@ -45,13 +46,13 @@ const Search = () => {
       >
         {({ getInputProps, getItemProps, isOpen, highlightedIndex }) => (
           <div>
-            <InputGroup mt="5px" w={["90%", "90%", "90%", "50%"]}>
+            <InputGroup mx="auto" mt="5px" w="100%">
               <InputLeftElement>
                 <Icon name="search" color="gray.500" />
               </InputLeftElement>
               <Input
                 variant="filled"
-                _focusBorderColor="teal"
+                focusBorderColor="#319795"
                 _placeholder={{ color: "gray.500", opacity: 1 }}
                 rounded="lg"
                 {...getInputProps({
@@ -88,6 +89,7 @@ const Search = () => {
         )}
       </Downshift>
     </Root>
+    </Box>
   );
 };
 
