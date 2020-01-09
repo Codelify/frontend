@@ -46,44 +46,44 @@ const NewSnippet = props => {
   const handleSubmit = async () => {
 
     console.dir(formData);
-    // const snippetData = { ...formData, content: code };
-    // const token =
-    //   (typeof window !== "undefined" && window.localStorage.getItem("token")) ||
-    //   "";
-    // const variables = { input: { ...snippetData }, token };
-    // if (!token) {
-    //   localStorage.setItem("snippetData", JSON.stringify(variables));
-    //   onClose(false);
-    //   navigate("/login");
-    // } else {
-    //   const { data, error } = await createSnippet({ variables });
-    //   if (data) {
-    //     dispatch({
-    //       type: "ADD_SNIPPET",
-    //       payload: { ...data.createSnippet, title: formData.title }
-    //     });
-    //     onClose(false);
-    //     toastin({
-    //       position: "top-right",
-    //       title: "Yooohooo ! 🍹",
-    //       description: "Your snippet has been saved",
-    //       status: "success",
-    //       duration: 9000,
-    //       isClosable: true
-    //     });
-    //     navigate("/app");
-    //   }
-    //   if (error) {
-    //     toastin({
-    //       position: "top-right",
-    //       title: "An error occurred.",
-    //       description: "Unable to create this snippet.",
-    //       status: "error",
-    //       duration: 9000,
-    //       isClosable: true
-    //     });
-    //   }
-    // }
+    const snippetData = { ...formData, content: code };
+    const token =
+      (typeof window !== "undefined" && window.localStorage.getItem("token")) ||
+      "";
+    const variables = { input: { ...snippetData }, token };
+    if (!token) {
+      localStorage.setItem("snippetData", JSON.stringify(variables));
+      onClose(false);
+      navigate("/login");
+    } else {
+      const { data, error } = await createSnippet({ variables });
+      if (data) {
+        dispatch({
+          type: "ADD_SNIPPET",
+          payload: { ...data.createSnippet, title: formData.title }
+        });
+        onClose(false);
+        toastin({
+          position: "top-right",
+          title: "Yooohooo ! 🍹",
+          description: "Your snippet has been saved",
+          status: "success",
+          duration: 9000,
+          isClosable: true
+        });
+        navigate("/app");
+      }
+      if (error) {
+        toastin({
+          position: "top-right",
+          title: "An error occurred.",
+          description: "Unable to create this snippet.",
+          status: "error",
+          duration: 9000,
+          isClosable: true
+        });
+      }
+    }
   };
 
   const snippetPlaceHolder = `
@@ -140,6 +140,8 @@ const a = 10;
     }));
   };
 
+  // this useffect each time a tags is added or removed 
+  // so that the main form data is sycnhed with the tags array
   useEffect(()=>{
       // update the main form overall state
       setFormData(prevState => ({
