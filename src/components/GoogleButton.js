@@ -40,12 +40,8 @@ export default function GoogleButton() {
           }
         });
         if (data) {
-          typeof window !== "undefined" &&
-            window.localStorage.setItem("token", data.authWithGoogle.token);
-          if (
-            typeof window !== "undefined" &&
-            window.localStorage.getItem("snippetData")
-          ) {
+          localStorage.setItem("token", data.authWithGoogle.token);
+          if (localStorage.getItem("snippetData")) {
             const snippetData = {
               ...JSON.parse(
                 typeof window !== "undefined" &&

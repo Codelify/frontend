@@ -42,23 +42,24 @@ const NewSnippet = props => {
       "";
     const variables = { input: { ...snippetData }, token };
     if (!token) {
-      typeof window !== "undefined" &&
-        window.localStorage.setItem("snippetData", JSON.stringify(variables));
+      localStorage.setItem("snippetData", JSON.stringify(variables));
       onClose(false);
-      navigate("/app/login");
-    }
-    const { data, error } = await createSnippet({ variables });
-    if (data) {
-      dispatch({
-        type: "ADD_SNIPPET",
-        payload: { ...data.createSnippet, title: formData.title }
-      });
-      onClose(false);
-      toast("Snippet successfully save 🍹");
-      navigate("/app");
-    }
-    if (error) {
-      toast.error("Oops, an error occurred trying to save snippet 😔");
+      navigate("/login");
+    } else {
+      const { data, error } = await createSnippet({ variables });
+      if (data) {
+        dispatch({
+          type: "ADD_SNIPPET",
+          payload: { ...data.createSnippet, title: formData.title }
+        });
+        onClose(false);
+        toast("Snippet successfully save 🍹");
+        navigate("/app");
+
+        if (error) {
+          toast.error("Oops, an error occurred trying to save snippet 😔");
+        }
+      }
     }
   };
 
