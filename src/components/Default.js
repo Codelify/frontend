@@ -3,6 +3,7 @@ import { AppContext } from "../utils/AppProvider";
 import EmptyView from "./EmptyView";
 import SnippetList from "./List";
 
+
 const Default = () => {
   const { state } = useContext(AppContext);
   const token = window.localStorage.getItem("token");

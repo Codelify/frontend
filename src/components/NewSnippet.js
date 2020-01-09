@@ -16,7 +16,8 @@ import {
   InputGroup,
   InputLeftAddon,
   Textarea,
-  useToast
+  useToast,
+  Badge
 } from "@chakra-ui/core";
 import { LiveProvider, LiveEditor } from "react-live";
 import theme from "prism-react-renderer/themes/nightOwl";
@@ -38,6 +39,7 @@ const NewSnippet = props => {
   const toastin = useToast();
 
   const [createSnippet] = useMutation(CREATE_SNIPPET);
+
   const handleSubmit = async () => {
     const snippetData = { ...formData, content: code };
     const token =
@@ -86,12 +88,35 @@ const a = 10;
     `;
 
   const [code, setCode] = useState(snippetPlaceHolder);
+  const [tags, setTags] = useState([]);
 
   const [formData, setFormData] = useState(initialFormValues);
 
   const handleSnippetChange = code => {
     setCode(code);
   };
+
+  // specfifid function to managed entered tags
+  const handleTags = (event) => {
+    let newTag = false;
+    let tag = event.target.value;
+    if(tag.charAt(tag.length-1) === ','){
+      // remove the comma
+      tag = tag.substring(0, tag.length - 1); 
+      newTag = true;
+    }
+    if ((event.key === "Enter" && event.target.value !== "") || newTag){
+      // add it to the state holding the list of tags
+      setTags(prevState => ([
+        ...prevState,
+        tag
+      ]));
+      // clear the value held in the input field
+      console.dir(tags);      
+    }
+
+
+  }
 
   const handleChange = ({ target: { name, value } }) => {
     setFormData(prevState => ({
@@ -146,7 +171,6 @@ const a = 10;
                   onChange={handleChange}
                 />
               </Box>
-
               <Box>
                 <FormLabel htmlFor="url">Url</FormLabel>
                 <InputGroup>
@@ -163,7 +187,27 @@ const a = 10;
                   />
                 </InputGroup>
               </Box>
+              <Stack justify="flex-start" isInline>
+              {tags &&
+              tags.map(tag => {
+                return (
+                  <>
+                    <Badge mr="4px" variantColor="green">{tag}</Badge>
+                  </>
+                );
+              })}
+              </Stack>
+
               <Box>
+                <FormLabel htmlFor="username">Tags</FormLabel>
+                <Input
+                  id="tags"
+                  placeholder="Add a tags separated by comma"
+                  focusBorderColor="#319795"
+                  name="tags"
+                  onKeyUp={handleTags}
+                />
+              </Box>              <Box>
                 <FormLabel htmlFor="desc">Description</FormLabel>
                 <Textarea
                   id="desc"
