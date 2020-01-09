@@ -42,7 +42,6 @@ const NewSnippet = props => {
   const [createSnippet] = useMutation(CREATE_SNIPPET);
 
   const handleSubmit = async () => {
-
     console.dir(formData);
     const snippetData = { ...formData, content: code };
     const token =
@@ -58,7 +57,11 @@ const NewSnippet = props => {
       if (data) {
         dispatch({
           type: "ADD_SNIPPET",
-          payload: { ...data.createSnippet, title: formData.title }
+          payload: {
+            ...data.createSnippet,
+            title: formData.title,
+            tags: formData.tags
+          }
         });
         onClose(false);
         toastin({
@@ -99,37 +102,31 @@ const a = 10;
     setCode(code);
   };
 
-  const handleDeleteTag = (index) => {
-    console.log("deleting tag at index " + index)
-    let newTags =  tags;
-    newTags.splice(index, 1)
-    setTags(() => ([
-      ...newTags
-    ]));
-  }
+  const handleDeleteTag = index => {
+    console.log("deleting tag at index " + index);
+    let newTags = tags;
+    newTags.splice(index, 1);
+    setTags(() => [...newTags]);
+  };
 
   // specfifid function to managed entered tags
-  const handleAddTags = (event) => {
+  const handleAddTags = event => {
     let newTag = false;
     let tag = event.target.value;
-    if(tag.charAt(tag.length-1) === ','){
+    if (tag.charAt(tag.length - 1) === ",") {
       // remove the comma
-      tag = tag.substring(0, tag.length - 1); 
+      tag = tag.substring(0, tag.length - 1);
       newTag = true;
     }
-    if ((event.key === "Enter" && event.target.value !== "") || newTag){
+    if ((event.key === "Enter" && event.target.value !== "") || newTag) {
       // add it to the state holding the list of tags
-      setTags(prevState => ([
-        ...prevState,
-        tag
-      ]));
-    
-      console.dir(formData)
-      // clear the value held in the input field
-      event.target.value = '';   
-    }
+      setTags(prevState => [...prevState, tag]);
 
-  }
+      console.dir(formData);
+      // clear the value held in the input field
+      event.target.value = "";
+    }
+  };
 
   const handleChange = ({ target: { name, value } }) => {
     setFormData(prevState => ({
@@ -138,18 +135,15 @@ const a = 10;
     }));
   };
 
-  // this useffect each time a tags is added or removed 
+  // this useffect each time a tags is added or removed
   // so that the main form data is sycnhed with the tags array
-  useEffect(()=>{
-      // update the main form overall state
-      setFormData(prevState => ({
-        ...prevState,
-        tags: tags
-      })); 
-  },[tags]
-
-  );
-
+  useEffect(() => {
+    // update the main form overall state
+    setFormData(prevState => ({
+      ...prevState,
+      tags: tags
+    }));
+  }, [tags]);
 
   return (
     <Drawer
@@ -213,31 +207,30 @@ const a = 10;
                 </InputGroup>
               </Box>
               <Stack flexWrap="wrap" justify="flex-start" isInline>
-              {tags &&
-              tags.map((tag, index) => {
-                return (
-                  <Tag
-                  id={index}
-                  size={size}
-                  key={size}
-                  variant="solid"
-                  variantColor="teal"
-                  mx="3px"
-                  my="3px"
-                  paddingY="3px"
-                  >
-                  <TagLabel paddingX="10px">{tag}</TagLabel>
-                  <TagCloseButton 
-                  onClick={ ()=>{
-                    handleDeleteTag(index);
-                  }} 
-                  mx="5px"
-                  />
-                  </Tag>
-                );
-              })}
+                {tags &&
+                  tags.map((tag, index) => {
+                    return (
+                      <Tag
+                        id={index}
+                        size={size}
+                        key={size}
+                        variant="solid"
+                        variantColor="teal"
+                        mx="3px"
+                        my="3px"
+                        paddingY="3px"
+                      >
+                        <TagLabel paddingX="10px">{tag}</TagLabel>
+                        <TagCloseButton
+                          onClick={() => {
+                            handleDeleteTag(index);
+                          }}
+                          mx="5px"
+                        />
+                      </Tag>
+                    );
+                  })}
               </Stack>
-
               <Box>
                 <FormLabel htmlFor="username">Tags</FormLabel>
                 <Input
@@ -247,7 +240,8 @@ const a = 10;
                   name="tags"
                   onKeyUp={handleAddTags}
                 />
-              </Box>              <Box>
+              </Box>{" "}
+              <Box>
                 <FormLabel htmlFor="desc">Description</FormLabel>
                 <Textarea
                   id="desc"
@@ -276,7 +270,7 @@ const a = 10;
                     fontSize: "14px",
                     minHeight: "300px",
                     boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
-                    height:"90%"
+                    height: "90%"
                   }}
                 />
               </LiveProvider>
