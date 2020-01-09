@@ -86,7 +86,7 @@ function Landing() {
             }}
             mx="auto"
             minWidth="330px"
-            w="80%"
+            w="95%"
             borderRadius="5px"
           >
             <Image
