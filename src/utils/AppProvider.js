@@ -47,7 +47,7 @@ const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const token =
     typeof window !== "undefined" && window.localStorage.getItem("token");
-  const { loading, error, data } = useQuery(MY_SNIPPETs, {
+  const { data } = useQuery(MY_SNIPPETs, {
     variables: { token }
   });
 
