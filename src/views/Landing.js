@@ -70,7 +70,7 @@ function Landing() {
               </Text>
 
               <Box mt="6">
-                <Button mr="10px" size="lg" as="a" variantColor="teal" href="/app">
+                <Button mr="10px" size="lg" as="a" variantColor="teal" href="/app" _focus={{outline: 'none'}}>
                   Get Started
                 </Button>
                 {!isLoggedIn && <GoogleButton setIsLoggedIn={setIsLoggedIn} />}

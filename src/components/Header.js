@@ -61,7 +61,7 @@ const AppHeader = props => {
             <Flex align="center" color="gray.500">
               { props.landing
                 ? (
-                  <Button as="a" size="xs" ml={4} href="/app">Get Started</Button>
+                  <Button as="a" size="xs" ml={4} href="/app" _focus={{outline: 'none'}}>Get Started</Button>
                 ) 
                 : (
                 <>
