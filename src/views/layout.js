@@ -1,6 +1,6 @@
 import { Box, Flex } from '@chakra-ui/core';
 import React from 'react';
-import AppHeader from '../components/AppHeader';
+import Header from '../components/Header';
 import SideNav from '../components/SideNav';
 import Footer from '../components/Footer';
 import Container from '../components/Container';
@@ -11,7 +11,7 @@ const MainLayout = ({ children }) => {
   return (
     <Box>
       <Container>
-        <AppHeader />
+        <Header />
       </Container>
       <Flex align="center" justify="center" w="100%">
         <Container d="flex">

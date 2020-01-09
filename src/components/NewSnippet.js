@@ -15,13 +15,14 @@ import {
   FormLabel,
   InputGroup,
   InputLeftAddon,
-  Textarea
+  Textarea,
+  useToast
 } from "@chakra-ui/core";
 import { LiveProvider, LiveEditor } from "react-live";
 import theme from "prism-react-renderer/themes/nightOwl";
 import { navigate } from "@reach/router";
 import { useMutation } from "@apollo/react-hooks";
-import { toast } from "react-toastify";
+//import { toast } from "react-toastify";
 import { CREATE_SNIPPET } from "../graphql/mutation";
 
 const NewSnippet = props => {
@@ -33,6 +34,8 @@ const NewSnippet = props => {
     description: "",
     title: ""
   };
+
+  const toastin = useToast();
 
   const [createSnippet] = useMutation(CREATE_SNIPPET);
   const handleSubmit = async () => {
@@ -53,12 +56,25 @@ const NewSnippet = props => {
           payload: { ...data.createSnippet, title: formData.title }
         });
         onClose(false);
-        toast("Snippet successfully save 🍹");
+        toastin({
+          position: "top-right",
+          title: "Yooohooo ! 🍹",
+          description: "Your snippet has been saved",
+          status: "success",
+          duration: 9000,
+          isClosable: true
+        });
         navigate("/app");
-
-        if (error) {
-          toast.error("Oops, an error occurred trying to save snippet 😔");
-        }
+      }
+      if (error) {
+        toastin({
+          position: "top-right",
+          title: "An error occurred.",
+          description: "Unable to create this snippet.",
+          status: "error",
+          duration: 9000,
+          isClosable: true
+        });
       }
     }
   };
@@ -173,7 +189,8 @@ const a = 10;
                     borderRadius: "5px",
                     flex: 2,
                     fontSize: "14px",
-                    minHeight: "300px"
+                    minHeight: "300px",
+                    boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
                   }}
                 />
               </LiveProvider>
