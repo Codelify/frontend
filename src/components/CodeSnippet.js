@@ -84,9 +84,6 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
                   </>
                 );
               })}
-            {/* <Badge>JSX</Badge>
-            <Badge variantColor="red">Map</Badge>
-            <Badge variantColor="purple">Object Keys</Badge> */}
           </Stack>
         </Stack>
         <Box 

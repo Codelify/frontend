@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AppContext } from "../utils/AppProvider";
 import {
   Box,
@@ -16,13 +16,15 @@ import {
   InputGroup,
   InputLeftAddon,
   Textarea,
-  useToast
+  useToast,
+  Tag,
+  TagLabel,
+  TagCloseButton
 } from "@chakra-ui/core";
 import { LiveProvider, LiveEditor } from "react-live";
 import theme from "prism-react-renderer/themes/nightOwl";
 import { navigate } from "@reach/router";
 import { useMutation } from "@apollo/react-hooks";
-//import { toast } from "react-toastify";
 import { CREATE_SNIPPET } from "../graphql/mutation";
 
 const NewSnippet = props => {
@@ -38,7 +40,9 @@ const NewSnippet = props => {
   const toastin = useToast();
 
   const [createSnippet] = useMutation(CREATE_SNIPPET);
+
   const handleSubmit = async () => {
+    console.dir(formData);
     const snippetData = { ...formData, content: code };
     const token =
       (typeof window !== "undefined" && window.localStorage.getItem("token")) ||
@@ -53,7 +57,11 @@ const NewSnippet = props => {
       if (data) {
         dispatch({
           type: "ADD_SNIPPET",
-          payload: { ...data.createSnippet, title: formData.title }
+          payload: {
+            ...data.createSnippet,
+            title: formData.title,
+            tags: formData.tags
+          }
         });
         onClose(false);
         toastin({
@@ -86,11 +94,38 @@ const a = 10;
     `;
 
   const [code, setCode] = useState(snippetPlaceHolder);
+  const [tags, setTags] = useState([]);
 
   const [formData, setFormData] = useState(initialFormValues);
 
   const handleSnippetChange = code => {
     setCode(code);
+  };
+
+  const handleDeleteTag = index => {
+    console.log("deleting tag at index " + index);
+    let newTags = tags;
+    newTags.splice(index, 1);
+    setTags(() => [...newTags]);
+  };
+
+  // specfifid function to managed entered tags
+  const handleAddTags = event => {
+    let newTag = false;
+    let tag = event.target.value;
+    if (tag.charAt(tag.length - 1) === ",") {
+      // remove the comma
+      tag = tag.substring(0, tag.length - 1);
+      newTag = true;
+    }
+    if ((event.key === "Enter" && event.target.value !== "") || newTag) {
+      // add it to the state holding the list of tags
+      setTags(prevState => [...prevState, tag]);
+
+      console.dir(formData);
+      // clear the value held in the input field
+      event.target.value = "";
+    }
   };
 
   const handleChange = ({ target: { name, value } }) => {
@@ -99,6 +134,16 @@ const a = 10;
       [name]: value
     }));
   };
+
+  // this useffect each time a tags is added or removed
+  // so that the main form data is sycnhed with the tags array
+  useEffect(() => {
+    // update the main form overall state
+    setFormData(prevState => ({
+      ...prevState,
+      tags: tags
+    }));
+  }, [tags]);
 
   return (
     <Drawer
@@ -124,9 +169,8 @@ const a = 10;
         </DrawerHeader>
 
         <DrawerBody>
-          <Flex flexWrap="wrap" w="100%">
+          <Flex borderWidth="1px" flexWrap="wrap" w="100%">
             <Stack
-              borderWidth="1px"
               padding="10px"
               rounded="10px"
               minWidth="330px"
@@ -146,7 +190,6 @@ const a = 10;
                   onChange={handleChange}
                 />
               </Box>
-
               <Box>
                 <FormLabel htmlFor="url">Url</FormLabel>
                 <InputGroup>
@@ -163,6 +206,41 @@ const a = 10;
                   />
                 </InputGroup>
               </Box>
+              <Stack flexWrap="wrap" justify="flex-start" isInline>
+                {tags &&
+                  tags.map((tag, index) => {
+                    return (
+                      <Tag
+                        id={index}
+                        size={size}
+                        key={size}
+                        variant="solid"
+                        variantColor="teal"
+                        mx="3px"
+                        my="3px"
+                        paddingY="3px"
+                      >
+                        <TagLabel paddingX="10px">{tag}</TagLabel>
+                        <TagCloseButton
+                          onClick={() => {
+                            handleDeleteTag(index);
+                          }}
+                          mx="5px"
+                        />
+                      </Tag>
+                    );
+                  })}
+              </Stack>
+              <Box>
+                <FormLabel htmlFor="username">Tags</FormLabel>
+                <Input
+                  id="tags"
+                  placeholder="Add a tags separated by comma"
+                  focusBorderColor="#319795"
+                  name="tags"
+                  onKeyUp={handleAddTags}
+                />
+              </Box>{" "}
               <Box>
                 <FormLabel htmlFor="desc">Description</FormLabel>
                 <Textarea
@@ -184,13 +262,15 @@ const a = 10;
                 <LiveEditor
                   padding={10}
                   onChange={code => handleSnippetChange(code)}
+                  h="100%"
                   style={{
                     fontFamily: "Menlo,monospace",
                     borderRadius: "5px",
                     flex: 2,
                     fontSize: "14px",
                     minHeight: "300px",
-                    boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
+                    boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
+                    height: "90%"
                   }}
                 />
               </LiveProvider>
