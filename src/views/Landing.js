@@ -52,7 +52,7 @@ function Landing() {
       <CSSReset />
       <Box mb={20}>
         <Box as="section" pt={40} pb={50}>
-          <Header />
+          <Header landing={true} />
           <Container>
             <Box maxW="xl" mx="auto" textAlign="center">
               <Heading as="h1" size="xl" fontWeight="bold">
@@ -70,7 +70,7 @@ function Landing() {
               </Text>
 
               <Box mt="6">
-                <Button mr="10px" size="lg" as="a" variantColor="teal" href="/app">
+                <Button mr="10px" size="lg" as="a" variantColor="teal" href="/app" _focus={{outline: 'none'}}>
                   Get Started
                 </Button>
                 {!isLoggedIn && <GoogleButton setIsLoggedIn={setIsLoggedIn} />}
@@ -86,7 +86,7 @@ function Landing() {
             }}
             mx="auto"
             minWidth="330px"
-            w="80%"
+            w="95%"
             borderRadius="5px"
           >
             <Image

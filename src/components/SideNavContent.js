@@ -83,7 +83,7 @@ const SideNavContent = ({
             fontSize="sm"
             mt="30px"
         >
-            <NavGroupHeading>Browse</NavGroupHeading>
+            <NavGroupHeading mb="15px">Browse</NavGroupHeading>
             {browseLinks.map(linkObject => (
                 <PseudoBox
                 d="flex"
@@ -111,7 +111,7 @@ const SideNavContent = ({
                 {linkObject.name}
                 </PseudoBox>
             ))}
-            <NavGroupHeading mt="30px">Filter</NavGroupHeading>
+            <NavGroupHeading mb="15px" mt="30px">Filter</NavGroupHeading>
             {filterLinks.map(linkObject => (
                 <PseudoBox
                 d="flex"
