@@ -52,7 +52,7 @@ function Landing() {
       <CSSReset />
       <Box mb={20}>
         <Box as="section" pt={40} pb={50}>
-          <Header />
+          <Header landing={true} />
           <Container>
             <Box maxW="xl" mx="auto" textAlign="center">
               <Heading as="h1" size="xl" fontWeight="bold">
