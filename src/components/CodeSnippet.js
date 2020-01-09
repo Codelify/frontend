@@ -62,8 +62,12 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
     }
   };
 
-  const handleEditable = (value) => {
-    console.log("edited to " + value)
+  const handleFocus = (event) => {
+    console.dir(event.target.id)
+  }
+
+  const handleEdit = (value) => {
+    console.dir("With this value " + value)
   }
 
   return (
@@ -76,9 +80,11 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
           spacing="14px"
         >
           <Heading mb={4} as="h3" size="lg">
-            <Editable onSubmit={handleEditable} submitOnBlur={true} defaultValue={title}>
+            <Editable
+            onSubmit={handleEdit}
+            defaultValue={title}>
               <EditablePreview />
-              <EditableInput />
+              <EditableInput id="title" onFocus={handleFocus}/>
             </Editable>            
           </Heading>
           <Text fontSize="sm"> {description}</Text>
