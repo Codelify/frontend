@@ -17,7 +17,9 @@ import {
   InputLeftAddon,
   Textarea,
   useToast,
-  Badge
+  Tag,
+  TagLabel,
+  TagCloseButton
 } from "@chakra-ui/core";
 import { LiveProvider, LiveEditor } from "react-live";
 import theme from "prism-react-renderer/themes/nightOwl";
@@ -112,7 +114,7 @@ const a = 10;
         tag
       ]));
       // clear the value held in the input field
-      console.dir(tags);      
+      event.target.value = '';   
     }
 
 
@@ -187,13 +189,21 @@ const a = 10;
                   />
                 </InputGroup>
               </Box>
-              <Stack justify="flex-start" isInline>
+              <Stack flexWrap="wrap" justify="flex-start" isInline>
               {tags &&
               tags.map(tag => {
                 return (
-                  <>
-                    <Badge mr="4px" variantColor="green">{tag}</Badge>
-                  </>
+                  <Tag
+                  size={size}
+                  key={size}
+                  variant="solid"
+                  variantColor="teal"
+                  mx="3px"
+                  my="3px"
+                  >
+                  <TagLabel paddingX="10px">{tag}</TagLabel>
+                  <TagCloseButton mx="5px"/>
+                  </Tag>
                 );
               })}
               </Stack>
