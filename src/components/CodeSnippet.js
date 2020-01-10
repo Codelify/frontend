@@ -21,9 +21,6 @@ import {
   useDisclosure,
   Button,
   useToast,
-  Editable, 
-  EditableInput, 
-  EditablePreview
 } from '@chakra-ui/core';
 import { LiveProvider, LiveEditor } from 'react-live';
 import ContentEditable from 'react-contenteditable' 
@@ -115,15 +112,17 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
           />
 
           </Text>
-          <Link color="teal.500" href={url} isExternal>
-            Link <Icon name="external-link" mx="2px" />
-          </Link>
+          <Box>
+            <Link color="teal.500" href={url} isExternal>
+              Link <Icon name="external-link" mx="2px" />
+            </Link>
+          </Box>
           <Stack justify="flex-start" isInline>
             {tags &&
               tags.map(tag => {
                 return (
                   <>
-                    <Badge mr="4px" variantColor="green">{tag}</Badge>
+                    <Badge mb="4px" mr="4px" variantColor="green">{tag}</Badge>
                   </>
                 );
               })}
@@ -138,7 +137,6 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
             theme={theme}
             language="javascript"
             code={snippetPlaceHolder.trim()}
-            disabled
           >
             <LiveEditor
               padding={10}
