@@ -26,6 +26,7 @@ import {
   EditablePreview
 } from '@chakra-ui/core';
 import { LiveProvider, LiveEditor } from 'react-live';
+import ContentEditable from 'react-contenteditable' 
 import theme from 'prism-react-renderer/themes/nightOwl';
 import { MdDelete } from 'react-icons/md';
 import { FaEdit } from 'react-icons/fa';
@@ -34,6 +35,8 @@ import { DELETE_SNIPPET } from '../graphql/mutation';
 
 const CodeSnippet = ({ title, id, description, url, tags, content }) => {
   const snippetPlaceHolder = `${content}`;
+  const titleId = `title_${id}`;
+  const descriptionId = `description_${id}`;
   const { dispatch } = useContext(AppContext);
   const [deleteSnippet] = useMutation(DELETE_SNIPPET);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -62,12 +65,17 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
     }
   };
 
-  const handleFocus = (event) => {
-    console.dir(event.target.id)
+  const handleBlur = (event) => {
+    console.dir(event.target.id);
+    document.getElementById(event.target.id).classList.remove('edited-div');
   }
 
   const handleEdit = (value) => {
     console.dir("With this value " + value)
+  }
+
+  const styledEdit = (event) => {
+    document.getElementById(event.target.id).classList.add('edited-div');
   }
 
   return (
@@ -80,14 +88,33 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
           spacing="14px"
         >
           <Heading mb={4} as="h3" size="lg">
-            <Editable
-            onSubmit={handleEdit}
-            defaultValue={title}>
-              <EditablePreview />
-              <EditableInput id="title" onFocus={handleFocus}/>
-            </Editable>            
+          <ContentEditable
+              html={title}
+              disabled={false}
+              id={titleId}
+              onBlur={handleBlur}
+              onChange={handleEdit}
+              onFocus={styledEdit}
+              style={{
+                outline: "none",
+              }}
+          />          
           </Heading>
-          <Text fontSize="sm"> {description}</Text>
+          <Text contenteditable="true" fontSize="sm"> 
+          {/* {description} */}
+          <ContentEditable
+              html={description}
+              disabled={false}
+              id={descriptionId}
+              onBlur={handleBlur}
+              onChange={handleEdit}
+              onFocus={styledEdit}
+              style={{
+                outline: "none",
+              }}
+          />
+
+          </Text>
           <Link color="teal.500" href={url} isExternal>
             Link <Icon name="external-link" mx="2px" />
           </Link>
