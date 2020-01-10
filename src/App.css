@@ -7,5 +7,5 @@ button.active {
   border:2px solid #319795;
   border-radius: 5px;
   padding: 10px;
-  background-color: rgba(237, 242, 248, 0.5);
+  background-color: rgba(237, 242, 248, 0.1);
 }
