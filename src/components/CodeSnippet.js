@@ -121,9 +121,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
             {tags &&
               tags.map(tag => {
                 return (
-                  <>
-                    <Badge mb="4px" mr="4px" variantColor="green">{tag}</Badge>
-                  </>
+                  <Badge mb="4px" mr="4px" variantColor="green">{tag}</Badge>
                 );
               })}
           </Stack>
@@ -136,8 +134,8 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
           <LiveProvider
             theme={theme}
             language="javascript"
-            code={snippetPlaceHolder.trim()}
-          >
+            code={snippetPlaceHolder.trim()}  
+        >
             <LiveEditor
               padding={10}
               style={{
@@ -146,7 +144,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
                 fontSize: '14px',
                 minHeight: '300px',
                 borderRadius: '5px',
-                boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
+                boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
               }}
             />
           </LiveProvider>
