@@ -72,8 +72,7 @@ const SideNavContent = ({
         ml="20px"
         position="relative"
         overflowY="auto"
-        w="250px"
-        pos="fixed" 
+        w="200px"
         {...props}
         >
         <Box
