@@ -5,7 +5,7 @@ import {
 
 const Container = (props) => {
     return(
-        <Box width="full" maxWidth="1280px" mx="auto" px={6} {...props} />
+        <Box width="full" maxWidth="1280px" mx="auto" {...props} />
     );
 }
 
