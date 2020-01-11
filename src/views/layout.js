@@ -15,12 +15,8 @@ const MainLayout = ({ children }) => {
       </Container>
       <Flex align="center" justify="center" w="100%">
         <Container d="flex">
-          <SideNav
-            display={['none', null, 'block']}
-            maxWidth="18rem"
-            width="full"
-          />
-          <Main w="100%" pt={8}>
+          <SideNav />
+          <Main px="5px" w="100%" pt={8}>
             {children}
           </Main>
         </Container>
