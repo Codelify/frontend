@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { AppContext } from '../utils/AppProvider';
 import {
     Text,
     Collapse,
@@ -8,7 +7,12 @@ import {
 import ContentEditable from 'react-contenteditable'
 
 
-const Description = ({ id, description, handleBlur, handleEdit, styledEdit, ControlButtons }) => {
+const Description = ({ id, description, handleEdit, styledEdit, ControlButtons }) => {
+
+const handleBlur = (event) => {
+    document.getElementById(event.target.id).classList.remove('edited-div');
+    handleToggle(false);
+}
 
 const [show, setShow] = useState(false);
 
@@ -19,8 +23,7 @@ const handleToggle = (newShow) => {
 const descriptionId = `description_${id}`;
 return(
     <>
-    <Text contenteditable="true" fontSize="sm"> 
-    {/* {description} */}
+    <Text mb="5px" contenteditable="true" fontSize="sm"> 
     <ContentEditable
         html={description}
         disabled={false}
