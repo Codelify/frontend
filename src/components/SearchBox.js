@@ -33,9 +33,11 @@ const Search = () => {
   };
 
   const filterItems = inputValue => {
-    const result = matchSorter(state.snippetsData, inputValue, {
-      keys: ["title", "description"]
-    });
+    const result =
+      state.snippetsData &&
+      matchSorter(state.snippetsData, inputValue, {
+        keys: ["title", "description"]
+      });
     setFilteredSnippets(result);
   };
 
@@ -57,17 +59,17 @@ const Search = () => {
                   <Icon name="search" color="gray.500" />
                 </InputLeftElement>
                 <Input
-                  variant="filled"
-                  focusBorderColor="#319795"
-                  _placeholder={{ color: "gray.500", opacity: 1 }}
-                  rounded="lg"
+                  // variant="filled"
+                  //focusBorderColor="#319795"
+                  //_placeholder={{ color: "gray.500", opacity: 1 }}
+                  //rounded="lg"
                   {...getInputProps({
                     placeholder: "Find a snippet",
                     type: "search",
                     id: "search",
                     onChange: e => {
                       e.persist();
-                      // handleOnChange(e);
+                      console.log(e.target.value);
                     }
                   })}
                   onKeyUp={e => handleOnchange(e)}
