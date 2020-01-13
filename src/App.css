@@ -2,3 +2,10 @@ button.active {
   color: #319795;
   background: #E6FFFA;
 }
+
+.edited-div{
+  border:2px solid #319795;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: rgba(237, 242, 248, 0.1);
+}

@@ -3,9 +3,7 @@ import { AppContext } from '../utils/AppProvider';
 import {
   Box,
   Flex,
-  Heading,
   Stack,
-  Text,
   Link,
   Icon,
   Badge,
@@ -21,16 +19,28 @@ import {
   useDisclosure,
   Button,
   useToast,
+  ButtonGroup
 } from '@chakra-ui/core';
-import { LiveProvider, LiveEditor } from 'react-live';
-import theme from 'prism-react-renderer/themes/nightOwl';
-import { MdDelete } from 'react-icons/md';
-import { FaEdit } from 'react-icons/fa';
+import SnippetHeading from './SnippetHeading'
+import Description from './SnippetDescription'
+import { MdDelete, MdMoreHoriz } from 'react-icons/md';
 import { useMutation } from '@apollo/react-hooks';
 import { DELETE_SNIPPET } from '../graphql/mutation';
+import SnippetContent from './SnippetContent';
 
 const CodeSnippet = ({ title, id, description, url, tags, content }) => {
-  const snippetPlaceHolder = `${content}`;
+
+  const ControlButtons = () => {
+    return (
+      <ButtonGroup mb="10px" justifyContent="center" size="sm">
+        <Button variantColor="teal">
+          Save
+        </Button>
+        <IconButton icon="close" />
+      </ButtonGroup>      
+    );
+  }
+
   const { dispatch } = useContext(AppContext);
   const [deleteSnippet] = useMutation(DELETE_SNIPPET);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -59,6 +69,14 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
     }
   };
 
+  const handleEdit = (event) => {
+    console.dir(event.target.value)
+  }
+
+  const styledEdit = (event) => {
+    document.getElementById(event.target.id).classList.add('edited-div');
+  }
+
   return (
     <>
       <Flex flexWrap="wrap" mt="30px">
@@ -68,20 +86,36 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
           w={['100%', '100%', '100%', '35%']}
           spacing="14px"
         >
-          <Heading mb={4} as="h3" size="lg">
-            {title}
-          </Heading>
-          <Text fontSize="sm"> {description}</Text>
-          <Link color="teal.500" href={url} isExternal>
-            Link <Icon name="external-link" mx="2px" />
-          </Link>
+
+          <SnippetHeading 
+            id={id} 
+            title={title} 
+            handleEdit={handleEdit} 
+            styledEdit={styledEdit} 
+            ControlButtons={ControlButtons} 
+          />
+
+          <Description 
+            id={id} 
+            description={description} 
+            handleEdit={handleEdit} 
+            styledEdit={styledEdit} 
+            ControlButtons={ControlButtons} 
+          />
+          <Box>
+            {
+              url && (
+                <Link color="teal.500" href={url} isExternal>
+                  Link <Icon name="external-link" mx="2px" />
+                </Link>  
+              )
+            }
+          </Box>
           <Stack justify="flex-start" isInline>
             {tags &&
               tags.map(tag => {
                 return (
-                  <>
-                    <Badge mr="4px" variantColor="green">{tag}</Badge>
-                  </>
+                  <Badge mb="4px" mr="4px" variantColor="green">{tag}</Badge>
                 );
               })}
           </Stack>
@@ -91,46 +125,36 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
         w={['100%', '100%', '100%', '60%']}
         borderRadius="5px"
         >
-          <LiveProvider
-            theme={theme}
-            language="javascript"
-            code={snippetPlaceHolder.trim()}
-            disabled
-          >
-            <LiveEditor
-              padding={10}
-              style={{
-                fontFamily: 'Menlo,monospace',
-                flex: 2,
-                fontSize: '14px',
-                minHeight: '300px',
-                borderRadius: '5px',
-                boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
-              }}
-            />
-          </LiveProvider>
+        <SnippetContent 
+          content={content} 
+          id={id} 
+          handleEdit={handleEdit} 
+          ControlButtons={ControlButtons} 
+        />
         </Box>
       </Flex>
-      <Flex mt="20px" justify="flex-end" w="100%">
+      <Flex mt="20px" justify="flex-start" w="95%">
         <IconButton
-          variant="ghost"
-          variantColor="teal"
-          aria-label="Edit Snippet"
-          fontSize="22px"
-          icon={FaEdit}
-        />
-        <IconButton
+          mr="3px"
           variant="ghost"
           variantColor="teal"
           aria-label="Delete Snippet"
           fontSize="25px"
           icon={MdDelete}
-          color="#FEB2B2"
           onClick={onOpen}
+          color="#FEB2B2"
           _focus={{
             outline: 'none',
           }}
         />
+        <IconButton
+          aria-label="More options"
+          fontSize="20px"
+          icon={MdMoreHoriz}
+          _focus={{
+            outline: 'none',
+          }}
+        />        
       </Flex>
       <Divider />
 

@@ -103,7 +103,6 @@ const a = 10;
   };
 
   const handleDeleteTag = index => {
-    console.log("deleting tag at index " + index);
     let newTags = tags;
     newTags.splice(index, 1);
     setTags(() => [...newTags]);
@@ -122,7 +121,6 @@ const a = 10;
       // add it to the state holding the list of tags
       setTags(prevState => [...prevState, tag]);
 
-      console.dir(formData);
       // clear the value held in the input field
       event.target.value = "";
     }
