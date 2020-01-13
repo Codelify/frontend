@@ -10,7 +10,6 @@ import ContentEditable from 'react-contenteditable'
 const SnippetHeading = ({ id, title, handleEdit, styledEdit, ControlButtons }) => {
 
 const handleBlur = (event) => {
-    console.dir(event.target.id);
     document.getElementById(event.target.id).classList.remove('edited-div');
     handleToggle(false);
 }

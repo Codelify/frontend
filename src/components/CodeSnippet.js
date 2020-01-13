@@ -29,13 +29,16 @@ import { MdDelete } from 'react-icons/md';
 import { FaEdit } from 'react-icons/fa';
 import { useMutation } from '@apollo/react-hooks';
 import { DELETE_SNIPPET } from '../graphql/mutation';
+import SnippetContent from './SnippetContent';
 
 const CodeSnippet = ({ title, id, description, url, tags, content }) => {
 
   const ControlButtons = () => {
     return (
       <ButtonGroup mb="10px" justifyContent="center" size="sm">
-        <IconButton icon="check" />
+        <Button variantColor="teal">
+          Save
+        </Button>
         <IconButton icon="close" />
       </ButtonGroup>      
     );
@@ -126,33 +129,15 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
         w={['100%', '100%', '100%', '60%']}
         borderRadius="5px"
         >
-          <LiveProvider
-            theme={theme}
-            language="javascript"
-            code={snippetPlaceHolder.trim()}  
-        >
-            <LiveEditor
-              padding={10}
-              style={{
-                fontFamily: 'Menlo,monospace',
-                flex: 2,
-                fontSize: '14px',
-                minHeight: '300px',
-                borderRadius: '5px',
-                boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
-              }}
-            />
-          </LiveProvider>
+        <SnippetContent 
+          content={content} 
+          id={id} 
+          handleEdit={handleEdit} 
+          ControlButtons={ControlButtons} 
+        />
         </Box>
       </Flex>
       <Flex mt="20px" justify="flex-end" w="100%">
-        <IconButton
-          variant="ghost"
-          variantColor="teal"
-          aria-label="Edit Snippet"
-          fontSize="22px"
-          icon={FaEdit}
-        />
         <IconButton
           variant="ghost"
           variantColor="teal"
