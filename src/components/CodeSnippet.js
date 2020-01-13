@@ -135,11 +135,13 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
       </Flex>
       <Flex mt="20px" justify="flex-start" w="95%">
         <IconButton
+          mr="3px"
           variant="ghost"
           variantColor="teal"
           aria-label="Delete Snippet"
           fontSize="25px"
           icon={MdDelete}
+          onClick={onOpen}
           color="#FEB2B2"
           _focus={{
             outline: 'none',
