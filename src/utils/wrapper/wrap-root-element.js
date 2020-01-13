@@ -14,7 +14,7 @@ export const WrapRootElement = ({ props, children }) => {
   return (
     <ApolloProvider client={client}>
       <ThemeProvider>
-        <ColorModeProvider value="light" {...props}>
+        <ColorModeProvider {...props}>
           <CSSReset />
           <AppProvider>{children}</AppProvider>
         </ColorModeProvider>
