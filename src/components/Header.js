@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Box,
   Flex,
@@ -6,26 +6,26 @@ import {
   useColorMode,
   useDisclosure,
   Button
-} from '@chakra-ui/core';
-import NewSnippet from './NewSnippet';
-import { MdAdd } from 'react-icons/md';
-import { FaUserAlt } from 'react-icons/fa';
-import Logo from './Logo';
-import SearchBox from './SearchBox';
+} from "@chakra-ui/core";
+import NewSnippet from "./NewSnippet";
+import { MdAdd } from "react-icons/md";
+import { FaUserAlt } from "react-icons/fa";
+import Logo from "./Logo";
+import SearchBox from "./SearchBox";
 
 const AppHeader = props => {
-  console.log("Mode Landing" + props.landing)
+  // console.log("Mode Landing" + props.landing)
   const { colorMode, toggleColorMode } = useColorMode();
-  const bg = { light: 'white', dark: 'gray.800' };
+  const bg = { light: "white", dark: "gray.800" };
 
-  const [size, setSize] = React.useState('md');
+  const [size, setSize] = React.useState("md");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const firstField = React.useRef();
 
   const handleClick = newSize => {
     setSize(newSize);
     onOpen();
-    document.getElementById('FiHome').focus();
+    document.getElementById("FiHome").focus();
   };
 
   return (
@@ -55,55 +55,57 @@ const AppHeader = props => {
             >
               <Logo />
             </Box>
-            {
-              !props.landing && <SearchBox />
-            }
+            {!props.landing && <SearchBox />}
             <Flex align="center" color="gray.500">
-              { props.landing
-                ? (
-                  <Button as="a" size="xs" ml={4} href="/app" _focus={{outline: 'none'}}>Get Started</Button>
-                ) 
-                : (
+              {props.landing ? (
+                <Button
+                  as="a"
+                  size="xs"
+                  ml={4}
+                  href="/app"
+                  _focus={{ outline: "none" }}
+                >
+                  Get Started
+                </Button>
+              ) : (
                 <>
-                <IconButton
-                  variant="ghost"
-                  aria-label="Call Sage"
-                  fontSize={['20px', '30px', '30px', '30px']}
-                  icon={MdAdd}
-                  _focus={{
-                    outline: 'none',
-                  }}
-                  onClick={() => {
-                    handleClick('full');
-                  }}
-                />
-                <IconButton
-                  variant="ghost"
-                  aria-label="Call Sage"
-                  fontSize={['18px', '20px', '20px', '20px']}
-                  icon={FaUserAlt}
-                  _focus={{
-                    outline: "none",
-                  }}
-                />
+                  <IconButton
+                    variant="ghost"
+                    aria-label="Call Sage"
+                    fontSize={["20px", "30px", "30px", "30px"]}
+                    icon={MdAdd}
+                    _focus={{
+                      outline: "none"
+                    }}
+                    onClick={() => {
+                      handleClick("full");
+                    }}
+                  />
+                  <IconButton
+                    variant="ghost"
+                    aria-label="Call Sage"
+                    fontSize={["18px", "20px", "20px", "20px"]}
+                    icon={FaUserAlt}
+                    _focus={{
+                      outline: "none"
+                    }}
+                  />
                 </>
-                )
-              }
+              )}
 
-              
               <IconButton
                 aria-label={`Switch to ${
-                  colorMode === 'light' ? 'dark' : 'light'
+                  colorMode === "light" ? "dark" : "light"
                 } mode`}
                 variant="ghost"
                 color="current"
                 ml="2"
-                fontSize={['18px', '20px', '20px', '20px']}
+                fontSize={["18px", "20px", "20px", "20px"]}
                 onClick={toggleColorMode}
-                icon={colorMode === 'light' ? 'moon' : 'sun'}
+                icon={colorMode === "light" ? "moon" : "sun"}
                 _focus={{
-                  outline: "none",
-                }}   
+                  outline: "none"
+                }}
               />
               {/* <MobileNav /> */}
             </Flex>
