@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AppContext } from '../utils/AppProvider';
 import {
   Box,
@@ -21,7 +21,10 @@ import {
   useDisclosure,
   Button,
   useToast,
+  Collapse,
+  ButtonGroup
 } from '@chakra-ui/core';
+import Description from './SnippetDescription'
 import { LiveProvider, LiveEditor } from 'react-live';
 import ContentEditable from 'react-contenteditable' 
 import theme from 'prism-react-renderer/themes/nightOwl';
@@ -31,9 +34,19 @@ import { useMutation } from '@apollo/react-hooks';
 import { DELETE_SNIPPET } from '../graphql/mutation';
 
 const CodeSnippet = ({ title, id, description, url, tags, content }) => {
+
+  const ControlButtons = () => {
+    return (
+      <ButtonGroup justifyContent="center" size="sm">
+      <IconButton icon="check" />
+      <IconButton icon="close" />
+      </ButtonGroup>      
+    );
+  }
+
   const snippetPlaceHolder = `${content}`;
   const titleId = `title_${id}`;
-  const descriptionId = `description_${id}`;
+  //const descriptionId = `description_${id}`;
   const { dispatch } = useContext(AppContext);
   const [deleteSnippet] = useMutation(DELETE_SNIPPET);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -65,6 +78,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
   const handleBlur = (event) => {
     console.dir(event.target.id);
     document.getElementById(event.target.id).classList.remove('edited-div');
+    handleToggle(false);
   }
 
   const handleEdit = (value) => {
@@ -73,6 +87,12 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
 
   const styledEdit = (event) => {
     document.getElementById(event.target.id).classList.add('edited-div');
+  }
+
+  const [show, setShow] = useState(false);
+
+  const handleToggle = (newShow) => {
+    setShow(newShow);
   }
 
   return (
@@ -84,12 +104,15 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
           w={['100%', '100%', '100%', '35%']}
           spacing="14px"
         >
-          <Heading mb={4} as="h3" size="lg">
+          <Heading mb={0} as="h3" size="lg">
           <ContentEditable
               html={title}
               disabled={false}
               id={titleId}
               onBlur={handleBlur}
+              onClick={()=>{
+                handleToggle(true)
+              }}
               onChange={handleEdit}
               onFocus={styledEdit}
               style={{
@@ -97,25 +120,18 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
               }}
           />          
           </Heading>
-          <Text contenteditable="true" fontSize="sm"> 
-          {/* {description} */}
-          <ContentEditable
-              html={description}
-              disabled={false}
-              id={descriptionId}
-              onBlur={handleBlur}
-              onChange={handleEdit}
-              onFocus={styledEdit}
-              style={{
-                outline: "none",
-              }}
-          />
-
-          </Text>
+          <Collapse mt={0} isOpen={show}>
+          <ControlButtons />
+          </Collapse>          
+          <Description id={id} description={description} handleBlur={handleBlur} handleEdit={handleEdit} styledEdit={styledEdit} ControlButtons={ControlButtons} />
           <Box>
-            <Link color="teal.500" href={url} isExternal>
-              Link <Icon name="external-link" mx="2px" />
-            </Link>
+            {
+              url && (
+                <Link color="teal.500" href={url} isExternal>
+                  Link <Icon name="external-link" mx="2px" />
+                </Link>  
+              )
+            }
           </Box>
           <Stack justify="flex-start" isInline>
             {tags &&
