@@ -23,10 +23,7 @@ import {
 } from '@chakra-ui/core';
 import SnippetHeading from './SnippetHeading'
 import Description from './SnippetDescription'
-import { LiveProvider, LiveEditor } from 'react-live'; 
-import theme from 'prism-react-renderer/themes/nightOwl';
-import { MdDelete } from 'react-icons/md';
-import { FaEdit } from 'react-icons/fa';
+import { MdDelete, MdMoreHoriz } from 'react-icons/md';
 import { useMutation } from '@apollo/react-hooks';
 import { DELETE_SNIPPET } from '../graphql/mutation';
 import SnippetContent from './SnippetContent';
@@ -44,7 +41,6 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
     );
   }
 
-  const snippetPlaceHolder = `${content}`;
   const { dispatch } = useContext(AppContext);
   const [deleteSnippet] = useMutation(DELETE_SNIPPET);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -137,7 +133,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
         />
         </Box>
       </Flex>
-      <Flex mt="20px" justify="flex-end" w="100%">
+      <Flex mt="20px" justify="flex-start" w="95%">
         <IconButton
           variant="ghost"
           variantColor="teal"
@@ -145,11 +141,18 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
           fontSize="25px"
           icon={MdDelete}
           color="#FEB2B2"
-          onClick={onOpen}
           _focus={{
             outline: 'none',
           }}
         />
+        <IconButton
+          aria-label="More options"
+          fontSize="20px"
+          icon={MdMoreHoriz}
+          _focus={{
+            outline: 'none',
+          }}
+        />        
       </Flex>
       <Divider />
 
