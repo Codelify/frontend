@@ -52,7 +52,13 @@ const Search = () => {
           onChange={handleDownshiftChange}
           itemToString={item => (item === null ? " " : item.title)}
         >
-          {({ getInputProps, getItemProps, isOpen, highlightedIndex }) => (
+          {({
+            getInputProps,
+            getItemProps,
+            isOpen,
+            highlightedIndex,
+            clearSelection
+          }) => (
             <div>
               <InputGroup mx="auto" mt="5px" w="100%">
                 <InputLeftElement>
@@ -69,7 +75,7 @@ const Search = () => {
                     id: "search",
                     onChange: e => {
                       e.persist();
-                      console.log(e.target.value);
+                      handleOnchange(e);
                     }
                   })}
                   onKeyUp={e => handleOnchange(e)}
