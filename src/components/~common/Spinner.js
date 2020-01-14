@@ -25,20 +25,20 @@ const Root = styled.div`
 
 const animate = keyframes`
   0%{
-    width:150px;
-    height:150px;
-  }
- 10%{
-    width:130px;
-    height:130px;
-  }
-  50%{
     width:100px;
     height:100px;
   }
+ 10%{
+    width:100px;
+    height:100px;
+  }
+  50%{
+    width:150px;
+    height:150px;
+  }
   90%{
-    width:130px;
-    height:300px;
+    width:100px;
+    height:100px;
   }
   100%{
     width:100px;
