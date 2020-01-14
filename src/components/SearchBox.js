@@ -59,10 +59,10 @@ const Search = () => {
                   <Icon name="search" color="gray.500" />
                 </InputLeftElement>
                 <Input
-                  // variant="filled"
-                  //focusBorderColor="#319795"
-                  //_placeholder={{ color: "gray.500", opacity: 1 }}
-                  //rounded="lg"
+                  variant="filled"
+                  focusBorderColor="#319795"
+                  _placeholder={{ color: "gray.500", opacity: 1 }}
+                  rounded="lg"
                   {...getInputProps({
                     placeholder: "Find a snippet",
                     type: "search",

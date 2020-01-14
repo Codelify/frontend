@@ -3,9 +3,8 @@ import { AppContext } from "../utils/AppProvider";
 import EmptyView from "./EmptyView";
 import SnippetList from "./List";
 
-
 const Default = () => {
-  const { state } = useContext(AppContext);
+  const { state, loading } = useContext(AppContext);
   const token = window.localStorage.getItem("token");
 
   //Render filterd Snippets if there are any
@@ -15,11 +14,11 @@ const Default = () => {
 
   // Render the list of snippets if their are any
   if (state.snippetsData && state.snippetsData.length && token) {
-    return <SnippetList data={state.snippetsData} search="22" />;
+    return <SnippetList data={state.snippetsData} loading={loading} />;
   }
   // default view if there is no snippets
   else {
-    return <EmptyView />;
+    return <EmptyView loading={loading} />;
   }
 };
 
