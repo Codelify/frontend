@@ -47,7 +47,7 @@ const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const token =
     typeof window !== "undefined" && window.localStorage.getItem("token");
-  const { data } = useQuery(MY_SNIPPETs, {
+  const { data, loading } = useQuery(MY_SNIPPETs, {
     variables: { token }
   });
 
@@ -58,7 +58,7 @@ const AppProvider = ({ children }) => {
   const fetchSnippetsData = async () => {
     try {
       const { getAuthUserSnippets } = await data;
-      //console.log("PROVIDER API", getAuthUserSnippets);
+
       dispatch({ type: FETCH_SNIPPETS_DATA, payload: getAuthUserSnippets });
     } catch (error) {
       //console.warn(error);
@@ -69,7 +69,7 @@ const AppProvider = ({ children }) => {
     dispatch({ type: FILTER_SNIPPETS, payload: filteredSnippets });
   };
 
-  const value = { state, dispatch, setFilteredSnippets };
+  const value = { state, loading, dispatch, setFilteredSnippets };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

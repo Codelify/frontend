@@ -52,24 +52,30 @@ const Search = () => {
           onChange={handleDownshiftChange}
           itemToString={item => (item === null ? " " : item.title)}
         >
-          {({ getInputProps, getItemProps, isOpen, highlightedIndex }) => (
+          {({
+            getInputProps,
+            getItemProps,
+            isOpen,
+            highlightedIndex,
+            clearSelection
+          }) => (
             <div>
               <InputGroup mx="auto" mt="5px" w="100%">
                 <InputLeftElement>
                   <Icon name="search" color="gray.500" />
                 </InputLeftElement>
                 <Input
-                  // variant="filled"
-                  //focusBorderColor="#319795"
-                  //_placeholder={{ color: "gray.500", opacity: 1 }}
-                  //rounded="lg"
+                  variant="filled"
+                  focusBorderColor="#319795"
+                  _placeholder={{ color: "gray.500", opacity: 1 }}
+                  rounded="lg"
                   {...getInputProps({
                     placeholder: "Find a snippet",
                     type: "search",
                     id: "search",
                     onChange: e => {
                       e.persist();
-                      console.log(e.target.value);
+                      handleOnchange(e);
                     }
                   })}
                   onKeyUp={e => handleOnchange(e)}
