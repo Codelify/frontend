@@ -108,6 +108,14 @@ const a = 10;
     setTags(() => [...newTags]);
   };
 
+  const styledEdit = event => {
+    document.getElementById(event.target.parentElement.id).classList.add("edited-div");
+  };
+
+  const handleBlur = event => {
+    document.getElementById(event.target.parentElement.id).classList.remove("edited-div");
+  };
+
   // specfifid function to managed entered tags
   const handleAddTags = event => {
     let newTag = false;
@@ -204,22 +212,39 @@ const a = 10;
                   />
                 </InputGroup>
               </Box>
-              <Stack flexWrap="wrap" justify="flex-start" isInline>
+
+              <Box >
+                <FormLabel htmlFor="tags-box">Tags</FormLabel>
+                <Flex 
+                  flexWrap="wrap" 
+                  borderRadius="5px" 
+                  borderWidth="1px"
+                  id="tags-box"
+                  onFocus={styledEdit}
+                  onBlur={handleBlur}
+                >
+                <Stack flexWrap="wrap" justify="flex-start" isInline>
                 {tags &&
                   tags.map((tag, index) => {
                     return (
                       <Tag
                         id={index}
                         size={size}
-                        key={size}
+                        key={index}
                         variant="solid"
                         variantColor="teal"
                         mx="3px"
                         my="3px"
                         paddingY="3px"
+                        _focus={{
+                          outline: "none"
+                        }}
                       >
                         <TagLabel paddingX="10px">{tag}</TagLabel>
                         <TagCloseButton
+                          _focus={{
+                            outline: "none"
+                          }}
                           onClick={() => {
                             handleDeleteTag(index);
                           }}
@@ -229,15 +254,21 @@ const a = 10;
                     );
                   })}
               </Stack>
-              <Box>
-                <FormLabel htmlFor="username">Tags</FormLabel>
+
+
+
+
                 <Input
                   id="tags"
-                  placeholder="Add a tags separated by comma"
-                  focusBorderColor="#319795"
+                  w="200px"
+                  placeholder="Add a tag"
+                  focusBorderColor="none"
+                  borderWidth="0px"
+                  background="none"
                   name="tags"
                   onKeyUp={handleAddTags}
                 />
+                </Flex>
               </Box>{" "}
               <Box>
                 <FormLabel htmlFor="desc">Description</FormLabel>
