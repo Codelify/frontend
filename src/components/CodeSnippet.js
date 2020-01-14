@@ -134,7 +134,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
           />
         </Box>
       </Flex>
-      <Flex mt="20px" justify="flex-start" w="95%">
+      <Flex mt="40px" justify="flex-end" w="95%">
         <IconButton
           mr="3px"
           variant="ghost"

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-    Box,
     Collapse,
 } from '@chakra-ui/core';
 import { LiveProvider, LiveEditor } from 'react-live'; 
