@@ -11,13 +11,13 @@ import {
   MenuList,
   MenuGroup,
   MenuItem,
-  MenuDivider,
 } from "@chakra-ui/core";
 import NewSnippet from "./NewSnippet";
 import { MdAdd } from "react-icons/md";
 import { FaUserAlt } from "react-icons/fa";
 import Logo from "./Logo";
 import SearchBox from "./SearchBox";
+import { navigate } from "@reach/router";
 
 const AppHeader = props => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -34,6 +34,13 @@ const AppHeader = props => {
     onOpen();
     document.getElementById("FiHome").focus();
   };
+
+  const onLogout = () => {
+    // delete token
+    window.localStorage.removeItem("token");
+    // then direct to landing page
+    navigate("/");
+  }
 
   return (
     <Box
@@ -101,21 +108,15 @@ const AppHeader = props => {
                         <Box as={FaUserAlt} />
                       </MenuButton>
                       <MenuList>
-                        <MenuGroup title="Profile">
-                          <MenuItem>My Account</MenuItem>
-                          <MenuItem>Payments </MenuItem>
-                        </MenuGroup>
-                        <MenuDivider />
-                        <MenuGroup title="Help">
-                          <MenuItem>Docs</MenuItem>
-                          <MenuItem>FAQ</MenuItem>
+                        <MenuGroup title="Account">
+                          <MenuItem>My Profile</MenuItem>
+                          <MenuItem
+                            onClick={onLogout}
+                          >Logout
+                          </MenuItem>
                         </MenuGroup>
                       </MenuList>
                     </Menu>
-
-
-
-
                     )
                   }
                 </>
