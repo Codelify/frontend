@@ -25,7 +25,7 @@ import SnippetHeading from "./SnippetHeading";
 import Description from "./SnippetDescription";
 import { MdDelete, MdMoreHoriz } from "react-icons/md";
 import { useMutation } from "@apollo/react-hooks";
-import { DELETE_SNIPPET } from "../graphql/mutation";
+import { DELETE_SNIPPET, UPDATE_SNIPPET } from "../graphql/mutation";
 import SnippetContent from "./SnippetContent";
 
 const CodeSnippet = ({ title, id, description, url, tags, content }) => {
@@ -87,8 +87,10 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
             id={id}
             title={title}
             handleEdit={handleEdit}
-            styledEdit={styledEdit}
+            //styledEdit={styledEdit}
             ControlButtons={ControlButtons}
+            UPDATE_SNIPPET={UPDATE_SNIPPET}
+            useMutation={useMutation}
           />
 
           <Description
