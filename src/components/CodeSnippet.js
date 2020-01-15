@@ -39,11 +39,11 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
   // };
 
   const [titleToUpdate, setTitleToUpdate] = useState(title);
+  const [descriptionToUpdate, setDescroptionToUpdate] = useState(description);
   const { dispatch } = useContext(AppContext);
   const [deleteSnippet] = useMutation(DELETE_SNIPPET);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
-  console.log("STATE ", titleToUpdate);
 
   const toast = useToast();
   const handleDelete = async () => {
@@ -71,7 +71,12 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
   };
   const handleUpdate = async typeOfAction => {
     const costumObject = {};
-    costumObject[typeOfAction] = titleToUpdate;
+    if (typeOfAction === "title") {
+      costumObject[typeOfAction] = titleToUpdate;
+    }
+    if (typeOfAction === "description") {
+      costumObject[typeOfAction] = descriptionToUpdate;
+    }
     const token = window.localStorage.getItem("token");
     const { data, loading } = await updateSnippet({
       variables: {
@@ -83,10 +88,19 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
     console.log(data, loading);
   };
 
-  const handleEdit = event => {
-    console.log(event);
+  const handleEdit = (event, typeOfAction) => {
     let state = event.target.value;
-    setTitleToUpdate(state);
+    console.log(typeOfAction);
+    switch (typeOfAction) {
+      case "title":
+        setTitleToUpdate(state);
+        break;
+      case "description":
+        setDescroptionToUpdate(state);
+        break;
+      default:
+        return;
+    }
   };
 
   const styledEdit = event => {
@@ -112,10 +126,10 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
 
           <Description
             id={id}
-            description={description}
+            description={descriptionToUpdate}
             handleEdit={handleEdit}
             styledEdit={styledEdit}
-            // ControlButtons={ControlButtons}
+            handleUpdate={handleUpdate}
           />
           <Box>
             {url && (

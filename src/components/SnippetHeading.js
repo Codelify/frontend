@@ -34,7 +34,7 @@ const SnippetHeading = ({
     <>
       <Heading mb="5px" as="h3" size="lg">
         <ContentEditable
-          onChange={handleEdit}
+          onChange={e => handleEdit(e, "title")}
           html={title}
           disabled={false}
           id={titleId}
