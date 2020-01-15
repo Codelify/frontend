@@ -14,9 +14,10 @@ import Logo from "./Logo";
 import SearchBox from "./SearchBox";
 
 const AppHeader = props => {
-  // console.log("Mode Landing" + props.landing)
   const { colorMode, toggleColorMode } = useColorMode();
   const bg = { light: "white", dark: "gray.800" };
+
+  const token = window.localStorage.getItem("token");
 
   const [size, setSize] = React.useState("md");
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -81,15 +82,19 @@ const AppHeader = props => {
                       handleClick("full");
                     }}
                   />
-                  <IconButton
-                    variant="ghost"
-                    aria-label="Call Sage"
-                    fontSize={["18px", "20px", "20px", "20px"]}
-                    icon={FaUserAlt}
-                    _focus={{
-                      outline: "none"
-                    }}
-                  />
+                  {
+                    token && (
+                      <IconButton
+                      variant="ghost"
+                      aria-label="Call Sage"
+                      fontSize={["18px", "20px", "20px", "20px"]}
+                      icon={FaUserAlt}
+                      _focus={{
+                        outline: "none"
+                      }}
+                    />  
+                    )
+                  }
                 </>
               )}
 
