@@ -5,7 +5,13 @@ import {
   IconButton,
   useColorMode,
   useDisclosure,
-  Button
+  Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuGroup,
+  MenuItem,
+  MenuDivider,
 } from "@chakra-ui/core";
 import NewSnippet from "./NewSnippet";
 import { MdAdd } from "react-icons/md";
@@ -84,15 +90,32 @@ const AppHeader = props => {
                   />
                   {
                     token && (
-                      <IconButton
-                      variant="ghost"
-                      aria-label="Call Sage"
-                      fontSize={["18px", "20px", "20px", "20px"]}
-                      icon={FaUserAlt}
-                      _focus={{
-                        outline: "none"
-                      }}
-                    />  
+                    <Menu>
+                      <MenuButton 
+                        variant="ghost" 
+                        as={Button}
+                        _focus={{
+                          outline: "none"
+                        }}
+                        >
+                        <Box as={FaUserAlt} />
+                      </MenuButton>
+                      <MenuList>
+                        <MenuGroup title="Profile">
+                          <MenuItem>My Account</MenuItem>
+                          <MenuItem>Payments </MenuItem>
+                        </MenuGroup>
+                        <MenuDivider />
+                        <MenuGroup title="Help">
+                          <MenuItem>Docs</MenuItem>
+                          <MenuItem>FAQ</MenuItem>
+                        </MenuGroup>
+                      </MenuList>
+                    </Menu>
+
+
+
+
                     )
                   }
                 </>
