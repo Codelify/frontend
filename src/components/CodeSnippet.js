@@ -29,14 +29,14 @@ import { DELETE_SNIPPET, UPDATE_SNIPPET } from "../graphql/mutation";
 import SnippetContent from "./SnippetContent";
 
 const CodeSnippet = ({ title, id, description, url, tags, content }) => {
-  const ControlButtons = () => {
-    return (
-      <ButtonGroup mb="10px" justifyContent="center" size="sm">
-        <Button variantColor="teal">Save</Button>
-        <IconButton icon="close" />
-      </ButtonGroup>
-    );
-  };
+  // const ControlButtons = () => {
+  //   return (
+  //     <ButtonGroup mb="10px" justifyContent="center" size="sm">
+  //       <Button variantColor="teal">Save</Button>
+  //       <IconButton icon="close" />
+  //     </ButtonGroup>
+  //   );
+  // };
 
   const { dispatch } = useContext(AppContext);
   const [deleteSnippet] = useMutation(DELETE_SNIPPET);
@@ -66,6 +66,11 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
     }
   };
 
+  const handleUpdate = typeofField => {
+    console.dir("Test");
+    console.dir(typeofField);
+  };
+
   const handleEdit = event => {
     console.dir(event.target.value);
   };
@@ -87,8 +92,9 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
             id={id}
             title={title}
             handleEdit={handleEdit}
-            //styledEdit={styledEdit}
-            ControlButtons={ControlButtons}
+            styledEdit={styledEdit}
+            handleUpdate={handleUpdate}
+            // ControlButtons={ControlButtons}
             UPDATE_SNIPPET={UPDATE_SNIPPET}
             useMutation={useMutation}
           />
@@ -98,7 +104,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
             description={description}
             handleEdit={handleEdit}
             styledEdit={styledEdit}
-            ControlButtons={ControlButtons}
+            // ControlButtons={ControlButtons}
           />
           <Box>
             {url && (
@@ -132,7 +138,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
             content={content}
             id={id}
             handleEdit={handleEdit}
-            ControlButtons={ControlButtons}
+            //ControlButtons={ControlButtons}
           />
         </Box>
       </Flex>

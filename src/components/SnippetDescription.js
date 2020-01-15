@@ -41,7 +41,7 @@ const Description = ({
         />
       </Text>
       <Collapse mt={0} isOpen={show}>
-        <ControlButtons />
+        {/* <ControlButtons /> */}
       </Collapse>
     </>
   );

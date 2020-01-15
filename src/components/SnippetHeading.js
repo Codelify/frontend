@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Heading, Collapse } from "@chakra-ui/core";
+import {
+  Heading,
+  Collapse,
+  ButtonGroup,
+  Button,
+  IconButton
+} from "@chakra-ui/core";
 
 import ContentEditable from "react-contenteditable";
 
@@ -7,11 +13,13 @@ const SnippetHeading = ({
   id,
   title,
   styledEdit,
-  ControlButtons,
   useMutation,
-  UPDATE_SNIPPET
+  UPDATE_SNIPPET,
+  handleUpdate,
+  handleEdit
 }) => {
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
+  const [updateTitle, setUpdateTitle] = useState("");
 
   const handleBlur = event => {
     document.getElementById(event.target.id).classList.remove("edited-div");
@@ -24,22 +32,22 @@ const SnippetHeading = ({
     setShow(newShow);
   };
 
-  const handleEditTitle = async event => {
-    console.dir(event.target.value);
-    const token = window.localStorage.getItem("token");
-    const { data, loading } = await updateSnippet({
-      variables: {
-        snippetId: id,
-        snippetInfo: {
-          title: event.target.value
-        },
-        token: token
-      }
-    });
-    console.log(data, loading);
-  };
-
   const titleId = `title_${id}`;
+
+  //   const handleUpdate = async () => {
+  //     console.log("Update function");
+  //     const token = window.localStorage.getItem("token");
+  //     const { data, loading } = await updateSnippet({
+  //       variables: {
+  //         snippetId: id,
+  //         snippetInfo: {
+  //           title: updateTitle
+  //         },
+  //         token: token
+  //       }
+  //     });
+  //     console.log(data, loading);
+  //   };
 
   return (
     <>
@@ -52,7 +60,7 @@ const SnippetHeading = ({
           onClick={() => {
             handleToggle(true);
           }}
-          onChange={handleEditTitle}
+          onChange={handleEdit}
           onFocus={styledEdit}
           style={{
             outline: "none"
@@ -60,7 +68,12 @@ const SnippetHeading = ({
         />
       </Heading>
       <Collapse mt={0} isOpen={show}>
-        <ControlButtons />
+        <ButtonGroup mb="10px" justifyContent="center" size="sm">
+          <Button variantColor="teal" onClick={() => handleUpdate("title")}>
+            Save
+          </Button>
+          <IconButton icon="close" />
+        </ButtonGroup>
       </Collapse>
     </>
   );
