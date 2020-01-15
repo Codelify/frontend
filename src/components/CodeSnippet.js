@@ -18,8 +18,7 @@ import {
   ModalCloseButton,
   useDisclosure,
   Button,
-  useToast,
-  ButtonGroup
+  useToast
 } from "@chakra-ui/core";
 import SnippetHeading from "./SnippetHeading";
 import Description from "./SnippetDescription";
@@ -52,7 +51,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
       typeof window !== "undefined" && window.localStorage.getItem("token");
     if (token) {
       try {
-        const { data, error } = await deleteSnippet({
+        const { data } = await deleteSnippet({
           variables: { snippetId: id, token }
         });
         dispatch({ type: "DELETE_SNIPPET", payload: id });
@@ -84,7 +83,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
     }
     const token = window.localStorage.getItem("token");
     try {
-      const { data, loading } = await updateSnippet({
+      const { data } = await updateSnippet({
         variables: {
           snippetId: id,
           snippetInfo: costumObject,
@@ -94,7 +93,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
     } catch (error) {
       console.log(error);
     }
-    //console.log(data, loading);
+    //console.log(data,error, loading);
   };
 
   const handleEdit = (event, typeOfAction) => {
