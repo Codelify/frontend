@@ -20,3 +20,15 @@ export const DELETE_SNIPPET = gql`
     }
   }
 `;
+
+export const LOGIN_WITH_GOOGLE = gql`
+  mutation authWithGoogle($input: RegisterInput!) {
+    authWithGoogle(input: $input) {
+      email
+      token
+      firstName
+      lastName
+      avatar
+    }
+  }
+`;

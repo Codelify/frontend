@@ -17,6 +17,7 @@ import Container from "../components/Container";
 import GoogleButton from '../components/GoogleButton';
 import { MdBookmark, MdFindInPage, MdDescription } from "react-icons/md";
 import screeShot from "../assets/img/app-shot.png";
+import SlackButton from '../components/SlackButton';
 
 const Feature = ({ title, icon, children, ...props }) => {
   return (
@@ -74,6 +75,7 @@ function Landing() {
                   Get Started
                 </Button>
                 {!isLoggedIn && <GoogleButton setIsLoggedIn={setIsLoggedIn} />}
+                <SlackButton />
               </Box>
             </Box>
           </Container>
