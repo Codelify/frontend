@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AppContext } from "../utils/AppProvider";
 import {
   Box,
@@ -38,9 +38,13 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
   //   );
   // };
 
+  const [titleToUpdate, setTitleToUpdate] = useState(title);
   const { dispatch } = useContext(AppContext);
   const [deleteSnippet] = useMutation(DELETE_SNIPPET);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [updateSnippet] = useMutation(UPDATE_SNIPPET);
+  console.log("STATE ", titleToUpdate);
+
   const toast = useToast();
   const handleDelete = async () => {
     const token =
@@ -65,14 +69,24 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
       }
     }
   };
-
-  const handleUpdate = typeofField => {
-    console.dir("Test");
-    console.dir(typeofField);
+  const handleUpdate = async typeOfAction => {
+    const costumObject = {};
+    costumObject[typeOfAction] = titleToUpdate;
+    const token = window.localStorage.getItem("token");
+    const { data, loading } = await updateSnippet({
+      variables: {
+        snippetId: id,
+        snippetInfo: costumObject,
+        token: token
+      }
+    });
+    console.log(data, loading);
   };
 
   const handleEdit = event => {
-    console.dir(event.target.value);
+    console.log(event);
+    let state = event.target.value;
+    setTitleToUpdate(state);
   };
 
   const styledEdit = event => {
@@ -90,13 +104,10 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
         >
           <SnippetHeading
             id={id}
-            title={title}
+            title={titleToUpdate}
             handleEdit={handleEdit}
             styledEdit={styledEdit}
             handleUpdate={handleUpdate}
-            // ControlButtons={ControlButtons}
-            UPDATE_SNIPPET={UPDATE_SNIPPET}
-            useMutation={useMutation}
           />
 
           <Description

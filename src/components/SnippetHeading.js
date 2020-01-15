@@ -13,15 +13,11 @@ const SnippetHeading = ({
   id,
   title,
   styledEdit,
-  useMutation,
-  UPDATE_SNIPPET,
   handleUpdate,
   handleEdit
 }) => {
-  const [updateSnippet] = useMutation(UPDATE_SNIPPET);
-  const [updateTitle, setUpdateTitle] = useState("");
-
   const handleBlur = event => {
+    event.persist();
     document.getElementById(event.target.id).classList.remove("edited-div");
     handleToggle(false);
   };
@@ -34,33 +30,18 @@ const SnippetHeading = ({
 
   const titleId = `title_${id}`;
 
-  //   const handleUpdate = async () => {
-  //     console.log("Update function");
-  //     const token = window.localStorage.getItem("token");
-  //     const { data, loading } = await updateSnippet({
-  //       variables: {
-  //         snippetId: id,
-  //         snippetInfo: {
-  //           title: updateTitle
-  //         },
-  //         token: token
-  //       }
-  //     });
-  //     console.log(data, loading);
-  //   };
-
   return (
     <>
       <Heading mb="5px" as="h3" size="lg">
         <ContentEditable
+          onChange={handleEdit}
           html={title}
           disabled={false}
           id={titleId}
-          onBlur={handleBlur}
+          onBlur={e => handleBlur(e)}
           onClick={() => {
             handleToggle(true);
           }}
-          onChange={handleEdit}
           onFocus={styledEdit}
           style={{
             outline: "none"
@@ -69,7 +50,7 @@ const SnippetHeading = ({
       </Heading>
       <Collapse mt={0} isOpen={show}>
         <ButtonGroup mb="10px" justifyContent="center" size="sm">
-          <Button variantColor="teal" onClick={() => handleUpdate("title")}>
+          <Button variantColor="teal" onMouseDown={() => handleUpdate("title")}>
             Save
           </Button>
           <IconButton icon="close" />
