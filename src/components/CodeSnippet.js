@@ -83,14 +83,18 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
       costumObject[typeOfAction] = contentToUpdate;
     }
     const token = window.localStorage.getItem("token");
-    const { data, loading } = await updateSnippet({
-      variables: {
-        snippetId: id,
-        snippetInfo: costumObject,
-        token: token
-      }
-    });
-    console.log(data, loading);
+    try {
+      const { data, loading } = await updateSnippet({
+        variables: {
+          snippetId: id,
+          snippetInfo: costumObject,
+          token: token
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    //console.log(data, loading);
   };
 
   const handleEdit = (event, typeOfAction) => {
@@ -101,7 +105,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
     }
 
     //Case we update the code from title/description - onChange function
-    // we have to verify if event its not a string or it has a target property 
+    // we have to verify if event its not a string or it has a target property
     let state = event.target && event.target.value;
     switch (typeOfAction) {
       case "title":
