@@ -75,7 +75,8 @@ function Landing() {
                   Get Started
                 </Button>
                 {!isLoggedIn && <GoogleButton setIsLoggedIn={setIsLoggedIn} />}
-                <SlackButton />
+                  {!isLoggedIn &&  <SlackButton />}
+               
               </Box>
             </Box>
           </Container>

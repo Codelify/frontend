@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Text, Collapse } from "@chakra-ui/core";
+import {
+  Text,
+  Collapse,
+  ButtonGroup,
+  Button,
+  IconButton
+} from "@chakra-ui/core";
 
 import ContentEditable from "react-contenteditable";
 
@@ -8,7 +14,7 @@ const Description = ({
   description,
   handleEdit,
   styledEdit,
-  ControlButtons
+  handleUpdate
 }) => {
   const handleBlur = event => {
     document.getElementById(event.target.id).classList.remove("edited-div");
@@ -30,7 +36,7 @@ const Description = ({
           disabled={false}
           id={descriptionId}
           onBlur={handleBlur}
-          onChange={handleEdit}
+          onChange={e => handleEdit(e, "description")}
           onFocus={styledEdit}
           onClick={() => {
             handleToggle(true);
@@ -41,7 +47,15 @@ const Description = ({
         />
       </Text>
       <Collapse mt={0} isOpen={show}>
-        <ControlButtons />
+        <ButtonGroup mb="10px" justifyContent="center" size="sm">
+          <Button
+            variantColor="teal"
+            onMouseDown={() => handleUpdate("description")}
+          >
+            Save
+          </Button>
+          <IconButton icon="close" />
+        </ButtonGroup>
       </Collapse>
     </>
   );

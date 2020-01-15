@@ -71,12 +71,14 @@ export default function SlackAuthenticator(props) {
   useEffect(() => {
     const authenticate = async () => {
       const { code = '' } = queryString.parse(props.location.search);
+      console.log('code', code)
       if (code) {
         const {
-          data: { user },
+          data: { user, ...rest },
         } = await axios.get(
           `https://slack.com/api/oauth.access?client_id=${config.slack.clientId}&client_secret=${config.slack.secret}&code=${code}`,
         );
+        console.log('rest', rest)
         if (user) {
           await login(user);
         }
