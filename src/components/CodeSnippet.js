@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AppContext } from "../utils/AppProvider";
 import {
   Box,
@@ -18,36 +18,40 @@ import {
   ModalCloseButton,
   useDisclosure,
   Button,
-  useToast,
-  ButtonGroup
+  useToast
 } from "@chakra-ui/core";
 import SnippetHeading from "./SnippetHeading";
 import Description from "./SnippetDescription";
 import { MdDelete, MdMoreHoriz } from "react-icons/md";
 import { useMutation } from "@apollo/react-hooks";
-import { DELETE_SNIPPET } from "../graphql/mutation";
+import { DELETE_SNIPPET, UPDATE_SNIPPET } from "../graphql/mutation";
 import SnippetContent from "./SnippetContent";
 
 const CodeSnippet = ({ title, id, description, url, tags, content }) => {
-  const ControlButtons = () => {
-    return (
-      <ButtonGroup mb="10px" justifyContent="center" size="sm">
-        <Button variantColor="teal">Save</Button>
-        <IconButton icon="close" />
-      </ButtonGroup>
-    );
-  };
-
+  //moved ControlButtons in each filed - so we can know whitch field user wants to update
+  // const ControlButtons = () => {
+  //   return (
+  //     <ButtonGroup mb="10px" justifyContent="center" size="sm">
+  //       <Button variantColor="teal">Save</Button>
+  //       <IconButton icon="close" />
+  //     </ButtonGroup>
+  //   );
+  // };
+  const [titleToUpdate, setTitleToUpdate] = useState(title);
+  const [descriptionToUpdate, setDescroptionToUpdate] = useState(description);
+  const [contentToUpdate, setContentToUpdate] = useState(content);
   const { dispatch } = useContext(AppContext);
   const [deleteSnippet] = useMutation(DELETE_SNIPPET);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [updateSnippet] = useMutation(UPDATE_SNIPPET);
+
   const toast = useToast();
   const handleDelete = async () => {
     const token =
       typeof window !== "undefined" && window.localStorage.getItem("token");
     if (token) {
       try {
-        const { data, error } = await deleteSnippet({
+        const { data } = await deleteSnippet({
           variables: { snippetId: id, token }
         });
         dispatch({ type: "DELETE_SNIPPET", payload: id });
@@ -65,9 +69,53 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
       }
     }
   };
+  const handleUpdate = async typeOfAction => {
+    const costumObject = {};
+    //construct costum object for every case for not repeting the mutation of each field
+    if (typeOfAction === "title") {
+      costumObject[typeOfAction] = titleToUpdate;
+    }
+    if (typeOfAction === "description") {
+      costumObject[typeOfAction] = descriptionToUpdate;
+    }
+    if (typeOfAction === "content") {
+      costumObject[typeOfAction] = contentToUpdate;
+    }
+    const token = window.localStorage.getItem("token");
+    try {
+      const { data } = await updateSnippet({
+        variables: {
+          snippetId: id,
+          snippetInfo: costumObject,
+          token: token
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    //console.log(data,error, loading);
+  };
 
-  const handleEdit = event => {
-    console.dir(event.target.value);
+  const handleEdit = (event, typeOfAction) => {
+    // Case we update the code from Live Provider
+    // event from LiveProvider its comming as a string in transformCode prop
+    if (typeof event === "string") {
+      setContentToUpdate(event);
+    }
+
+    //Case we update the code from title/description - onChange function
+    // we have to verify if event its not a string or it has a target property
+    let state = event.target && event.target.value;
+    switch (typeOfAction) {
+      case "title":
+        setTitleToUpdate(state);
+        break;
+      case "description":
+        setDescroptionToUpdate(state);
+        break;
+      default:
+        return;
+    }
   };
 
   const styledEdit = event => {
@@ -85,18 +133,18 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
         >
           <SnippetHeading
             id={id}
-            title={title}
+            title={titleToUpdate}
             handleEdit={handleEdit}
             styledEdit={styledEdit}
-            ControlButtons={ControlButtons}
+            handleUpdate={handleUpdate}
           />
 
           <Description
             id={id}
-            description={description}
+            description={descriptionToUpdate}
             handleEdit={handleEdit}
             styledEdit={styledEdit}
-            ControlButtons={ControlButtons}
+            handleUpdate={handleUpdate}
           />
           <Box>
             {url && (
@@ -127,10 +175,10 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
           borderRadius="5px"
         >
           <SnippetContent
-            content={content}
+            content={contentToUpdate}
             id={id}
             handleEdit={handleEdit}
-            ControlButtons={ControlButtons}
+            handleUpdate={handleUpdate}
           />
         </Box>
       </Flex>
