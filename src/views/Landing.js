@@ -53,7 +53,7 @@ function Landing() {
       <CSSReset />
       <Box mb={20}>
         <Box as="section" pt={40} pb={50}>
-          <Header landing={true} />
+          <Header landing={true} isLoggedIn={isLoggedIn} />
           <Container>
             <Box maxW="xl" mx="auto" textAlign="center">
               <Heading as="h1" size="xl" fontWeight="bold">
@@ -87,6 +87,7 @@ function Landing() {
                   <>
                   <Button
                   mr="5px"
+                  my="10px"
                   size="md"
                   _focus={{ outline: "none" }}
                   >

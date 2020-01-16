@@ -21,7 +21,7 @@ const SlackLogin = () => {
         leftIcon={props => <FaSlack size="1.2em" {...props} />}
         onClick={handleRedirect}
         >
-            Lambda Slack Login
+            Login with Slack
         </Button>
     );
 }
