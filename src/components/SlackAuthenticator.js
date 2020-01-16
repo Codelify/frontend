@@ -7,6 +7,7 @@ import { useToast } from "@chakra-ui/core";
 import { navigate } from "@reach/router";
 import { LOGIN_WITH_GOOGLE, CREATE_SNIPPET } from "../graphql/mutation";
 import Spinner from "../components/~common/Spinner";
+import { Box } from "@chakra-ui/core";
 
 export default function SlackAuthenticator(props) {
   const [loginWithSlack] = useMutation(LOGIN_WITH_GOOGLE);
@@ -89,8 +90,8 @@ export default function SlackAuthenticator(props) {
   }, []);
 
   return (
-    <div>
+    <Box mt="250px">
       <Spinner />
-    </div>
+    </Box>
   );
 }
