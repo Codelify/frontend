@@ -69,10 +69,10 @@ const RequestAccess = ({isOpen, onClose})=>{
             </FormControl>
             </ModalBody>
             <ModalFooter>
-                <Button variantColor="teal" mr={3} type="submit">
+                <Button _focus={{ outline: "none" }} variantColor="teal" mr={3} type="submit">
                     Add me to the list
                 </Button>
-                <Button>Cancel</Button>
+                <Button _focus={{ outline: "none" }} onClick={onClose}>Cancel</Button>
                 </ModalFooter>
             </ModalContent>
         </form>

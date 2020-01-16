@@ -10,7 +10,8 @@ import {
   Grid,
   Flex,
   Image,
-  useDisclosure
+  useDisclosure,
+  Stack
 } from "@chakra-ui/core";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -87,22 +88,17 @@ function Landing() {
                 </Button>
                 )}
                 { !isLoggedIn && (
-                  <>
+                  <Stack mx="3px" spacing={4} d="flex" justifyContent="center" isInline>
                   <Button
-                  mr="5px"
-                  my="10px"
                   size="lg"
                   _focus={{ outline: "none" }}
                   onClick={onOpen}
                   >
                     Request Access
                   </Button>
+                  <RequestAccess isOpen={isOpen} onClose={onClose} />
                   <SlackButton />
-
-
-                        <RequestAccess isOpen={isOpen} onClose={onClose} />
-
-                  </>
+                  </Stack>
                 )
                   
                 }
