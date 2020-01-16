@@ -14,10 +14,10 @@ import {
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Container from "../components/Container";
-import GoogleButton from '../components/GoogleButton';
+import GoogleButton from "../components/GoogleButton";
 import { MdBookmark, MdFindInPage, MdDescription } from "react-icons/md";
 import screeShot from "../assets/img/app-shot.png";
-import SlackButton from '../components/SlackButton';
+import SlackButton from "../components/SlackButton";
 
 const Feature = ({ title, icon, children, ...props }) => {
   return (
@@ -71,11 +71,17 @@ function Landing() {
               </Text>
 
               <Box mt="6">
-                <Button mr="10px" size="lg" as="a" variantColor="teal" href="/app" _focus={{outline: 'none'}}>
+                <Button
+                  mr="10px"
+                  size="lg"
+                  as="a"
+                  variantColor="teal"
+                  href="/app"
+                  _focus={{ outline: "none" }}
+                >
                   Get Started
                 </Button>
                 {!isLoggedIn && <SlackButton />}
-               
               </Box>
             </Box>
           </Container>
