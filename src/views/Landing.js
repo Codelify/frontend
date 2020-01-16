@@ -9,7 +9,11 @@ import {
   Button,
   Grid,
   Flex,
-  Image
+  Image,
+  InputGroup,
+  InputLeftElement,
+  Icon,
+  Input,
 } from "@chakra-ui/core";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -55,7 +59,7 @@ function Landing() {
         <Box as="section" pt={40} pb={50}>
           <Header landing={true} />
           <Container>
-            <Box maxW="xl" mx="auto" textAlign="center">
+            <Box maxW="2xl" mx="auto" textAlign="center">
               <Heading as="h1" size="xl" fontWeight="bold">
                 Your
                 <Box as="span" color="teal.500">
@@ -65,22 +69,27 @@ function Landing() {
                 library
               </Heading>
 
-              <Text opacity="0.7" fontSize="md" mt="6">
+              <Text opacity="0.7" fontSize="lg" mt="6">
                 Codelify give developers a central place to easily Store, Manage
                 and Retrieve code snippets they want to keep and reuse.
               </Text>
 
-              <Box mt="6">
-                <Button
-                  mr="10px"
-                  size="lg"
-                  as="a"
-                  variantColor="teal"
-                  href="/app"
-                  _focus={{ outline: "none" }}
-                >
+              {/* <Box mt="6">
+                <Button mr="10px" size="lg" as="a" variantColor="teal" href="/app" _focus={{outline: 'none'}}>
                   Get Started
                 </Button>
+                {!isLoggedIn && <GoogleButton setIsLoggedIn={setIsLoggedIn} />}
+              </Box> */}
+              <Box mt="6">
+                <Button my="10px" mx="10px" size="md" as="a" href="/app" _focus={{outline: 'none'}}>
+                  Request Access
+                </Button>
+                
+                {isLoggedIn && (
+                  <Button mr="10px" size="md" as="a" variantColor="teal" href="/app" _focus={{outline: 'none'}}>
+                    Get Started
+                  </Button>
+                )}
                 {!isLoggedIn && <SlackButton />}
               </Box>
             </Box>
@@ -105,7 +114,7 @@ function Landing() {
           </Box>
         </Container>
 
-        <Container mt="60px">
+        <Container mx="10px" mt="60px">
           <Grid
             templateColumns={{ sm: "repeat(1, 1fr)", md: "repeat(3, 1fr)" }}
             gap={10}
