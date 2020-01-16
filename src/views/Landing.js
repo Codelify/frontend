@@ -81,7 +81,7 @@ function Landing() {
                 >
                   Get Started
                 </Button>
-                {!isLoggedIn && <GoogleButton />}
+                {!isLoggedIn && <SlackButton />}
               </Box>
             </Box>
           </Container>
