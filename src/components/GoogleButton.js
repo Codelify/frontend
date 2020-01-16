@@ -5,18 +5,8 @@ import { Button, useToast } from "@chakra-ui/core";
 import { navigate } from "@reach/router";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
-import { CREATE_SNIPPET } from "../graphql/mutation";
-const LOGIN_WITH_GOOGLE = gql`
-  mutation authWithGoogle($input: RegisterInput!) {
-    authWithGoogle(input: $input) {
-      email
-      token
-      firstName
-      lastName
-      avatar
-    }
-  }
-`;
+import { CREATE_SNIPPET, LOGIN_WITH_GOOGLE } from "../graphql/mutation";
+
 
 export default function GoogleButton() {
   const [login] = useMutation(LOGIN_WITH_GOOGLE);
