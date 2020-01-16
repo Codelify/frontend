@@ -5,11 +5,24 @@ import {
     FormLabel,
     Input,
     FormHelperText,
-    Stack
+    Stack,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+    Button
   } from "@chakra-ui/core";
 
-const RequestAccess = ()=>{
+const RequestAccess = ({isOpen, onClose})=>{
+
     return(
+        <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        <ModalOverlay />
+        <ModalContent py="20px" borderRadius="5px" >
+            <ModalCloseButton _focus={{ outline: "none" }}/>
+            <ModalBody>        
         <FormControl isRequired>
         <Stack spacing={4}>
             <Box>
@@ -25,6 +38,15 @@ const RequestAccess = ()=>{
             </Box>
         </Stack>
         </FormControl>
+        </ModalBody>
+        <ModalFooter>
+            <Button variantColor="teal" mr={3} type="submit">
+                Add me to the list
+            </Button>
+            <Button>Cancel</Button>
+            </ModalFooter>
+        </ModalContent>
+        </Modal>        
     );
 }
 

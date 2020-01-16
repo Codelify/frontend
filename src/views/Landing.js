@@ -10,13 +10,7 @@ import {
   Grid,
   Flex,
   Image,
-  useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
+  useDisclosure
 } from "@chakra-ui/core";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -105,21 +99,9 @@ function Landing() {
                   </Button>
                   <SlackButton />
 
-                  <Modal isOpen={isOpen} onClose={onClose} isCentered>
-                    <ModalOverlay />
-                    <ModalContent borderRadius="5px" >
-                      <ModalCloseButton _focus={{ outline: "none" }}/>
-                      <ModalBody>
-                        <RequestAccess />
-                      </ModalBody>
-                      <ModalFooter>
-                        <Button variantColor="teal" mr={3} onClick={onClose}>
-                          Add me to the list
-                        </Button>
-                        <Button>Cancel</Button>
-                      </ModalFooter>
-                    </ModalContent>
-                  </Modal>
+
+                        <RequestAccess isOpen={isOpen} onClose={onClose} />
+
                   </>
                 )
                   
