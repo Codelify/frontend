@@ -28,7 +28,7 @@ const Default = () => {
 
   //Render filterd Snippets if there are any
   if (state.filteredSnippets) {
-    return <SnippetList dat a={state.filteredSnippets} />;
+    return <SnippetList data={state.filteredSnippets} />;
   }
 
   // Render the list of snippets if their are any
