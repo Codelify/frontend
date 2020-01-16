@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useCallback } from "react";
 import { AppContext } from "../utils/AppProvider";
 import EmptyView from "./EmptyView";
 import SnippetList from "./List";
@@ -12,7 +12,6 @@ const Default = () => {
   const { data, loading } = useQuery(MY_SNIPPETs, {
     variables: { token }
   });
-  console.log(data);
 
   useEffect(() => {
     fetchSnippetsData();

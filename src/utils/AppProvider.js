@@ -8,7 +8,7 @@ const DELETE_SNIPPET = "DELETE_SNIPPET";
 const FILTER_SNIPPETS = "FILTER_SNIPPETS";
 
 const initialState = {
-  snippetsData: null,
+  snippetsData: [],
   filteredSnippets: null
 };
 
@@ -26,7 +26,7 @@ const reducer = (state, { type, payload }) => {
     case ADD_SNIPPET:
       return {
         ...state,
-        snippetsData: state.snippetsData.concat(payload)
+        snippetsData: [payload, ...state.snippetsData]
       };
     case DELETE_SNIPPET:
       return {
