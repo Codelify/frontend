@@ -9,6 +9,7 @@ export const MY_SNIPPETs = gql`
       content
       tags
       sourceUrl
+      createdAt
     }
   }
 `;

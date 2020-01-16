@@ -57,7 +57,8 @@ const Search = () => {
             getItemProps,
             isOpen,
             highlightedIndex,
-            clearSelection
+            clearSelection,
+            clearItems
           }) => (
             <div>
               <InputGroup mx="auto" mt="5px" w="100%">
@@ -76,6 +77,9 @@ const Search = () => {
                     onChange: e => {
                       e.persist();
                       handleOnchange(e);
+                      if (e.target.value.length === 0) {
+                        clearSelection();
+                      }
                     }
                   })}
                   onKeyUp={e => handleOnchange(e)}

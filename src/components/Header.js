@@ -5,18 +5,26 @@ import {
   IconButton,
   useColorMode,
   useDisclosure,
-  Button
+  Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuGroup,
+  MenuItem,
 } from "@chakra-ui/core";
 import NewSnippet from "./NewSnippet";
 import { MdAdd } from "react-icons/md";
 import { FaUserAlt } from "react-icons/fa";
 import Logo from "./Logo";
 import SearchBox from "./SearchBox";
+import { navigate } from "@reach/router";
 
 const AppHeader = props => {
-  // console.log("Mode Landing" + props.landing)
+  const {landing, isLoggedIn} = props
   const { colorMode, toggleColorMode } = useColorMode();
   const bg = { light: "white", dark: "gray.800" };
+
+  const token = window.localStorage.getItem("token");
 
   const [size, setSize] = React.useState("md");
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -27,6 +35,13 @@ const AppHeader = props => {
     onOpen();
     document.getElementById("FiHome").focus();
   };
+
+  const onLogout = () => {
+    // delete token
+    window.localStorage.removeItem("token");
+    // then direct to landing page
+    navigate("/");
+  }
 
   return (
     <Box
@@ -55,10 +70,11 @@ const AppHeader = props => {
             >
               <Logo />
             </Box>
-            {!props.landing && <SearchBox />}
+            {!landing && <SearchBox />}
             <Flex align="center" color="gray.500">
-              {props.landing ? (
-                <Button
+              {landing ? (
+                  isLoggedIn && 
+                  <Button
                   as="a"
                   size="xs"
                   ml={4}
@@ -81,15 +97,30 @@ const AppHeader = props => {
                       handleClick("full");
                     }}
                   />
-                  <IconButton
-                    variant="ghost"
-                    aria-label="Call Sage"
-                    fontSize={["18px", "20px", "20px", "20px"]}
-                    icon={FaUserAlt}
-                    _focus={{
-                      outline: "none"
-                    }}
-                  />
+                  {
+                    token && (
+                    <Menu>
+                      <MenuButton 
+                        variant="ghost" 
+                        as={Button}
+                        _focus={{
+                          outline: "none"
+                        }}
+                        >
+                        <Box as={FaUserAlt} />
+                      </MenuButton>
+                      <MenuList>
+                        <MenuGroup title="Account">
+                          <MenuItem>My Profile</MenuItem>
+                          <MenuItem
+                            onClick={onLogout}
+                          >Logout
+                          </MenuItem>
+                        </MenuGroup>
+                      </MenuList>
+                    </Menu>
+                    )
+                  }
                 </>
               )}
 

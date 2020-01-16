@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const CREATE_SNIPPET = gql`
   mutation snippet($input: SnippetInput!, $token: String!) {
@@ -17,6 +17,38 @@ export const DELETE_SNIPPET = gql`
     deleteSnippet(token: $token, snippetId: $snippetId) {
       status
       message
+    }
+  }
+`;
+
+export const UPDATE_SNIPPET = gql`
+  mutation UpdateSnippet(
+    $snippetId: Int!
+    $snippetInfo: SnippetInput!
+    $token: String!
+  ) {
+    updateSnippet(
+      input: $snippetInfo
+      snippetId: $snippetId
+      token: $token
+    ) {
+      id
+      title
+      description
+      content
+      tags
+    }
+  }
+`;
+
+export const LOGIN_WITH_GOOGLE = gql`
+  mutation authWithGoogle($input: RegisterInput!) {
+    authWithGoogle(input: $input) {
+      email
+      token
+      firstName
+      lastName
+      avatar
     }
   }
 `;
