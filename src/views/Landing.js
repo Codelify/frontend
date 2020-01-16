@@ -74,7 +74,7 @@ function Landing() {
                 {isLoggedIn && (
                   <Button
                   mr="10px"
-                  size="md"
+                  size="lg"
                   as="a"
                   variantColor="teal"
                   href="/app"
@@ -88,7 +88,7 @@ function Landing() {
                   <Button
                   mr="5px"
                   my="10px"
-                  size="md"
+                  size="lg"
                   _focus={{ outline: "none" }}
                   >
                     Request Access
