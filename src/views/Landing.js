@@ -65,15 +65,16 @@ function Landing() {
                 library
               </Heading>
 
-              <Text opacity="0.7" fontSize="md" mt="6">
+              <Text opacity="0.7" fontSize="lg" mt="6">
                 Codelify give developers a central place to easily Store, Manage
                 and Retrieve code snippets they want to keep and reuse.
               </Text>
 
               <Box mt="6">
-                <Button
+                {isLoggedIn && (
+                  <Button
                   mr="10px"
-                  size="lg"
+                  size="md"
                   as="a"
                   variantColor="teal"
                   href="/app"
@@ -81,7 +82,21 @@ function Landing() {
                 >
                   Get Started
                 </Button>
-                {!isLoggedIn && <SlackButton />}
+                )}
+                { !isLoggedIn && (
+                  <>
+                  <Button
+                  mr="5px"
+                  size="md"
+                  _focus={{ outline: "none" }}
+                  >
+                    Request Access
+                  </Button>
+                  <SlackButton />
+                  </>
+                )
+                  
+                }
               </Box>
             </Box>
           </Container>
@@ -105,7 +120,7 @@ function Landing() {
           </Box>
         </Container>
 
-        <Container mt="60px">
+        <Container mx="10px" mt="60px">
           <Grid
             templateColumns={{ sm: "repeat(1, 1fr)", md: "repeat(3, 1fr)" }}
             gap={10}
