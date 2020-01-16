@@ -4,6 +4,8 @@ import Default from "./components/Default";
 import Login from "./components/Login";
 import Landing from "./views/Landing";
 import { Router } from "@reach/router";
+import SlackAuthenticator from './components/SlackAuthenticator'
+
 
 function App() {
   return (
@@ -11,6 +13,7 @@ function App() {
       <Landing path="/" />
       <Login path="/login" />
       <Default exact path="/app" component={Default} />
+      <SlackAuthenticator path="/slack/auth" />
     </Router>
   );
 }

@@ -22,6 +22,7 @@ import GoogleButton from '../components/GoogleButton';
 import SlackLogin from  '../components/SlackLogin'
 import { MdBookmark, MdFindInPage, MdDescription } from "react-icons/md";
 import screeShot from "../assets/img/app-shot.png";
+import SlackButton from '../components/SlackButton';
 
 const Feature = ({ title, icon, children, ...props }) => {
   return (
@@ -85,12 +86,12 @@ function Landing() {
                   Request Access
                 </Button>
                 
-                {!isLoggedIn && <SlackLogin />}
                 {isLoggedIn && (
                   <Button mr="10px" size="md" as="a" variantColor="teal" href="/app" _focus={{outline: 'none'}}>
                     Get Started
                   </Button>
                 )}
+                {!isLoggedIn && <SlackButton />}
               </Box>
             </Box>
           </Container>
