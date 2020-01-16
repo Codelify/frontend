@@ -9,12 +9,20 @@ import {
   Button,
   Grid,
   Flex,
-  Image
+  Image,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
 } from "@chakra-ui/core";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Container from "../components/Container";
-import GoogleButton from '../components/GoogleButton';
+import RequestAccess from '../components/RequestAccess'
+// import GoogleButton from '../components/GoogleButton';
 import { MdBookmark, MdFindInPage, MdDescription } from "react-icons/md";
 import screeShot from "../assets/img/app-shot.png";
 import SlackButton from '../components/SlackButton';
@@ -41,6 +49,7 @@ const Feature = ({ title, icon, children, ...props }) => {
 
 function Landing() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.localStorage.getItem("token")) {
@@ -90,10 +99,27 @@ function Landing() {
                   my="10px"
                   size="lg"
                   _focus={{ outline: "none" }}
+                  onClick={onOpen}
                   >
                     Request Access
                   </Button>
                   <SlackButton />
+
+                  <Modal isOpen={isOpen} onClose={onClose} isCentered>
+                    <ModalOverlay />
+                    <ModalContent borderRadius="5px" >
+                      <ModalCloseButton _focus={{ outline: "none" }}/>
+                      <ModalBody>
+                        <RequestAccess />
+                      </ModalBody>
+                      <ModalFooter>
+                        <Button variantColor="teal" mr={3} onClick={onClose}>
+                          Add me to the list
+                        </Button>
+                        <Button>Cancel</Button>
+                      </ModalFooter>
+                    </ModalContent>
+                  </Modal>
                   </>
                 )
                   
