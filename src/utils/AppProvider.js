@@ -1,4 +1,6 @@
-import React, { useReducer, createContext } from "react";
+import React, { useReducer, createContext, useEffect } from "react";
+import { useQuery } from "@apollo/react-hooks";
+import { MY_SNIPPETs } from "../graphql/query";
 
 const FETCH_SNIPPETS_DATA = "FETCH_SNIPPETS_DATA";
 const ADD_SNIPPET = "ADD_SNIPPET";
@@ -17,7 +19,9 @@ const reducer = (state, { type, payload }) => {
     case FETCH_SNIPPETS_DATA:
       return {
         ...state,
-        snippetsData: payload
+        snippetsData: payload.sort((a, b) => {
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        })
       };
     case ADD_SNIPPET:
       return {
@@ -43,12 +47,31 @@ const reducer = (state, { type, payload }) => {
 
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const token =
+    typeof window !== "undefined" && window.localStorage.getItem("token");
+  const { data, loading } = useQuery(MY_SNIPPETs, {
+    variables: { token }
+  });
+
+  useEffect(() => {
+    fetchSnippetsData();
+  }, [data]);
+
+  const fetchSnippetsData = async () => {
+    try {
+      const { getAuthUserSnippets } = await data;
+
+      dispatch({ type: FETCH_SNIPPETS_DATA, payload: getAuthUserSnippets });
+    } catch (error) {
+      //console.warn(error);
+    }
+  };
 
   const setFilteredSnippets = filteredSnippets => {
     dispatch({ type: FILTER_SNIPPETS, payload: filteredSnippets });
   };
 
-  const value = { state, dispatch, setFilteredSnippets };
+  const value = { state, loading, dispatch, setFilteredSnippets };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

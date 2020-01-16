@@ -12,6 +12,7 @@ const Default = () => {
   const { data, loading } = useQuery(MY_SNIPPETs, {
     variables: { token }
   });
+  console.log(data);
 
   useEffect(() => {
     fetchSnippetsData();
