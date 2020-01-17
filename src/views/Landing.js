@@ -125,7 +125,8 @@ function Landing() {
           </Box>
         </Container>
 
-        <Container mx="10px" mt="60px">
+        <Container mt="60px">
+          <Box mx="10px">
           <Grid
             templateColumns={{ sm: "repeat(1, 1fr)", md: "repeat(3, 1fr)" }}
             gap={10}
@@ -146,6 +147,7 @@ function Landing() {
               anytime
             </Feature>
           </Grid>
+          </Box>
         </Container>
         <Footer />
       </Box>
