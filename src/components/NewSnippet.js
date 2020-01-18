@@ -26,10 +26,10 @@ import theme from "prism-react-renderer/themes/nightOwl";
 import { navigate } from "@reach/router";
 import { useMutation } from "@apollo/react-hooks";
 import { CREATE_SNIPPET } from "../graphql/mutation";
+import { MY_SNIPPETs } from "../graphql/query";
 
 const NewSnippet = props => {
   const { isOpen, onClose, firstField, btnRef, size } = props;
-  const { dispatch } = useContext(AppContext);
 
   const initialFormValues = {
     sourceUrl: "",
@@ -39,10 +39,20 @@ const NewSnippet = props => {
 
   const toastin = useToast();
 
-  const [createSnippet] = useMutation(CREATE_SNIPPET);
+  const updateCache = (cache, { data: { createSnippet } }) => {
+    const { getAuthUserSnippets } = cache.readQuery({ query: MY_SNIPPETs, variables: { token: localStorage.getItem('token')} });
+    cache.writeQuery({
+      query: MY_SNIPPETs,
+      data: {
+        getAuthUserSnippets: getAuthUserSnippets.concat(createSnippet),
+      },
+    });
+  }
+
+  const [createSnippet] = useMutation(CREATE_SNIPPET, { update: updateCache });
 
   const handleSubmit = async () => {
-    console.dir(formData);
+   
     const snippetData = { ...formData, content: code };
     const token =
       (typeof window !== "undefined" && window.localStorage.getItem("token")) ||
@@ -55,14 +65,6 @@ const NewSnippet = props => {
     } else {
       const { data, error } = await createSnippet({ variables });
       if (data) {
-        dispatch({
-          type: "ADD_SNIPPET",
-          payload: {
-            ...data.createSnippet,
-            title: formData.title,
-            tags: formData.tags
-          }
-        });
         onClose(false);
         toastin({
           position: "top-right",
@@ -72,7 +74,8 @@ const NewSnippet = props => {
           duration: 9000,
           isClosable: true
         });
-        navigate("/app");
+        // navigate("/app");
+        window.location.reload();
       }
       if (error) {
         toastin({
