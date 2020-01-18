@@ -1,4 +1,5 @@
 import React, { useState} from 'react';
+import axios from 'axios'
 import {
     Box,
     FormControl,
@@ -14,6 +15,7 @@ import {
     ModalCloseButton,
     Button,
 } from "@chakra-ui/core";
+import config from '../utils/config'
 
 const RequestAccess = ({isOpen, onClose})=>{
     const [formData, setFormData] = useState({});
@@ -21,7 +23,49 @@ const RequestAccess = ({isOpen, onClose})=>{
     const onSubmit = (event) => {
         event.preventDefault();
         console.dir(formData)
+        axios({
+            method: 'post',
+            url: `https://usX.api.mailchimp.com/3.0/lists`,
+            user: {"anystring": config.mailchimp.apiKey},
+            header: 'content-type: application/json',
+            data: {
+                "email_address": formData.email,
+                "status": "subscribed",
+                "merge_fields": {
+                    "FULLNAME": formData.fullname,
+                }
+            }
+        })
+        .then(function(response) {
+            console.log("data" + response.data);
+            console.log("status" + response.status);
+            console.log("statusText" + response.statusText);
+            console.log("headers" + response.headers);
+            console.log("config" + response.config);
+        })  
+        .catch(function (error) {
+        if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            console.log(error.request);
+        } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', error.message);
+        }
+        console.log(error.config);
+        });
     }
+
+
+
+    
 
     const handleChange = ({ target: { name, value } }) => {
         setFormData(prevState => ({
@@ -41,9 +85,9 @@ const RequestAccess = ({isOpen, onClose})=>{
             <FormControl isRequired>
             <Stack spacing={4}>
                 <Box>
-                    <FormLabel htmlFor="full-name">Full name</FormLabel>
+                    <FormLabel htmlFor="fullname">Full name</FormLabel>
                     <Input 
-                    name="full-name" 
+                    name="fullname" 
                     focusBorderColor="#319795" 
                     id="fname" 
                     placeholder="Dan Abramov" 
