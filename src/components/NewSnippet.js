@@ -233,7 +233,6 @@ const a = 10;
                     return (
                       <Tag
                         id={index}
-                        size={size}
                         key={index}
                         variant="solid"
                         variantColor="teal"
