@@ -14,9 +14,6 @@ import styled from "styled-components";
 
 const SnippetLink = ({ id, url, handleUpdate, handleEdit, styledEdit }) => {
   const [show, setShow] = useState(false);
-  const [costumHtml] = useState(
-    url ? `<p class="test">${url}</p>` : `<p>Add Link</p>`
-  );
 
   const handleToggle = newShow => {
     setShow(newShow);
@@ -28,14 +25,27 @@ const SnippetLink = ({ id, url, handleUpdate, handleEdit, styledEdit }) => {
     handleToggle(false);
   };
 
+  const linkId = `link_${id}`;
+  const costumHtml = url ? url : `Add Link`;
+
   return (
-    <Box>
+    <>
       <Flex align="center">
+        {url && (
+          <Box mr="20px">
+            {
+              <Link color="teal.500" href={url} isExternal disabled={true}>
+                Link <Icon name="link" mx="2px" />
+              </Link>
+            }
+          </Box>
+        )}
+
         <CostumEditable
-          onChange={e => handleEdit(e, "link")}
+          onChange={e => handleEdit(e, "sourceUrl")}
           html={costumHtml}
           disabled={false}
-          id={id}
+          id={linkId}
           onBlur={e => handleBlur(e)}
           onClick={() => {
             handleToggle(true);
@@ -45,21 +55,19 @@ const SnippetLink = ({ id, url, handleUpdate, handleEdit, styledEdit }) => {
             outline: "none"
           }}
         />
-
-        {/* <Icon name="edit" ml="20px" onClick={() => handleToggle(true)} /> */}
-        <Link color="teal.500" href={url} isExternal>
-          <Icon name="link" ml="10px" />
-        </Link>
       </Flex>
       <Collapse mt={0} isOpen={show}>
         <ButtonGroup mb="10px" justifyContent="center" size="sm">
-          <Button variantColor="teal" onMouseDown={() => handleUpdate("link")}>
+          <Button
+            variantColor="teal"
+            onMouseDown={() => handleUpdate("sourceUrl")}
+          >
             Save
           </Button>
           <IconButton icon="close" />
         </ButtonGroup>
       </Collapse>
-    </Box>
+    </>
   );
 };
 
@@ -67,6 +75,6 @@ export default SnippetLink;
 
 const CostumEditable = styled(ContentEditable)`
   .test {
-    color: red;
+    font-style: italic;
   }
 `;

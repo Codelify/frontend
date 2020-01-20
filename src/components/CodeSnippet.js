@@ -75,9 +75,8 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
     console.log(typeOfAction);
     const costumObject = {};
     //construct costum object for every case for not repeting the mutation of each field
-    if (typeOfAction === "link") {
-      console.log(typeOfAction);
-      return;
+    if (typeOfAction === "sourceUrl") {
+      costumObject[typeOfAction] = linkToUpdate;
     }
     if (typeOfAction === "title") {
       costumObject[typeOfAction] = titleToUpdate;
@@ -106,6 +105,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
   const handleEdit = (event, typeOfAction) => {
     // Case we update the code from Live Provider
     // event from LiveProvider its comming as a string in transformCode prop
+    console.log(event);
     if (typeof event === "string") {
       setContentToUpdate(event);
     }
@@ -120,12 +120,11 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
       case "description":
         setDescroptionToUpdate(state);
         break;
-      case "link":
+      case "sourceUrl":
         setLinkToUpdate(state);
         console.log(linkToUpdate);
-        break;
       default:
-        return;
+        return state;
     }
   };
 
