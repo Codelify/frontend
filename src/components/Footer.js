@@ -9,7 +9,7 @@ import lambda from "../assets/img/Lambda-png.png"
 
 const Footer = () => {
     return(
-        <Box textAlign="center" pt="20px" pb="10" fontSize="xs">
+        <Box textAlign="center" py="60px" fontSize="xs">
             <Flex align="center" justify="center">
             <Text >
             Built during 

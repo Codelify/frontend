@@ -19,7 +19,8 @@ import {
   useToast,
   Tag,
   TagLabel,
-  TagCloseButton
+  TagCloseButton,
+  Heading
 } from "@chakra-ui/core";
 import { LiveProvider, LiveEditor } from "react-live";
 import theme from "prism-react-renderer/themes/nightOwl";
@@ -171,7 +172,10 @@ const a = 10;
           color="#319795"
           mb="30px"
         >
+          <Heading>
           Create a new Snippet
+          </Heading>
+          
         </DrawerHeader>
 
         <DrawerBody>
@@ -229,7 +233,6 @@ const a = 10;
                     return (
                       <Tag
                         id={index}
-                        size={size}
                         key={index}
                         variant="solid"
                         variantColor="teal"
@@ -254,14 +257,9 @@ const a = 10;
                     );
                   })}
               </Stack>
-
-
-
-
                 <Input
                   id="tags"
-                  w="200px"
-                  placeholder="Add a tag"
+                  placeholder="Add tags (Press Enter or Comma for multiple tags)"
                   focusBorderColor="none"
                   borderWidth="0px"
                   background="none"
