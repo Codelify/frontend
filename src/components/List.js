@@ -5,18 +5,19 @@ import MainLayout from "../views/layout";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 const SnippetList = props => {
-  const [snippetPerPage, setSnippetsPerPage] = useState(3);
+  const [snippetPerPage, setSnippetsPerPage] = useState(4);
   const [hasMore, setHasMore] = useState(true);
   const { data } = props;
   const dataToRender = data.slice(0, snippetPerPage);
-  console.log("Data to Render", dataToRender);
 
+  //fetch more snippets from database
   const fetchMoreData = () => {
     if (dataToRender.length === data.length) {
       setHasMore(false);
     }
+    //simulate loading/fetch snippets from database
     setTimeout(() => {
-      setSnippetsPerPage(snippetPerPage + 3);
+      setSnippetsPerPage(snippetPerPage + 4);
     }, 500);
   };
   return (
@@ -29,7 +30,14 @@ const SnippetList = props => {
           loader={<h4>Loading...</h4>}
           endMessage={
             <p style={{ textAlign: "center" }}>
-              <b>Yay! You have seen all Snippets 👋</b>
+              {dataToRender.length > 4 && (
+                <b>
+                  Yay! You have seen all your Snippets{" "}
+                  <span role="img" aria-label="wave">
+                    👋
+                  </span>
+                </b>
+              )}
             </p>
           }
         >
