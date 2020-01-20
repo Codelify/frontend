@@ -21,11 +21,12 @@ import {
   useToast
 } from "@chakra-ui/core";
 import SnippetHeading from "./SnippetHeading";
+import SnippetLink from "./SnippetLink";
+import SnippetContent from "./SnippetContent";
 import Description from "./SnippetDescription";
 import { MdDelete, MdMoreHoriz } from "react-icons/md";
 import { useMutation } from "@apollo/react-hooks";
 import { DELETE_SNIPPET, UPDATE_SNIPPET } from "../graphql/mutation";
-import SnippetContent from "./SnippetContent";
 
 const CodeSnippet = ({ title, id, description, url, tags, content }) => {
   //moved ControlButtons in each filed - so we can know whitch field user wants to update
@@ -40,6 +41,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
   const [titleToUpdate, setTitleToUpdate] = useState(title);
   const [descriptionToUpdate, setDescroptionToUpdate] = useState(description);
   const [contentToUpdate, setContentToUpdate] = useState(content);
+  const [linkToUpdate, setLinkToUpdate] = useState(url);
   const { dispatch } = useContext(AppContext);
   const [deleteSnippet] = useMutation(DELETE_SNIPPET);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -70,8 +72,13 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
     }
   };
   const handleUpdate = async typeOfAction => {
+    console.log(typeOfAction);
     const costumObject = {};
     //construct costum object for every case for not repeting the mutation of each field
+    if (typeOfAction === "link") {
+      console.log(typeOfAction);
+      return;
+    }
     if (typeOfAction === "title") {
       costumObject[typeOfAction] = titleToUpdate;
     }
@@ -113,6 +120,10 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
       case "description":
         setDescroptionToUpdate(state);
         break;
+      case "link":
+        setLinkToUpdate(state);
+        console.log(linkToUpdate);
+        break;
       default:
         return;
     }
@@ -146,13 +157,14 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
             styledEdit={styledEdit}
             handleUpdate={handleUpdate}
           />
-          <Box>
-            {url && (
-              <Link color="teal.500" href={url} isExternal>
-                Link <Icon name="external-link" mx="2px" />
-              </Link>
-            )}
-          </Box>
+          <SnippetLink
+            id={id}
+            url={url}
+            handleUpdate={handleUpdate}
+            styledEdit={styledEdit}
+            handleEdit={handleEdit}
+          />
+
           <Stack justify="flex-start" isInline>
             {tags &&
               tags.map((tag, index) => {
