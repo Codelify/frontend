@@ -6,12 +6,17 @@ import {
   Icon,
   ButtonGroup,
   Button,
-  IconButton
+  IconButton,
+  Flex
 } from "@chakra-ui/core";
 import ContentEditable from "react-contenteditable";
+import styled from "styled-components";
 
 const SnippetLink = ({ id, url, handleUpdate, handleEdit, styledEdit }) => {
   const [show, setShow] = useState(false);
+  const [costumHtml] = useState(
+    url ? `<p class="test">${url}</p>` : `<p>Add Link</p>`
+  );
 
   const handleToggle = newShow => {
     setShow(newShow);
@@ -22,30 +27,30 @@ const SnippetLink = ({ id, url, handleUpdate, handleEdit, styledEdit }) => {
     document.getElementById(event.target.id).classList.remove("edited-div");
     handleToggle(false);
   };
+
   return (
     <Box>
-      <ContentEditable
-        onChange={e => handleEdit(e, "link")}
-        html={url}
-        disabled={false}
-        id={id}
-        onBlur={e => handleBlur(e)}
-        onClick={() => {
-          handleToggle(true);
-        }}
-        onFocus={styledEdit}
-        style={{
-          outline: "none"
-        }}
-      />
-      {/* {url ? (
+      <Flex align="center">
+        <CostumEditable
+          onChange={e => handleEdit(e, "link")}
+          html={costumHtml}
+          disabled={false}
+          id={id}
+          onBlur={e => handleBlur(e)}
+          onClick={() => {
+            handleToggle(true);
+          }}
+          onFocus={styledEdit}
+          style={{
+            outline: "none"
+          }}
+        />
+
+        {/* <Icon name="edit" ml="20px" onClick={() => handleToggle(true)} /> */}
         <Link color="teal.500" href={url} isExternal>
-          Link <Icon name="link" mx="2px" />
+          <Icon name="link" ml="10px" />
         </Link>
-      ) : (
-        
-       <Icon name="edit" mx="2px" onClick={handleToggle(true)} />
-      )} */}
+      </Flex>
       <Collapse mt={0} isOpen={show}>
         <ButtonGroup mb="10px" justifyContent="center" size="sm">
           <Button variantColor="teal" onMouseDown={() => handleUpdate("link")}>
@@ -59,3 +64,9 @@ const SnippetLink = ({ id, url, handleUpdate, handleEdit, styledEdit }) => {
 };
 
 export default SnippetLink;
+
+const CostumEditable = styled(ContentEditable)`
+  .test {
+    color: red;
+  }
+`;

@@ -159,7 +159,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
           />
           <SnippetLink
             id={id}
-            url={url}
+            url={linkToUpdate}
             handleUpdate={handleUpdate}
             styledEdit={styledEdit}
             handleEdit={handleEdit}
