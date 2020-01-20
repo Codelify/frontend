@@ -26,7 +26,7 @@ const SnippetLink = ({ id, url, handleUpdate, handleEdit, styledEdit }) => {
   };
 
   const linkId = `link_${id}`;
-  const costumHtml = url ? url : `Add Link`;
+  //const costumHtml = url && `${url.slice(0, 15)} ...`;
 
   return (
     <>
@@ -43,7 +43,7 @@ const SnippetLink = ({ id, url, handleUpdate, handleEdit, styledEdit }) => {
 
         <CostumEditable
           onChange={e => handleEdit(e, "sourceUrl")}
-          html={costumHtml}
+          html={url}
           disabled={false}
           id={linkId}
           onBlur={e => handleBlur(e)}
