@@ -16,11 +16,12 @@ import {
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Container from "../components/Container";
-import RequestAccess from '../components/RequestAccess'
-// import GoogleButton from '../components/GoogleButton';
+import RequestAccess from "../components/RequestAccess";
+import GoogleButton from "../components/GoogleButton";
 import { MdBookmark, MdFindInPage, MdDescription } from "react-icons/md";
 import screeShot from "../assets/img/app-shot.png";
-import SlackButton from '../components/SlackButton';
+import SlackButton from "../components/SlackButton";
+import GoogleLogin from "react-google-login";
 
 const Feature = ({ title, icon, children, ...props }) => {
   return (
@@ -77,31 +78,35 @@ function Landing() {
               <Box mt="6">
                 {isLoggedIn && (
                   <Button
-                  mr="10px"
-                  size="lg"
-                  as="a"
-                  variantColor="teal"
-                  href="/app"
-                  _focus={{ outline: "none" }}
-                >
-                  Get Started
-                </Button>
-                )}
-                { !isLoggedIn && (
-                  <Stack mx="3px" spacing={4} d="flex" justifyContent="center" isInline>
-                  <Button
-                  size="lg"
-                  _focus={{ outline: "none" }}
-                  onClick={onOpen}
+                    mr="10px"
+                    size="lg"
+                    as="a"
+                    variantColor="teal"
+                    href="/app"
+                    _focus={{ outline: "none" }}
                   >
-                    Request Access
+                    Get Started
                   </Button>
-                  <RequestAccess isOpen={isOpen} onClose={onClose} />
-                  <SlackButton />
+                )}
+                {!isLoggedIn && (
+                  <Stack
+                    mx="3px"
+                    spacing={4}
+                    d="flex"
+                    justifyContent="center"
+                    isInline
+                  >
+                    <Button
+                      size="lg"
+                      _focus={{ outline: "none" }}
+                      onClick={onOpen}
+                    >
+                      Request Access
+                    </Button>
+                    <RequestAccess isOpen={isOpen} onClose={onClose} />
+                    <SlackButton />
                   </Stack>
-                )
-                  
-                }
+                )}
               </Box>
             </Box>
           </Container>
@@ -127,26 +132,26 @@ function Landing() {
 
         <Container mt="60px">
           <Box mx="10px">
-          <Grid
-            templateColumns={{ sm: "repeat(1, 1fr)", md: "repeat(3, 1fr)" }}
-            gap={10}
-            px={{ md: 12 }}
-          >
-            <Feature icon={MdBookmark} title="Store">
-              Code Snippets are everywhere in the developer info stream, on
-              twitter, stack overflow, tutorials, medium/blog articles ...
-              Codelify is the best place to store them all.
-            </Feature>
-            <Feature icon={MdDescription} title="Manage">
-              Describe your snippets, assign meaningful Tags to each each of
-              them, add the URL for context and futur reference.
-            </Feature>
-            <Feature icon={MdFindInPage} title="Retrieve">
-              Easily retrieve any snippets with a built in search engine based
-              on Snippets Tags and description... So they you can reuse them
-              anytime
-            </Feature>
-          </Grid>
+            <Grid
+              templateColumns={{ sm: "repeat(1, 1fr)", md: "repeat(3, 1fr)" }}
+              gap={10}
+              px={{ md: 12 }}
+            >
+              <Feature icon={MdBookmark} title="Store">
+                Code Snippets are everywhere in the developer info stream, on
+                twitter, stack overflow, tutorials, medium/blog articles ...
+                Codelify is the best place to store them all.
+              </Feature>
+              <Feature icon={MdDescription} title="Manage">
+                Describe your snippets, assign meaningful Tags to each each of
+                them, add the URL for context and futur reference.
+              </Feature>
+              <Feature icon={MdFindInPage} title="Retrieve">
+                Easily retrieve any snippets with a built in search engine based
+                on Snippets Tags and description... So they you can reuse them
+                anytime
+              </Feature>
+            </Grid>
           </Box>
         </Container>
         <Footer />
