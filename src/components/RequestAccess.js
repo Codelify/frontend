@@ -25,23 +25,23 @@ const RequestAccess = ({isOpen, onClose})=>{
         console.dir(formData)
         axios({
             method: 'post',
-            url: `https://usX.api.mailchimp.com/3.0/lists`,
-            user: {"anystring": config.mailchimp.apiKey},
-            header: 'content-type: application/json',
+            url: `https://api.moosend.com/v3/subscribers/${config.mooSend.listId}/subscribe.json?apikey=${config.mooSend.apiKey}`,
+            //user: {"anystring": config.mailchimp.apiKey},
+            headers: {
+                "Content-Type":'application/json',
+                "Accept":'application/json'
+            },
             data: {
-                "email_address": formData.email,
-                "status": "subscribed",
-                "merge_fields": {
-                    "FULLNAME": formData.fullname,
-                }
+                "Email": formData.email,
+                "Name": formData.fullname,
             }
         })
         .then(function(response) {
-            console.log("data" + response.data);
-            console.log("status" + response.status);
-            console.log("statusText" + response.statusText);
-            console.log("headers" + response.headers);
-            console.log("config" + response.config);
+            console.log(response.data);
+            // console.log("status " + response.status);
+            // console.log("statusText " + response.statusText);
+            // console.log("headers " + response.headers);
+            // console.log("config " + response.config);
         })  
         .catch(function (error) {
         if (error.response) {
