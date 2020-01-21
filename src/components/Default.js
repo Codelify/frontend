@@ -1,17 +1,17 @@
-import React, { useContext, useEffect, useCallback } from "react";
+import React, { useContext, useEffect } from "react";
 import { AppContext } from "../utils/AppProvider";
 import EmptyView from "./EmptyView";
 import SnippetList from "./List";
-import { useQuery, useApolloClient } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import { MY_SNIPPETs } from "../graphql/query";
 
 const Default = () => {
   const { state, dispatch } = useContext(AppContext);
+
   const token =
     typeof window !== "undefined" && window.localStorage.getItem("token");
   const { data, loading } = useQuery(MY_SNIPPETs, {
     variables: { token },
-    notifyOnNetworkStatusChange: true
   });
 
   useEffect(() => {

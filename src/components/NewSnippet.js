@@ -1,5 +1,5 @@
-import React, { useState, useContext, useEffect } from "react";
-import { AppContext } from "../utils/AppProvider";
+import React, { useState, useEffect } from "react";
+//import { AppContext } from "../utils/AppProvider";
 import {
   Box,
   Flex,
@@ -27,23 +27,38 @@ import theme from "prism-react-renderer/themes/nightOwl";
 import { navigate } from "@reach/router";
 import { useMutation } from "@apollo/react-hooks";
 import { CREATE_SNIPPET } from "../graphql/mutation";
+import { MY_SNIPPETs } from "../graphql/query";
 
 const NewSnippet = props => {
   const { isOpen, onClose, firstField, btnRef, size } = props;
-  const { dispatch } = useContext(AppContext);
+  // const { dispatch } = useContext(AppContext);
 
   const initialFormValues = {
     sourceUrl: "",
     description: "",
     title: ""
   };
-
   const toastin = useToast();
 
-  const [createSnippet] = useMutation(CREATE_SNIPPET);
+  //Not sure why updateCache function is not working - from doc this is the fastest way to update the cache
+  // const updateCache = (cache, { data: { createSnippet } }) => {
+  //   console.log(createSnippet);
+  //   const { getAuthUserSnippets } = client.cache.readQuery({
+  //     query: MY_SNIPPETs,
+  //     variables: { token: localStorage.getItem("token") }
+  //   });
+  //   client.cache.writeQuery({
+  //     query: MY_SNIPPETs,
+  //     variables: { token: localStorage.getItem("token") },
+  //     data: {
+  //       //getAuthUserSnippets: getAuthUserSnippets.concat(createSnippet)
+  //       getAuthUserSnippets: [...getAuthUserSnippets, createSnippet]
+  //     }
+  //   });
+  // };
 
+  const [createSnippet] = useMutation(CREATE_SNIPPET);
   const handleSubmit = async () => {
-    console.dir(formData);
     const snippetData = { ...formData, content: code };
     const token =
       (typeof window !== "undefined" && window.localStorage.getItem("token")) ||
@@ -54,9 +69,12 @@ const NewSnippet = props => {
       onClose(false);
       navigate("/login");
     } else {
-      const { data, error } = await createSnippet({ variables });
+      const { data, error } = await createSnippet({
+        variables,
+        refetchQueries: [{ query: MY_SNIPPETs, variables: variables }]
+      });
       if (data) {
-        console.log(data);
+        //console.log(data);
         // dispatch({
         //   type: "ADD_SNIPPET",
         //   payload: {
