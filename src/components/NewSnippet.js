@@ -56,14 +56,15 @@ const NewSnippet = props => {
     } else {
       const { data, error } = await createSnippet({ variables });
       if (data) {
-        dispatch({
-          type: "ADD_SNIPPET",
-          payload: {
-            ...data.createSnippet,
-            title: formData.title,
-            tags: formData.tags
-          }
-        });
+        console.log(data);
+        // dispatch({
+        //   type: "ADD_SNIPPET",
+        //   payload: {
+        //     ...data.createSnippet,
+        //     title: formData.title,
+        //     tags: formData.tags
+        //   }
+        // });
         onClose(false);
         toastin({
           position: "top-right",
@@ -110,11 +111,15 @@ const a = 10;
   };
 
   const styledEdit = event => {
-    document.getElementById(event.target.parentElement.id).classList.add("edited-div");
+    document
+      .getElementById(event.target.parentElement.id)
+      .classList.add("edited-div");
   };
 
   const handleBlur = event => {
-    document.getElementById(event.target.parentElement.id).classList.remove("edited-div");
+    document
+      .getElementById(event.target.parentElement.id)
+      .classList.remove("edited-div");
   };
 
   // specfifid function to managed entered tags
@@ -172,10 +177,7 @@ const a = 10;
           color="#319795"
           mb="30px"
         >
-          <Heading>
-          Create a new Snippet
-          </Heading>
-          
+          <Heading>Create a new Snippet</Heading>
         </DrawerHeader>
 
         <DrawerBody>
@@ -216,56 +218,55 @@ const a = 10;
                   />
                 </InputGroup>
               </Box>
-
-              <Box >
+              <Box>
                 <FormLabel htmlFor="tags-box">Tags</FormLabel>
-                <Flex 
-                  flexWrap="wrap" 
-                  borderRadius="5px" 
+                <Flex
+                  flexWrap="wrap"
+                  borderRadius="5px"
                   borderWidth="1px"
                   id="tags-box"
                   onFocus={styledEdit}
                   onBlur={handleBlur}
                 >
-                <Stack flexWrap="wrap" justify="flex-start" isInline>
-                {tags &&
-                  tags.map((tag, index) => {
-                    return (
-                      <Tag
-                        id={index}
-                        key={index}
-                        variant="solid"
-                        variantColor="teal"
-                        mx="3px"
-                        my="3px"
-                        paddingY="3px"
-                        _focus={{
-                          outline: "none"
-                        }}
-                      >
-                        <TagLabel paddingX="10px">{tag}</TagLabel>
-                        <TagCloseButton
-                          _focus={{
-                            outline: "none"
-                          }}
-                          onClick={() => {
-                            handleDeleteTag(index);
-                          }}
-                          mx="5px"
-                        />
-                      </Tag>
-                    );
-                  })}
-              </Stack>
-                <Input
-                  id="tags"
-                  placeholder="Add tags (Press Enter or Comma for multiple tags)"
-                  focusBorderColor="none"
-                  borderWidth="0px"
-                  background="none"
-                  name="tags"
-                  onKeyUp={handleAddTags}
-                />
+                  <Stack flexWrap="wrap" justify="flex-start" isInline>
+                    {tags &&
+                      tags.map((tag, index) => {
+                        return (
+                          <Tag
+                            id={index}
+                            key={index}
+                            variant="solid"
+                            variantColor="teal"
+                            mx="3px"
+                            my="3px"
+                            paddingY="3px"
+                            _focus={{
+                              outline: "none"
+                            }}
+                          >
+                            <TagLabel paddingX="10px">{tag}</TagLabel>
+                            <TagCloseButton
+                              _focus={{
+                                outline: "none"
+                              }}
+                              onClick={() => {
+                                handleDeleteTag(index);
+                              }}
+                              mx="5px"
+                            />
+                          </Tag>
+                        );
+                      })}
+                  </Stack>
+                  <Input
+                    id="tags"
+                    placeholder="Add tags (Press Enter or Comma for multiple tags)"
+                    focusBorderColor="none"
+                    borderWidth="0px"
+                    background="none"
+                    name="tags"
+                    onKeyUp={handleAddTags}
+                  />
                 </Flex>
               </Box>{" "}
               <Box>
