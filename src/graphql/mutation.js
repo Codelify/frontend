@@ -4,6 +4,8 @@ export const CREATE_SNIPPET = gql`
   mutation snippet($input: SnippetInput!, $token: String!) {
     createSnippet(input: $input, token: $token) {
       id
+      title
+      tags
       uid
       content
       sourceUrl
