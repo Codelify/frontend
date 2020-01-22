@@ -7,5 +7,9 @@ export default {
   mailchimp:{
     apiKey: process.env.REACT_APP_MAILCHIMP_API_KEY,
     audienceId: process.env.REACT_APP_MAILCHIMP_AUDIENCE_ID,
+  },
+  mooSend:{
+    apiKey: process.env.REACT_APP_MOOSEND_API_KEY,
+    listId: process.env.REACT_APP_MOOSEND_LIST_ID,
   }
 };
