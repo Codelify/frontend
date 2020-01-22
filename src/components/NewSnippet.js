@@ -43,11 +43,11 @@ const NewSnippet = props => {
   //Not sure why updateCache function is not working - from doc this is the fastest way to update the cache
   // const updateCache = (cache, { data: { createSnippet } }) => {
   //   console.log(createSnippet);
-  //   const { getAuthUserSnippets } = client.cache.readQuery({
+  //   const { getAuthUserSnippets } = cache.readQuery({
   //     query: MY_SNIPPETs,
   //     variables: { token: localStorage.getItem("token") }
   //   });
-  //   client.cache.writeQuery({
+  //   cache.writeQuery({
   //     query: MY_SNIPPETs,
   //     variables: { token: localStorage.getItem("token") },
   //     data: {
@@ -57,7 +57,8 @@ const NewSnippet = props => {
   //   });
   // };
 
-  const [createSnippet] = useMutation(CREATE_SNIPPET);
+  const [createSnippet, data] = useMutation(CREATE_SNIPPET);
+  console.log(data.loading);
   const handleSubmit = async () => {
     const snippetData = { ...formData, content: code };
     const token =
@@ -92,7 +93,7 @@ const NewSnippet = props => {
           duration: 9000,
           isClosable: true
         });
-        navigate("/app");
+        data.loading && navigate("/app");
       }
       if (error) {
         toastin({
@@ -326,7 +327,12 @@ const a = 10;
             <Button variant="outline" mr={13} onClick={onClose}>
               Cancel
             </Button>
-            <Button onClick={handleSubmit} variantColor="teal" mr={35}>
+            <Button
+              onClick={handleSubmit}
+              variantColor="teal"
+              mr={35}
+              isLoading={data.loading}
+            >
               Submit
             </Button>
           </Flex>
