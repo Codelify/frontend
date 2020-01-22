@@ -23,13 +23,14 @@ const RequestAccess = ({isOpen, onClose})=>{
     const [ formData, setFormData ] = useState({});
     const [ success, setSuccess ] = useState(false);
     const [ error, setError ] = useState(false);
+    const [ isLoading, setIsLoading ] = useState(false)
 
     const onSubmit = (event) => {
         event.preventDefault();
+        setIsLoading(true)
         const params = {
             method: 'post',
             url: `https://api.moosend.com/v3/subscribers/${config.mooSend.listId}/subscribe.json?apikey=${config.mooSend.apiKey}`,
-            //user: {"anystring": config.mailchimp.apiKey},
             headers: {
                 "Content-Type":'application/json',
                 "Accept":'application/json'
@@ -41,12 +42,14 @@ const RequestAccess = ({isOpen, onClose})=>{
         };
         axios(params)
         .then(function(response) {
+            setIsLoading(false);
             if(response.data.Error){
                 setError(true)
             }
             else setSuccess(true)
         })  
         .catch(function (error) {
+            setIsLoading(false)
             if(error.response || error.request ) {
                 setError(true)
             }
@@ -125,7 +128,14 @@ const RequestAccess = ({isOpen, onClose})=>{
                     !success &&
                     (
                         <>
-                        <Button _focus={{ outline: "none" }} variantColor="teal" mr={3} type="submit">
+                        <Button 
+                        _focus={{ outline: "none" }} 
+                        variantColor="teal" 
+                        mr={3} 
+                        type="submit"
+                        isLoading={isLoading}
+                        loadingText="Submitting"
+                        >
                         Add me to the list
                         </Button>
                         <Button _focus={{ outline: "none" }} onClick={onClose}>Cancel</Button>    
