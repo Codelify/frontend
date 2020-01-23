@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { AppContext } from "../utils/AppProvider";
+import React, { useState } from "react";
+//import { AppContext } from "../utils/AppProvider";
 import {
   Box,
   Flex,
@@ -25,6 +25,7 @@ import Description from "./SnippetDescription";
 import { MdDelete, MdMoreHoriz } from "react-icons/md";
 import { useMutation } from "@apollo/react-hooks";
 import { DELETE_SNIPPET, UPDATE_SNIPPET } from "../graphql/mutation";
+import { MY_SNIPPETs } from "../graphql/query";
 import SnippetContent from "./SnippetContent";
 
 const CodeSnippet = ({ title, id, description, url, tags, content }) => {
@@ -40,11 +41,10 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
   const [titleToUpdate, setTitleToUpdate] = useState(title);
   const [descriptionToUpdate, setDescroptionToUpdate] = useState(description);
   const [contentToUpdate, setContentToUpdate] = useState(content);
-  const { dispatch } = useContext(AppContext);
-  const [deleteSnippet] = useMutation(DELETE_SNIPPET);
+  //const { dispatch } = useContext(AppContext);
+  const [deleteSnippet, data] = useMutation(DELETE_SNIPPET);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
-
   const toast = useToast();
   const handleDelete = async () => {
     const token =
@@ -52,10 +52,12 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
     if (token) {
       try {
         const { data } = await deleteSnippet({
-          variables: { snippetId: id, token }
+          variables: { snippetId: id, token },
+          refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
         });
-        dispatch({ type: "DELETE_SNIPPET", payload: id });
-        onClose(false);
+
+        //dispatch({ type: "DELETE_SNIPPET", payload: id });
+        data.loading && onClose(false);
         toast({
           position: "top-right",
           title: "Archived",
@@ -217,7 +219,9 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
             <Button variantColor="teal" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button onClick={handleDelete}>Yes</Button>
+            <Button onClick={handleDelete} isLoading={data.loading}>
+              Yes
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

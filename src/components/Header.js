@@ -20,6 +20,7 @@ import SearchBox from "./SearchBox";
 import { navigate } from "@reach/router";
 
 const AppHeader = props => {
+  const {landing, isLoggedIn} = props
   const { colorMode, toggleColorMode } = useColorMode();
   const bg = { light: "white", dark: "gray.800" };
 
@@ -69,10 +70,11 @@ const AppHeader = props => {
             >
               <Logo />
             </Box>
-            {!props.landing && <SearchBox />}
+            {!landing && <SearchBox />}
             <Flex align="center" color="gray.500">
-              {props.landing ? (
-                <Button
+              {landing ? (
+                  isLoggedIn && 
+                  <Button
                   as="a"
                   size="xs"
                   ml={4}

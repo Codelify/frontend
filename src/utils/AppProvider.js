@@ -8,7 +8,7 @@ const DELETE_SNIPPET = "DELETE_SNIPPET";
 const FILTER_SNIPPETS = "FILTER_SNIPPETS";
 
 const initialState = {
-  snippetsData: null,
+  snippetsData: [],
   filteredSnippets: null
 };
 
@@ -19,12 +19,14 @@ const reducer = (state, { type, payload }) => {
     case FETCH_SNIPPETS_DATA:
       return {
         ...state,
-        snippetsData: payload
+        snippetsData: payload.sort((a, b) => {
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        })
       };
     case ADD_SNIPPET:
       return {
         ...state,
-        snippetsData: state.snippetsData.concat(payload)
+        snippetsData: [payload, ...state.snippetsData]
       };
     case DELETE_SNIPPET:
       return {

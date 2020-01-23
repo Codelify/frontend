@@ -1,5 +1,5 @@
-import React, { useState, useContext, useEffect } from "react";
-import { AppContext } from "../utils/AppProvider";
+import React, { useState, useEffect } from "react";
+//import { AppContext } from "../utils/AppProvider";
 import {
   Box,
   Flex,
@@ -19,30 +19,47 @@ import {
   useToast,
   Tag,
   TagLabel,
-  TagCloseButton
+  TagCloseButton,
+  Heading
 } from "@chakra-ui/core";
 import { LiveProvider, LiveEditor } from "react-live";
 import theme from "prism-react-renderer/themes/nightOwl";
 import { navigate } from "@reach/router";
 import { useMutation } from "@apollo/react-hooks";
 import { CREATE_SNIPPET } from "../graphql/mutation";
+import { MY_SNIPPETs } from "../graphql/query";
 
 const NewSnippet = props => {
   const { isOpen, onClose, firstField, btnRef, size } = props;
-  const { dispatch } = useContext(AppContext);
+  // const { dispatch } = useContext(AppContext);
 
   const initialFormValues = {
     sourceUrl: "",
     description: "",
     title: ""
   };
-
   const toastin = useToast();
 
-  const [createSnippet] = useMutation(CREATE_SNIPPET);
+  //Not sure why updateCache function is not working - from doc this is the fastest way to update the cache
+  // const updateCache = (cache, { data: { createSnippet } }) => {
+  //   console.log(createSnippet);
+  //   const { getAuthUserSnippets } = cache.readQuery({
+  //     query: MY_SNIPPETs,
+  //     variables: { token: localStorage.getItem("token") }
+  //   });
+  //   cache.writeQuery({
+  //     query: MY_SNIPPETs,
+  //     variables: { token: localStorage.getItem("token") },
+  //     data: {
+  //       //getAuthUserSnippets: getAuthUserSnippets.concat(createSnippet)
+  //       getAuthUserSnippets: [...getAuthUserSnippets, createSnippet]
+  //     }
+  //   });
+  // };
 
+  const [createSnippet, data] = useMutation(CREATE_SNIPPET);
   const handleSubmit = async () => {
-    console.dir(formData);
+    setIsLoading(true);
     const snippetData = { ...formData, content: code };
     const token =
       (typeof window !== "undefined" && window.localStorage.getItem("token")) ||
@@ -52,18 +69,24 @@ const NewSnippet = props => {
       localStorage.setItem("snippetData", JSON.stringify(variables));
       onClose(false);
       navigate("/login");
+      setIsLoading(false);
     } else {
-      const { data, error } = await createSnippet({ variables });
+      const { data, error } = await createSnippet({
+        variables,
+        refetchQueries: [{ query: MY_SNIPPETs, variables: variables }]
+      });
       if (data) {
-        dispatch({
-          type: "ADD_SNIPPET",
-          payload: {
-            ...data.createSnippet,
-            title: formData.title,
-            tags: formData.tags
-          }
-        });
+        //console.log(data);
+        // dispatch({
+        //   type: "ADD_SNIPPET",
+        //   payload: {
+        //     ...data.createSnippet,
+        //     title: formData.title,
+        //     tags: formData.tags
+        //   }
+        // });
         onClose(false);
+        setIsLoading(false);
         toastin({
           position: "top-right",
           title: "Yooohooo ! 🍹",
@@ -72,9 +95,10 @@ const NewSnippet = props => {
           duration: 9000,
           isClosable: true
         });
-        navigate("/app");
+        data.loading && navigate("/app");
       }
       if (error) {
+        setIsLoading(false);
         toastin({
           position: "top-right",
           title: "An error occurred.",
@@ -95,6 +119,7 @@ const a = 10;
 
   const [code, setCode] = useState(snippetPlaceHolder);
   const [tags, setTags] = useState([]);
+  const [ isLoading, setIsLoading ] = useState(false);
 
   const [formData, setFormData] = useState(initialFormValues);
 
@@ -109,11 +134,15 @@ const a = 10;
   };
 
   const styledEdit = event => {
-    document.getElementById(event.target.parentElement.id).classList.add("edited-div");
+    document
+      .getElementById(event.target.parentElement.id)
+      .classList.add("edited-div");
   };
 
   const handleBlur = event => {
-    document.getElementById(event.target.parentElement.id).classList.remove("edited-div");
+    document
+      .getElementById(event.target.parentElement.id)
+      .classList.remove("edited-div");
   };
 
   // specfifid function to managed entered tags
@@ -125,14 +154,25 @@ const a = 10;
       tag = tag.substring(0, tag.length - 1);
       newTag = true;
     }
-    if ((event.key === "Enter" && event.target.value !== "") || newTag) {
+    if (( (event.key === "Enter" || event.key === "Tab") && event.target.value !== "") || newTag) {
       // add it to the state holding the list of tags
       setTags(prevState => [...prevState, tag]);
-
       // clear the value held in the input field
       event.target.value = "";
     }
   };
+
+  // the Tab must be detected on key down 
+  // otherwise it cannot be captured in key up
+  const handleTab = event => {
+    let tag = event.target.value;
+    if(event.key === 'Tab' && tag !== ""){
+      // add it to the state holding the list of tags
+      setTags(prevState => [...prevState, tag]);
+      // clear the value held in the input field
+      event.target.value = "";
+    }
+  }
 
   const handleChange = ({ target: { name, value } }) => {
     setFormData(prevState => ({
@@ -171,7 +211,7 @@ const a = 10;
           color="#319795"
           mb="30px"
         >
-          Create a new Snippet
+          <Heading>Create a new Snippet</Heading>
         </DrawerHeader>
 
         <DrawerBody>
@@ -212,62 +252,56 @@ const a = 10;
                   />
                 </InputGroup>
               </Box>
-
-              <Box >
+              <Box>
                 <FormLabel htmlFor="tags-box">Tags</FormLabel>
-                <Flex 
-                  flexWrap="wrap" 
-                  borderRadius="5px" 
+                <Flex
+                  flexWrap="wrap"
+                  borderRadius="5px"
                   borderWidth="1px"
                   id="tags-box"
                   onFocus={styledEdit}
                   onBlur={handleBlur}
                 >
-                <Stack flexWrap="wrap" justify="flex-start" isInline>
-                {tags &&
-                  tags.map((tag, index) => {
-                    return (
-                      <Tag
-                        id={index}
-                        size={size}
-                        key={index}
-                        variant="solid"
-                        variantColor="teal"
-                        mx="3px"
-                        my="3px"
-                        paddingY="3px"
-                        _focus={{
-                          outline: "none"
-                        }}
-                      >
-                        <TagLabel paddingX="10px">{tag}</TagLabel>
-                        <TagCloseButton
-                          _focus={{
-                            outline: "none"
-                          }}
-                          onClick={() => {
-                            handleDeleteTag(index);
-                          }}
-                          mx="5px"
-                        />
-                      </Tag>
-                    );
-                  })}
-              </Stack>
-
-
-
-
-                <Input
-                  id="tags"
-                  w="200px"
-                  placeholder="Add a tag"
-                  focusBorderColor="none"
-                  borderWidth="0px"
-                  background="none"
-                  name="tags"
-                  onKeyUp={handleAddTags}
-                />
+                  <Stack mb="10px" flexWrap="wrap" justify="flex-start" isInline>
+                    {tags &&
+                      tags.map((tag, index) => {
+                        return (
+                          <Tag
+                            id={index}
+                            key={index}
+                            variant="solid"
+                            variantColor="teal"
+                            mx="3px"
+                            my="3px"
+                            paddingY="3px"
+                            _focus={{
+                              outline: "none"
+                            }}
+                          >
+                            <TagLabel paddingX="10px">{tag}</TagLabel>
+                            <TagCloseButton
+                              _focus={{
+                                outline: "none"
+                              }}
+                              onClick={() => {
+                                handleDeleteTag(index);
+                              }}
+                              mx="5px"
+                            />
+                          </Tag>
+                        );
+                      })}
+                  </Stack>
+                  <Input
+                    id="tags"
+                    placeholder="Add tags (Press Enter or Comma for multiple tags)"
+                    focusBorderColor="none"
+                    borderWidth="0px"
+                    background="none"
+                    name="tags"
+                    onKeyDown={handleTab}
+                    onKeyUp={handleAddTags}
+                  />
                 </Flex>
               </Box>{" "}
               <Box>
@@ -309,7 +343,13 @@ const a = 10;
             <Button variant="outline" mr={13} onClick={onClose}>
               Cancel
             </Button>
-            <Button onClick={handleSubmit} variantColor="teal" mr={35}>
+            <Button 
+              onClick={handleSubmit} 
+              variantColor="teal" 
+              mr={35}
+              isLoading={isLoading}
+              loadingText="Submitting"
+            >
               Submit
             </Button>
           </Flex>
