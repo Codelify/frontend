@@ -58,7 +58,6 @@ const NewSnippet = props => {
   // };
 
   const [createSnippet, data] = useMutation(CREATE_SNIPPET);
-  console.log(data.loading);
   const handleSubmit = async () => {
     setIsLoading(true);
     const snippetData = { ...formData, content: code };
@@ -148,7 +147,6 @@ const a = 10;
 
   // specfifid function to managed entered tags
   const handleAddTags = event => {
-    console.log("event called")
     let newTag = false;
     let tag = event.target.value;
     if (tag.charAt(tag.length - 1) === ",") {
