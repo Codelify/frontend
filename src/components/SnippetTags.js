@@ -66,6 +66,13 @@ const SnippetTags = ({
     }
   }
 
+  const handleDeleteTag = index => {
+    let newTags = tagsList;
+    newTags.splice(index, 1);
+    setTagsList(() => [...newTags]);
+  };
+
+
 
     return (
         <>
@@ -88,16 +95,16 @@ const SnippetTags = ({
                     _focus={{
                       outline: "none"
                     }}
-                    // onClick={() => {
-                    //   handleDeleteTag(index);
-                    // }}
+                    onClick={() => {
+                      handleDeleteTag(index);
+                    }}
                   />
                   </Tag>
                 );
               })}
             <IconButton
             my="3px"
-            variant="outline"
+            variant="ghost"
             variantColor="teal"
             aria-label="Add a Tag"
             size="sm"
