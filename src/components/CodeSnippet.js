@@ -42,10 +42,10 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
   const [descriptionToUpdate, setDescroptionToUpdate] = useState(description);
   const [contentToUpdate, setContentToUpdate] = useState(content);
   //const { dispatch } = useContext(AppContext);
-  const [deleteSnippet] = useMutation(DELETE_SNIPPET);
+  const [deleteSnippet, data] = useMutation(DELETE_SNIPPET);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
-
+  console.log(data.loading);
   const toast = useToast();
   const handleDelete = async () => {
     const token =
@@ -56,8 +56,9 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
           variables: { snippetId: id, token },
           refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
         });
+
         //dispatch({ type: "DELETE_SNIPPET", payload: id });
-        onClose(false);
+        data.loading && onClose(false);
         toast({
           position: "top-right",
           title: "Archived",
@@ -219,7 +220,9 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
             <Button variantColor="teal" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button onClick={handleDelete}>Yes</Button>
+            <Button onClick={handleDelete} isLoading={data.loading}>
+              Yes
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
