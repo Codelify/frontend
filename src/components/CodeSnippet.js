@@ -7,6 +7,9 @@ import {
   Link,
   Icon,
   Badge,
+  Tag,
+  TagLabel,
+  TagCloseButton,
   Divider,
   IconButton,
   Modal,
@@ -155,18 +158,34 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
               </Link>
             )}
           </Box>
-          <Stack justify="flex-start" isInline>
+          <Stack justify="flex-start" flexWrap="wrap" isInline>
             {tags &&
               tags.map((tag, index) => {
                 return (
-                  <Badge
-                    key={`${tag.name} - ${index}`}
-                    mb="4px"
-                    mr="4px"
-                    variantColor="green"
-                  >
-                    {tag}
-                  </Badge>
+                  <Tag
+                  id={index}
+                  key={index}
+                  variant="subtle"
+                  variantColor="teal"
+                  size="sm"
+                  my="3px"
+                  _focus={{
+                    outline: "none"
+                  }}
+                  style={{
+                    textTransform: "uppercase"
+                  }}
+                >
+                  <TagLabel mr="3px">{tag}</TagLabel>
+                  <TagCloseButton
+                    _focus={{
+                      outline: "none"
+                    }}
+                    // onClick={() => {
+                    //   handleDeleteTag(index);
+                    // }}
+                  />
+                </Tag>
                 );
               })}
           </Stack>
