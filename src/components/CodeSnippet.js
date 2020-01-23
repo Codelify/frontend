@@ -25,7 +25,7 @@ import {
 } from "@chakra-ui/core";
 import SnippetHeading from "./SnippetHeading";
 import Description from "./SnippetDescription";
-import { MdDelete, MdMoreHoriz } from "react-icons/md";
+import { MdDelete, MdMoreHoriz, MdAdd } from "react-icons/md";
 import { useMutation } from "@apollo/react-hooks";
 import { DELETE_SNIPPET, UPDATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
@@ -172,11 +172,8 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
                   _focus={{
                     outline: "none"
                   }}
-                  style={{
-                    textTransform: "uppercase"
-                  }}
-                >
-                  <TagLabel mr="3px">{tag}</TagLabel>
+                  >
+                  <TagLabel fontSize=".9em" textTransform="uppercase" mr="3px">{tag}</TagLabel>
                   <TagCloseButton
                     _focus={{
                       outline: "none"
@@ -185,10 +182,20 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
                     //   handleDeleteTag(index);
                     // }}
                   />
-                </Tag>
+                  </Tag>
                 );
               })}
+            <IconButton
+            my="3px"
+            variant="outline"
+            variantColor="teal"
+            aria-label="Add a Tag"
+            size="sm"
+            fontSize="1.4em"
+            icon={MdAdd}
+          />
           </Stack>
+
         </Stack>
         <Box
           minWidth="310px"
