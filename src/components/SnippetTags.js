@@ -4,8 +4,7 @@ import {
     TagLabel,
     TagCloseButton,
     Collapse,
-    ButtonGroup,
-    Button,
+    Input,
     IconButton,
     Stack
 } from "@chakra-ui/core";
@@ -21,7 +20,7 @@ const SnippetTags = ({
     handleUpdate
 }) => {
     const handleBlur = event => {
-    document.getElementById(event.target.id).classList.remove("edited-div");
+    //document.getElementById(event.target.id).classList.remove("edited-div");
     handleToggle(false);
     };
 
@@ -31,7 +30,7 @@ const SnippetTags = ({
         setShow(newShow);
     };
 
-    const descriptionId = `description_${id}`;
+    const tagsId = `tags_${id}`;
     return (
         <>
           <Stack justify="flex-start" flexWrap="wrap" isInline>
@@ -39,7 +38,7 @@ const SnippetTags = ({
               tags.map((tag, index) => {
                 return (
                   <Tag
-                  id={index}
+                  id={tagsId}
                   key={index}
                   variant="subtle"
                   variantColor="teal"
@@ -63,25 +62,33 @@ const SnippetTags = ({
               })}
             <IconButton
             my="3px"
-            variant="outline"
+            variant="ghost"
             variantColor="teal"
             aria-label="Add a Tag"
             size="sm"
             fontSize="1.4em"
             icon={MdAdd}
+            _focus={{
+              outline: "none"
+            }}
+            onClick={() => {
+              handleToggle(true);
+            }}  
           />
           </Stack>
 
         <Collapse mt={0} isOpen={show}>
-            <ButtonGroup mb="10px" justifyContent="center" size="sm">
-            <Button
-                variantColor="teal"
-                onMouseDown={() => handleUpdate("description")}
-            >
-                Save
-            </Button>
-            <IconButton icon="close" />
-            </ButtonGroup>
+        <Input
+            id="tags"
+            placeholder="Add tags (Press Enter or Comma for multiple tags)"
+            focusBorderColor="#319795"
+            borderColor="#319795"
+            borderWidth="2px"
+            name="tags"
+            my="5px"          
+            // onKeyDown={handleTab}
+            // onKeyUp={handleAddTags}
+          />
         </Collapse>
         </>
     );
