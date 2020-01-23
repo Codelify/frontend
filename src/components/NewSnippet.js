@@ -60,6 +60,7 @@ const NewSnippet = props => {
   const [createSnippet, data] = useMutation(CREATE_SNIPPET);
   console.log(data.loading);
   const handleSubmit = async () => {
+    setIsLoading(true);
     const snippetData = { ...formData, content: code };
     const token =
       (typeof window !== "undefined" && window.localStorage.getItem("token")) ||
@@ -69,6 +70,7 @@ const NewSnippet = props => {
       localStorage.setItem("snippetData", JSON.stringify(variables));
       onClose(false);
       navigate("/login");
+      setIsLoading(false);
     } else {
       const { data, error } = await createSnippet({
         variables,
@@ -85,6 +87,7 @@ const NewSnippet = props => {
         //   }
         // });
         onClose(false);
+        setIsLoading(false);
         toastin({
           position: "top-right",
           title: "Yooohooo ! 🍹",
@@ -96,6 +99,7 @@ const NewSnippet = props => {
         data.loading && navigate("/app");
       }
       if (error) {
+        setIsLoading(false);
         toastin({
           position: "top-right",
           title: "An error occurred.",
@@ -116,6 +120,7 @@ const a = 10;
 
   const [code, setCode] = useState(snippetPlaceHolder);
   const [tags, setTags] = useState([]);
+  const [ isLoading, setIsLoading ] = useState(false);
 
   const [formData, setFormData] = useState(initialFormValues);
 
@@ -143,6 +148,7 @@ const a = 10;
 
   // specfifid function to managed entered tags
   const handleAddTags = event => {
+    console.log("event called")
     let newTag = false;
     let tag = event.target.value;
     if (tag.charAt(tag.length - 1) === ",") {
@@ -150,14 +156,25 @@ const a = 10;
       tag = tag.substring(0, tag.length - 1);
       newTag = true;
     }
-    if ((event.key === "Enter" && event.target.value !== "") || newTag) {
+    if (( (event.key === "Enter" || event.key === "Tab") && event.target.value !== "") || newTag) {
       // add it to the state holding the list of tags
       setTags(prevState => [...prevState, tag]);
-
       // clear the value held in the input field
       event.target.value = "";
     }
   };
+
+  // the Tab must be detected on key down 
+  // otherwise it cannot be captured in key up
+  const handleTab = event => {
+    let tag = event.target.value;
+    if(event.key === 'Tab' && tag !== ""){
+      // add it to the state holding the list of tags
+      setTags(prevState => [...prevState, tag]);
+      // clear the value held in the input field
+      event.target.value = "";
+    }
+  }
 
   const handleChange = ({ target: { name, value } }) => {
     setFormData(prevState => ({
@@ -247,7 +264,7 @@ const a = 10;
                   onFocus={styledEdit}
                   onBlur={handleBlur}
                 >
-                  <Stack flexWrap="wrap" justify="flex-start" isInline>
+                  <Stack mb="10px" flexWrap="wrap" justify="flex-start" isInline>
                     {tags &&
                       tags.map((tag, index) => {
                         return (
@@ -284,6 +301,7 @@ const a = 10;
                     borderWidth="0px"
                     background="none"
                     name="tags"
+                    onKeyDown={handleTab}
                     onKeyUp={handleAddTags}
                   />
                 </Flex>
@@ -327,11 +345,12 @@ const a = 10;
             <Button variant="outline" mr={13} onClick={onClose}>
               Cancel
             </Button>
-            <Button
-              onClick={handleSubmit}
-              variantColor="teal"
+            <Button 
+              onClick={handleSubmit} 
+              variantColor="teal" 
               mr={35}
-              isLoading={data.loading}
+              isLoading={isLoading}
+              loadingText="Submitting"
             >
               Submit
             </Button>
