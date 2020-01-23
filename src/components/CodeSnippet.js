@@ -6,10 +6,6 @@ import {
   Stack,
   Link,
   Icon,
-  Badge,
-  Tag,
-  TagLabel,
-  TagCloseButton,
   Divider,
   IconButton,
   Modal,
@@ -25,7 +21,8 @@ import {
 } from "@chakra-ui/core";
 import SnippetHeading from "./SnippetHeading";
 import Description from "./SnippetDescription";
-import { MdDelete, MdMoreHoriz, MdAdd } from "react-icons/md";
+import SnippetTags from './SnippetTags'
+import { MdDelete, MdMoreHoriz } from "react-icons/md";
 import { useMutation } from "@apollo/react-hooks";
 import { DELETE_SNIPPET, UPDATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
@@ -158,44 +155,15 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
               </Link>
             )}
           </Box>
-          <Stack justify="flex-start" flexWrap="wrap" isInline>
-            {tags &&
-              tags.map((tag, index) => {
-                return (
-                  <Tag
-                  id={index}
-                  key={index}
-                  variant="subtle"
-                  variantColor="teal"
-                  size="sm"
-                  my="3px"
-                  _focus={{
-                    outline: "none"
-                  }}
-                  >
-                  <TagLabel fontSize=".9em" textTransform="uppercase" mr="3px">{tag}</TagLabel>
-                  <TagCloseButton
-                    _focus={{
-                      outline: "none"
-                    }}
-                    // onClick={() => {
-                    //   handleDeleteTag(index);
-                    // }}
-                  />
-                  </Tag>
-                );
-              })}
-            <IconButton
-            my="3px"
-            variant="outline"
-            variantColor="teal"
-            aria-label="Add a Tag"
-            size="sm"
-            fontSize="1.4em"
-            icon={MdAdd}
+          
+          <SnippetTags 
+          id={id} 
+          tags={tags} 
+          styledEdit={styledEdit} 
+          handleEdit={handleEdit} 
+          handleUpdate={handleUpdate}
           />
-          </Stack>
-
+        
         </Stack>
         <Box
           minWidth="310px"
