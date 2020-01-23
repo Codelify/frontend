@@ -45,7 +45,6 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
   const [deleteSnippet, data] = useMutation(DELETE_SNIPPET);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
-  console.log(data.loading);
   const toast = useToast();
   const handleDelete = async () => {
     const token =
