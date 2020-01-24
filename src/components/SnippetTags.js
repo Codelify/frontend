@@ -30,10 +30,6 @@ const SnippetTags = ({
     const [show, setShow] = useState(false);
 
     const handleToggle = newShow => {
-      if(newShow){
-        console.log("get focus on " + tagsId);
-        document.getElementById(tagsId).focus();
-      }
       setShow(newShow);
     };
 
@@ -44,7 +40,12 @@ const SnippetTags = ({
     if (tag.charAt(tag.length - 1) === ",") {
       // remove the comma
       tag = tag.substring(0, tag.length - 1);
-      newTag = true;
+      if(tag !== '') {
+        newTag = true;
+      } 
+      else {
+        event.target.value = "";  
+      }
     }
     if (( (event.key === "Enter" || event.key === "Tab") && event.target.value !== "") || newTag) {
       // add it to the state holding the list of tags
@@ -82,6 +83,8 @@ const SnippetTags = ({
                 return (
                   <Tag
                   key={index}
+                  minH="30px"
+                  maxH="30px"
                   variant="subtle"
                   variantColor="teal"
                   size="sm"
