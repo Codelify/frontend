@@ -1,13 +1,18 @@
-import React from "react";
-import './App.css';
+import React, { useEffect } from "react";
+import "./App.css";
 import Default from "./components/Default";
 import Login from "./components/Login";
 import Landing from "./views/Landing";
 import { Router } from "@reach/router";
-import SlackAuthenticator from './components/SlackAuthenticator'
-
+import SlackAuthenticator from "./components/SlackAuthenticator";
+import { PageView, initGA } from "./components/~common/Tracking";
 
 function App() {
+  useEffect(() => {
+    initGA("YourTrackingID");
+    PageView();
+  });
+
   return (
     <Router>
       <Landing path="/" />
