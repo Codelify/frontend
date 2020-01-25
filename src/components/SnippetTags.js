@@ -107,8 +107,6 @@ const SnippetTags = ({
               })}
             <IconButton
             my="3px"
-            variant="ghost"
-            variantColor="teal"
             aria-label="Add a Tag"
             size="sm"
             fontSize="1.4em"
