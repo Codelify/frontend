@@ -88,12 +88,12 @@ const SnippetTags = ({
                   variant="subtle"
                   variantColor="teal"
                   size="sm"
-                  my="3px"
+                  my="2px"
                   _focus={{
                     outline: "none"
                   }}
                   >
-                  <TagLabel fontSize=".9em" textTransform="uppercase" mr="3px">{tag}</TagLabel>
+                  <TagLabel fontSize=".7em" textTransform="uppercase" mr="3px">{tag}</TagLabel>
                   <TagCloseButton
                     _focus={{
                       outline: "none"
