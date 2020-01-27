@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Event } from "../components/~common/Tracking";
+import { Event, initGA, PageView } from "../components/~common/Tracking";
 // import './App.css';
 import {
   ThemeProvider,
@@ -49,6 +49,8 @@ function Landing() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
+    initGA("UA-156901053-1");
+    PageView();
     if (typeof window !== "undefined" && window.localStorage.getItem("token")) {
       setIsLoggedIn(true);
     } else setIsLoggedIn(false);

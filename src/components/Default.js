@@ -11,7 +11,7 @@ const Default = () => {
   const token =
     typeof window !== "undefined" && window.localStorage.getItem("token");
   const { data, loading } = useQuery(MY_SNIPPETs, {
-    variables: { token },
+    variables: { token }
   });
 
   useEffect(() => {

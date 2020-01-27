@@ -34,7 +34,7 @@ const Search = () => {
 
   const filterItems = inputValue => {
     const result =
-      state.snippetsData &&
+      state.snippetsData.length > 0 &&
       matchSorter(state.snippetsData, inputValue, {
         keys: ["title", "description"]
       });
@@ -71,7 +71,11 @@ const Search = () => {
                   _placeholder={{ color: "gray.500", opacity: 1 }}
                   rounded="lg"
                   {...getInputProps({
-                    placeholder: "Find a snippet",
+                    placeholder: `${
+                      state.snippetsData.length
+                        ? "Find a snippet"
+                        : "No Snippets to search"
+                    }`,
                     type: "search",
                     id: "search",
                     onChange: e => {
@@ -86,7 +90,11 @@ const Search = () => {
                 />
               </InputGroup>
               {isOpen && (
-                <DropDown>
+                <DropDown
+                  hasPaddingBottom={
+                    state.snippetsData.length > 0 ? true : false
+                  }
+                >
                   {state.filteredSnippets &&
                     state.filteredSnippets.map((item, index) => (
                       <DropDownItem
