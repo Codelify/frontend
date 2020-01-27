@@ -73,6 +73,7 @@ const NewSnippet = props => {
     } else {
       const { data, error } = await createSnippet({
         variables,
+        //fetchPolicy: "no-cache",
         refetchQueries: [{ query: MY_SNIPPETs, variables: variables }]
       });
       if (data) {
@@ -119,7 +120,7 @@ const a = 10;
 
   const [code, setCode] = useState(snippetPlaceHolder);
   const [tags, setTags] = useState([]);
-  const [ isLoading, setIsLoading ] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState(initialFormValues);
 
@@ -154,7 +155,11 @@ const a = 10;
       tag = tag.substring(0, tag.length - 1);
       newTag = true;
     }
-    if (( (event.key === "Enter" || event.key === "Tab") && event.target.value !== "") || newTag) {
+    if (
+      ((event.key === "Enter" || event.key === "Tab") &&
+        event.target.value !== "") ||
+      newTag
+    ) {
       // add it to the state holding the list of tags
       setTags(prevState => [...prevState, tag]);
       // clear the value held in the input field
@@ -162,17 +167,17 @@ const a = 10;
     }
   };
 
-  // the Tab must be detected on key down 
+  // the Tab must be detected on key down
   // otherwise it cannot be captured in key up
   const handleTab = event => {
     let tag = event.target.value;
-    if(event.key === 'Tab' && tag !== ""){
+    if (event.key === "Tab" && tag !== "") {
       // add it to the state holding the list of tags
       setTags(prevState => [...prevState, tag]);
       // clear the value held in the input field
       event.target.value = "";
     }
-  }
+  };
 
   const handleChange = ({ target: { name, value } }) => {
     setFormData(prevState => ({
@@ -262,7 +267,12 @@ const a = 10;
                   onFocus={styledEdit}
                   onBlur={handleBlur}
                 >
-                  <Stack mb="10px" flexWrap="wrap" justify="flex-start" isInline>
+                  <Stack
+                    mb="10px"
+                    flexWrap="wrap"
+                    justify="flex-start"
+                    isInline
+                  >
                     {tags &&
                       tags.map((tag, index) => {
                         return (
@@ -343,9 +353,9 @@ const a = 10;
             <Button variant="outline" mr={13} onClick={onClose}>
               Cancel
             </Button>
-            <Button 
-              onClick={handleSubmit} 
-              variantColor="teal" 
+            <Button
+              onClick={handleSubmit}
+              variantColor="teal"
               mr={35}
               isLoading={isLoading}
               loadingText="Submitting"

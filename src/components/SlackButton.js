@@ -11,7 +11,6 @@ import { FaSlack } from 'react-icons/fa'
 
 
 const SlackLogin = () => {
-
     const handleRedirect = () => {
        navigate(`https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.avatar&client_id=${config.slack.clientId}&team=${config.slack.teamId}`)
     }
