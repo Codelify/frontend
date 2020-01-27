@@ -9,7 +9,7 @@ import { initGA, PageView } from "./components/~common/Tracking";
 
 function App() {
   useEffect(() => {
-    initGA("UA-156901053-1");
+    initGA("UA-157102662-1");
     PageView();
   }, []);
   return (

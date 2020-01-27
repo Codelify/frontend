@@ -49,7 +49,7 @@ function Landing() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
-    initGA("UA-156901053-1");
+    initGA("UA-157102662-1");
     PageView();
     if (typeof window !== "undefined" && window.localStorage.getItem("token")) {
       setIsLoggedIn(true);
