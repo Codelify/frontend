@@ -4,18 +4,25 @@ import EmptyView from "./EmptyView";
 import SnippetList from "./List";
 import { useQuery } from "@apollo/react-hooks";
 import { MY_SNIPPETs } from "../graphql/query";
+import { initGA, PageView } from "./~common/Tracking";
 
 const Default = () => {
   const { state, dispatch } = useContext(AppContext);
 
   const token =
     typeof window !== "undefined" && window.localStorage.getItem("token");
-  const { data, loading } = useQuery(MY_SNIPPETs, {
+  const { data, loading, refetch } = useQuery(MY_SNIPPETs, {
     variables: { token },
+    //fetchPolicy: "no-cache",
+    // fetchPolicy: "cache-and-network",
+    pollInterval: 10000
   });
 
   useEffect(() => {
+    //initGA("UA-157102662-1");
+    PageView();
     fetchSnippetsData();
+    refetch();
   }, [data, loading]);
 
   const fetchSnippetsData = async () => {
