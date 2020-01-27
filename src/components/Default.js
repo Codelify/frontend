@@ -10,12 +10,15 @@ const Default = () => {
 
   const token =
     typeof window !== "undefined" && window.localStorage.getItem("token");
-  const { data, loading } = useQuery(MY_SNIPPETs, {
+  const { data, loading, refetch } = useQuery(MY_SNIPPETs, {
     variables: { token }
+    //pollInterval: 10000
   });
 
   useEffect(() => {
+    console.log("FETCH TEST @@@@@@");
     fetchSnippetsData();
+    refetch();
   }, [data, loading]);
 
   const fetchSnippetsData = async () => {
