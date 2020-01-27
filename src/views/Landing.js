@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Event } from "../components/~common/Tracking";
 // import './App.css';
 import {
   ThemeProvider,
@@ -61,7 +62,14 @@ function Landing() {
           <Header landing={true} isLoggedIn={isLoggedIn} />
           <Container>
             <Box maxW="xl" mx="auto" textAlign="center">
-              <Heading as="h1" size="xl" fontWeight="bold">
+              <Heading
+                as="h1"
+                size="xl"
+                fontWeight="bold"
+                onClick={() =>
+                  Event("Test Category", "Test Action", "Test Label")
+                }
+              >
                 Your
                 <Box as="span" color="teal.500">
                   {" "}
