@@ -34,7 +34,7 @@ const Search = () => {
 
   const filterItems = inputValue => {
     const result =
-      state.snippetsData.length > 0 &&
+      // state.snippetsData.length > 0 &&
       matchSorter(state.snippetsData, inputValue, {
         keys: ["title", "description"]
       });
