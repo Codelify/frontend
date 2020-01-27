@@ -4,17 +4,17 @@ const DropDown = styled.div`
   position: absolute;
   width: 100%;
   z-index: 2;
-  border-bottom-right-radius:5px;
-  border-bottom-left-radius:5px;
-  padding-bottom:10px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  padding-bottom: ${props => (props.hasPaddingBottom ? "10px" : "0px")};
   background-color: rgba(237, 242, 248, 0.97);
 `;
 
 const DropDownItem = styled.div`
   width: 100%;
-  padding-left:10px;
-  padding-top:5px;
-  padding-bottom:3px; 
+  padding-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 3px;
   background-color: none;
   transition: all 0.2s;
   ${props => (props.highlighted ? "padding-left: 1rem;" : null)};
