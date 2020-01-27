@@ -11,12 +11,13 @@ const Default = () => {
   const token =
     typeof window !== "undefined" && window.localStorage.getItem("token");
   const { data, loading, refetch } = useQuery(MY_SNIPPETs, {
-    variables: { token }
-    //pollInterval: 10000
+    variables: { token },
+    //fetchPolicy: "no-cache",
+    // fetchPolicy: "cache-and-network",
+    pollInterval: 10000
   });
 
   useEffect(() => {
-    console.log("FETCH TEST @@@@@@");
     fetchSnippetsData();
     refetch();
   }, [data, loading]);

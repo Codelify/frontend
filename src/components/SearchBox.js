@@ -34,7 +34,7 @@ const Search = () => {
 
   const filterItems = inputValue => {
     const result =
-      // state.snippetsData.length > 0 &&
+      state.snippetsData.length > 0 &&
       matchSorter(state.snippetsData, inputValue, {
         keys: ["title", "description"]
       });
@@ -98,7 +98,10 @@ const Search = () => {
                   {state.filteredSnippets &&
                     state.filteredSnippets.map((item, index) => (
                       <DropDownItem
-                        {...getItemProps({ item })}
+                        {...getItemProps({
+                          item,
+                          index
+                        })}
                         key={item.id}
                         highlighted={index === highlightedIndex}
                       >
