@@ -8,7 +8,7 @@ import { initGA, PageView } from "./~common/Tracking";
 
 const Default = () => {
   const { state, dispatch } = useContext(AppContext);
-
+  console.log("Archived Snippets", state.archivedSnippets);
   const token =
     typeof window !== "undefined" && window.localStorage.getItem("token");
   const { data, loading, refetch } = useQuery(MY_SNIPPETs, {
@@ -19,7 +19,6 @@ const Default = () => {
   });
 
   useEffect(() => {
-    //initGA("UA-157102662-1");
     PageView();
     fetchSnippetsData();
     refetch();
@@ -29,6 +28,7 @@ const Default = () => {
     try {
       const { getAuthUserSnippets } = await data;
       dispatch({ type: "FETCH_SNIPPETS_DATA", payload: getAuthUserSnippets });
+      console.log(data && getAuthUserSnippets);
     } catch (error) {
       //console.warn(error);
     }
@@ -40,7 +40,7 @@ const Default = () => {
   }
 
   // Render the list of snippets if their are any
-  if (state.snippetsData && state.snippetsData.length && token) {
+  if (state.snippetsData.length && token) {
     return <SnippetList data={state.snippetsData} loading={loading} />;
   }
   // default view if there is no snippets

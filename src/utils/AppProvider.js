@@ -9,6 +9,7 @@ const FILTER_SNIPPETS = "FILTER_SNIPPETS";
 
 const initialState = {
   snippetsData: [],
+  archivedSnippets: [],
   filteredSnippets: null
 };
 
@@ -19,10 +20,22 @@ const reducer = (state, { type, payload }) => {
     case FETCH_SNIPPETS_DATA:
       return {
         ...state,
-        snippetsData: payload.sort((a, b) => {
-          return new Date(b.createdAt) - new Date(a.createdAt);
-        })
+        snippetsData: payload
+          .sort((a, b) => {
+            return new Date(b.createdAt) - new Date(a.createdAt);
+          })
+          .filter(snippet => {
+            return snippet.archivedAt === null;
+          }),
+        archivedSnippets: payload
+          .sort((a, b) => {
+            return new Date(b.archivedAt) - new Date(a.archivedAt);
+          })
+          .filter(snippet => {
+            return snippet.archivedAt !== null;
+          })
       };
+
     case ADD_SNIPPET:
       return {
         ...state,

@@ -92,8 +92,8 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
           snippetId: id,
           snippetInfo: costumObject,
           token: token
-        },
-        refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
+        }
+        //refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
       });
     } catch (error) {
       console.log(error);
