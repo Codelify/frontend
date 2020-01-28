@@ -21,6 +21,10 @@ const Default = () => {
 
   useEffect(() => {
     PageView();
+  }, []);
+
+  useEffect(() => {
+    PageView();
     fetchSnippetsData();
     refetch();
   }, [data, loading]);
