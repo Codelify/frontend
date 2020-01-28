@@ -72,7 +72,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
       }
     }
   };
-  const handleUpdate = async (tagList, typeOfAction) => {
+  const handleUpdate = async typeOfAction => {
     const costumObject = {};
     //construct costum object for every case for not repeting the mutation of each field
     if (typeOfAction === "title") {
