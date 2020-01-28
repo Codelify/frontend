@@ -81,7 +81,7 @@ function Landing() {
               </Heading>
 
               <Text opacity="0.7" fontSize="lg" mt="6">
-                Codelify give developers a central place to easily Store, Manage
+                Codelify give to developers a central place to easily Store, Manage
                 and Retrieve code snippets they want to keep and reuse.
               </Text>
 
