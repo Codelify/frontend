@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { AppContext } from "../utils/AppProvider";
 import {
   Icon,
@@ -26,6 +26,7 @@ import { DropDown, DropDownItem, Root } from "../utils/searchStyles/Dropdown";
 // );
 
 const Search = () => {
+  const [value, setValue] = useState("");
   const { state, setFilteredSnippets } = useContext(AppContext);
   const handleOnchange = e => {
     const input = e.target.value;
@@ -34,7 +35,7 @@ const Search = () => {
 
   const filterItems = inputValue => {
     const result =
-      state.snippetsData &&
+      state.snippetsData.length > 0 &&
       matchSorter(state.snippetsData, inputValue, {
         keys: ["title", "description"]
       });
@@ -44,21 +45,28 @@ const Search = () => {
   const handleDownshiftChange = searchTerm => {
     searchTerm && filterItems(searchTerm.title);
   };
-
+  const handleStateChange = changes => {
+    if (changes.hasOwnProperty("selectedItem")) {
+      setValue(changes.selectedItem);
+    } else if (changes.hasOwnProperty("inputValue")) {
+      setValue(changes.inputValue);
+    }
+  };
   return (
     <Box w={["90%", "90%", "90%", "50%"]}>
       <Root>
         <Downshift
+          //onStateChange={handleStateChange}
           onChange={handleDownshiftChange}
-          itemToString={item => (item === null ? " " : item.title)}
+          //selectedItem={value}
+          itemToString={item => (item === null ? "" : item.title)}
         >
           {({
             getInputProps,
             getItemProps,
             isOpen,
             highlightedIndex,
-            clearSelection,
-            clearItems
+            clearSelection
           }) => (
             <div>
               <InputGroup mx="auto" mt="5px" w="100%">
@@ -71,7 +79,11 @@ const Search = () => {
                   _placeholder={{ color: "gray.500", opacity: 1 }}
                   rounded="lg"
                   {...getInputProps({
-                    placeholder: "Find a snippet",
+                    placeholder: `${
+                      state.snippetsData.length
+                        ? "Find a snippet"
+                        : "No Snippets to search"
+                    }`,
                     type: "search",
                     id: "search",
                     onChange: e => {
@@ -86,11 +98,18 @@ const Search = () => {
                 />
               </InputGroup>
               {isOpen && (
-                <DropDown>
+                <DropDown
+                  hasPaddingBottom={
+                    state.snippetsData.length > 0 ? true : false
+                  }
+                >
                   {state.filteredSnippets &&
                     state.filteredSnippets.map((item, index) => (
                       <DropDownItem
-                        {...getItemProps({ item })}
+                        {...getItemProps({
+                          item,
+                          index
+                        })}
                         key={item.id}
                         highlighted={index === highlightedIndex}
                       >

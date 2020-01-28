@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { UPDATE_SNIPPET } from "../graphql/mutation";
+import { MY_SNIPPETs } from "../graphql/query";
+import { useMutation } from "@apollo/react-hooks";
+
 import {
   Tag,
   TagLabel,
@@ -11,20 +15,29 @@ import {
 
 import { MdAdd } from "react-icons/md";
 
-const SnippetTags = ({
-  id,
-  tags,
-  description,
-  handleEdit,
-  styledEdit,
-  handleUpdate
-}) => {
+const SnippetTags = ({ id, tags }) => {
   const [tagsList, setTagsList] = useState(tags);
+  const [updateSnippet] = useMutation(UPDATE_SNIPPET);
 
   useEffect(() => {
-    handleEdit(tagsList, "tags");
-    console.log("@@@@@", tagsList);
+    handleEditTag(tagsList);
   }, [tagsList]);
+
+  const handleEditTag = async tags => {
+    const token = window.localStorage.getItem("token");
+    try {
+      const { data } = await updateSnippet({
+        variables: {
+          snippetId: id,
+          snippetInfo: { tags: tags },
+          token: token
+        },
+        refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const tagsId = `tags_${id}`;
   const handleBlur = event => {
@@ -57,8 +70,7 @@ const SnippetTags = ({
     ) {
       // add it to the state holding the list of tags
       setTagsList(prevState => [...prevState, tag]);
-      console.log("TAG LISTTT", tagsList);
-      handleUpdate(tagsList, "tags");
+      handleEditTag(tagsList);
       // clear the value held in the input field
       event.target.value = "";
     }
@@ -80,7 +92,6 @@ const SnippetTags = ({
     let newTags = tagsList;
     newTags.splice(index, 1);
     setTagsList(() => [...newTags]);
-    handleUpdate("tags");
   };
 
   return (

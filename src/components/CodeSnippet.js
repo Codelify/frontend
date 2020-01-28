@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 //import { AppContext } from "../utils/AppProvider";
 import {
   Box,
@@ -41,7 +41,6 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
   const [titleToUpdate, setTitleToUpdate] = useState(title);
   const [descriptionToUpdate, setDescroptionToUpdate] = useState(description);
   const [contentToUpdate, setContentToUpdate] = useState(content);
-  const [tagsToUpdate, setTagsToUpdate] = useState(tags);
   //const { dispatch } = useContext(AppContext);
   const [deleteSnippet, data] = useMutation(DELETE_SNIPPET);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -85,10 +84,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
     if (typeOfAction === "content") {
       costumObject[typeOfAction] = contentToUpdate;
     }
-    if (typeOfAction === "tags") {
-      //console.log("UPDATE FUNCTION", typeOfAction, tagList);
-      costumObject[typeOfAction] = tagList;
-    }
+
     const token = window.localStorage.getItem("token");
     try {
       const { data } = await updateSnippet({
@@ -110,13 +106,6 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
     // event from LiveProvider its comming as a string in transformCode prop
     if (typeof event === "string") {
       setContentToUpdate(event);
-    }
-    //case we update tags - event will be an array of tags
-    if (typeof event === "object") {
-      console.log("EVENT", event);
-      const test = event;
-      setTagsToUpdate(test);
-      console.log("CODE SNIPPET", tagsToUpdate);
     }
 
     //Case we update the code from title/description - onChange function
@@ -170,13 +159,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
             )}
           </Box>
 
-          <SnippetTags
-            id={id}
-            tags={tagsToUpdate}
-            styledEdit={styledEdit}
-            handleEdit={handleEdit}
-            handleUpdate={handleUpdate}
-          />
+          <SnippetTags id={id} tags={tags} />
         </Stack>
         <Box
           minWidth="310px"
