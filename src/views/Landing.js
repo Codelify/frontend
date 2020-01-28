@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Event, initGA, PageView } from "../components/~common/Tracking";
+import { Event, PageView } from "../components/~common/Tracking";
 // import './App.css';
 import {
   ThemeProvider,
@@ -113,7 +113,7 @@ function Landing() {
                       Request Access
                     </Button>
                     <RequestAccess isOpen={isOpen} onClose={onClose} />
-                    <GoogleButton />
+                    <SlackButton />
                   </Stack>
                 )}
               </Box>

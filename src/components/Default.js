@@ -4,7 +4,7 @@ import EmptyView from "./EmptyView";
 import SnippetList from "./List";
 import { useQuery } from "@apollo/react-hooks";
 import { MY_SNIPPETs } from "../graphql/query";
-import { initGA, PageView } from "./~common/Tracking";
+import { PageView } from "./~common/Tracking";
 
 const Default = () => {
   const { state, dispatch } = useContext(AppContext);
