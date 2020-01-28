@@ -35,10 +35,10 @@ const Search = () => {
 
   const filterItems = inputValue => {
     const mySnippets = matchSorter(state.snippetsData, inputValue, {
-      keys: ["title", "description"]
+      keys: ["title", "description", "tags"]
     });
     const myArchivedSnippets = matchSorter(state.archivedSnippets, inputValue, {
-      keys: ["title", "description"]
+      keys: ["title", "description", "tags"]
     });
     if (state.currentView === "FiHome") {
       setFilteredSnippets(mySnippets);
