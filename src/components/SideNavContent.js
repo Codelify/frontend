@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { AppContext } from "../utils/AppProvider";
 import { Box, PseudoBox, Heading } from "@chakra-ui/core";
 import { FiArchive, FiHome, FiStar, FiTag } from "react-icons/fi";
 
@@ -41,9 +42,11 @@ const NavGroupHeading = props => (
 
 const SideNavContent = ({ contentHeight = "calc(100vh - 4rem)", ...props }) => {
   const [navMenu, setNavMenu] = useState("FiHome");
+  const { setCurentView } = useContext(AppContext);
 
   const onActivate = newVavMenu => {
-    console.log(newVavMenu);
+    //console.log(newVavMenu);
+    setCurentView(newVavMenu);
     // first we remove the class active from current link
     document.getElementById(navMenu).classList.remove("active");
     // then we update the state with the new active link

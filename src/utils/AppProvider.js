@@ -6,11 +6,13 @@ const FETCH_SNIPPETS_DATA = "FETCH_SNIPPETS_DATA";
 const ADD_SNIPPET = "ADD_SNIPPET";
 const DELETE_SNIPPET = "DELETE_SNIPPET";
 const FILTER_SNIPPETS = "FILTER_SNIPPETS";
+const SET_SIDE_VIEW = "SET_SIDE_VIEW";
 
 const initialState = {
   snippetsData: [],
   archivedSnippets: [],
-  filteredSnippets: null
+  filteredSnippets: null,
+  currentView: ""
 };
 
 export const AppContext = createContext();
@@ -53,6 +55,11 @@ const reducer = (state, { type, payload }) => {
         ...state,
         filteredSnippets: payload
       };
+    case SET_SIDE_VIEW:
+      return {
+        ...state,
+        currentView: payload
+      };
     default:
       return state;
   }
@@ -84,7 +91,17 @@ const AppProvider = ({ children }) => {
     dispatch({ type: FILTER_SNIPPETS, payload: filteredSnippets });
   };
 
-  const value = { state, loading, dispatch, setFilteredSnippets };
+  const setCurentView = menuName => {
+    dispatch({ type: SET_SIDE_VIEW, payload: menuName });
+  };
+
+  const value = {
+    state,
+    loading,
+    dispatch,
+    setFilteredSnippets,
+    setCurentView
+  };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
