@@ -58,7 +58,8 @@ const reducer = (state, { type, payload }) => {
     case SET_SIDE_VIEW:
       return {
         ...state,
-        currentView: payload
+        currentView: payload,
+        filteredSnippets: null
       };
     default:
       return state;

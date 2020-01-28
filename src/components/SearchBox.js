@@ -34,12 +34,18 @@ const Search = () => {
   };
 
   const filterItems = inputValue => {
-    const result =
-      state.snippetsData.length > 0 &&
-      matchSorter(state.snippetsData, inputValue, {
-        keys: ["title", "description"]
-      });
-    setFilteredSnippets(result);
+    const mySnippets = matchSorter(state.snippetsData, inputValue, {
+      keys: ["title", "description"]
+    });
+    const myArchivedSnippets = matchSorter(state.archivedSnippets, inputValue, {
+      keys: ["title", "description"]
+    });
+    if (state.currentView === "FiHome") {
+      setFilteredSnippets(mySnippets);
+    }
+    if (state.currentView === "FiArchive") {
+      setFilteredSnippets(myArchivedSnippets);
+    }
   };
 
   const handleDownshiftChange = searchTerm => {

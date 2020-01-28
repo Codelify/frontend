@@ -40,7 +40,7 @@ const Default = () => {
     return <SnippetList data={state.filteredSnippets} />;
   }
 
-  // Render the list of snippets if their are any depends on the current side navigation menu view
+  // Render the list of snippets if their are any depends on the current side navigation menu
   if (token) {
     if (state.currentView === "FiHome") {
       return <SnippetList data={state.snippetsData} loading={loading} />;
