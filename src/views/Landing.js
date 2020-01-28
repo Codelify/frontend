@@ -18,11 +18,11 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Container from "../components/Container";
 import RequestAccess from "../components/RequestAccess";
-import GoogleButton from "../components/GoogleButton";
+//import GoogleButton from "../components/GoogleButton";
 import { MdBookmark, MdFindInPage, MdDescription } from "react-icons/md";
 import screeShot from "../assets/img/app-shot.png";
 import SlackButton from "../components/SlackButton";
-import GoogleLogin from "react-google-login";
+//import GoogleLogin from "react-google-login";
 
 const Feature = ({ title, icon, children, ...props }) => {
   return (
@@ -81,7 +81,7 @@ function Landing() {
               </Heading>
 
               <Text opacity="0.7" fontSize="lg" mt="6">
-                Codelify give developers a central place to easily Store, Manage
+                Codelify give to developers a central place to easily Store, Manage
                 and Retrieve code snippets they want to keep and reuse.
               </Text>
 
