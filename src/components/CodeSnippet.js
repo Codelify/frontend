@@ -33,7 +33,7 @@ import { DELETE_SNIPPET, UPDATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
 import SnippetContent from "./SnippetContent";
 
-const CodeSnippet = ({ title, id, description, url, tags, content, isFav = true }) => {
+const CodeSnippet = ({ title, id, description, url, tags, content, isFav = false }) => {
   //moved ControlButtons in each filed - so we can know whitch field user wants to update
   // const ControlButtons = () => {
   //   return (
@@ -204,8 +204,9 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav = true 
           <MenuButton _focus={{ outline: "none" }}>
             <IconButton
               aria-label="More options"
-              fontSize="20px"
+              fontSize="15px"
               icon={MdMoreHoriz}
+              color="#319795"
               _focus={{
                 outline: "none"
               }}
@@ -217,7 +218,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav = true 
                 variant="ghost"
                 aria-label="Favorite Snippet"
                 fontSize="22px"
-                color="#319795"
+                color="#FEB2B2"
                 icon={FaStar}
                 _focus={{
                   outline: "none"
@@ -231,7 +232,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav = true 
                 aria-label="Delete Snippet"
                 fontSize="25px"
                 icon={MdDelete}
-                color="#FC8181"
+                color="#CBD5E0"
                 _focus={{
                   outline: "none"
                 }}
