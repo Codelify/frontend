@@ -6,7 +6,6 @@ import {
   Stack,
   Link,
   Icon,
-  Badge,
   Divider,
   IconButton,
   Modal,
@@ -22,6 +21,7 @@ import {
 } from "@chakra-ui/core";
 import SnippetHeading from "./SnippetHeading";
 import Description from "./SnippetDescription";
+import SnippetTags from "./SnippetTags";
 import { MdDelete, MdMoreHoriz } from "react-icons/md";
 import { useMutation } from "@apollo/react-hooks";
 import { DELETE_SNIPPET, UPDATE_SNIPPET } from "../graphql/mutation";
@@ -46,6 +46,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
   const toast = useToast();
+
   const handleDelete = async () => {
     const token =
       typeof window !== "undefined" && window.localStorage.getItem("token");
@@ -71,7 +72,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
       }
     }
   };
-  const handleUpdate = async typeOfAction => {
+  const handleUpdate = async (tagList, typeOfAction) => {
     const costumObject = {};
     //construct costum object for every case for not repeting the mutation of each field
     if (typeOfAction === "title") {
@@ -83,6 +84,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
     if (typeOfAction === "content") {
       costumObject[typeOfAction] = contentToUpdate;
     }
+
     const token = window.localStorage.getItem("token");
     try {
       const { data } = await updateSnippet({
@@ -90,7 +92,8 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
           snippetId: id,
           snippetInfo: costumObject,
           token: token
-        }
+        },
+        refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
       });
     } catch (error) {
       console.log(error);
@@ -155,21 +158,8 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
               </Link>
             )}
           </Box>
-          <Stack justify="flex-start" isInline>
-            {tags &&
-              tags.map((tag, index) => {
-                return (
-                  <Badge
-                    key={`${tag.name} - ${index}`}
-                    mb="4px"
-                    mr="4px"
-                    variantColor="green"
-                  >
-                    {tag}
-                  </Badge>
-                );
-              })}
-          </Stack>
+
+          <SnippetTags id={id} tags={tags} />
         </Stack>
         <Box
           minWidth="310px"
