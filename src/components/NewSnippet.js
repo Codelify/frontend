@@ -279,11 +279,11 @@ const a = 10;
                           <Tag
                             id={index}
                             key={index}
-                            variant="solid"
+                            variant="subtle"
                             variantColor="teal"
-                            mx="3px"
                             my="3px"
                             paddingY="3px"
+                            size="sm"
                             _focus={{
                               outline: "none"
                             }}
@@ -296,7 +296,6 @@ const a = 10;
                               onClick={() => {
                                 handleDeleteTag(index);
                               }}
-                              mx="5px"
                             />
                           </Tag>
                         );
