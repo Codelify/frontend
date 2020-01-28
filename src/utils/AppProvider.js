@@ -12,7 +12,8 @@ const initialState = {
   snippetsData: [],
   archivedSnippets: [],
   filteredSnippets: null,
-  currentView: "FiHome"
+  currentView: "FiHome",
+  searchTerm: ""
 };
 
 export const AppContext = createContext();
@@ -46,6 +47,7 @@ const reducer = (state, { type, payload }) => {
     case DELETE_SNIPPET:
       return {
         ...state,
+        filteredSnippets: null,
         snippetsData: state.snippetsData.filter(
           snippet => snippet.id !== payload
         )
@@ -81,7 +83,6 @@ const AppProvider = ({ children }) => {
   const fetchSnippetsData = async () => {
     try {
       const { getAuthUserSnippets } = await data;
-
       dispatch({ type: FETCH_SNIPPETS_DATA, payload: getAuthUserSnippets });
     } catch (error) {
       //console.warn(error);
