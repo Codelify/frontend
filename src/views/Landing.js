@@ -130,6 +130,7 @@ function Landing() {
             mx="auto"
             minWidth="330px"
             w="95%"
+            maxW="1280px"
             borderRadius="5px"
           >
             <Image

@@ -30,7 +30,7 @@ const Description = ({
   const descriptionId = `description_${id}`;
   return (
     <>
-      <Text as="div" mb="5px" contenteditable="true" fontSize="sm">
+      <Text as="div" mb="5px" contenteditable="true" fontSize="md">
         <ContentEditable
           html={description}
           disabled={false}

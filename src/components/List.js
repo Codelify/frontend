@@ -28,18 +28,6 @@ const SnippetList = props => {
           next={fetchMoreData}
           hasMore={hasMore}
           loader={<h4>Loading...</h4>}
-          endMessage={
-            <p style={{ textAlign: "center" }}>
-              {dataToRender.length > 4 && (
-                <b>
-                  Yay! You have seen all your Snippets{" "}
-                  <span role="img" aria-label="wave">
-                    👋
-                  </span>
-                </b>
-              )}
-            </p>
-          }
         >
           {dataToRender &&
             dataToRender.map((snippet, idx) => {
