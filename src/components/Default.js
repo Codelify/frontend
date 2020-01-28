@@ -9,6 +9,7 @@ import { initGA, PageView } from "./~common/Tracking";
 const Default = () => {
   const { state, dispatch } = useContext(AppContext);
   console.log("Archived Snippets", state.archivedSnippets);
+  console.log("Menu View", state.currentView);
   const token =
     typeof window !== "undefined" && window.localStorage.getItem("token");
   const { data, loading, refetch } = useQuery(MY_SNIPPETs, {
@@ -39,9 +40,20 @@ const Default = () => {
     return <SnippetList data={state.filteredSnippets} />;
   }
 
-  // Render the list of snippets if their are any
-  if (state.snippetsData.length && token) {
-    return <SnippetList data={state.snippetsData} loading={loading} />;
+  // Render the list of snippets if their are any depends on the current side navigation menu view
+  if (token) {
+    if (state.currentView === "FiHome") {
+      return <SnippetList data={state.snippetsData} loading={loading} />;
+    }
+    if (state.currentView === "FiArchive") {
+      return <SnippetList data={state.archivedSnippets} loading={loading} />;
+    }
+    if (state.currentView === "FiStar") {
+      return <SnippetList data={state.snippetsData} loading={loading} />;
+    }
+    if (state.currentView === "FiTag") {
+      return <SnippetList data={state.snippetsData} loading={loading} />;
+    }
   }
   // default view if there is no snippets
   else {

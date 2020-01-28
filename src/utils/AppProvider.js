@@ -12,7 +12,7 @@ const initialState = {
   snippetsData: [],
   archivedSnippets: [],
   filteredSnippets: null,
-  currentView: ""
+  currentView: "FiHome"
 };
 
 export const AppContext = createContext();
