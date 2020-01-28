@@ -27,7 +27,6 @@ import SnippetHeading from "./SnippetHeading";
 import Description from "./SnippetDescription";
 import SnippetTags from "./SnippetTags";
 import { MdDelete, MdMoreHoriz } from "react-icons/md";
-import { FiStar } from "react-icons/fi";
 import { FaStar } from "react-icons/fa";
 import { useMutation } from "@apollo/react-hooks";
 import { DELETE_SNIPPET, UPDATE_SNIPPET } from "../graphql/mutation";
@@ -191,7 +190,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav = true 
               <Box
               borderRadius="5px"
               p="5px"
-              backgroundColor="#ECC94B"
+              backgroundColor="#FEB2B2"
               as={FaStar}
               size="30px"
               color="#FFFFFF"
@@ -217,8 +216,9 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav = true 
               <IconButton
                 variant="ghost"
                 aria-label="Favorite Snippet"
-                fontSize="25px"
-                icon={FiStar}
+                fontSize="22px"
+                color="#319795"
+                icon={FaStar}
                 _focus={{
                   outline: "none"
                 }}
@@ -231,7 +231,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav = true 
                 aria-label="Delete Snippet"
                 fontSize="25px"
                 icon={MdDelete}
-                color="#FEB2B2"
+                color="#FC8181"
                 _focus={{
                   outline: "none"
                 }}
