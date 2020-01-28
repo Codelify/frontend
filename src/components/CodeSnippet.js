@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 //import { AppContext } from "../utils/AppProvider";
 import {
   Box,
@@ -21,7 +21,7 @@ import {
 } from "@chakra-ui/core";
 import SnippetHeading from "./SnippetHeading";
 import Description from "./SnippetDescription";
-import SnippetTags from './SnippetTags'
+import SnippetTags from "./SnippetTags";
 import { MdDelete, MdMoreHoriz } from "react-icons/md";
 import { useMutation } from "@apollo/react-hooks";
 import { DELETE_SNIPPET, UPDATE_SNIPPET } from "../graphql/mutation";
@@ -41,11 +41,13 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
   const [titleToUpdate, setTitleToUpdate] = useState(title);
   const [descriptionToUpdate, setDescroptionToUpdate] = useState(description);
   const [contentToUpdate, setContentToUpdate] = useState(content);
+  const [tagsToUpdate, setTagsToUpdate] = useState(tags);
   //const { dispatch } = useContext(AppContext);
   const [deleteSnippet, data] = useMutation(DELETE_SNIPPET);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
   const toast = useToast();
+
   const handleDelete = async () => {
     const token =
       typeof window !== "undefined" && window.localStorage.getItem("token");
@@ -71,7 +73,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
       }
     }
   };
-  const handleUpdate = async typeOfAction => {
+  const handleUpdate = async (tagList, typeOfAction) => {
     const costumObject = {};
     //construct costum object for every case for not repeting the mutation of each field
     if (typeOfAction === "title") {
@@ -83,6 +85,10 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
     if (typeOfAction === "content") {
       costumObject[typeOfAction] = contentToUpdate;
     }
+    if (typeOfAction === "tags") {
+      //console.log("UPDATE FUNCTION", typeOfAction, tagList);
+      costumObject[typeOfAction] = tagList;
+    }
     const token = window.localStorage.getItem("token");
     try {
       const { data } = await updateSnippet({
@@ -90,7 +96,8 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
           snippetId: id,
           snippetInfo: costumObject,
           token: token
-        }
+        },
+        refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
       });
     } catch (error) {
       console.log(error);
@@ -103,6 +110,13 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
     // event from LiveProvider its comming as a string in transformCode prop
     if (typeof event === "string") {
       setContentToUpdate(event);
+    }
+    //case we update tags - event will be an array of tags
+    if (typeof event === "object") {
+      console.log("EVENT", event);
+      const test = event;
+      setTagsToUpdate(test);
+      console.log("CODE SNIPPET", tagsToUpdate);
     }
 
     //Case we update the code from title/description - onChange function
@@ -155,15 +169,14 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
               </Link>
             )}
           </Box>
-          
-          <SnippetTags 
-          id={id} 
-          tags={tags} 
-          styledEdit={styledEdit} 
-          handleEdit={handleEdit} 
-          handleUpdate={handleUpdate}
+
+          <SnippetTags
+            id={id}
+            tags={tagsToUpdate}
+            styledEdit={styledEdit}
+            handleEdit={handleEdit}
+            handleUpdate={handleUpdate}
           />
-        
         </Stack>
         <Box
           minWidth="310px"
