@@ -17,18 +17,24 @@ import {
   ModalCloseButton,
   useDisclosure,
   Button,
-  useToast
+  useToast,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem
 } from "@chakra-ui/core";
 import SnippetHeading from "./SnippetHeading";
 import Description from "./SnippetDescription";
 import SnippetTags from "./SnippetTags";
 import { MdDelete, MdMoreHoriz } from "react-icons/md";
+import { FiStar } from "react-icons/fi";
+import { FaStar } from "react-icons/fa";
 import { useMutation } from "@apollo/react-hooks";
 import { DELETE_SNIPPET, UPDATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
 import SnippetContent from "./SnippetContent";
 
-const CodeSnippet = ({ title, id, description, url, tags, content }) => {
+const CodeSnippet = ({ title, id, description, url, tags, content, isFav = true }) => {
   //moved ControlButtons in each filed - so we can know whitch field user wants to update
   // const ControlButtons = () => {
   //   return (
@@ -127,6 +133,11 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
     document.getElementById(event.target.id).classList.add("edited-div");
   };
 
+  const [favorite, setFavorite ] = useState(isFav)
+  const toggleFavorite = () => {
+    setFavorite(!favorite)
+  }
+
   return (
     <>
       <Flex flexWrap="wrap" mt="30px">
@@ -174,28 +185,61 @@ const CodeSnippet = ({ title, id, description, url, tags, content }) => {
           />
         </Box>
       </Flex>
-      <Flex mt="40px" justify="flex-end" w="95%">
-        <IconButton
-          mr="3px"
-          variant="ghost"
-          variantColor="teal"
-          aria-label="Delete Snippet"
-          fontSize="25px"
-          icon={MdDelete}
-          onClick={onOpen}
-          color="#FEB2B2"
-          _focus={{
-            outline: "none"
-          }}
-        />
-        <IconButton
-          aria-label="More options"
-          fontSize="20px"
-          icon={MdMoreHoriz}
-          _focus={{
-            outline: "none"
-          }}
-        />
+      <Flex mt="40px" justify="space-between" w="95%">
+        {
+          favorite ? (
+              <Box
+              borderRadius="5px"
+              p="5px"
+              backgroundColor="#ECC94B"
+              as={FaStar}
+              size="30px"
+              color="#FFFFFF"
+            />  
+          ) :
+          (
+            <Box />
+          )
+        }
+        <Menu autoSelect={false}>
+          <MenuButton _focus={{ outline: "none" }}>
+            <IconButton
+              aria-label="More options"
+              fontSize="20px"
+              icon={MdMoreHoriz}
+              _focus={{
+                outline: "none"
+              }}
+            />
+          </MenuButton>
+          <MenuList closeOnBlur={true} placement="top">
+            <MenuItem onClick={toggleFavorite}>
+              <IconButton
+                variant="ghost"
+                aria-label="Favorite Snippet"
+                fontSize="25px"
+                icon={FiStar}
+                _focus={{
+                  outline: "none"
+                }}
+              />
+              Favorite
+            </MenuItem>
+            <MenuItem onClick={onOpen}>
+              <IconButton
+                variant="ghost"
+                aria-label="Delete Snippet"
+                fontSize="25px"
+                icon={MdDelete}
+                color="#FEB2B2"
+                _focus={{
+                  outline: "none"
+                }}
+              />
+              Archive
+            </MenuItem>
+          </MenuList>
+        </Menu>
       </Flex>
       <Divider />
 
