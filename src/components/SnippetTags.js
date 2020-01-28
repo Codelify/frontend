@@ -112,7 +112,7 @@ const SnippetTags = ({ id, tags }) => {
                   outline: "none"
                 }}
               >
-                <TagLabel fontSize=".7em" textTransform="uppercase" mr="3px">
+                <TagLabel fontSize=".8em" textTransform="uppercase" mr="3px">
                   {tag}
                 </TagLabel>
                 <TagCloseButton
