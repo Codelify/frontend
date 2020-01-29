@@ -29,16 +29,13 @@ export const UPDATE_SNIPPET = gql`
     $snippetInfo: SnippetInput!
     $token: String!
   ) {
-    updateSnippet(
-      input: $snippetInfo
-      snippetId: $snippetId
-      token: $token
-    ) {
+    updateSnippet(input: $snippetInfo, snippetId: $snippetId, token: $token) {
       id
       title
       description
       content
       tags
+      isFav
     }
   }
 `;

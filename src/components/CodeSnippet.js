@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-//import { AppContext } from "../utils/AppProvider";
+import React, { useState, useContext } from "react";
+import { AppContext } from "../utils/AppProvider";
 import {
   Box,
   Flex,
@@ -33,7 +33,15 @@ import { DELETE_SNIPPET, UPDATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
 import SnippetContent from "./SnippetContent";
 
-const CodeSnippet = ({ title, id, description, url, tags, content, isFav = true }) => {
+const CodeSnippet = ({
+  title,
+  id,
+  description,
+  url,
+  tags,
+  content,
+  isFav = false
+}) => {
   //moved ControlButtons in each filed - so we can know whitch field user wants to update
   // const ControlButtons = () => {
   //   return (
@@ -46,7 +54,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav = true 
   const [titleToUpdate, setTitleToUpdate] = useState(title);
   const [descriptionToUpdate, setDescroptionToUpdate] = useState(description);
   const [contentToUpdate, setContentToUpdate] = useState(content);
-  //const { dispatch } = useContext(AppContext);
+  const { dispatch } = useContext(AppContext);
   const [deleteSnippet, data] = useMutation(DELETE_SNIPPET);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
@@ -62,8 +70,8 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav = true 
           refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
         });
 
-        //dispatch({ type: "DELETE_SNIPPET", payload: id });
-        data.loading && onClose(false);
+        dispatch({ type: "DELETE_SNIPPET", payload: id });
+        !data.loading && onClose(false);
         toast({
           position: "top-right",
           title: "Archived",
@@ -97,8 +105,8 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav = true 
           snippetId: id,
           snippetInfo: costumObject,
           token: token
-        },
-        refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
+        }
+        //refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
       });
     } catch (error) {
       console.log(error);
@@ -132,10 +140,25 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav = true 
     document.getElementById(event.target.id).classList.add("edited-div");
   };
 
-  const [favorite, setFavorite ] = useState(isFav)
-  const toggleFavorite = () => {
-    setFavorite(!favorite)
-  }
+  const [favorite, setFavorite] = useState(isFav);
+  const toggleFavorite = async () => {
+    setFavorite(!favorite);
+    console.log(isFav);
+    const token = window.localStorage.getItem("token");
+    try {
+      const { data } = await updateSnippet({
+        variables: {
+          snippetId: id,
+          snippetInfo: { isFav: !favorite },
+          token: token
+        },
+        refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
+      });
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -185,27 +208,25 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav = true 
         </Box>
       </Flex>
       <Flex mt="40px" justify="space-between" w="95%">
-        {
-          favorite ? (
-              <Box
-              borderRadius="5px"
-              p="5px"
-              backgroundColor="#FEB2B2"
-              as={FaStar}
-              size="30px"
-              color="#FFFFFF"
-            />  
-          ) :
-          (
-            <Box />
-          )
-        }
+        {favorite ? (
+          <Box
+            borderRadius="5px"
+            p="5px"
+            backgroundColor="#FEB2B2"
+            as={FaStar}
+            size="30px"
+            color="#FFFFFF"
+          />
+        ) : (
+          <Box />
+        )}
         <Menu autoSelect={false}>
           <MenuButton _focus={{ outline: "none" }}>
             <IconButton
               aria-label="More options"
-              fontSize="20px"
+              fontSize="15px"
               icon={MdMoreHoriz}
+              color="#319795"
               _focus={{
                 outline: "none"
               }}
@@ -217,7 +238,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav = true 
                 variant="ghost"
                 aria-label="Favorite Snippet"
                 fontSize="22px"
-                color="#319795"
+                color="#FEB2B2"
                 icon={FaStar}
                 _focus={{
                   outline: "none"
@@ -231,7 +252,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav = true 
                 aria-label="Delete Snippet"
                 fontSize="25px"
                 icon={MdDelete}
-                color="#FC8181"
+                color="#CBD5E0"
                 _focus={{
                   outline: "none"
                 }}
