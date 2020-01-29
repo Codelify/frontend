@@ -135,7 +135,6 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
   const [favorite, setFavorite] = useState(isFav);
   const toggleFavorite = async () => {
     setFavorite(!favorite);
-    console.log(isFav);
     const token = window.localStorage.getItem("token");
     try {
       const { data } = await updateSnippet({
@@ -146,7 +145,6 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
         },
         refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
       });
-      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -213,7 +211,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
           <Box />
         )}
         <Menu autoSelect={false}>
-          <MenuButton _focus={{ outline: "none" }}>
+          <MenuButton _focus={{ outline: "none" }} as="div">
             <IconButton
               aria-label="More options"
               fontSize="15px"
@@ -225,7 +223,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
             />
           </MenuButton>
           <MenuList closeOnBlur={true} placement="top">
-            <MenuItem onClick={toggleFavorite}>
+            <MenuItem onClick={toggleFavorite} as="div">
               <IconButton
                 variant="ghost"
                 aria-label="Favorite Snippet"
@@ -238,7 +236,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
               />
               Favorite
             </MenuItem>
-            <MenuItem onClick={onOpen}>
+            <MenuItem onClick={onOpen} as="div">
               <IconButton
                 variant="ghost"
                 aria-label="Delete Snippet"
