@@ -40,11 +40,21 @@ const Search = () => {
     const myArchivedSnippets = matchSorter(state.archivedSnippets, inputValue, {
       keys: ["title", "description", "tags"]
     });
+    const myFavoritesSnippets = matchSorter(
+      state.archivedSnippets,
+      inputValue,
+      {
+        keys: ["title", "description", "tags"]
+      }
+    );
     if (state.currentView === "FiHome") {
       setFilteredSnippets(mySnippets);
     }
     if (state.currentView === "FiArchive") {
       setFilteredSnippets(myArchivedSnippets);
+    }
+    if (state.currentView === "FiStar") {
+      setFilteredSnippets(myFavoritesSnippets);
     }
   };
 
