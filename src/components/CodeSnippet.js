@@ -33,7 +33,7 @@ import { DELETE_SNIPPET, UPDATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
 import SnippetContent from "./SnippetContent";
 
-const CodeSnippet = ({ title, id, description, url, tags, content, isFav = false }) => {
+const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
   //moved ControlButtons in each filed - so we can know whitch field user wants to update
   // const ControlButtons = () => {
   //   return (
@@ -132,10 +132,23 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav = false
     document.getElementById(event.target.id).classList.add("edited-div");
   };
 
-  const [favorite, setFavorite ] = useState(isFav)
-  const toggleFavorite = () => {
-    setFavorite(!favorite)
-  }
+  const [favorite, setFavorite] = useState(isFav);
+  const toggleFavorite = async () => {
+    setFavorite(!favorite);
+    const token = window.localStorage.getItem("token");
+    try {
+      const { data } = await updateSnippet({
+        variables: {
+          snippetId: id,
+          snippetInfo: { isFav: !favorite },
+          token: token
+        },
+        refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -185,23 +198,20 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav = false
         </Box>
       </Flex>
       <Flex mt="40px" justify="space-between" w="95%">
-        {
-          favorite ? (
-              <Box
-              borderRadius="5px"
-              p="5px"
-              backgroundColor="#FEB2B2"
-              as={FaStar}
-              size="30px"
-              color="#FFFFFF"
-            />  
-          ) :
-          (
-            <Box />
-          )
-        }
+        {isFav ? (
+          <Box
+            borderRadius="5px"
+            p="5px"
+            backgroundColor="#FEB2B2"
+            as={FaStar}
+            size="30px"
+            color="#FFFFFF"
+          />
+        ) : (
+          <Box />
+        )}
         <Menu autoSelect={false}>
-          <MenuButton _focus={{ outline: "none" }}>
+          <MenuButton _focus={{ outline: "none" }} as="div">
             <IconButton
               aria-label="More options"
               fontSize="15px"
@@ -213,7 +223,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav = false
             />
           </MenuButton>
           <MenuList closeOnBlur={true} placement="top">
-            <MenuItem onClick={toggleFavorite}>
+            <MenuItem onClick={toggleFavorite} as="div">
               <IconButton
                 variant="ghost"
                 aria-label="Favorite Snippet"
@@ -226,7 +236,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav = false
               />
               Favorite
             </MenuItem>
-            <MenuItem onClick={onOpen}>
+            <MenuItem onClick={onOpen} as="div">
               <IconButton
                 variant="ghost"
                 aria-label="Delete Snippet"

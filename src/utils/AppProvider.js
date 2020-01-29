@@ -36,6 +36,13 @@ const reducer = (state, { type, payload }) => {
           })
           .filter(snippet => {
             return snippet.archivedAt !== null;
+          }),
+        favoritesSnippets: payload
+          .sort((a, b) => {
+            return new Date(b.createdAt) - new Date(a.createdAt);
+          })
+          .filter(snippet => {
+            return snippet.isFav;
           })
       };
 

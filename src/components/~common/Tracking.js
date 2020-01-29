@@ -2,12 +2,12 @@ import ReactGA from "react-ga";
 
 export const initGA = trackingID => {
   ReactGA.initialize(trackingID);
-  console.log(ReactGA.ga());
+  //console.log(ReactGA.ga());
 };
 
 export const PageView = () => {
   ReactGA.pageview(window.location.pathname + window.location.search);
-  console.log("PAGE VIEW: ", window.location.pathname + window.location.search);
+  //console.log("PAGE VIEW: ", window.location.pathname + window.location.search);
 };
 
 /**
