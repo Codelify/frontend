@@ -43,7 +43,6 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
   //     </ButtonGroup>
   //   );
   // };
-  console.log("FAVORITES ", isFav);
   const [titleToUpdate, setTitleToUpdate] = useState(title);
   const [descriptionToUpdate, setDescroptionToUpdate] = useState(description);
   const [contentToUpdate, setContentToUpdate] = useState(content);

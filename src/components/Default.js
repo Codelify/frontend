@@ -8,8 +8,7 @@ import { PageView } from "./~common/Tracking";
 
 const Default = () => {
   const { state, dispatch } = useContext(AppContext);
-  console.log("Favorites Snippets", state.favoritesSnippets);
-  console.log("Menu View", state.currentView);
+  //console.log("Menu View", state.currentView);
   const token =
     typeof window !== "undefined" && window.localStorage.getItem("token");
   const { data, loading, refetch } = useQuery(MY_SNIPPETs, {
@@ -33,7 +32,6 @@ const Default = () => {
     try {
       const { getAuthUserSnippets } = await data;
       dispatch({ type: "FETCH_SNIPPETS_DATA", payload: getAuthUserSnippets });
-      console.log(data && getAuthUserSnippets);
     } catch (error) {
       //console.warn(error);
     }
