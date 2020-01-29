@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { AppContext } from "../utils/AppProvider";
 import {
   Icon,
@@ -26,7 +26,7 @@ import { DropDown, DropDownItem, Root } from "../utils/searchStyles/Dropdown";
 // );
 
 const Search = () => {
-  const [value, setValue] = useState("");
+  //const [value, setValue] = useState("");
   const { state, setFilteredSnippets } = useContext(AppContext);
   const handleOnchange = e => {
     const input = e.target.value;
@@ -34,24 +34,30 @@ const Search = () => {
   };
 
   const filterItems = inputValue => {
-    const result =
-      state.snippetsData.length > 0 &&
-      matchSorter(state.snippetsData, inputValue, {
-        keys: ["title", "description"]
-      });
-    setFilteredSnippets(result);
+    const mySnippets = matchSorter(state.snippetsData, inputValue, {
+      keys: ["title", "description", "tags"]
+    });
+    const myArchivedSnippets = matchSorter(state.archivedSnippets, inputValue, {
+      keys: ["title", "description", "tags"]
+    });
+    if (state.currentView === "FiHome") {
+      setFilteredSnippets(mySnippets);
+    }
+    if (state.currentView === "FiArchive") {
+      setFilteredSnippets(myArchivedSnippets);
+    }
   };
 
   const handleDownshiftChange = searchTerm => {
     searchTerm && filterItems(searchTerm.title);
   };
-  const handleStateChange = changes => {
-    if (changes.hasOwnProperty("selectedItem")) {
-      setValue(changes.selectedItem);
-    } else if (changes.hasOwnProperty("inputValue")) {
-      setValue(changes.inputValue);
-    }
-  };
+  // const handleStateChange = changes => {
+  //   if (changes.hasOwnProperty("selectedItem")) {
+  //     setValue(changes.selectedItem);
+  //   } else if (changes.hasOwnProperty("inputValue")) {
+  //     setValue(changes.inputValue);
+  //   }
+  // };
   return (
     <Box w={["90%", "90%", "90%", "50%"]}>
       <Root>

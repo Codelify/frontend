@@ -6,10 +6,14 @@ const FETCH_SNIPPETS_DATA = "FETCH_SNIPPETS_DATA";
 const ADD_SNIPPET = "ADD_SNIPPET";
 const DELETE_SNIPPET = "DELETE_SNIPPET";
 const FILTER_SNIPPETS = "FILTER_SNIPPETS";
+const SET_SIDE_VIEW = "SET_SIDE_VIEW";
 
 const initialState = {
   snippetsData: [],
-  filteredSnippets: null
+  archivedSnippets: [],
+  filteredSnippets: null,
+  currentView: "FiHome",
+  searchTerm: ""
 };
 
 export const AppContext = createContext();
@@ -19,10 +23,22 @@ const reducer = (state, { type, payload }) => {
     case FETCH_SNIPPETS_DATA:
       return {
         ...state,
-        snippetsData: payload.sort((a, b) => {
-          return new Date(b.createdAt) - new Date(a.createdAt);
-        })
+        snippetsData: payload
+          .sort((a, b) => {
+            return new Date(b.createdAt) - new Date(a.createdAt);
+          })
+          .filter(snippet => {
+            return snippet.archivedAt === null;
+          }),
+        archivedSnippets: payload
+          .sort((a, b) => {
+            return new Date(b.archivedAt) - new Date(a.archivedAt);
+          })
+          .filter(snippet => {
+            return snippet.archivedAt !== null;
+          })
       };
+
     case ADD_SNIPPET:
       return {
         ...state,
@@ -31,6 +47,7 @@ const reducer = (state, { type, payload }) => {
     case DELETE_SNIPPET:
       return {
         ...state,
+        filteredSnippets: null,
         snippetsData: state.snippetsData.filter(
           snippet => snippet.id !== payload
         )
@@ -39,6 +56,12 @@ const reducer = (state, { type, payload }) => {
       return {
         ...state,
         filteredSnippets: payload
+      };
+    case SET_SIDE_VIEW:
+      return {
+        ...state,
+        currentView: payload,
+        filteredSnippets: null
       };
     default:
       return state;
@@ -60,7 +83,6 @@ const AppProvider = ({ children }) => {
   const fetchSnippetsData = async () => {
     try {
       const { getAuthUserSnippets } = await data;
-
       dispatch({ type: FETCH_SNIPPETS_DATA, payload: getAuthUserSnippets });
     } catch (error) {
       //console.warn(error);
@@ -71,7 +93,17 @@ const AppProvider = ({ children }) => {
     dispatch({ type: FILTER_SNIPPETS, payload: filteredSnippets });
   };
 
-  const value = { state, loading, dispatch, setFilteredSnippets };
+  const setCurentView = menuName => {
+    dispatch({ type: SET_SIDE_VIEW, payload: menuName });
+  };
+
+  const value = {
+    state,
+    loading,
+    dispatch,
+    setFilteredSnippets,
+    setCurentView
+  };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

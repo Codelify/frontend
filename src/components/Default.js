@@ -4,11 +4,12 @@ import EmptyView from "./EmptyView";
 import SnippetList from "./List";
 import { useQuery } from "@apollo/react-hooks";
 import { MY_SNIPPETs } from "../graphql/query";
-import { initGA, PageView } from "./~common/Tracking";
+import { PageView } from "./~common/Tracking";
 
 const Default = () => {
   const { state, dispatch } = useContext(AppContext);
-
+  console.log("Archived Snippets", state.archivedSnippets);
+  console.log("Menu View", state.currentView);
   const token =
     typeof window !== "undefined" && window.localStorage.getItem("token");
   const { data, loading, refetch } = useQuery(MY_SNIPPETs, {
@@ -19,7 +20,10 @@ const Default = () => {
   });
 
   useEffect(() => {
-    //initGA("UA-157102662-1");
+    PageView();
+  }, []);
+
+  useEffect(() => {
     PageView();
     fetchSnippetsData();
     refetch();
@@ -29,6 +33,7 @@ const Default = () => {
     try {
       const { getAuthUserSnippets } = await data;
       dispatch({ type: "FETCH_SNIPPETS_DATA", payload: getAuthUserSnippets });
+      console.log(data && getAuthUserSnippets);
     } catch (error) {
       //console.warn(error);
     }
@@ -39,9 +44,20 @@ const Default = () => {
     return <SnippetList data={state.filteredSnippets} />;
   }
 
-  // Render the list of snippets if their are any
-  if (state.snippetsData && state.snippetsData.length && token) {
-    return <SnippetList data={state.snippetsData} loading={loading} />;
+  // Render the list of snippets if their are any depends on the current side navigation menu
+  if (token) {
+    if (state.currentView === "FiHome") {
+      return <SnippetList data={state.snippetsData} loading={loading} />;
+    }
+    if (state.currentView === "FiArchive") {
+      return <SnippetList data={state.archivedSnippets} loading={loading} />;
+    }
+    if (state.currentView === "FiStar") {
+      return <SnippetList data={state.snippetsData} loading={loading} />;
+    }
+    if (state.currentView === "FiTag") {
+      return <SnippetList data={state.snippetsData} loading={loading} />;
+    }
   }
   // default view if there is no snippets
   else {

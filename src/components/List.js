@@ -3,6 +3,7 @@ import { Box } from "@chakra-ui/core";
 import CodeSnippet from "./CodeSnippet";
 import MainLayout from "../views/layout";
 import InfiniteScroll from "react-infinite-scroll-component";
+import NoSnippetView from "./NoSnippetsView";
 
 const SnippetList = props => {
   const [snippetPerPage, setSnippetsPerPage] = useState(4);
@@ -23,27 +24,31 @@ const SnippetList = props => {
   return (
     <MainLayout>
       <Box mt="60px">
-        <InfiniteScroll
-          dataLength={snippetPerPage}
-          next={fetchMoreData}
-          hasMore={hasMore}
-          loader={<h4>Loading...</h4>}
-        >
-          {dataToRender &&
-            dataToRender.map((snippet, idx) => {
-              return (
-                <CodeSnippet
-                  key={snippet.id}
-                  id={snippet.id}
-                  title={snippet.title}
-                  description={snippet.description}
-                  content={snippet.content}
-                  tags={snippet.tags}
-                  url={snippet.sourceUrl}
-                />
-              );
-            })}
-        </InfiniteScroll>
+        {data.length ? (
+          <InfiniteScroll
+            dataLength={snippetPerPage}
+            next={fetchMoreData}
+            hasMore={hasMore}
+            loader={<h4>Loading...</h4>}
+          >
+            {dataToRender &&
+              dataToRender.map((snippet, idx) => {
+                return (
+                  <CodeSnippet
+                    key={snippet.id}
+                    id={snippet.id}
+                    title={snippet.title}
+                    description={snippet.description}
+                    content={snippet.content}
+                    tags={snippet.tags}
+                    url={snippet.sourceUrl}
+                  />
+                );
+              })}
+          </InfiniteScroll>
+        ) : (
+          <NoSnippetView />
+        )}
       </Box>
     </MainLayout>
   );

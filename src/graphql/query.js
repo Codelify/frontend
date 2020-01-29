@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const MY_SNIPPETs = gql`
   query Snippets($token: String!) {
@@ -10,8 +10,8 @@ export const MY_SNIPPETs = gql`
       tags
       sourceUrl
       createdAt
+      isFav
+      archivedAt
     }
   }
 `;
-
-

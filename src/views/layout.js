@@ -1,9 +1,9 @@
-import { Box, Flex } from '@chakra-ui/core';
-import React from 'react';
-import Header from '../components/Header';
-import SideNav from '../components/SideNav';
-import Footer from '../components/Footer';
-import Container from '../components/Container';
+import { Box, Flex } from "@chakra-ui/core";
+import React from "react";
+import Header from "../components/Header";
+import SideNav from "../components/SideNav";
+import Footer from "../components/Footer";
+import Container from "../components/Container";
 
 const Main = props => <Box as="main" mb="3rem" {...props} />;
 

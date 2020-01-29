@@ -8,6 +8,7 @@ import { navigate } from "@reach/router";
 import { LOGIN_WITH_GOOGLE, CREATE_SNIPPET } from "../graphql/mutation";
 import Spinner from "../components/~common/Spinner";
 import { Box } from "@chakra-ui/core";
+import { PageView } from "./~common/Tracking";
 
 export default function SlackAuthenticator(props) {
   const [loginWithSlack] = useMutation(LOGIN_WITH_GOOGLE);
@@ -70,6 +71,7 @@ export default function SlackAuthenticator(props) {
     }
   };
   useEffect(() => {
+    PageView();
     const authenticate = async () => {
       const { code = "" } = queryString.parse(props.location.search);
       if (code) {
