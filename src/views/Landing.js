@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Event, initGA, PageView } from "../components/~common/Tracking";
+import { Event, PageView } from "../components/~common/Tracking";
 // import './App.css';
 import {
   ThemeProvider,
@@ -18,7 +18,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Container from "../components/Container";
 import RequestAccess from "../components/RequestAccess";
-//import GoogleButton from "../components/GoogleButton";
+import GoogleButton from "../components/GoogleButton";
 import { MdBookmark, MdFindInPage, MdDescription } from "react-icons/md";
 import screeShot from "../assets/img/app-shot.png";
 import SlackButton from "../components/SlackButton";
@@ -49,7 +49,6 @@ function Landing() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
-    initGA("UA-157102662-1");
     PageView();
     if (typeof window !== "undefined" && window.localStorage.getItem("token")) {
       setIsLoggedIn(true);
@@ -81,8 +80,8 @@ function Landing() {
               </Heading>
 
               <Text opacity="0.7" fontSize="lg" mt="6">
-                Codelify give to developers a central place to easily Store, Manage
-                and Retrieve code snippets they want to keep and reuse.
+                Codelify give to developers a central place to easily Store,
+                Manage and Retrieve code snippets they want to keep and reuse.
               </Text>
 
               <Box mt="6">
@@ -114,7 +113,7 @@ function Landing() {
                       Request Access
                     </Button>
                     <RequestAccess isOpen={isOpen} onClose={onClose} />
-                    <SlackButton />
+                    <GoogleButton />
                   </Stack>
                 )}
               </Box>

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-//import { AppContext } from "../utils/AppProvider";
+import React, { useState, useContext } from "react";
+import { AppContext } from "../utils/AppProvider";
 import {
   Box,
   Flex,
@@ -46,7 +46,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav = false
   const [titleToUpdate, setTitleToUpdate] = useState(title);
   const [descriptionToUpdate, setDescroptionToUpdate] = useState(description);
   const [contentToUpdate, setContentToUpdate] = useState(content);
-  //const { dispatch } = useContext(AppContext);
+  const { dispatch } = useContext(AppContext);
   const [deleteSnippet, data] = useMutation(DELETE_SNIPPET);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
@@ -62,8 +62,8 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav = false
           refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
         });
 
-        //dispatch({ type: "DELETE_SNIPPET", payload: id });
-        data.loading && onClose(false);
+        dispatch({ type: "DELETE_SNIPPET", payload: id });
+        !data.loading && onClose(false);
         toast({
           position: "top-right",
           title: "Archived",
@@ -97,8 +97,8 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav = false
           snippetId: id,
           snippetInfo: costumObject,
           token: token
-        },
-        refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
+        }
+        //refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
       });
     } catch (error) {
       console.log(error);

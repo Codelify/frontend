@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from "react";
 import {
   Box,
   Flex,
@@ -9,15 +9,20 @@ import {
   FormLabel,
   InputGroup,
   InputRightElement,
-  Heading,
-} from '@chakra-ui/core';
-import GoogleButton from './GoogleButton';
+  Heading
+} from "@chakra-ui/core";
+import { PageView } from "./~common/Tracking";
+import GoogleButton from "./GoogleButton";
 import MainLayout from "../views/layout";
 
 const Login = () => {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
-  
+
+  useEffect(() => {
+    PageView();
+  }, []);
+
   return (
     <MainLayout>
       <Heading mt="50px" as="h3" size="lg">
@@ -44,12 +49,12 @@ const Login = () => {
               <InputGroup size="md">
                 <Input
                   pr="4.5rem"
-                  type={show ? 'text' : 'password'}
+                  type={show ? "text" : "password"}
                   placeholder="Enter password"
                 />
                 <InputRightElement width="4.5rem">
                   <Button h="1.75rem" size="sm" onClick={handleClick}>
-                    {show ? 'Hide' : 'Show'}
+                    {show ? "Hide" : "Show"}
                   </Button>
                 </InputRightElement>
               </InputGroup>
