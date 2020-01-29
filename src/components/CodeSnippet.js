@@ -33,15 +33,7 @@ import { DELETE_SNIPPET, UPDATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
 import SnippetContent from "./SnippetContent";
 
-const CodeSnippet = ({
-  title,
-  id,
-  description,
-  url,
-  tags,
-  content,
-  isFav = false
-}) => {
+const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
   //moved ControlButtons in each filed - so we can know whitch field user wants to update
   // const ControlButtons = () => {
   //   return (
@@ -51,6 +43,7 @@ const CodeSnippet = ({
   //     </ButtonGroup>
   //   );
   // };
+  console.log("FAVORITES ", isFav);
   const [titleToUpdate, setTitleToUpdate] = useState(title);
   const [descriptionToUpdate, setDescroptionToUpdate] = useState(description);
   const [contentToUpdate, setContentToUpdate] = useState(content);
@@ -208,7 +201,7 @@ const CodeSnippet = ({
         </Box>
       </Flex>
       <Flex mt="40px" justify="space-between" w="95%">
-        {favorite ? (
+        {isFav ? (
           <Box
             borderRadius="5px"
             p="5px"

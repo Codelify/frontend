@@ -42,6 +42,7 @@ const SnippetList = props => {
                     content={snippet.content}
                     tags={snippet.tags}
                     url={snippet.sourceUrl}
+                    isFav={snippet.isFav}
                   />
                 );
               })}

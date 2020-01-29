@@ -8,7 +8,7 @@ import { PageView } from "./~common/Tracking";
 
 const Default = () => {
   const { state, dispatch } = useContext(AppContext);
-  console.log("Archived Snippets", state.archivedSnippets);
+  console.log("Favorites Snippets", state.favoritesSnippets);
   console.log("Menu View", state.currentView);
   const token =
     typeof window !== "undefined" && window.localStorage.getItem("token");
@@ -53,7 +53,7 @@ const Default = () => {
       return <SnippetList data={state.archivedSnippets} loading={loading} />;
     }
     if (state.currentView === "FiStar") {
-      return <SnippetList data={state.snippetsData} loading={loading} />;
+      return <SnippetList data={state.favoritesSnippets} loading={loading} />;
     }
     if (state.currentView === "FiTag") {
       return <SnippetList data={state.snippetsData} loading={loading} />;
