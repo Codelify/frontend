@@ -26,8 +26,9 @@ import {
 import SnippetHeading from "./SnippetHeading";
 import Description from "./SnippetDescription";
 import SnippetTags from "./SnippetTags";
-import { MdDelete, MdMoreHoriz } from "react-icons/md";
-import { FaStar } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import { FiMoreHorizontal } from 'react-icons/fi'
+import { FaStar, FaArchive } from "react-icons/fa";
 import { useMutation } from "@apollo/react-hooks";
 import { DELETE_SNIPPET, UPDATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
@@ -46,7 +47,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
   const [titleToUpdate, setTitleToUpdate] = useState(title);
   const [descriptionToUpdate, setDescroptionToUpdate] = useState(description);
   const [contentToUpdate, setContentToUpdate] = useState(content);
-  const { dispatch } = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
   const [deleteSnippet, data] = useMutation(DELETE_SNIPPET);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
@@ -115,13 +116,13 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
 
     //Case we update the code from title/description - onChange function
     // we have to verify if event its not a string or it has a target property
-    let state = event.target && event.target.value;
+    let dataWithUpdate = event.target && event.target.value;
     switch (typeOfAction) {
       case "title":
-        setTitleToUpdate(state);
+        setTitleToUpdate(dataWithUpdate);
         break;
       case "description":
-        setDescroptionToUpdate(state);
+        setDescroptionToUpdate(dataWithUpdate);
         break;
       default:
         return;
@@ -214,40 +215,64 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
           <MenuButton _focus={{ outline: "none" }} as="div">
             <IconButton
               aria-label="More options"
-              fontSize="15px"
-              icon={MdMoreHoriz}
+              icon={FiMoreHorizontal}
               color="#319795"
               _focus={{
                 outline: "none"
               }}
             />
           </MenuButton>
-          <MenuList closeOnBlur={true} placement="top">
-            <MenuItem onClick={toggleFavorite} as="div">
-              <IconButton
-                variant="ghost"
-                aria-label="Favorite Snippet"
-                fontSize="22px"
-                color="#FEB2B2"
-                icon={FaStar}
-                _focus={{
-                  outline: "none"
-                }}
-              />
-              Favorite
-            </MenuItem>
+          <MenuList closeOnBlur={true} placement="top-end">
+            {
+              state.currentView !== "FiArchive" && (
+                <MenuItem onClick={toggleFavorite} as="div">
+                <IconButton
+                  variant="ghost"
+                  aria-label="Favorite Snippet"
+                  fontSize="22px"
+                  color="#FEB2B2"
+                  icon={FaStar}
+                  _focus={{
+                    outline: "none"
+                  }}
+                />
+                {
+                  favorite ? (
+                    "Remove from Favorite" 
+                  ) : (
+                    "Add to Favorite"
+                  )
+                }
+              </MenuItem>  
+              )
+            }
             <MenuItem onClick={onOpen} as="div">
               <IconButton
                 variant="ghost"
                 aria-label="Delete Snippet"
-                fontSize="25px"
-                icon={MdDelete}
+                fontSize={
+                  state.currentView === "FiArchive" && "25px"
+                }
+                icon={
+                  state.currentView === "FiArchive" ? (
+                    MdDelete
+                  ):(
+                    FaArchive
+                  )
+                }
                 color="#CBD5E0"
                 _focus={{
                   outline: "none"
                 }}
               />
-              Archive
+              {
+                state.currentView === "FiArchive" ? (
+                  "Delete Snippet"
+                ):(
+                  "Move to Archive"
+                )
+              }
+              
             </MenuItem>
           </MenuList>
         </Menu>
