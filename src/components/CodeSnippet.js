@@ -28,7 +28,7 @@ import Description from "./SnippetDescription";
 import SnippetTags from "./SnippetTags";
 import { MdDelete } from "react-icons/md";
 import { FiMoreHorizontal } from 'react-icons/fi'
-import { FaStar, FaArchive } from "react-icons/fa";
+import { FaStar, FaArchive, FaWindowRestore } from "react-icons/fa";
 import { useMutation } from "@apollo/react-hooks";
 import { DELETE_SNIPPET, UPDATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
@@ -246,6 +246,23 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
               </MenuItem>  
               )
             }
+            {
+              state.currentView === "FiArchive" && (
+                  <MenuItem onClick={onOpen} as="div">
+                  <IconButton
+                    variant="ghost"
+                    aria-label="Restore Snippet"
+                    icon={FaWindowRestore}
+                    color="#38B2AC"
+                    fontSize="20px"
+                    _focus={{
+                      outline: "none"
+                    }}
+                  />
+                  Restore Snippet
+                </MenuItem>  
+              )
+            }
             <MenuItem onClick={onOpen} as="div">
               <IconButton
                 variant="ghost"
@@ -272,7 +289,6 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
                   "Move to Archive"
                 )
               }
-              
             </MenuItem>
           </MenuList>
         </Menu>
