@@ -26,8 +26,8 @@ import {
 import SnippetHeading from "./SnippetHeading";
 import Description from "./SnippetDescription";
 import SnippetTags from "./SnippetTags";
-import { MdDelete, MdMoreHoriz } from "react-icons/md";
-import { FaStar } from "react-icons/fa";
+import { MdMoreHoriz } from "react-icons/md";
+import { FaStar, FaArchive } from "react-icons/fa";
 import { useMutation } from "@apollo/react-hooks";
 import { DELETE_SNIPPET, UPDATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
@@ -230,8 +230,8 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav = false
               <IconButton
                 variant="ghost"
                 aria-label="Delete Snippet"
-                fontSize="25px"
-                icon={MdDelete}
+                fontSize="20px"
+                icon={FaArchive}
                 color="#CBD5E0"
                 _focus={{
                   outline: "none"
