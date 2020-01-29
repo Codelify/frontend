@@ -41,7 +41,7 @@ const Search = () => {
       keys: ["title", "description", "tags"]
     });
     const myFavoritesSnippets = matchSorter(
-      state.archivedSnippets,
+      state.favoritesSnippets,
       inputValue,
       {
         keys: ["title", "description", "tags"]
