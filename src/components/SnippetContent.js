@@ -36,8 +36,7 @@ const SnippetContent = ({ content, id, handleUpdate, handleEdit }, props) => {
             flex: 2,
             fontSize: "14px",
             minHeight: "300px",
-            borderRadius: "5px",
-            boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
+            borderRadius: "5px"
           }}
           _focus={{
             outline: "none"
