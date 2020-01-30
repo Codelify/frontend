@@ -62,40 +62,62 @@ const CodeSnippet = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
   const toast = useToast();
-  //console.log(resoreSnippet);
-  const handleDelete = async () => {
-    console.log("DELETE");
+
+  const handleSnippetMutation = async () => {
     const token =
       typeof window !== "undefined" && window.localStorage.getItem("token");
     if (token) {
-      try {
-        const { data } = await deleteSnippet({
-          variables: {
-            snippetId: id,
-            token,
-            archive: state.currentView === "FiArchive" ? false : true
-          },
-          refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
-        });
-
-        console.log(data);
-
-        dispatch({ type: "DELETE_SNIPPET", payload: id });
-        !data.loading && onClose(false);
-        toast({
-          position: "top-right",
-          title: state.currentView === "FiArchive" ? "Delete" : "Update",
-          description:
-            state.currentView === "FiArchive"
-              ? "Your snippet has been successfully deleted"
-              : "Your snippet has been successfully archived ",
-          status: "success",
-          duration: 9000,
-          isClosable: true
-        });
-      } catch (error) {
-        console.log(error);
+      if (resoreSnippet) {
+        handleRestoreSnippet(token);
+      } else {
+        handleDeleteSnippet(token);
       }
+    }
+  };
+
+  const handleRestoreSnippet = async token => {
+    try {
+      const { data } = await updateSnippet({
+        variables: {
+          snippetId: id,
+          snippetInfo: { archivedAt: null },
+          token: token
+        },
+        refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDeleteSnippet = async token => {
+    try {
+      const { data } = await deleteSnippet({
+        variables: {
+          snippetId: id,
+          token,
+          archive: state.currentView === "FiArchive" ? false : true
+        },
+        refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
+      });
+
+      console.log(data);
+
+      dispatch({ type: "DELETE_SNIPPET", payload: id });
+      !data.loading && onClose(false);
+      toast({
+        position: "top-right",
+        title: state.currentView === "FiArchive" ? "Delete" : "Update",
+        description:
+          state.currentView === "FiArchive"
+            ? "Your snippet has been successfully deleted"
+            : "Your snippet has been successfully archived ",
+        status: "success",
+        duration: 9000,
+        isClosable: true
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -326,7 +348,7 @@ const CodeSnippet = ({
             <Button variantColor="teal" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button onClick={handleDelete} isLoading={data.loading}>
+            <Button onClick={handleSnippetMutation} isLoading={data.loading}>
               Yes
             </Button>
           </ModalFooter>
