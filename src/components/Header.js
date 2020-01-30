@@ -56,6 +56,7 @@ const AppHeader = props => {
       width="100%"
       height="4rem"
       mx="auto"
+      px="10px"
       {...props}
     >
       <Flex align="center" justify="center" w="100%">

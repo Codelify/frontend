@@ -128,7 +128,7 @@ function Landing() {
             }}
             mx="auto"
             minWidth="330px"
-            w="70%"
+            w="80%"
             maxW="1280px"
             borderRadius="5px"
           >
