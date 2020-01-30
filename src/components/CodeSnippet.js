@@ -318,7 +318,11 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent borderRadius="5px">
-          <ModalHeader>This will archive this Snippet</ModalHeader>
+          <ModalHeader>
+            {state.currentView === "FiArchive"
+              ? "This will delete this Snippet"
+              : "This will archive this Snippet"}
+          </ModalHeader>
           <ModalCloseButton _focus={{ outline: "none" }} />
           <ModalBody>Do you want to continue ?</ModalBody>
           <ModalFooter>
