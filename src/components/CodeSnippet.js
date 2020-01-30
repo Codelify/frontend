@@ -56,12 +56,13 @@ const CodeSnippet = ({
   const [titleToUpdate, setTitleToUpdate] = useState(title);
   const [descriptionToUpdate, setDescroptionToUpdate] = useState(description);
   const [contentToUpdate, setContentToUpdate] = useState(content);
+  const [resoreSnippet, setRestoreSnippet] = useState(false);
   const { state, dispatch } = useContext(AppContext);
   const [deleteSnippet, data] = useMutation(DELETE_SNIPPET);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
   const toast = useToast();
-
+  //console.log(resoreSnippet);
   const handleDelete = async () => {
     console.log("DELETE");
     const token =
@@ -76,6 +77,7 @@ const CodeSnippet = ({
           },
           refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
         });
+
         console.log(data);
 
         dispatch({ type: "DELETE_SNIPPET", payload: id });
@@ -170,9 +172,14 @@ const CodeSnippet = ({
     }
   };
 
-  const restoreSnippet = e => {
-    e.preventDefault();
-    console.log("TEstttttt");
+  const toggleDelete = () => {
+    onOpen();
+    setRestoreSnippet(false);
+  };
+
+  const restoreSnippet = async e => {
+    onOpen();
+    setRestoreSnippet(true);
   };
 
   return (
@@ -267,7 +274,7 @@ const CodeSnippet = ({
               </MenuItem>
             )}
             {state.currentView === "FiArchive" && (
-              <MenuItem onClick={onOpen} as="div">
+              <MenuItem onClick={restoreSnippet} as="div">
                 <IconButton
                   variant="ghost"
                   aria-label="Restore Snippet"
@@ -281,7 +288,7 @@ const CodeSnippet = ({
                 Restore Snippet
               </MenuItem>
             )}
-            <MenuItem onClick={onOpen} as="div">
+            <MenuItem onClick={toggleDelete} as="div">
               <IconButton
                 variant="ghost"
                 aria-label="Delete Snippet"
@@ -306,7 +313,9 @@ const CodeSnippet = ({
         <ModalContent borderRadius="5px">
           <ModalHeader>
             {state.currentView === "FiArchive"
-              ? "This will delete this Snippet"
+              ? resoreSnippet
+                ? "This will restore the Snippet"
+                : "This will delete your Snippet"
               : "This will archive this Snippet"}
           </ModalHeader>
           <ModalCloseButton _focus={{ outline: "none" }} />
