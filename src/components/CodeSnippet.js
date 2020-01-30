@@ -172,16 +172,6 @@ const CodeSnippet = ({
     }
   };
 
-  const toggleDelete = () => {
-    onOpen();
-    setRestoreSnippet(false);
-  };
-
-  const restoreSnippet = async e => {
-    onOpen();
-    setRestoreSnippet(true);
-  };
-
   return (
     <>
       <Flex flexWrap="wrap" mt="30px">
@@ -274,7 +264,13 @@ const CodeSnippet = ({
               </MenuItem>
             )}
             {state.currentView === "FiArchive" && (
-              <MenuItem onClick={restoreSnippet} as="div">
+              <MenuItem
+                onClick={() => {
+                  onOpen();
+                  setRestoreSnippet(true);
+                }}
+                as="div"
+              >
                 <IconButton
                   variant="ghost"
                   aria-label="Restore Snippet"
@@ -288,7 +284,13 @@ const CodeSnippet = ({
                 Restore Snippet
               </MenuItem>
             )}
-            <MenuItem onClick={toggleDelete} as="div">
+            <MenuItem
+              onClick={() => {
+                onOpen();
+                setRestoreSnippet(false);
+              }}
+              as="div"
+            >
               <IconButton
                 variant="ghost"
                 aria-label="Delete Snippet"
