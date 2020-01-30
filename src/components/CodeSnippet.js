@@ -34,7 +34,16 @@ import { DELETE_SNIPPET, UPDATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
 import SnippetContent from "./SnippetContent";
 
-const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
+const CodeSnippet = ({
+  title,
+  id,
+  description,
+  url,
+  tags,
+  content,
+  isFav,
+  isArchived
+}) => {
   //moved ControlButtons in each filed - so we can know whitch field user wants to update
   // const ControlButtons = () => {
   //   return (
@@ -47,40 +56,13 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
   const [titleToUpdate, setTitleToUpdate] = useState(title);
   const [descriptionToUpdate, setDescroptionToUpdate] = useState(description);
   const [contentToUpdate, setContentToUpdate] = useState(content);
+  const [resoreSnippet, setRestoreSnippet] = useState(false);
   const { state, dispatch } = useContext(AppContext);
   const [deleteSnippet, data] = useMutation(DELETE_SNIPPET);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
   const toast = useToast();
-
-  const handleArchive = async () => {
-    console.log("ARCHIVE");
-
-    const token =
-      typeof window !== "undefined" && window.localStorage.getItem("token");
-    if (token) {
-      try {
-        const { data } = await deleteSnippet({
-          variables: { snippetId: id, token },
-          refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
-        });
-
-        dispatch({ type: "DELETE_SNIPPET", payload: id });
-        !data.loading && onClose(false);
-        toast({
-          position: "top-right",
-          title: "Archived",
-          description: "Your snippet has been successfully archived",
-          status: "success",
-          duration: 9000,
-          isClosable: true
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
-
+  //console.log(resoreSnippet);
   const handleDelete = async () => {
     console.log("DELETE");
     const token =
@@ -95,6 +77,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
           },
           refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
         });
+
         console.log(data);
 
         dispatch({ type: "DELETE_SNIPPET", payload: id });
@@ -102,7 +85,10 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
         toast({
           position: "top-right",
           title: state.currentView === "FiArchive" ? "Delete" : "Update",
-          description: "Your snippet has been successfully deleted",
+          description:
+            state.currentView === "FiArchive"
+              ? "Your snippet has been successfully deleted"
+              : "Your snippet has been successfully archived ",
           status: "success",
           duration: 9000,
           isClosable: true
@@ -278,7 +264,13 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
               </MenuItem>
             )}
             {state.currentView === "FiArchive" && (
-              <MenuItem onClick={onOpen} as="div">
+              <MenuItem
+                onClick={() => {
+                  onOpen();
+                  setRestoreSnippet(true);
+                }}
+                as="div"
+              >
                 <IconButton
                   variant="ghost"
                   aria-label="Restore Snippet"
@@ -292,7 +284,13 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
                 Restore Snippet
               </MenuItem>
             )}
-            <MenuItem onClick={onOpen} as="div">
+            <MenuItem
+              onClick={() => {
+                onOpen();
+                setRestoreSnippet(false);
+              }}
+              as="div"
+            >
               <IconButton
                 variant="ghost"
                 aria-label="Delete Snippet"
@@ -315,7 +313,13 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent borderRadius="5px">
-          <ModalHeader>This will archive this Snippet</ModalHeader>
+          <ModalHeader>
+            {state.currentView === "FiArchive"
+              ? resoreSnippet
+                ? "This will restore the Snippet"
+                : "This will delete your Snippet"
+              : "This will archive this Snippet"}
+          </ModalHeader>
           <ModalCloseButton _focus={{ outline: "none" }} />
           <ModalBody>Do you want to continue ?</ModalBody>
           <ModalFooter>
