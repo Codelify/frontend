@@ -27,14 +27,23 @@ import SnippetHeading from "./SnippetHeading";
 import Description from "./SnippetDescription";
 import SnippetTags from "./SnippetTags";
 import { MdDelete } from "react-icons/md";
-import { FiMoreHorizontal } from 'react-icons/fi'
+import { FiMoreHorizontal } from "react-icons/fi";
 import { FaStar, FaArchive, FaWindowRestore } from "react-icons/fa";
 import { useMutation } from "@apollo/react-hooks";
 import { DELETE_SNIPPET, UPDATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
 import SnippetContent from "./SnippetContent";
 
-const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
+const CodeSnippet = ({
+  title,
+  id,
+  description,
+  url,
+  tags,
+  content,
+  isFav,
+  isArchived
+}) => {
   //moved ControlButtons in each filed - so we can know whitch field user wants to update
   // const ControlButtons = () => {
   //   return (
@@ -47,28 +56,39 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
   const [titleToUpdate, setTitleToUpdate] = useState(title);
   const [descriptionToUpdate, setDescroptionToUpdate] = useState(description);
   const [contentToUpdate, setContentToUpdate] = useState(content);
+  const [resoreSnippet, setRestoreSnippet] = useState(false);
   const { state, dispatch } = useContext(AppContext);
   const [deleteSnippet, data] = useMutation(DELETE_SNIPPET);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
   const toast = useToast();
-
+  //console.log(resoreSnippet);
   const handleDelete = async () => {
+    console.log("DELETE");
     const token =
       typeof window !== "undefined" && window.localStorage.getItem("token");
     if (token) {
       try {
         const { data } = await deleteSnippet({
-          variables: { snippetId: id, token },
+          variables: {
+            snippetId: id,
+            token,
+            archive: state.currentView === "FiArchive" ? false : true
+          },
           refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
         });
+
+        console.log(data);
 
         dispatch({ type: "DELETE_SNIPPET", payload: id });
         !data.loading && onClose(false);
         toast({
           position: "top-right",
-          title: "Archived",
-          description: "Your snippet has been successfully archived",
+          title: state.currentView === "FiArchive" ? "Delete" : "Update",
+          description:
+            state.currentView === "FiArchive"
+              ? "Your snippet has been successfully deleted"
+              : "Your snippet has been successfully archived ",
           status: "success",
           duration: 9000,
           isClosable: true
@@ -78,6 +98,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
       }
     }
   };
+
   const handleUpdate = async typeOfAction => {
     const costumObject = {};
     //construct costum object for every case for not repeting the mutation of each field
@@ -227,9 +248,8 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
             />
           </MenuButton>
           <MenuList closeOnBlur={true} placement="top-end">
-            {
-              state.currentView !== "FiArchive" && (
-                <MenuItem onClick={toggleFavorite} as="div">
+            {state.currentView !== "FiArchive" && (
+              <MenuItem onClick={toggleFavorite} as="div">
                 <IconButton
                   variant="ghost"
                   aria-label="Favorite Snippet"
@@ -240,59 +260,50 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
                     outline: "none"
                   }}
                 />
-                {
-                  favorite ? (
-                    "Remove from Favorite" 
-                  ) : (
-                    "Add to Favorite"
-                  )
-                }
-              </MenuItem>  
-              )
-            }
-            {
-              state.currentView === "FiArchive" && (
-                  <MenuItem onClick={onOpen} as="div">
-                  <IconButton
-                    variant="ghost"
-                    aria-label="Restore Snippet"
-                    icon={FaWindowRestore}
-                    color="#81E6D9"
-                    fontSize="20px"
-                    _focus={{
-                      outline: "none"
-                    }}
-                  />
-                  Restore Snippet
-                </MenuItem>  
-              )
-            }
-            <MenuItem onClick={onOpen} as="div">
+                {favorite ? "Remove from Favorite" : "Add to Favorite"}
+              </MenuItem>
+            )}
+            {state.currentView === "FiArchive" && (
+              <MenuItem
+                onClick={() => {
+                  onOpen();
+                  setRestoreSnippet(true);
+                }}
+                as="div"
+              >
+                <IconButton
+                  variant="ghost"
+                  aria-label="Restore Snippet"
+                  icon={FaWindowRestore}
+                  color="#81E6D9"
+                  fontSize="20px"
+                  _focus={{
+                    outline: "none"
+                  }}
+                />
+                Restore Snippet
+              </MenuItem>
+            )}
+            <MenuItem
+              onClick={() => {
+                onOpen();
+                setRestoreSnippet(false);
+              }}
+              as="div"
+            >
               <IconButton
                 variant="ghost"
                 aria-label="Delete Snippet"
-                fontSize={
-                  state.currentView === "FiArchive" && "25px"
-                }
-                icon={
-                  state.currentView === "FiArchive" ? (
-                    MdDelete
-                  ):(
-                    FaArchive
-                  )
-                }
+                fontSize={state.currentView === "FiArchive" && "25px"}
+                icon={state.currentView === "FiArchive" ? MdDelete : FaArchive}
                 color="#CBD5E0"
                 _focus={{
                   outline: "none"
                 }}
               />
-              {
-                state.currentView === "FiArchive" ? (
-                  "Delete Snippet"
-                ):(
-                  "Move to Archive"
-                )
-              }
+              {state.currentView === "FiArchive"
+                ? "Delete Snippet"
+                : "Move to Archive"}
             </MenuItem>
           </MenuList>
         </Menu>
@@ -302,7 +313,13 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent borderRadius="5px">
-          <ModalHeader>This will archive this Snippet</ModalHeader>
+          <ModalHeader>
+            {state.currentView === "FiArchive"
+              ? resoreSnippet
+                ? "This will restore the Snippet"
+                : "This will delete your Snippet"
+              : "This will archive this Snippet"}
+          </ModalHeader>
           <ModalCloseButton _focus={{ outline: "none" }} />
           <ModalBody>Do you want to continue ?</ModalBody>
           <ModalFooter>
