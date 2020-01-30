@@ -57,6 +57,7 @@ const CodeSnippet = ({
   const [descriptionToUpdate, setDescroptionToUpdate] = useState(description);
   const [contentToUpdate, setContentToUpdate] = useState(content);
   const [resoreSnippet, setRestoreSnippet] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { state, dispatch } = useContext(AppContext);
   const [deleteSnippet, data] = useMutation(DELETE_SNIPPET);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -77,6 +78,7 @@ const CodeSnippet = ({
 
   const handleRestoreSnippet = async token => {
     try {
+      setLoading(true);
       const { data } = await updateSnippet({
         variables: {
           snippetId: id,
@@ -85,7 +87,17 @@ const CodeSnippet = ({
         },
         refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
       });
+      setLoading(false);
+      toast({
+        position: "top-right",
+        title: "Restore",
+        description: "Your snippet has been successfully restored",
+        status: "success",
+        duration: 9000,
+        isClosable: true
+      });
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
@@ -346,7 +358,10 @@ const CodeSnippet = ({
             <Button variantColor="teal" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button onClick={handleSnippetMutation} isLoading={data.loading}>
+            <Button
+              onClick={handleSnippetMutation}
+              isLoading={loading || data.loading}
+            >
               Yes
             </Button>
           </ModalFooter>
