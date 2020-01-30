@@ -201,12 +201,16 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
       <Flex mt="40px" justify="space-between" w="95%">
         {isFav ? (
           <Box
+            ml="10px"
             borderRadius="5px"
-            p="5px"
+            p="7px"
             backgroundColor="#FEB2B2"
             as={FaStar}
-            size="30px"
+            size="33px"
             color="#FFFFFF"
+            style={{
+              animation: "rotation 1.5s linear"
+            }}
           />
         ) : (
           <Box />
@@ -253,7 +257,7 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
                     variant="ghost"
                     aria-label="Restore Snippet"
                     icon={FaWindowRestore}
-                    color="#38B2AC"
+                    color="#81E6D9"
                     fontSize="20px"
                     _focus={{
                       outline: "none"
