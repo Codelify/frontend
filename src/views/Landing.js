@@ -18,7 +18,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Container from "../components/Container";
 import RequestAccess from "../components/RequestAccess";
-// import GoogleButton from "../components/GoogleButton";
+import GoogleButton from "../components/GoogleButton";
 import { MdBookmark, MdFindInPage, MdDescription } from "react-icons/md";
 import screeShot from "../assets/img/app-shot-light.png";
 import SlackButton from "../components/SlackButton";
@@ -113,7 +113,7 @@ function Landing() {
                       Request Access
                     </Button>
                     <RequestAccess isOpen={isOpen} onClose={onClose} />
-                    <SlackButton />
+                    <GoogleButton />
                   </Stack>
                 )}
               </Box>

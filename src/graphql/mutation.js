@@ -15,8 +15,8 @@ export const CREATE_SNIPPET = gql`
 `;
 
 export const DELETE_SNIPPET = gql`
-  mutation deleteSnippet($token: String!, $snippetId: Int!) {
-    deleteSnippet(token: $token, snippetId: $snippetId) {
+  mutation deleteSnippet($token: String!, $snippetId: Int!, $archive: Boolean) {
+    deleteSnippet(token: $token, snippetId: $snippetId, archive: $archive) {
       status
       message
     }
