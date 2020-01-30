@@ -102,7 +102,10 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
         toast({
           position: "top-right",
           title: state.currentView === "FiArchive" ? "Delete" : "Update",
-          description: "Your snippet has been successfully deleted",
+          description:
+            state.currentView === "FiArchive"
+              ? "Your snippet has been successfully deleted"
+              : "Your snippet has been successfully archived ",
           status: "success",
           duration: 9000,
           isClosable: true
