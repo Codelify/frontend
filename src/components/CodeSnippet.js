@@ -101,8 +101,6 @@ const CodeSnippet = ({
         refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
       });
 
-      console.log(data);
-
       dispatch({ type: "DELETE_SNIPPET", payload: id });
       !data.loading && onClose(false);
       toast({
