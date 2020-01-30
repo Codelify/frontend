@@ -34,7 +34,16 @@ import { DELETE_SNIPPET, UPDATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
 import SnippetContent from "./SnippetContent";
 
-const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
+const CodeSnippet = ({
+  title,
+  id,
+  description,
+  url,
+  tags,
+  content,
+  isFav,
+  isArchived
+}) => {
   //moved ControlButtons in each filed - so we can know whitch field user wants to update
   // const ControlButtons = () => {
   //   return (
@@ -52,34 +61,6 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
   const toast = useToast();
-
-  const handleArchive = async () => {
-    console.log("ARCHIVE");
-
-    const token =
-      typeof window !== "undefined" && window.localStorage.getItem("token");
-    if (token) {
-      try {
-        const { data } = await deleteSnippet({
-          variables: { snippetId: id, token },
-          refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
-        });
-
-        dispatch({ type: "DELETE_SNIPPET", payload: id });
-        !data.loading && onClose(false);
-        toast({
-          position: "top-right",
-          title: "Archived",
-          description: "Your snippet has been successfully archived",
-          status: "success",
-          duration: 9000,
-          isClosable: true
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
 
   const handleDelete = async () => {
     console.log("DELETE");
@@ -187,6 +168,11 @@ const CodeSnippet = ({ title, id, description, url, tags, content, isFav }) => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const restoreSnippet = e => {
+    e.preventDefault();
+    console.log("TEstttttt");
   };
 
   return (

@@ -43,6 +43,7 @@ const SnippetList = props => {
                     tags={snippet.tags}
                     url={snippet.sourceUrl}
                     isFav={snippet.isFav}
+                    isArchived={snippet.archivedAt}
                   />
                 );
               })}
