@@ -20,7 +20,7 @@ import Container from "../components/Container";
 import RequestAccess from "../components/RequestAccess";
 // import GoogleButton from "../components/GoogleButton";
 import { MdBookmark, MdFindInPage, MdDescription } from "react-icons/md";
-import screeShot from "../assets/img/app-shot.png";
+import screeShot from "../assets/img/app-shot-light.png";
 import SlackButton from "../components/SlackButton";
 //import GoogleLogin from "react-google-login";
 
@@ -62,7 +62,7 @@ function Landing() {
         <Box as="section" pt={40} pb={50}>
           <Header landing={true} isLoggedIn={isLoggedIn} />
           <Container>
-            <Box maxW="xl" mx="auto" textAlign="center">
+            <Box maxW="xl" mx="auto" px="10px" textAlign="center">
               <Heading
                 as="h1"
                 size="xl"
@@ -128,7 +128,7 @@ function Landing() {
             }}
             mx="auto"
             minWidth="330px"
-            w="95%"
+            w="70%"
             maxW="1280px"
             borderRadius="5px"
           >
