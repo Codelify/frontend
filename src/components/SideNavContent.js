@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AppContext } from "../utils/AppProvider";
 import { Box, PseudoBox, Heading } from "@chakra-ui/core";
+import localstorage from "../utils/localstorage";
 import { FiArchive, FiHome, FiStar, FiTag } from "react-icons/fi";
 
 const browseLinks = [
@@ -41,16 +42,17 @@ const NavGroupHeading = props => (
 );
 
 const SideNavContent = ({ contentHeight = "calc(100vh - 4rem)", ...props }) => {
-  const [navMenu, setNavMenu] = useState("FiHome");
+  const [navMenu, setNavMenu] = useState(localstorage.get() || "FiHome");
   const { setCurentView } = useContext(AppContext);
 
   const onActivate = newVavMenu => {
     //console.log(newVavMenu);
     setCurentView(newVavMenu);
+    localstorage.set(newVavMenu);
     // first we remove the class active from current link
     document.getElementById(navMenu).classList.remove("active");
     // then we update the state with the new active link
-    setNavMenu(newVavMenu);
+    setNavMenu(localstorage.get() || "FiHome");
   };
 
   useEffect(() => {
