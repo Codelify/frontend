@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Box } from "@chakra-ui/core";
+import { Box, useColorMode } from "@chakra-ui/core";
 import CodeSnippet from "./CodeSnippet";
 import MainLayout from "../views/layout";
 import InfiniteScroll from "react-infinite-scroll-component";
 import NoSnippetView from "./NoSnippetsView";
 
 const SnippetList = props => {
+  const { colorMode } = useColorMode();
   const [snippetPerPage, setSnippetsPerPage] = useState(4);
   const [hasMore, setHasMore] = useState(true);
   const { data } = props;
@@ -23,7 +24,15 @@ const SnippetList = props => {
   };
   return (
     <MainLayout>
-      <Box mt="60px">
+      <Box 
+      px={["10px", "10px", "10px", "20px"]}
+      borderRadius="10px"
+      backgroundColor={
+        colorMode === "light" ? "#FAFAFA" : "rgba(45,55,72, 0.1)"
+      } 
+      mt="50px"
+      pb="40px"
+      >
         {data.length ? (
           <InfiniteScroll
             dataLength={snippetPerPage}
@@ -32,9 +41,10 @@ const SnippetList = props => {
             loader={<h4>Loading...</h4>}
           >
             {dataToRender &&
-              dataToRender.map((snippet, idx) => {
+              dataToRender.map((snippet, index) => {
                 return (
                   <CodeSnippet
+                    index={index}
                     key={snippet.id}
                     id={snippet.id}
                     title={snippet.title}
