@@ -9,7 +9,7 @@ const SnippetList = props => {
   const { colorMode } = useColorMode();
   const [snippetPerPage, setSnippetsPerPage] = useState(4);
   const [hasMore, setHasMore] = useState(true);
-  const { data } = props;
+  const { currentView, data } = props;
   const dataToRender = data.slice(0, snippetPerPage);
 
   //fetch more snippets from database
@@ -22,6 +22,15 @@ const SnippetList = props => {
       setSnippetsPerPage(snippetPerPage + 4);
     }, 500);
   };
+
+  if (data.length === 0 ) {
+    return (
+      <MainLayout>
+        <NoSnippetView currentView={currentView}/>
+      </MainLayout>
+    );
+  }
+
   return (
     <MainLayout>
       <Box 
@@ -31,9 +40,8 @@ const SnippetList = props => {
         colorMode === "light" ? "#FAFAFA" : "rgba(45,55,72, 0.1)"
       } 
       mt="50px"
-      pb="40px"
+      py="40px"
       >
-        {data.length ? (
           <InfiniteScroll
             dataLength={snippetPerPage}
             next={fetchMoreData}
@@ -58,9 +66,6 @@ const SnippetList = props => {
                 );
               })}
           </InfiniteScroll>
-        ) : (
-          <NoSnippetView />
-        )}
       </Box>
     </MainLayout>
   );

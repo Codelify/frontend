@@ -42,7 +42,6 @@ const CodeSnippet = ({
   tags,
   content,
   isFav,
-  isArchived,
   index
 }) => {
   //moved ControlButtons in each filed - so we can know whitch field user wants to update

@@ -4,7 +4,7 @@ import NewSnippet from "./NewSnippet";
 import { MdAddCircle } from "react-icons/md";
 import { FaRegSadTear } from "react-icons/fa";
 
-const NoSnippetView = ({ loading }) => {
+const NoSnippetView = ({ view, loading }) => {
   const [size, setSize] = React.useState("md");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const firstField = React.useRef();
@@ -17,7 +17,7 @@ const NoSnippetView = ({ loading }) => {
 
   return (
     <>
-      <Box w="100%" mt="120px" textAlign="center">
+      <Box pt="120px" w="100%" textAlign="center">
         <Box mx="auto" as={FaRegSadTear} size="60px" color="#F56565" />
         <Text textColor="teal" fontSize="4xl" color="teal">
           No snippets yet
