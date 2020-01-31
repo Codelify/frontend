@@ -82,7 +82,7 @@ const AppHeader = props => {
                   href="/app"
                   _focus={{ outline: "none" }}
                 >
-                  Get Started
+                  Browse
                 </Button>
               ) : (
                 <>
