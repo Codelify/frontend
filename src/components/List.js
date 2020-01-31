@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { Box } from "@chakra-ui/core";
+import { Box, useColorMode } from "@chakra-ui/core";
 import CodeSnippet from "./CodeSnippet";
 import MainLayout from "../views/layout";
 import InfiniteScroll from "react-infinite-scroll-component";
+import NoSnippetView from "./NoSnippetsView";
 
 const SnippetList = props => {
+  const { colorMode } = useColorMode();
   const [snippetPerPage, setSnippetsPerPage] = useState(4);
   const [hasMore, setHasMore] = useState(true);
-  const { data } = props;
+  const { currentView, data } = props;
   const dataToRender = data.slice(0, snippetPerPage);
 
   //fetch more snippets from database
@@ -20,42 +22,50 @@ const SnippetList = props => {
       setSnippetsPerPage(snippetPerPage + 4);
     }, 500);
   };
+
+  if (data.length === 0 ) {
+    return (
+      <MainLayout>
+        <NoSnippetView currentView={currentView}/>
+      </MainLayout>
+    );
+  }
+
   return (
     <MainLayout>
-      <Box mt="60px">
-        <InfiniteScroll
-          dataLength={snippetPerPage}
-          next={fetchMoreData}
-          hasMore={hasMore}
-          loader={<h4>Loading...</h4>}
-          endMessage={
-            <p style={{ textAlign: "center" }}>
-              {dataToRender.length > 4 && (
-                <b>
-                  Yay! You have seen all your Snippets{" "}
-                  <span role="img" aria-label="wave">
-                    👋
-                  </span>
-                </b>
-              )}
-            </p>
-          }
-        >
-          {dataToRender &&
-            dataToRender.map((snippet, idx) => {
-              return (
-                <CodeSnippet
-                  key={snippet.id}
-                  id={snippet.id}
-                  title={snippet.title}
-                  description={snippet.description}
-                  content={snippet.content}
-                  tags={snippet.tags}
-                  url={snippet.sourceUrl}
-                />
-              );
-            })}
-        </InfiniteScroll>
+      <Box 
+      px={["10px", "10px", "10px", "20px"]}
+      borderRadius="10px"
+      backgroundColor={
+        colorMode === "light" ? "#FAFAFA" : "rgba(45,55,72, 0.1)"
+      } 
+      mt="50px"
+      py="40px"
+      >
+          <InfiniteScroll
+            dataLength={snippetPerPage}
+            next={fetchMoreData}
+            hasMore={hasMore}
+            loader={<h4>Loading...</h4>}
+          >
+            {dataToRender &&
+              dataToRender.map((snippet, index) => {
+                return (
+                  <CodeSnippet
+                    index={index}
+                    key={snippet.id}
+                    id={snippet.id}
+                    title={snippet.title}
+                    description={snippet.description}
+                    content={snippet.content}
+                    tags={snippet.tags}
+                    url={snippet.sourceUrl}
+                    isFav={snippet.isFav}
+                    isArchived={snippet.archivedAt}
+                  />
+                );
+              })}
+          </InfiniteScroll>
       </Box>
     </MainLayout>
   );

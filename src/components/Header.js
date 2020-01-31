@@ -56,10 +56,11 @@ const AppHeader = props => {
       width="100%"
       height="4rem"
       mx="auto"
+      px="10px"
       {...props}
     >
       <Flex align="center" justify="center" w="100%">
-        <Box maxWidth="1280px" w="100%" h="100%">
+        <Box maxWidth="1600px" w="100%" h="100%">
           <Flex size="100%" align="center" justify="space-between">
             <Box
               minWidth="120px"
@@ -81,7 +82,7 @@ const AppHeader = props => {
                   href="/app"
                   _focus={{ outline: "none" }}
                 >
-                  Get Started
+                  Browse
                 </Button>
               ) : (
                 <>
@@ -99,7 +100,7 @@ const AppHeader = props => {
                   />
                   {
                     token && (
-                    <Menu>
+                    <Menu autoSelect={false}>
                       <MenuButton 
                         variant="ghost" 
                         as={Button}

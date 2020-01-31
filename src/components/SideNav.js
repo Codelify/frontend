@@ -8,7 +8,7 @@ import SideNavContent from "./SideNavContent"
 const SideNav = props => {
   return (
     <Box mr="20px" display={['none', null, 'block']}>
-      <SideNavContent />
+      <SideNavContent pos="fixed"/>
     </Box>
   );
 };

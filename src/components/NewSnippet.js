@@ -20,7 +20,8 @@ import {
   Tag,
   TagLabel,
   TagCloseButton,
-  Heading
+  Heading,
+  FormControl
 } from "@chakra-ui/core";
 import { LiveProvider, LiveEditor } from "react-live";
 import theme from "prism-react-renderer/themes/nightOwl";
@@ -73,6 +74,7 @@ const NewSnippet = props => {
     } else {
       const { data, error } = await createSnippet({
         variables,
+        //fetchPolicy: "no-cache",
         refetchQueries: [{ query: MY_SNIPPETs, variables: variables }]
       });
       if (data) {
@@ -95,6 +97,9 @@ const NewSnippet = props => {
           duration: 9000,
           isClosable: true
         });
+        // clear the tags array
+        setTags([]);
+        // redirect to /app
         data.loading && navigate("/app");
       }
       if (error) {
@@ -119,7 +124,7 @@ const a = 10;
 
   const [code, setCode] = useState(snippetPlaceHolder);
   const [tags, setTags] = useState([]);
-  const [ isLoading, setIsLoading ] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState(initialFormValues);
 
@@ -154,7 +159,11 @@ const a = 10;
       tag = tag.substring(0, tag.length - 1);
       newTag = true;
     }
-    if (( (event.key === "Enter" || event.key === "Tab") && event.target.value !== "") || newTag) {
+    if (
+      ((event.key === "Enter" || event.key === "Tab") &&
+        event.target.value !== "") ||
+      newTag
+    ) {
       // add it to the state holding the list of tags
       setTags(prevState => [...prevState, tag]);
       // clear the value held in the input field
@@ -162,17 +171,17 @@ const a = 10;
     }
   };
 
-  // the Tab must be detected on key down 
+  // the Tab must be detected on key down
   // otherwise it cannot be captured in key up
   const handleTab = event => {
     let tag = event.target.value;
-    if(event.key === 'Tab' && tag !== ""){
+    if (event.key === "Tab" && tag !== "") {
       // add it to the state holding the list of tags
       setTags(prevState => [...prevState, tag]);
       // clear the value held in the input field
       event.target.value = "";
     }
-  }
+  };
 
   const handleChange = ({ target: { name, value } }) => {
     setFormData(prevState => ({
@@ -215,6 +224,7 @@ const a = 10;
         </DrawerHeader>
 
         <DrawerBody>
+          <form onSubmit={handleSubmit}>
           <Flex borderWidth="1px" flexWrap="wrap" w="100%">
             <Stack
               padding="10px"
@@ -226,7 +236,8 @@ const a = 10;
               spacing="24px"
             >
               <Box>
-                <FormLabel htmlFor="username">Title</FormLabel>
+              <FormControl isRequired>
+              <FormLabel htmlFor="username">Title</FormLabel>
                 <Input
                   ref={firstField}
                   id="title"
@@ -235,6 +246,7 @@ const a = 10;
                   name="title"
                   onChange={handleChange}
                 />
+              </FormControl>  
               </Box>
               <Box>
                 <FormLabel htmlFor="url">Url</FormLabel>
@@ -262,18 +274,24 @@ const a = 10;
                   onFocus={styledEdit}
                   onBlur={handleBlur}
                 >
-                  <Stack mb="10px" flexWrap="wrap" justify="flex-start" isInline>
+                  <Stack
+                    mb="10px"
+                    flexWrap="wrap"
+                    justify="flex-start"
+                    isInline
+                  >
                     {tags &&
                       tags.map((tag, index) => {
                         return (
                           <Tag
                             id={index}
                             key={index}
-                            variant="solid"
+                            variant="subtle"
                             variantColor="teal"
-                            mx="3px"
                             my="3px"
-                            paddingY="3px"
+                            mx="3px"
+                            px="3px"
+                            size="sm"
                             _focus={{
                               outline: "none"
                             }}
@@ -286,7 +304,6 @@ const a = 10;
                               onClick={() => {
                                 handleDeleteTag(index);
                               }}
-                              mx="5px"
                             />
                           </Tag>
                         );
@@ -343,17 +360,19 @@ const a = 10;
             <Button variant="outline" mr={13} onClick={onClose}>
               Cancel
             </Button>
-            <Button 
-              onClick={handleSubmit} 
-              variantColor="teal" 
+            <Button
+              // onClick={handleSubmit}
+              variantColor="teal"
               mr={35}
               isLoading={isLoading}
               loadingText="Submitting"
+              type="submit"
             >
               Submit
             </Button>
           </Flex>
           <Box mt="150px"></Box>
+          </form>
         </DrawerBody>
       </DrawerContent>
     </Drawer>

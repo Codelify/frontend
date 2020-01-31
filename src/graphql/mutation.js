@@ -15,8 +15,8 @@ export const CREATE_SNIPPET = gql`
 `;
 
 export const DELETE_SNIPPET = gql`
-  mutation deleteSnippet($token: String!, $snippetId: Int!) {
-    deleteSnippet(token: $token, snippetId: $snippetId) {
+  mutation deleteSnippet($token: String!, $snippetId: Int!, $archive: Boolean) {
+    deleteSnippet(token: $token, snippetId: $snippetId, archive: $archive) {
       status
       message
     }
@@ -29,16 +29,13 @@ export const UPDATE_SNIPPET = gql`
     $snippetInfo: SnippetInput!
     $token: String!
   ) {
-    updateSnippet(
-      input: $snippetInfo
-      snippetId: $snippetId
-      token: $token
-    ) {
+    updateSnippet(input: $snippetInfo, snippetId: $snippetId, token: $token) {
       id
       title
       description
       content
       tags
+      isFav
     }
   }
 `;

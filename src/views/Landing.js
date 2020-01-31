@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Event, PageView } from "../components/~common/Tracking";
 // import './App.css';
 import {
   ThemeProvider,
@@ -11,6 +12,7 @@ import {
   Flex,
   Image,
   useDisclosure,
+  useColorMode,
   Stack
 } from "@chakra-ui/core";
 import Header from "../components/Header";
@@ -19,11 +21,13 @@ import Container from "../components/Container";
 import RequestAccess from "../components/RequestAccess";
 import GoogleButton from "../components/GoogleButton";
 import { MdBookmark, MdFindInPage, MdDescription } from "react-icons/md";
-import screeShot from "../assets/img/app-shot.png";
+import screenShotLight from "../assets/img/app-shot-light.png";
+import screenShotDark from "../assets/img/app-shot-dark.png";
 import SlackButton from "../components/SlackButton";
-import GoogleLogin from "react-google-login";
+//import GoogleLogin from "react-google-login";
 
 const Feature = ({ title, icon, children, ...props }) => {
+
   return (
     <Box {...props}>
       <Flex
@@ -46,8 +50,10 @@ const Feature = ({ title, icon, children, ...props }) => {
 function Landing() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { colorMode } = useColorMode();
 
   useEffect(() => {
+    PageView();
     if (typeof window !== "undefined" && window.localStorage.getItem("token")) {
       setIsLoggedIn(true);
     } else setIsLoggedIn(false);
@@ -60,8 +66,15 @@ function Landing() {
         <Box as="section" pt={40} pb={50}>
           <Header landing={true} isLoggedIn={isLoggedIn} />
           <Container>
-            <Box maxW="xl" mx="auto" textAlign="center">
-              <Heading as="h1" size="xl" fontWeight="bold">
+            <Box maxW="xl" mx="auto" px="10px" textAlign="center">
+              <Heading
+                as="h1"
+                size="xl"
+                fontWeight="bold"
+                onClick={() =>
+                  Event("Test Category", "Test Action", "Test Label")
+                }
+              >
                 Your
                 <Box as="span" color="teal.500">
                   {" "}
@@ -71,8 +84,8 @@ function Landing() {
               </Heading>
 
               <Text opacity="0.7" fontSize="lg" mt="6">
-                Codelify give developers a central place to easily Store, Manage
-                and Retrieve code snippets they want to keep and reuse.
+                Codelify give to developers a central place to easily Store,
+                Manage and Retrieve code snippets they want to keep and reuse.
               </Text>
 
               <Box mt="6">
@@ -85,7 +98,7 @@ function Landing() {
                     href="/app"
                     _focus={{ outline: "none" }}
                   >
-                    Get Started
+                    Browse my Snippets
                   </Button>
                 )}
                 {!isLoggedIn && (
@@ -119,12 +132,15 @@ function Landing() {
             }}
             mx="auto"
             minWidth="330px"
-            w="95%"
+            w="80%"
+            maxW="1280px"
             borderRadius="5px"
           >
             <Image
               borderRadius="5px"
-              src={screeShot}
+              src={
+                colorMode === "light" ? screenShotLight : screenShotDark
+              }
               alt="Codelify app screenshot"
             />
           </Box>

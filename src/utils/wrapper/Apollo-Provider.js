@@ -16,7 +16,7 @@ class App extends Component {
     // Setup Apollo Link, and any other Apollo packages here.
     const client = new ApolloClient({
       cache,
-      uri: "https://codelify.herokuapp.com/graphql"
+      uri: "https://codelify-dev.herokuapp.com/graphql"
     });
 
     try {
