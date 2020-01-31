@@ -12,6 +12,7 @@ import {
   Flex,
   Image,
   useDisclosure,
+  useColorMode,
   Stack
 } from "@chakra-ui/core";
 import Header from "../components/Header";
@@ -20,11 +21,13 @@ import Container from "../components/Container";
 import RequestAccess from "../components/RequestAccess";
 import GoogleButton from "../components/GoogleButton";
 import { MdBookmark, MdFindInPage, MdDescription } from "react-icons/md";
-import screeShot from "../assets/img/app-shot-light.png";
+import screenShotLight from "../assets/img/app-shot-light.png";
+import screenShotDark from "../assets/img/app-shot-dark.png";
 import SlackButton from "../components/SlackButton";
 //import GoogleLogin from "react-google-login";
 
 const Feature = ({ title, icon, children, ...props }) => {
+
   return (
     <Box {...props}>
       <Flex
@@ -47,6 +50,7 @@ const Feature = ({ title, icon, children, ...props }) => {
 function Landing() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { colorMode } = useColorMode();
 
   useEffect(() => {
     PageView();
@@ -128,13 +132,15 @@ function Landing() {
             }}
             mx="auto"
             minWidth="330px"
-            w="70%"
+            w="80%"
             maxW="1280px"
             borderRadius="5px"
           >
             <Image
               borderRadius="5px"
-              src={screeShot}
+              src={
+                colorMode === "light" ? screenShotLight : screenShotDark
+              }
               alt="Codelify app screenshot"
             />
           </Box>

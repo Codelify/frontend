@@ -45,16 +45,16 @@ const Default = () => {
   // Render the list of snippets if their are any depends on the current side navigation menu
   if (token) {
     if (state.currentView === "FiHome") {
-      return <SnippetList data={state.snippetsData} loading={loading} />;
+      return <SnippetList currentView={state.currentView} data={state.snippetsData} loading={loading} />;
     }
     if (state.currentView === "FiArchive") {
-      return <SnippetList data={state.archivedSnippets} loading={loading} />;
+      return <SnippetList currentView={state.currentView} data={state.archivedSnippets} loading={loading} />;
     }
     if (state.currentView === "FiStar") {
-      return <SnippetList data={state.favoritesSnippets} loading={loading} />;
+      return <SnippetList currentView={state.currentView} data={state.favoritesSnippets} loading={loading} />;
     }
     if (state.currentView === "FiTag") {
-      return <SnippetList data={state.snippetsData} loading={loading} />;
+      return <SnippetList currentView={state.currentView} data={state.snippetsData} loading={loading} />;
     }
   }
   // default view if there is no snippets

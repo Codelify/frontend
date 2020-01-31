@@ -42,7 +42,7 @@ const CodeSnippet = ({
   tags,
   content,
   isFav,
-  isArchived
+  index
 }) => {
   //moved ControlButtons in each filed - so we can know whitch field user wants to update
   // const ControlButtons = () => {
@@ -206,6 +206,9 @@ const CodeSnippet = ({
 
   return (
     <>
+      {
+        index !== 0 && <Divider py="10px" />
+      }
       <Flex flexWrap="wrap" mt="30px">
         <Stack
           mr="15px"
@@ -340,7 +343,6 @@ const CodeSnippet = ({
           </MenuList>
         </Menu>
       </Flex>
-      <Divider />
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
