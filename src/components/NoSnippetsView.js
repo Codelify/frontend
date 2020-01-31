@@ -2,7 +2,8 @@ import React from "react";
 import { Text, Box, IconButton, useDisclosure } from "@chakra-ui/core";
 import NewSnippet from "./NewSnippet";
 import { MdAddCircle } from "react-icons/md";
-import { FaRegSadTear, FaArchive, FaStar } from "react-icons/fa";
+import { FaRegSadTear, FaRegStar } from "react-icons/fa";
+import { FiArchive } from 'react-icons/fi'
 
 const NoSnippetView = ({ currentView, loading }) => {
   const [size, setSize] = React.useState("md");
@@ -23,12 +24,12 @@ const NoSnippetView = ({ currentView, loading }) => {
   }
   if(currentView === "FiArchive"){
     emptyData.text = "Your archive is currently empty";
-    emptyData.icon = FaArchive;
+    emptyData.icon = FiArchive;
     emptyData.actionText = ""
   }
   else if(currentView === "FiStar"){
     emptyData.text = "You don’t have any favorites snippets yet";
-    emptyData.icon = FaStar;
+    emptyData.icon = FaRegStar;
     emptyData.actionText = ""
   }
 
