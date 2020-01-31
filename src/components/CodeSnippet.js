@@ -207,9 +207,9 @@ const CodeSnippet = ({
   return (
     <>
       {
-        index !== 0 && <Divider py="10px" />
+        index !== 0 && <Divider py="10px" mb="30px" />
       }
-      <Flex flexWrap="wrap" mt="30px">
+      <Flex flexWrap="wrap">
         <Stack
           mr="15px"
           minWidth="310px"

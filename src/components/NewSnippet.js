@@ -20,7 +20,8 @@ import {
   Tag,
   TagLabel,
   TagCloseButton,
-  Heading
+  Heading,
+  FormControl
 } from "@chakra-ui/core";
 import { LiveProvider, LiveEditor } from "react-live";
 import theme from "prism-react-renderer/themes/nightOwl";
@@ -223,6 +224,7 @@ const a = 10;
         </DrawerHeader>
 
         <DrawerBody>
+          <form onSubmit={handleSubmit}>
           <Flex borderWidth="1px" flexWrap="wrap" w="100%">
             <Stack
               padding="10px"
@@ -234,7 +236,8 @@ const a = 10;
               spacing="24px"
             >
               <Box>
-                <FormLabel htmlFor="username">Title</FormLabel>
+              <FormControl isRequired>
+              <FormLabel htmlFor="username">Title</FormLabel>
                 <Input
                   ref={firstField}
                   id="title"
@@ -243,6 +246,7 @@ const a = 10;
                   name="title"
                   onChange={handleChange}
                 />
+              </FormControl>  
               </Box>
               <Box>
                 <FormLabel htmlFor="url">Url</FormLabel>
@@ -357,16 +361,18 @@ const a = 10;
               Cancel
             </Button>
             <Button
-              onClick={handleSubmit}
+              // onClick={handleSubmit}
               variantColor="teal"
               mr={35}
               isLoading={isLoading}
               loadingText="Submitting"
+              type="submit"
             >
               Submit
             </Button>
           </Flex>
           <Box mt="150px"></Box>
+          </form>
         </DrawerBody>
       </DrawerContent>
     </Drawer>
