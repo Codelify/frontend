@@ -100,7 +100,7 @@ const AppHeader = props => {
                   />
                   {
                     token && (
-                    <Menu>
+                    <Menu autoSelect={false}>
                       <MenuButton 
                         variant="ghost" 
                         as={Button}
