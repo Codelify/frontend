@@ -96,6 +96,9 @@ const NewSnippet = props => {
           duration: 9000,
           isClosable: true
         });
+        // clear the tags array
+        setTags([]);
+        // redirect to /app
         data.loading && navigate("/app");
       }
       if (error) {
@@ -282,7 +285,8 @@ const a = 10;
                             variant="subtle"
                             variantColor="teal"
                             my="3px"
-                            paddingY="3px"
+                            mx="3px"
+                            px="3px"
                             size="sm"
                             _focus={{
                               outline: "none"
