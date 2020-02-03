@@ -10,7 +10,7 @@ const SnippetList = props => {
   const [snippetPerPage, setSnippetsPerPage] = useState(4);
   const [hasMore, setHasMore] = useState(true);
   const { currentView, data } = props;
-  const dataToRender = data.slice(0, snippetPerPage);
+  const dataToRender = data && data.slice(0, snippetPerPage);
 
   //fetch more snippets from database
   const fetchMoreData = () => {
@@ -23,49 +23,49 @@ const SnippetList = props => {
     }, 500);
   };
 
-  if (data.length === 0 ) {
+  if (data && data.length === 0) {
     return (
       <MainLayout>
-        <NoSnippetView currentView={currentView}/>
+        <NoSnippetView currentView={currentView} />
       </MainLayout>
     );
   }
 
   return (
     <MainLayout>
-      <Box 
-      px={["10px", "10px", "10px", "20px"]}
-      borderRadius="10px"
-      backgroundColor={
-        colorMode === "light" ? "#FAFAFA" : "rgba(45,55,72, 0.1)"
-      } 
-      mt="50px"
-      py="40px"
+      <Box
+        px={["10px", "10px", "10px", "20px"]}
+        borderRadius="10px"
+        backgroundColor={
+          colorMode === "light" ? "#FAFAFA" : "rgba(45,55,72, 0.1)"
+        }
+        mt="50px"
+        py="40px"
       >
-          <InfiniteScroll
-            dataLength={snippetPerPage}
-            next={fetchMoreData}
-            hasMore={hasMore}
-            loader={<h4>Loading...</h4>}
-          >
-            {dataToRender &&
-              dataToRender.map((snippet, index) => {
-                return (
-                  <CodeSnippet
-                    index={index}
-                    key={snippet.id}
-                    id={snippet.id}
-                    title={snippet.title}
-                    description={snippet.description}
-                    content={snippet.content}
-                    tags={snippet.tags}
-                    url={snippet.sourceUrl}
-                    isFav={snippet.isFav}
-                    isArchived={snippet.archivedAt}
-                  />
-                );
-              })}
-          </InfiniteScroll>
+        <InfiniteScroll
+          dataLength={snippetPerPage}
+          next={fetchMoreData}
+          hasMore={hasMore}
+          loader={<h4>Loading...</h4>}
+        >
+          {dataToRender &&
+            dataToRender.map((snippet, index) => {
+              return (
+                <CodeSnippet
+                  index={index}
+                  key={snippet.id}
+                  id={snippet.id}
+                  title={snippet.title}
+                  description={snippet.description}
+                  content={snippet.content}
+                  tags={snippet.tags}
+                  url={snippet.sourceUrl}
+                  isFav={snippet.isFav}
+                  isArchived={snippet.archivedAt}
+                />
+              );
+            })}
+        </InfiniteScroll>
       </Box>
     </MainLayout>
   );
