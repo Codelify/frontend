@@ -80,6 +80,8 @@ export default function GoogleButton() {
       clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
       render={renderProps => (
         <Button
+          _focus={{ outline: "none" }}
+          variantColor="teal"
           as="a"
           size="lg"
           href="#"
