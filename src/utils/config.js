@@ -3,17 +3,20 @@ export default {
     clientId: process.env.REACT_APP_SLACK_CLIENT_ID,
     secret: process.env.REACT_APP_SLACK_CLIENT_SECRET,
     redirectUri: process.env.REACT_APP_SLACK_REDIRECT_URI,
-    teamId: process.env.REACT_APP_SLACK_TEAM_ID,
+    teamId: process.env.REACT_APP_SLACK_TEAM_ID
   },
-  mailchimp:{
+  mailchimp: {
     apiKey: process.env.REACT_APP_MAILCHIMP_API_KEY,
-    audienceId: process.env.REACT_APP_MAILCHIMP_AUDIENCE_ID,
+    audienceId: process.env.REACT_APP_MAILCHIMP_AUDIENCE_ID
   },
-  mooSend:{
+  mooSend: {
     apiKey: process.env.REACT_APP_MOOSEND_API_KEY,
-    listId: process.env.REACT_APP_MOOSEND_LIST_ID,
+    listId: process.env.REACT_APP_MOOSEND_LIST_ID
   },
-  backend:{
-    uri: process.env.REACT_APP_BE_URI,
+  googleAnalitycs: {
+    apiKey: process.env.REACT_APP_GOOGLE_ANALITYCS
+  },
+  backend: {
+    uri: process.env.REACT_APP_BE_URI
   }
 };
