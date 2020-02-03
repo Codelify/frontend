@@ -27,7 +27,6 @@ import SlackButton from "../components/SlackButton";
 //import GoogleLogin from "react-google-login";
 
 const Feature = ({ title, icon, children, ...props }) => {
-
   return (
     <Box {...props}>
       <Flex
@@ -95,7 +94,7 @@ function Landing() {
                     size="lg"
                     as="a"
                     variantColor="teal"
-                    href="/app"
+                    href="/snippets"
                     _focus={{ outline: "none" }}
                   >
                     Browse my Snippets
@@ -117,7 +116,7 @@ function Landing() {
                       Request Access
                     </Button>
                     <RequestAccess isOpen={isOpen} onClose={onClose} />
-                    <SlackButton />
+                    <GoogleButton />
                   </Stack>
                 )}
               </Box>
@@ -138,9 +137,7 @@ function Landing() {
           >
             <Image
               borderRadius="5px"
-              src={
-                colorMode === "light" ? screenShotLight : screenShotDark
-              }
+              src={colorMode === "light" ? screenShotLight : screenShotDark}
               alt="Codelify app screenshot"
             />
           </Box>

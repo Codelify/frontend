@@ -65,9 +65,9 @@ export default function GoogleButton() {
               });
             }
           }
-          navigate("/app");
+          navigate("/snippets");
         }
-        navigate("/app");
+        navigate("/snippets");
       } catch (err) {
         console.log(err);
       }

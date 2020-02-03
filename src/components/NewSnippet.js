@@ -107,8 +107,8 @@ const NewSnippet = props => {
         });
         // clear the tags array
         setTags([]);
-        // redirect to /app
-        data.loading && navigate("/app");
+        // redirect to /snippets
+        data.loading && navigate("/snippets");
       }
       if (error) {
         setIsLoading(false);

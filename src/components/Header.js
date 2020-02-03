@@ -79,7 +79,7 @@ const AppHeader = props => {
                   as="a"
                   size="xs"
                   ml={4}
-                  href="/app"
+                  href="/snippets"
                   _focus={{ outline: "none" }}
                 >
                   Browse

@@ -63,9 +63,9 @@ export default function SlackAuthenticator(props) {
             });
           }
         }
-        navigate("/app");
+        navigate("/snippets");
       }
-      navigate("/app");
+      navigate("/snippets");
     } catch (error) {
       console.log(error);
     }
