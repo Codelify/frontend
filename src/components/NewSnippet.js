@@ -21,7 +21,9 @@ import {
   TagLabel,
   TagCloseButton,
   Heading,
-  FormControl
+  FormControl,
+  Alert,
+  AlertIcon
 } from "@chakra-ui/core";
 import { LiveProvider, LiveEditor } from "react-live";
 import theme from "prism-react-renderer/themes/nightOwl";
@@ -32,6 +34,7 @@ import { MY_SNIPPETs } from "../graphql/query";
 
 const NewSnippet = props => {
   const { isOpen, onClose, firstField, btnRef, size } = props;
+  const [errorTitle, setErrorTitle ] = useState(null)
   // const { dispatch } = useContext(AppContext);
 
   const initialFormValues = {
@@ -61,6 +64,11 @@ const NewSnippet = props => {
   const [createSnippet, data] = useMutation(CREATE_SNIPPET);
   const handleSubmit = async () => {
     setIsLoading(true);
+    if(validateTitle() === false){
+      setIsLoading(false);
+      return
+    }
+
     const snippetData = { ...formData, content: code };
     const token =
       (typeof window !== "undefined" && window.localStorage.getItem("token")) ||
@@ -184,11 +192,28 @@ const a = 10;
   };
 
   const handleChange = ({ target: { name, value } }) => {
+    if(name === 'title' && errorTitle) {
+      // if an error is beeing displayed for title
+      // we clear it
+      setErrorTitle(null)
+    } 
     setFormData(prevState => ({
       ...prevState,
       [name]: value
     }));
   };
+
+  const validateTitle = () => {
+    if(formData.title === ''){
+      setErrorTitle('Please give a title to your snippet')
+      setIsLoading(false)
+      return false
+    }
+    else{
+      setErrorTitle(null)
+      return true
+    } 
+  }
 
   // this useffect each time a tags is added or removed
   // so that the main form data is sycnhed with the tags array
@@ -224,7 +249,6 @@ const a = 10;
         </DrawerHeader>
 
         <DrawerBody>
-          <form onSubmit={handleSubmit}>
           <Flex borderWidth="1px" flexWrap="wrap" w="100%">
             <Stack
               padding="10px"
@@ -245,7 +269,16 @@ const a = 10;
                   focusBorderColor="#319795"
                   name="title"
                   onChange={handleChange}
+                  onBlur={validateTitle}
                 />
+                {
+                  errorTitle && (
+                    <Alert mt="3px" status="error">
+                      <AlertIcon />
+                      Please give a title
+                    </Alert>
+                  )
+                }
               </FormControl>  
               </Box>
               <Box>
@@ -366,13 +399,15 @@ const a = 10;
               mr={35}
               isLoading={isLoading}
               loadingText="Submitting"
-              type="submit"
+              onClick={handleSubmit}
+              _focus={{
+                outline: "none"
+              }}
             >
               Submit
             </Button>
           </Flex>
           <Box mt="150px"></Box>
-          </form>
         </DrawerBody>
       </DrawerContent>
     </Drawer>
