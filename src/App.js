@@ -16,7 +16,7 @@ function App() {
     <Router>
       <Landing path="/" />
       <Login path="/login" />
-      <Default exact path="/snippets" component={Default} />
+      <Default exact path="/snippets/:name" component={Default} />
       <SlackAuthenticator path="/slack/auth" />
     </Router>
   );

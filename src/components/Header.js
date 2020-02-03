@@ -10,7 +10,7 @@ import {
   MenuButton,
   MenuList,
   MenuGroup,
-  MenuItem,
+  MenuItem
 } from "@chakra-ui/core";
 import NewSnippet from "./NewSnippet";
 import { MdAdd } from "react-icons/md";
@@ -18,9 +18,10 @@ import { FaUserAlt } from "react-icons/fa";
 import Logo from "./Logo";
 import SearchBox from "./SearchBox";
 import { navigate } from "@reach/router";
+import { handleRouteChange } from "../utils/handleRouteChange";
 
 const AppHeader = props => {
-  const {landing, isLoggedIn} = props
+  const { landing, isLoggedIn } = props;
   const { colorMode, toggleColorMode } = useColorMode();
   const bg = { light: "white", dark: "gray.800" };
 
@@ -41,7 +42,7 @@ const AppHeader = props => {
     window.localStorage.removeItem("token");
     // then direct to landing page
     navigate("/");
-  }
+  };
 
   return (
     <Box
@@ -74,16 +75,17 @@ const AppHeader = props => {
             {!landing && <SearchBox />}
             <Flex align="center" color="gray.500">
               {landing ? (
-                  isLoggedIn && 
+                isLoggedIn && (
                   <Button
-                  as="a"
-                  size="xs"
-                  ml={4}
-                  href="/snippets"
-                  _focus={{ outline: "none" }}
-                >
-                  Browse
-                </Button>
+                    as="a"
+                    size="xs"
+                    ml={4}
+                    href={handleRouteChange()}
+                    _focus={{ outline: "none" }}
+                  >
+                    Browse
+                  </Button>
+                )
               ) : (
                 <>
                   <IconButton
@@ -98,30 +100,25 @@ const AppHeader = props => {
                       handleClick("full");
                     }}
                   />
-                  {
-                    token && (
+                  {token && (
                     <Menu autoSelect={false}>
-                      <MenuButton 
-                        variant="ghost" 
+                      <MenuButton
+                        variant="ghost"
                         as={Button}
                         _focus={{
                           outline: "none"
                         }}
-                        >
+                      >
                         <Box as={FaUserAlt} />
                       </MenuButton>
                       <MenuList>
                         <MenuGroup title="Account">
                           <MenuItem>My Profile</MenuItem>
-                          <MenuItem
-                            onClick={onLogout}
-                          >Logout
-                          </MenuItem>
+                          <MenuItem onClick={onLogout}>Logout</MenuItem>
                         </MenuGroup>
                       </MenuList>
                     </Menu>
-                    )
-                  }
+                  )}
                 </>
               )}
 

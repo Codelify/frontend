@@ -31,10 +31,11 @@ import { navigate } from "@reach/router";
 import { useMutation } from "@apollo/react-hooks";
 import { CREATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
+import { handleRouteChange } from "../utils/handleRouteChange";
 
 const NewSnippet = props => {
   const { isOpen, onClose, firstField, btnRef, size } = props;
-  const [errorTitle, setErrorTitle ] = useState(null)
+  const [errorTitle, setErrorTitle] = useState(null);
   // const { dispatch } = useContext(AppContext);
 
   const initialFormValues = {
@@ -64,9 +65,9 @@ const NewSnippet = props => {
   const [createSnippet, data] = useMutation(CREATE_SNIPPET);
   const handleSubmit = async () => {
     setIsLoading(true);
-    if(validateTitle() === false){
+    if (validateTitle() === false) {
       setIsLoading(false);
-      return
+      return;
     }
 
     const snippetData = { ...formData, content: code };
@@ -108,7 +109,7 @@ const NewSnippet = props => {
         // clear the tags array
         setTags([]);
         // redirect to /snippets
-        data.loading && navigate("/snippets");
+        data.loading && navigate(handleRouteChange());
       }
       if (error) {
         setIsLoading(false);
@@ -192,11 +193,11 @@ const a = 10;
   };
 
   const handleChange = ({ target: { name, value } }) => {
-    if(name === 'title' && errorTitle) {
+    if (name === "title" && errorTitle) {
       // if an error is beeing displayed for title
       // we clear it
-      setErrorTitle(null)
-    } 
+      setErrorTitle(null);
+    }
     setFormData(prevState => ({
       ...prevState,
       [name]: value
@@ -204,16 +205,15 @@ const a = 10;
   };
 
   const validateTitle = () => {
-    if(formData.title === ''){
-      setErrorTitle('Please give a title to your snippet')
-      setIsLoading(false)
-      return false
+    if (formData.title === "") {
+      setErrorTitle("Please give a title to your snippet");
+      setIsLoading(false);
+      return false;
+    } else {
+      setErrorTitle(null);
+      return true;
     }
-    else{
-      setErrorTitle(null)
-      return true
-    } 
-  }
+  };
 
   // this useffect each time a tags is added or removed
   // so that the main form data is sycnhed with the tags array
@@ -260,26 +260,24 @@ const a = 10;
               spacing="24px"
             >
               <Box>
-              <FormControl isRequired>
-              <FormLabel htmlFor="username">Title</FormLabel>
-                <Input
-                  ref={firstField}
-                  id="title"
-                  placeholder="Snippet title"
-                  focusBorderColor="#319795"
-                  name="title"
-                  onChange={handleChange}
-                  onBlur={validateTitle}
-                />
-                {
-                  errorTitle && (
+                <FormControl isRequired>
+                  <FormLabel htmlFor="username">Title</FormLabel>
+                  <Input
+                    ref={firstField}
+                    id="title"
+                    placeholder="Snippet title"
+                    focusBorderColor="#319795"
+                    name="title"
+                    onChange={handleChange}
+                    onBlur={validateTitle}
+                  />
+                  {errorTitle && (
                     <Alert mt="3px" status="error">
                       <AlertIcon />
                       Please give a title
                     </Alert>
-                  )
-                }
-              </FormControl>  
+                  )}
+                </FormControl>
               </Box>
               <Box>
                 <FormLabel htmlFor="url">Url</FormLabel>

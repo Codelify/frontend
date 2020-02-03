@@ -24,9 +24,11 @@ import { MdBookmark, MdFindInPage, MdDescription } from "react-icons/md";
 import screenShotLight from "../assets/img/app-shot-light.png";
 import screenShotDark from "../assets/img/app-shot-dark.png";
 import SlackButton from "../components/SlackButton";
+import { handleRouteChange } from "../utils/handleRouteChange";
 //import GoogleLogin from "react-google-login";
 
 const Feature = ({ title, icon, children, ...props }) => {
+  console.log(handleRouteChange());
   return (
     <Box {...props}>
       <Flex
@@ -94,7 +96,7 @@ function Landing() {
                     size="lg"
                     as="a"
                     variantColor="teal"
-                    href="/snippets"
+                    href={handleRouteChange()}
                     _focus={{ outline: "none" }}
                   >
                     Browse my Snippets
