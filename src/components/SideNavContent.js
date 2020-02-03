@@ -31,7 +31,7 @@ const filterLinks = [
     name: "Tags",
     icon: FiTag,
     id: "FiTag",
-    link: "/snippets/my_snippets"
+    link: "/snippets/tags"
   }
 ];
 
