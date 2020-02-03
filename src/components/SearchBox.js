@@ -32,29 +32,48 @@ const Search = () => {
     const input = e.target.value;
     filterItems(input);
   };
+  console.log(state.currentView, state.snippetsData);
+  const handleListChange = currentView => {
+    if (currentView === "FiHome") {
+      return state.snippetsData;
+    }
+    if (currentView === "FiArchive") {
+      return state.archivedSnippets;
+    }
+    if (currentView === "FiStar") {
+      return state.favoritesSnippets;
+    }
+  };
 
   const filterItems = inputValue => {
-    const mySnippets = matchSorter(state.snippetsData, inputValue, {
-      keys: ["title", "description", "tags"]
-    });
-    const myArchivedSnippets = matchSorter(state.archivedSnippets, inputValue, {
-      keys: ["title", "description", "tags"]
-    });
-    const myFavoritesSnippets = matchSorter(
-      state.favoritesSnippets,
+    const costumList = matchSorter(
+      handleListChange(state.currentView),
       inputValue,
       {
         keys: ["title", "description", "tags"]
       }
     );
+    // const mySnippets = matchSorter(state.snippetsData, inputValue, {
+    //   keys: ["title", "description", "tags"]
+    // });
+    // const myArchivedSnippets = matchSorter(state.archivedSnippets, inputValue, {
+    //   keys: ["title", "description", "tags"]
+    // });
+    // const myFavoritesSnippets = matchSorter(
+    //   state.favoritesSnippets,
+    //   inputValue,
+    //   {
+    //     keys: ["title", "description", "tags"]
+    //   }
+    // );
     if (state.currentView === "FiHome") {
-      setFilteredSnippets(mySnippets);
+      setFilteredSnippets(costumList);
     }
     if (state.currentView === "FiArchive") {
-      setFilteredSnippets(myArchivedSnippets);
+      setFilteredSnippets(costumList);
     }
     if (state.currentView === "FiStar") {
-      setFilteredSnippets(myFavoritesSnippets);
+      setFilteredSnippets(costumList);
     }
   };
 
