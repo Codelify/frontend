@@ -192,6 +192,11 @@ const a = 10;
   };
 
   const handleChange = ({ target: { name, value } }) => {
+    if(name === 'title' && errorTitle) {
+      // if an error is beeing displayed for title
+      // we clear it
+      setErrorTitle(null)
+    } 
     setFormData(prevState => ({
       ...prevState,
       [name]: value
