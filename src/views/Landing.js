@@ -28,7 +28,6 @@ import { handleRouteChange } from "../utils/handleRouteChange";
 //import GoogleLogin from "react-google-login";
 
 const Feature = ({ title, icon, children, ...props }) => {
-  console.log(handleRouteChange());
   return (
     <Box {...props}>
       <Flex
@@ -118,7 +117,7 @@ function Landing() {
                       Request Access
                     </Button>
                     <RequestAccess isOpen={isOpen} onClose={onClose} />
-                    <GoogleButton />
+                    <SlackButton />
                   </Stack>
                 )}
               </Box>
