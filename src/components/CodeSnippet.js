@@ -207,9 +207,9 @@ const CodeSnippet = ({
   return (
     <>
       {
-        index !== 0 && <Divider py="10px" />
+        index !== 0 && <Divider py="10px" mb="30px" />
       }
-      <Flex flexWrap="wrap" mt="30px">
+      <Flex flexWrap="wrap">
         <Stack
           mr="15px"
           minWidth="310px"
@@ -282,9 +282,15 @@ const CodeSnippet = ({
               }}
             />
           </MenuButton>
-          <MenuList closeOnBlur={true} placement="top-end">
+          <MenuList placement="top-end">
             {state.currentView !== "FiArchive" && (
-              <MenuItem onClick={toggleFavorite} as="div">
+              <MenuItem 
+                onClick={toggleFavorite} 
+                as="div"
+                style={{
+                  cursor: "pointer"
+                }}
+                >
                 <IconButton
                   variant="ghost"
                   aria-label="Favorite Snippet"
@@ -305,6 +311,9 @@ const CodeSnippet = ({
                   setRestoreSnippet(true);
                 }}
                 as="div"
+                style={{
+                  cursor: "pointer"
+                }}
               >
                 <IconButton
                   variant="ghost"
@@ -325,6 +334,9 @@ const CodeSnippet = ({
                 setRestoreSnippet(false);
               }}
               as="div"
+              style={{
+                cursor: "pointer"
+              }}
             >
               <IconButton
                 variant="ghost"

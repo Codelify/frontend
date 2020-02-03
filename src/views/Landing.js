@@ -98,7 +98,7 @@ function Landing() {
                     href="/app"
                     _focus={{ outline: "none" }}
                   >
-                    Get Started
+                    Browse my Snippets
                   </Button>
                 )}
                 {!isLoggedIn && (

@@ -82,7 +82,7 @@ const AppHeader = props => {
                   href="/app"
                   _focus={{ outline: "none" }}
                 >
-                  Get Started
+                  Browse
                 </Button>
               ) : (
                 <>
@@ -100,7 +100,7 @@ const AppHeader = props => {
                   />
                   {
                     token && (
-                    <Menu>
+                    <Menu autoSelect={false}>
                       <MenuButton 
                         variant="ghost" 
                         as={Button}
