@@ -40,7 +40,7 @@ const AppHeader = props => {
 
   const onLogout = () => {
     // delete token
-    window.localStorage.removeItem("token");
+    window.localStorage.clear();
     // then direct to landing page
     navigate("/");
   }
@@ -104,7 +104,9 @@ const AppHeader = props => {
                     token && (
                     <Menu autoSelect={false}>
                       <MenuButton 
-                        variant="unstyled" 
+                        variant={
+                          avatar !== '' ? "unstyled" : "ghost"
+                        }
                         as={Button}
                         _focus={{
                           outline: "none"
