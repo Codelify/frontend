@@ -28,11 +28,12 @@ import { DropDown, DropDownItem, Root } from "../utils/searchStyles/Dropdown";
 const Search = () => {
   //const [value, setValue] = useState("");
   const { state, setFilteredSnippets } = useContext(AppContext);
+
   const handleOnchange = e => {
     const input = e.target.value;
     filterItems(input);
   };
-  console.log(state.currentView, state.snippetsData);
+
   const handleListChange = currentView => {
     if (currentView === "FiHome") {
       return state.snippetsData;
@@ -45,6 +46,18 @@ const Search = () => {
     }
   };
 
+  const handleViewChange = (view, costumList) => {
+    if (view === "FiHome") {
+      setFilteredSnippets(costumList);
+    }
+    if (view === "FiArchive") {
+      setFilteredSnippets(costumList);
+    }
+    if (view === "FiStar") {
+      setFilteredSnippets(costumList);
+    }
+  };
+
   const filterItems = inputValue => {
     const costumList = matchSorter(
       handleListChange(state.currentView),
@@ -53,28 +66,7 @@ const Search = () => {
         keys: ["title", "description", "tags"]
       }
     );
-    // const mySnippets = matchSorter(state.snippetsData, inputValue, {
-    //   keys: ["title", "description", "tags"]
-    // });
-    // const myArchivedSnippets = matchSorter(state.archivedSnippets, inputValue, {
-    //   keys: ["title", "description", "tags"]
-    // });
-    // const myFavoritesSnippets = matchSorter(
-    //   state.favoritesSnippets,
-    //   inputValue,
-    //   {
-    //     keys: ["title", "description", "tags"]
-    //   }
-    // );
-    if (state.currentView === "FiHome") {
-      setFilteredSnippets(costumList);
-    }
-    if (state.currentView === "FiArchive") {
-      setFilteredSnippets(costumList);
-    }
-    if (state.currentView === "FiStar") {
-      setFilteredSnippets(costumList);
-    }
+    handleViewChange(state.currentView, costumList);
   };
 
   const handleDownshiftChange = searchTerm => {
