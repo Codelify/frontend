@@ -14,7 +14,7 @@ export default {
     listId: process.env.REACT_APP_MOOSEND_LIST_ID
   },
   googleAnalitycs: {
-    apiKey: process.env.REACT_APP_GOOGLE_ANALITYCS
+    apiKey: process.env.REACT_APP_GOOGLE_ANALYTICS
   },
   backend: {
     uri: process.env.REACT_APP_BE_URI
