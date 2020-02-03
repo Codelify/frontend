@@ -23,6 +23,7 @@ export default function GoogleButton() {
         email,
         imageUrl: avatar
       } = profileObj;
+      localStorage.setItem("avatar", profileObj.imageUrl);
       try {
         const { data, error } = await login({
           variables: {

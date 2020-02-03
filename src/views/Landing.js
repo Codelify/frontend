@@ -117,7 +117,8 @@ function Landing() {
                       Request Access
                     </Button>
                     <RequestAccess isOpen={isOpen} onClose={onClose} />
-                    <SlackButton />
+                    {/* <SlackButton /> */}
+                    <GoogleButton />
                   </Stack>
                 )}
               </Box>

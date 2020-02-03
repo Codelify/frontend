@@ -11,6 +11,7 @@ import {
   MenuList,
   MenuGroup,
   MenuItem,
+  Avatar,
 } from "@chakra-ui/core";
 import NewSnippet from "./NewSnippet";
 import { MdAdd } from "react-icons/md";
@@ -25,6 +26,7 @@ const AppHeader = props => {
   const bg = { light: "white", dark: "gray.800" };
 
   const token = window.localStorage.getItem("token");
+  const avatar = window.localStorage.getItem("avatar")
 
   const [size, setSize] = React.useState("md");
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -102,13 +104,20 @@ const AppHeader = props => {
                     token && (
                     <Menu autoSelect={false}>
                       <MenuButton 
-                        variant="ghost" 
+                        variant="unstyled" 
                         as={Button}
                         _focus={{
                           outline: "none"
                         }}
                         >
-                        <Box as={FaUserAlt} />
+                        {
+                          avatar !== '' ? (
+                            <Avatar showBorder={true} size="sm" name="" src={avatar} />
+                          ):
+                          (
+                            <Box as={FaUserAlt} />
+                          )
+                        }
                       </MenuButton>
                       <MenuList>
                         <MenuGroup title="Account">
