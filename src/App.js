@@ -6,10 +6,12 @@ import Landing from "./views/Landing";
 import { Router } from "@reach/router";
 import SlackAuthenticator from "./components/SlackAuthenticator";
 import { initGA } from "./components/~common/Tracking";
+import config from "./utils/config";
 
 function App() {
   useEffect(() => {
-    initGA("UA-156901053-1");
+    //console.log(config.googleAnalitycs.apiKey);
+    initGA(config.googleAnalitycs.apiKey);
   }, []);
   return (
     <Router>
