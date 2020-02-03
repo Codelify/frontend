@@ -1,6 +1,7 @@
 import React, { useReducer, createContext, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { MY_SNIPPETs } from "../graphql/query";
+import localstorage from "../utils/localstorage";
 
 const FETCH_SNIPPETS_DATA = "FETCH_SNIPPETS_DATA";
 const ADD_SNIPPET = "ADD_SNIPPET";
@@ -12,7 +13,7 @@ const initialState = {
   snippetsData: [],
   archivedSnippets: [],
   filteredSnippets: null,
-  currentView: "FiHome",
+  currentView: localstorage.get() || "FiHome",
   searchTerm: ""
 };
 
