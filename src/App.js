@@ -11,7 +11,7 @@ import config from "./utils/config";
 function App() {
   useEffect(() => {
     //console.log(config.googleAnalitycs.apiKey);
-    initGA(config.googleAnalitycs.apiKey);
+    initGA(config.googleAnalytics.apiKey);
   }, []);
   return (
     <Router>
