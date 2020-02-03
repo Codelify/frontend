@@ -3,6 +3,7 @@ import { ApolloProvider } from "react-apollo";
 import ApolloClient from "apollo-boost";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { persistCache } from "apollo-cache-persist";
+import config from '../../utils/config' ;
 
 class App extends Component {
   state = {
@@ -16,7 +17,7 @@ class App extends Component {
     // Setup Apollo Link, and any other Apollo packages here.
     const client = new ApolloClient({
       cache,
-      uri: "https://codelify-dev.herokuapp.com/graphql"
+      uri: config.backend.uri,
     });
 
     try {

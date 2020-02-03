@@ -12,5 +12,8 @@ export default {
   mooSend:{
     apiKey: process.env.REACT_APP_MOOSEND_API_KEY,
     listId: process.env.REACT_APP_MOOSEND_LIST_ID,
+  },
+  backend:{
+    uri: process.env.REACT_APP_BE_URI,
   }
 };
