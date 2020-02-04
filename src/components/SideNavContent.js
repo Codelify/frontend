@@ -55,7 +55,8 @@ const SideNavContent = ({ contentHeight = "calc(100vh - 4rem)", ...props }) => {
       name: "Tags",
       icon: FiTag,
       id: "FiTag",
-      link: "/snippets/tags"
+      link: "/snippets/tags",
+      count: ""
     }
   ];
 
