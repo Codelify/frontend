@@ -22,6 +22,8 @@ const SideNavContent = ({ contentHeight = "calc(100vh - 4rem)", ...props }) => {
   const formatCount = list => {
     if (list.length > 0) {
       return `(${list.length})`;
+    } else {
+      return "";
     }
   };
   const browseLinks = [
