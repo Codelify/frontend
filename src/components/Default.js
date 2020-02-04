@@ -25,6 +25,7 @@ const Default = () => {
   }, []);
 
   useEffect(() => {
+    initGA(config.googleAnalytics.apiKey);
     PageView();
     fetchSnippetsData();
     refetch();
