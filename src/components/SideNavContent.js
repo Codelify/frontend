@@ -10,7 +10,7 @@ const browseLinks = [
     name: "My Snippets",
     icon: FiHome,
     id: "FiHome",
-    link: "/snippets/my_snippets"
+    link: "/snippets/list"
   },
   {
     name: "Archives",
