@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Event, PageView } from "../components/~common/Tracking";
+import { Event, PageView, initGA } from "../components/~common/Tracking";
+import config from "../utils/config";
 // import './App.css';
 import {
   ThemeProvider,
@@ -24,10 +25,10 @@ import { MdBookmark, MdFindInPage, MdDescription } from "react-icons/md";
 import screenShotLight from "../assets/img/app-shot-light.png";
 import screenShotDark from "../assets/img/app-shot-dark.png";
 import SlackButton from "../components/SlackButton";
+import { handleRouteChange } from "../utils/handleRouteChange";
 //import GoogleLogin from "react-google-login";
 
 const Feature = ({ title, icon, children, ...props }) => {
-
   return (
     <Box {...props}>
       <Flex
@@ -53,6 +54,7 @@ function Landing() {
   const { colorMode } = useColorMode();
 
   useEffect(() => {
+    initGA(config.googleAnalytics.apiKey);
     PageView();
     if (typeof window !== "undefined" && window.localStorage.getItem("token")) {
       setIsLoggedIn(true);
@@ -95,7 +97,7 @@ function Landing() {
                     size="lg"
                     as="a"
                     variantColor="teal"
-                    href="/app"
+                    href={handleRouteChange()}
                     _focus={{ outline: "none" }}
                   >
                     Browse my Snippets
@@ -138,9 +140,7 @@ function Landing() {
           >
             <Image
               borderRadius="5px"
-              src={
-                colorMode === "light" ? screenShotLight : screenShotDark
-              }
+              src={colorMode === "light" ? screenShotLight : screenShotDark}
               alt="Codelify app screenshot"
             />
           </Box>
