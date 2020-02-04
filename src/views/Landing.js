@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Event, PageView } from "../components/~common/Tracking";
+import { Event, PageView, initGA } from "../components/~common/Tracking";
+import config from "../utils/config";
 // import './App.css';
 import {
   ThemeProvider,
@@ -53,6 +54,7 @@ function Landing() {
   const { colorMode } = useColorMode();
 
   useEffect(() => {
+    initGA(config.googleAnalytics.apiKey);
     PageView();
     if (typeof window !== "undefined" && window.localStorage.getItem("token")) {
       setIsLoggedIn(true);
@@ -117,7 +119,7 @@ function Landing() {
                       Request Access
                     </Button>
                     <RequestAccess isOpen={isOpen} onClose={onClose} />
-                    <SlackButton />
+                    <GoogleButton />
                   </Stack>
                 )}
               </Box>

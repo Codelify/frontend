@@ -4,7 +4,8 @@ import EmptyView from "./EmptyView";
 import SnippetList from "./List";
 import { useQuery } from "@apollo/react-hooks";
 import { MY_SNIPPETs } from "../graphql/query";
-import { PageView } from "./~common/Tracking";
+import { PageView, initGA } from "./~common/Tracking";
+import config from "../utils/config";
 
 const Default = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -19,6 +20,7 @@ const Default = () => {
   });
 
   useEffect(() => {
+    initGA(config.googleAnalytics.apiKey);
     PageView();
   }, []);
 
@@ -45,16 +47,40 @@ const Default = () => {
   // Render the list of snippets if their are any depends on the current side navigation menu
   if (token) {
     if (state.currentView === "FiHome") {
-      return <SnippetList currentView={state.currentView} data={state.snippetsData} loading={loading} />;
+      return (
+        <SnippetList
+          currentView={state.currentView}
+          data={state.snippetsData}
+          loading={loading}
+        />
+      );
     }
     if (state.currentView === "FiArchive") {
-      return <SnippetList currentView={state.currentView} data={state.archivedSnippets} loading={loading} />;
+      return (
+        <SnippetList
+          currentView={state.currentView}
+          data={state.archivedSnippets}
+          loading={loading}
+        />
+      );
     }
     if (state.currentView === "FiStar") {
-      return <SnippetList currentView={state.currentView} data={state.favoritesSnippets} loading={loading} />;
+      return (
+        <SnippetList
+          currentView={state.currentView}
+          data={state.favoritesSnippets}
+          loading={loading}
+        />
+      );
     }
     if (state.currentView === "FiTag") {
-      return <SnippetList currentView={state.currentView} data={state.snippetsData} loading={loading} />;
+      return (
+        <SnippetList
+          currentView={state.currentView}
+          data={state.snippetsData}
+          loading={loading}
+        />
+      );
     }
   }
   // default view if there is no snippets
