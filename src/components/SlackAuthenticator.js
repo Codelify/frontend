@@ -9,6 +9,7 @@ import { LOGIN_WITH_GOOGLE, CREATE_SNIPPET } from "../graphql/mutation";
 import Spinner from "../components/~common/Spinner";
 import { Box } from "@chakra-ui/core";
 import { PageView } from "./~common/Tracking";
+import { handleRouteChange } from "../utils/handleRouteChange";
 
 export default function SlackAuthenticator(props) {
   const [loginWithSlack] = useMutation(LOGIN_WITH_GOOGLE);
@@ -63,9 +64,9 @@ export default function SlackAuthenticator(props) {
             });
           }
         }
-        navigate("/app");
+        navigate(handleRouteChange());
       }
-      navigate("/app");
+      navigate(handleRouteChange());
     } catch (error) {
       console.log(error);
     }

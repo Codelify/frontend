@@ -19,9 +19,10 @@ import { FaUserAlt } from "react-icons/fa";
 import Logo from "./Logo";
 import SearchBox from "./SearchBox";
 import { navigate } from "@reach/router";
+import { handleRouteChange } from "../utils/handleRouteChange";
 
 const AppHeader = props => {
-  const {landing, isLoggedIn} = props
+  const { landing, isLoggedIn } = props;
   const { colorMode, toggleColorMode } = useColorMode();
   const bg = { light: "white", dark: "gray.800" };
 
@@ -43,7 +44,7 @@ const AppHeader = props => {
     window.localStorage.clear();
     // then direct to landing page
     navigate("/");
-  }
+  };
 
   return (
     <Box
@@ -76,16 +77,17 @@ const AppHeader = props => {
             {!landing && <SearchBox />}
             <Flex align="center" color="gray.500">
               {landing ? (
-                  isLoggedIn && 
+                isLoggedIn && (
                   <Button
-                  as="a"
-                  size="xs"
-                  ml={4}
-                  href="/app"
-                  _focus={{ outline: "none" }}
-                >
-                  Browse
-                </Button>
+                    as="a"
+                    size="xs"
+                    ml={4}
+                    href={handleRouteChange()}
+                    _focus={{ outline: "none" }}
+                  >
+                    Browse
+                  </Button>
+                )
               ) : (
                 <>
                   <IconButton
@@ -100,8 +102,7 @@ const AppHeader = props => {
                       handleClick("full");
                     }}
                   />
-                  {
-                    token && (
+                  {token && (
                     <Menu autoSelect={false}>
                       <MenuButton 
                         variant={
@@ -124,15 +125,11 @@ const AppHeader = props => {
                       <MenuList>
                         <MenuGroup title="Account">
                           <MenuItem>My Profile</MenuItem>
-                          <MenuItem
-                            onClick={onLogout}
-                          >Logout
-                          </MenuItem>
+                          <MenuItem onClick={onLogout}>Logout</MenuItem>
                         </MenuGroup>
                       </MenuList>
                     </Menu>
-                    )
-                  }
+                  )}
                 </>
               )}
 

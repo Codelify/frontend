@@ -6,7 +6,7 @@ import { navigate } from "@reach/router";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 import { CREATE_SNIPPET, LOGIN_WITH_GOOGLE } from "../graphql/mutation";
-
+import { handleRouteChange } from "../utils/handleRouteChange";
 
 export default function GoogleButton() {
   const [login] = useMutation(LOGIN_WITH_GOOGLE);
@@ -46,14 +46,14 @@ export default function GoogleButton() {
             if (res) {
               typeof window !== "undefined" &&
                 window.localStorage.removeItem("snippetData");
-                toasting({
-                  position: "top-right",
-                  title: "Yooohooo ! 🍹",
-                  description: "Your snippet has been saved",
-                  status: "success",
-                  duration: 9000,
-                  isClosable: true
-                });
+              toasting({
+                position: "top-right",
+                title: "Yooohooo ! 🍹",
+                description: "Your snippet has been saved",
+                status: "success",
+                duration: 9000,
+                isClosable: true
+              });
             }
             if (error) {
               toasting({
@@ -66,9 +66,9 @@ export default function GoogleButton() {
               });
             }
           }
-          navigate("/app");
+          navigate(handleRouteChange());
         }
-        navigate("/app");
+        navigate(handleRouteChange());
       } catch (err) {
         console.log(err);
       }
