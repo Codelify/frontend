@@ -35,7 +35,7 @@ const NoSnippetView = ({ currentView, loading }) => {
 
   return (
     <>
-      <Box h="80vh" pt="120px" w="100%" textAlign="center">
+      <Box h="67vh" pt="120px" w="100%" textAlign="center">
         <Box mx="auto" as={emptyData.icon} size="60px" color="#FC8181" />
         <Text textColor="teal" fontSize="2xl" color="teal">
           {emptyData.text}
