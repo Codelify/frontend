@@ -5,36 +5,6 @@ import localstorage from "../utils/localstorage";
 import { FiArchive, FiHome, FiStar, FiTag } from "react-icons/fi";
 import { Link } from "@reach/router";
 
-const browseLinks = [
-  {
-    name: "My Snippets",
-    icon: FiHome,
-    id: "FiHome",
-    link: "/snippets/list"
-  },
-  {
-    name: "Archives",
-    icon: FiArchive,
-    id: "FiArchive",
-    link: "/snippets/archive"
-  }
-];
-
-const filterLinks = [
-  {
-    name: "Favorites",
-    icon: FiStar,
-    id: "FiStar",
-    link: "/snippets/favorites"
-  },
-  {
-    name: "Tags",
-    icon: FiTag,
-    id: "FiTag",
-    link: "/snippets/tags"
-  }
-];
-
 const NavGroupHeading = props => (
   <Heading
     fontSize="xs"
@@ -48,7 +18,46 @@ const NavGroupHeading = props => (
 
 const SideNavContent = ({ contentHeight = "calc(100vh - 4rem)", ...props }) => {
   const [navMenu, setNavMenu] = useState(localstorage.get() || "FiHome");
-  const { setCurentView } = useContext(AppContext);
+  const { state, setCurentView } = useContext(AppContext);
+  const formatCount = list => {
+    if (list.length > 0) {
+      return `(${list.length})`;
+    } else {
+      return "";
+    }
+  };
+  const browseLinks = [
+    {
+      name: "My Snippets",
+      icon: FiHome,
+      id: "FiHome",
+      link: "/snippets/list",
+      count: formatCount(state.snippetsData)
+    },
+    {
+      name: "Archives",
+      icon: FiArchive,
+      id: "FiArchive",
+      link: "/snippets/archive",
+      count: formatCount(state.archivedSnippets)
+    }
+  ];
+
+  const filterLinks = [
+    {
+      name: "Favorites",
+      icon: FiStar,
+      id: "FiStar",
+      link: "/snippets/favorites",
+      count: formatCount(state.favoritesSnippets)
+    },
+    {
+      name: "Tags",
+      icon: FiTag,
+      id: "FiTag",
+      link: "/snippets/tags"
+    }
+  ];
 
   const onActivate = newVavMenu => {
     //console.log(newVavMenu);
@@ -104,7 +113,7 @@ const SideNavContent = ({ contentHeight = "calc(100vh - 4rem)", ...props }) => {
               }}
             >
               <Box mr="10px" fontSize="20px" as={linkObject.icon} />
-              {linkObject.name}
+              {`${linkObject.name} ${linkObject.count}`}
             </PseudoBox>
           </Link>
         ))}
@@ -139,7 +148,7 @@ const SideNavContent = ({ contentHeight = "calc(100vh - 4rem)", ...props }) => {
                 fontSize="20px"
                 as={linkObject.icon}
               />
-              {linkObject.name}
+              {`${linkObject.name} ${linkObject.count}`}
             </PseudoBox>
           </Link>
         ))}
