@@ -11,6 +11,7 @@ import {
 import { LiveProvider, LiveEditor, withLive } from "react-live";
 import theme from "prism-react-renderer/themes/nightOwl";
 import { MdContentCopy, MdOpenInNew } from "react-icons/md";
+import { FaStar } from "react-icons/fa";
 import SnippetMenu from "./SnippetMenu";
 
 const SnippetContent = (
@@ -65,13 +66,30 @@ const SnippetContent = (
             opacity="0.96"
             d="flex"
             p={2}
-            justifyContent="flex-end"
+            justifyContent="space-between"
             backgroundColor="#051525"
             style={{
               borderTopRightRadius: "5px",
               borderTopLeftRadius: "5px"
             }}
           >
+            {isFav ? (
+              <Box
+                ml="10px"
+                borderRadius="5px"
+                p="3px"
+                backgroundColor="#FEB2B2"
+                as={FaStar}
+                size="25px"
+                color="#FFFFFF"
+                style={{
+                  animation: "rotation 1.5s linear"
+                }}
+              />
+            ) : (
+              <Box />
+            )}
+
             <Stack isInline spacing={1}>
               {hasCopied ? (
                 <Button

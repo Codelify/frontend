@@ -10,7 +10,6 @@ import {
 import SnippetHeading from "./SnippetHeading";
 import Description from "./SnippetDescription";
 import SnippetTags from "./SnippetTags";
-import { FaStar } from "react-icons/fa";
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_SNIPPET } from "../graphql/mutation";
 import SnippetContent from "./SnippetContent";
@@ -146,24 +145,6 @@ const CodeSnippet = ({
             handleUpdate={handleUpdate}
           />
         </Box>
-      </Flex>
-      <Flex mt="40px" justify="space-between" w="95%">
-        {isFav ? (
-          <Box
-            ml="10px"
-            borderRadius="5px"
-            p="7px"
-            backgroundColor="#FEB2B2"
-            as={FaStar}
-            size="33px"
-            color="#FFFFFF"
-            style={{
-              animation: "rotation 1.5s linear"
-            }}
-          />
-        ) : (
-          <Box />
-        )}
       </Flex>
     </>
   );
