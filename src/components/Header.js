@@ -11,7 +11,7 @@ import {
   MenuList,
   MenuGroup,
   MenuItem,
-  Avatar,
+  Avatar
 } from "@chakra-ui/core";
 import NewSnippet from "./NewSnippet";
 import { MdAdd } from "react-icons/md";
@@ -20,19 +20,21 @@ import Logo from "./Logo";
 import SearchBox from "./SearchBox";
 import { navigate } from "@reach/router";
 import { handleRouteChange } from "../utils/handleRouteChange";
+import useUserData from "./~common/useUserData";
 
 const AppHeader = props => {
   const { landing, isLoggedIn } = props;
   const { colorMode, toggleColorMode } = useColorMode();
   const bg = { light: "white", dark: "gray.800" };
+  const { results, loading, error } = useUserData();
 
   const token = window.localStorage.getItem("token");
-  const avatar = window.localStorage.getItem("avatar")
+  // const avatar = window.localStorage.getItem("avatar")
 
   const [size, setSize] = React.useState("md");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const firstField = React.useRef();
-
+  const avatar = results.avatar;
   const handleClick = newSize => {
     setSize(newSize);
     onOpen();
@@ -104,23 +106,23 @@ const AppHeader = props => {
                   />
                   {token && (
                     <Menu autoSelect={false}>
-                      <MenuButton 
-                        variant={
-                          avatar !== '' ? "unstyled" : "ghost"
-                        }
+                      <MenuButton
+                        variant={avatar !== "" ? "unstyled" : "ghost"}
                         as={Button}
                         _focus={{
                           outline: "none"
                         }}
-                        >
-                        {
-                          avatar !== '' ? (
-                            <Avatar showBorder={true} size="sm" name="" src={avatar} />
-                          ):
-                          (
-                            <Box as={FaUserAlt} />
-                          )
-                        }
+                      >
+                        {avatar !== "" ? (
+                          <Avatar
+                            showBorder={true}
+                            size="sm"
+                            name=""
+                            src={avatar}
+                          />
+                        ) : (
+                          <Box as={FaUserAlt} />
+                        )}
                       </MenuButton>
                       <MenuList>
                         <MenuGroup title="Account">
