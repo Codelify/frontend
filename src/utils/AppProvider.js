@@ -12,6 +12,7 @@ const SET_SIDE_VIEW = "SET_SIDE_VIEW";
 const initialState = {
   snippetsData: [],
   archivedSnippets: [],
+  favoritesSnippets: [],
   filteredSnippets: null,
   currentView: localstorage.get() || "FiHome",
   searchTerm: ""
