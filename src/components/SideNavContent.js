@@ -114,8 +114,9 @@ const SideNavContent = ({ contentHeight = "calc(100vh - 4rem)", ...props }) => {
               }}
             >
               <Box mr="10px" fontSize="20px" as={linkObject.icon} />
-              {`${linkObject.name} ${linkObject.count}`}
-            </PseudoBox>
+              {/* {`${linkObject.name} ${linkObject.count}`} */}
+              {`${linkObject.name}`}
+              </PseudoBox>
           </Link>
         ))}
         <NavGroupHeading mb="15px" mt="30px">
@@ -149,7 +150,8 @@ const SideNavContent = ({ contentHeight = "calc(100vh - 4rem)", ...props }) => {
                 fontSize="20px"
                 as={linkObject.icon}
               />
-              {`${linkObject.name} ${linkObject.count}`}
+              {/* {`${linkObject.name} ${linkObject.count}`} */}
+              {`${linkObject.name}`}
             </PseudoBox>
           </Link>
         ))}

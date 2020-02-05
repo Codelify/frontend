@@ -15,3 +15,20 @@ export const MY_SNIPPETs = gql`
     }
   }
 `;
+
+export const USER_DETAILS = gql`
+  query UserDetails($token: String!) {
+    getUserDetails(token: $token) {
+      id
+      uid
+      avatar
+      lastName
+      firstName
+      email
+      snippets {
+        id
+        title
+      }
+    }
+  }
+`;

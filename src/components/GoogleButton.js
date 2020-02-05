@@ -23,6 +23,7 @@ export default function GoogleButton() {
         email,
         imageUrl: avatar
       } = profileObj;
+      localStorage.setItem("avatar", profileObj.imageUrl);
       try {
         const { data, error } = await login({
           variables: {
@@ -79,6 +80,8 @@ export default function GoogleButton() {
       clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
       render={renderProps => (
         <Button
+          _focus={{ outline: "none" }}
+          variantColor="teal"
           as="a"
           size="lg"
           href="#"
