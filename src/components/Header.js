@@ -19,11 +19,14 @@ import Logo from "./Logo";
 import SearchBox from "./SearchBox";
 import { navigate } from "@reach/router";
 import { handleRouteChange } from "../utils/handleRouteChange";
+import useUserData from "./~common/useUserData";
 
 const AppHeader = props => {
   const { landing, isLoggedIn } = props;
   const { colorMode, toggleColorMode } = useColorMode();
   const bg = { light: "white", dark: "gray.800" };
+  const { results, loading, error } = useUserData();
+  console.log("HEADER", results, loading, error);
 
   const token = window.localStorage.getItem("token");
 
