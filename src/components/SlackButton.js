@@ -21,6 +21,7 @@ const SlackLogin = () => {
             variantColor="teal"
             leftIcon={props => <FaSlack size="1.2em" {...props} />}
             onClick={handleRedirect}
+            _focus={{ outline: "none" }}
             >
                 Slack Login
             </Button>

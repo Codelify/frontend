@@ -1,9 +1,27 @@
 import React, { useState } from "react";
-import { Collapse, ButtonGroup, Button, IconButton } from "@chakra-ui/core";
+import {
+  Collapse,
+  ButtonGroup,
+  Button,
+  IconButton,
+  Box,
+  useClipboard,
+  Stack
+} from "@chakra-ui/core";
 import { LiveProvider, LiveEditor, withLive } from "react-live";
 import theme from "prism-react-renderer/themes/nightOwl";
+import { MdContentCopy, MdOpenInNew } from "react-icons/md";
+import { FaStar } from "react-icons/fa";
+import SnippetMenu from "./SnippetMenu";
 
-const SnippetContent = ({ content, id, handleUpdate, handleEdit }, props) => {
+const SnippetContent = (
+  { content, isFav, id, handleUpdate, handleEdit },
+  props
+) => {
+  const snippetPlaceHolder = `${content}`;
+  const [value] = React.useState(snippetPlaceHolder);
+  const { onCopy, hasCopied } = useClipboard(value);
+
   const handleBlur = event => {
     handleToggle(false);
   };
@@ -12,7 +30,7 @@ const SnippetContent = ({ content, id, handleUpdate, handleEdit }, props) => {
   const handleToggle = newShow => {
     setShow(newShow);
   };
-  const snippetPlaceHolder = `${content}`;
+
   return (
     <>
       <LiveProvider
@@ -21,27 +39,97 @@ const SnippetContent = ({ content, id, handleUpdate, handleEdit }, props) => {
         code={snippetPlaceHolder}
         transformCode={e => handleEdit(e, "content")}
         style={{
-          outline: "none",
-          borderRadius: "5px"
+          outline: "none"
         }}
       >
-        <LiveEditor
-          padding={10}
-          onBlur={handleBlur}
-          onClick={() => {
-            handleToggle(true);
-          }}
-          style={{
-            fontFamily: "Menlo,monospace",
-            flex: 2,
-            fontSize: "14px",
-            minHeight: "300px",
-            borderRadius: "5px"
-          }}
-          _focus={{
-            outline: "none"
-          }}
-        />
+        <Stack isReversed>
+          <LiveEditor
+            padding={10}
+            onBlur={handleBlur}
+            onClick={() => {
+              handleToggle(true);
+            }}
+            style={{
+              fontFamily: "Menlo,monospace",
+              flex: 2,
+              fontSize: "14px",
+              minHeight: "300px",
+              borderBottomRightRadius: "5px",
+              borderBottomLeftRadius: "5px"
+            }}
+            _focus={{
+              outline: "none"
+            }}
+          />
+          <Box
+            h="45px"
+            opacity="0.96"
+            d="flex"
+            p={2}
+            justifyContent="space-between"
+            backgroundColor="#051525"
+            style={{
+              borderTopRightRadius: "5px",
+              borderTopLeftRadius: "5px"
+            }}
+          >
+            {isFav ? (
+              <Box
+                ml="10px"
+                borderRadius="5px"
+                p="3px"
+                backgroundColor="#FEB2B2"
+                as={FaStar}
+                size="25px"
+                color="#FFFFFF"
+                style={{
+                  animation: "rotation 1.5s linear"
+                }}
+              />
+            ) : (
+              <Box />
+            )}
+
+            <Stack isInline spacing={1}>
+              {hasCopied ? (
+                <Button
+                  variant="unstyled"
+                  variantColor="teal"
+                  size="xs"
+                  disabled={true}
+                  style={{
+                    color: "#ffffff"
+                  }}
+                >
+                  Copied
+                </Button>
+              ) : (
+                <IconButton
+                  p="3px"
+                  mt="2px"
+                  variant="ghost"
+                  size="xs"
+                  variantColor="teal"
+                  aria-label="Call Sage"
+                  fontSize="18px"
+                  onClick={onCopy}
+                  icon={MdContentCopy}
+                />
+              )}
+              {/* <IconButton
+                variant="ghost"
+                mt="2px"
+                p="3px"
+                size="xs"
+                variantColor="teal"
+                aria-label="Call Sage"
+                fontSize="18px"
+                icon={MdOpenInNew}
+              /> */}
+              <SnippetMenu {...{ isFav, id }} />
+            </Stack>
+          </Box>
+        </Stack>
       </LiveProvider>
       <Collapse mt="15px" isOpen={show}>
         <ButtonGroup mb="10px" justifyContent="center" size="sm">
