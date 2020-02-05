@@ -122,11 +122,15 @@ const SnippetMenu = ({isFav, id}) => {
     return (
         <>
         <Menu autoSelect={false}>
-        <MenuButton _focus={{ outline: "none" }} as="div">
+        <MenuButton _focus={{ outline: "none" }} as="box">
         <IconButton
+            p="0px"
+            size="xs"
+            variant="ghost"
+            variantColor="teal"
             aria-label="More options"
+            fontSize="15px"
             icon={FiMoreHorizontal}
-            color="#319795"
             _focus={{
             outline: "none"
             }}

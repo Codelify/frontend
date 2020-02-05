@@ -1,9 +1,17 @@
 import React, { useState } from "react";
-import { Collapse, ButtonGroup, Button, IconButton } from "@chakra-ui/core";
+import { Collapse, ButtonGroup, Button, IconButton, Box, useClipboard, Stack } from "@chakra-ui/core";
 import { LiveProvider, LiveEditor, withLive } from "react-live";
 import theme from "prism-react-renderer/themes/nightOwl";
+import { MdContentCopy, MdOpenInNew } from "react-icons/md";
+import SnippetMenu from './SnippetMenu'
 
-const SnippetContent = ({ content, id, handleUpdate, handleEdit }, props) => {
+
+const SnippetContent = ({ content, isFav, id, handleUpdate, handleEdit }, props) => {
+  
+  const snippetPlaceHolder = `${content}`;  
+  const [value, setValue] = React.useState(snippetPlaceHolder);
+  const { onCopy, hasCopied } = useClipboard(value);
+
   const handleBlur = event => {
     handleToggle(false);
   };
@@ -12,9 +20,62 @@ const SnippetContent = ({ content, id, handleUpdate, handleEdit }, props) => {
   const handleToggle = newShow => {
     setShow(newShow);
   };
-  const snippetPlaceHolder = `${content}`;
+
   return (
     <>
+      <Box 
+      h="45px"
+      opacity="0.96"
+      d="flex"
+      p={2}
+      justifyContent="flex-end"
+      backgroundColor="#051525"
+      style={{
+        borderTopRightRadius: "5px",
+        borderTopLeftRadius: "5px"
+      }}
+      >
+      <Stack isInline spacing={1}>
+      {
+        hasCopied ? (
+      <Button 
+        variant="unstyled"
+        variantColor="teal" 
+        size="xs"
+        disabled={true}
+        style={{
+          color:"#ffffff"
+        }}
+      >
+        Copied
+      </Button>
+        ) : (
+          <IconButton
+          p="3px"
+          mt="2px"
+          variant="ghost"
+          size="xs"
+          variantColor="teal"
+          aria-label="Call Sage"
+          fontSize="18px"
+          onClick={onCopy}
+          icon={MdContentCopy}
+          />  
+        )
+      }
+          <IconButton
+          variant="ghost"
+          mt="2px"
+          p="3px"
+          size="xs"
+          variantColor="teal"
+          aria-label="Call Sage"
+          fontSize="18px"
+          icon={MdOpenInNew}
+          />  
+          <SnippetMenu {...{isFav, id}}/>          
+      </Stack>
+      </Box>
       <LiveProvider
         theme={theme}
         language="javascript"
@@ -22,7 +83,6 @@ const SnippetContent = ({ content, id, handleUpdate, handleEdit }, props) => {
         transformCode={e => handleEdit(e, "content")}
         style={{
           outline: "none",
-          borderRadius: "5px"
         }}
       >
         <LiveEditor
@@ -36,7 +96,8 @@ const SnippetContent = ({ content, id, handleUpdate, handleEdit }, props) => {
             flex: 2,
             fontSize: "14px",
             minHeight: "300px",
-            borderRadius: "5px"
+            borderBottomRightRadius: "5px",
+            borderBottomLeftRadius: "5px"
           }}
           _focus={{
             outline: "none"

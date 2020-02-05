@@ -14,7 +14,7 @@ import { FaStar } from "react-icons/fa";
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_SNIPPET } from "../graphql/mutation";
 import SnippetContent from "./SnippetContent";
-import SnippetMenu from './SnippetMenu'
+
 
 const CodeSnippet = ({
   title,
@@ -139,6 +139,7 @@ const CodeSnippet = ({
           borderRadius="5px"
         >
           <SnippetContent
+            isFav={isFav}
             content={contentToUpdate}
             id={id}
             handleEdit={handleEdit}
@@ -163,7 +164,6 @@ const CodeSnippet = ({
         ) : (
           <Box />
         )}
-        <SnippetMenu {...{isFav, id}}/>
       </Flex>
     </>
   );
