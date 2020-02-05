@@ -136,7 +136,7 @@ const SnippetMenu = ({isFav, id}) => {
             }}
         />
         </MenuButton>
-        <MenuList placement="top-end">
+        <MenuList placement="bottom-end">
         {state.currentView !== "FiArchive" && (
             <MenuItem
             onClick={toggleFavorite}
@@ -159,7 +159,7 @@ const SnippetMenu = ({isFav, id}) => {
             </MenuItem>
         )}
         {state.currentView === "FiArchive" && (
-            <MenuItem
+            <MenuItem 
             onClick={() => {
                 onOpen();
                 setRestoreSnippet(true);
