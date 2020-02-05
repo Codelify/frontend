@@ -20,3 +20,5 @@ code {
     transform: rotate(359deg);
   }
 }
+
+textarea, select, input, button { outline: none; }
