@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { USER_DETAILS } from "../../graphql/query";
 
 function useDataFetching() {
-  // const [loading, setLoading] = useState(true);
   const [results, setResults] = useState([]);
-  // const [error, setError] = useState("");
 
   const token = window.localStorage.getItem("token");
-  const { data, loading, error, refetch } = useQuery(USER_DETAILS, {
-    variables: { token },
-    pollInterval: 10000
+  const { data, loading, error } = useQuery(USER_DETAILS, {
+    variables: { token }
+    //pollInterval: 10000
   });
-  console.log(loading);
+
   useEffect(() => {
     fetchData();
   }, []);
