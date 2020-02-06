@@ -13,7 +13,7 @@ function useDataFetching() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [data, loading, error]);
 
   const fetchData = async () => {
     try {

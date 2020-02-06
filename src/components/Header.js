@@ -26,7 +26,7 @@ const AppHeader = props => {
   const { landing, isLoggedIn } = props;
   const { colorMode, toggleColorMode } = useColorMode();
   const bg = { light: "white", dark: "gray.800" };
-  const { results, loading, error } = useUserData();
+  const { results } = useUserData();
 
   const token = window.localStorage.getItem("token");
   // const avatar = window.localStorage.getItem("avatar")
