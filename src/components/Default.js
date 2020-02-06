@@ -22,9 +22,10 @@ const Default = () => {
   useEffect(() => {
     initGA(config.googleAnalytics.apiKey);
     PageView();
-  }, []);
+  }, [state.currentView]);
 
   useEffect(() => {
+    initGA(config.googleAnalytics.apiKey);
     PageView();
     fetchSnippetsData();
     refetch();
