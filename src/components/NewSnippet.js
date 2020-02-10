@@ -62,7 +62,7 @@ const NewSnippet = props => {
   //   });
   // };
 
-  const [createSnippet, data] = useMutation(CREATE_SNIPPET);
+  const [createSnippet] = useMutation(CREATE_SNIPPET);
   const handleSubmit = async () => {
     setIsLoading(true);
     if (validateTitle() === false) {

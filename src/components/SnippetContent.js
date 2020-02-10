@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/core";
 import { LiveProvider, LiveEditor, withLive } from "react-live";
 import theme from "prism-react-renderer/themes/nightOwl";
-import { MdContentCopy, MdOpenInNew } from "react-icons/md";
+import { MdContentCopy } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 import SnippetMenu from "./SnippetMenu";
 

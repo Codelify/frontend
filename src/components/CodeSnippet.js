@@ -1,19 +1,11 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Flex,
-  Stack,
-  Link,
-  Icon,
-  Divider,
-} from "@chakra-ui/core";
+import { Box, Flex, Stack, Link, Icon, Divider } from "@chakra-ui/core";
 import SnippetHeading from "./SnippetHeading";
 import Description from "./SnippetDescription";
 import SnippetTags from "./SnippetTags";
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_SNIPPET } from "../graphql/mutation";
 import SnippetContent from "./SnippetContent";
-
 
 const CodeSnippet = ({
   title,
@@ -39,7 +31,6 @@ const CodeSnippet = ({
   const [contentToUpdate, setContentToUpdate] = useState(content);
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
 
-
   const handleUpdate = async typeOfAction => {
     const costumObject = {};
     //construct costum object for every case for not repeting the mutation of each field
@@ -55,7 +46,8 @@ const CodeSnippet = ({
 
     const token = window.localStorage.getItem("token");
     try {
-      const { data } = await updateSnippet({
+      // eslint-disable-next-line no-empty-pattern
+      const {} = await updateSnippet({
         variables: {
           snippetId: id,
           snippetInfo: costumObject,
@@ -97,9 +89,7 @@ const CodeSnippet = ({
 
   return (
     <>
-      {
-        index !== 0 && <Divider py="10px" mb="30px" />
-      }
+      {index !== 0 && <Divider py="10px" mb="30px" />}
       <Flex flexWrap="wrap">
         <Stack
           mr="15px"
