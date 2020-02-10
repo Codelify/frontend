@@ -3,7 +3,6 @@ import { AiOutlineGoogle } from "react-icons/ai";
 import GoogleLogin from "react-google-login";
 import { Button, useToast } from "@chakra-ui/core";
 import { navigate } from "@reach/router";
-import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 import { CREATE_SNIPPET, LOGIN_WITH_GOOGLE } from "../graphql/mutation";
 import { handleRouteChange } from "../utils/handleRouteChange";
@@ -25,7 +24,7 @@ export default function GoogleButton() {
       } = profileObj;
       // localStorage.setItem("avatar", profileObj.imageUrl);
       try {
-        const { data, error } = await login({
+        const { data } = await login({
           variables: {
             input: { firstName, lastName, email, password, avatar }
           }

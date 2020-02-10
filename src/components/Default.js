@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useCallback } from "react";
 import { AppContext } from "../utils/AppProvider";
 import EmptyView from "./EmptyView";
 import SnippetList from "./List";
@@ -24,21 +24,21 @@ const Default = () => {
     PageView();
   }, [state.currentView]);
 
-  useEffect(() => {
-    initGA(config.googleAnalytics.apiKey);
-    PageView();
-    fetchSnippetsData();
-    refetch();
-  }, [data, loading]);
-
-  const fetchSnippetsData = async () => {
+  const fetchSnippetsData = useCallback(async () => {
     try {
       const { getAuthUserSnippets } = await data;
       dispatch({ type: "FETCH_SNIPPETS_DATA", payload: getAuthUserSnippets });
     } catch (error) {
       //console.warn(error);
     }
-  };
+  }, [data, dispatch]);
+
+  useEffect(() => {
+    initGA(config.googleAnalytics.apiKey);
+    PageView();
+    fetchSnippetsData();
+    refetch();
+  }, [data, loading, fetchSnippetsData, refetch]);
 
   //Render filterd Snippets if there are any
   if (state.filteredSnippets) {

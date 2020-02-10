@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import queryString from "query-string";
 import axios from "axios";
 import config from "../utils/config";
@@ -16,61 +16,65 @@ export default function SlackAuthenticator(props) {
   const [createSnippet] = useMutation(CREATE_SNIPPET);
   const toasting = useToast();
 
-  const login = async user => {
-    try {
-      const { data } = await loginWithSlack({
-        variables: {
-          input: {
-            firstName: user.name,
-            email: user.email,
-            password: user.id,
-            avatar: user.image_72
+  const login = useCallback(
+    async user => {
+      try {
+        const { data } = await loginWithSlack({
+          variables: {
+            input: {
+              firstName: user.name,
+              email: user.email,
+              password: user.id,
+              avatar: user.image_72
+            }
           }
-        }
-      });
-      if (data) {
-        localStorage.setItem("token", data.authWithGoogle.token);
-        if (localStorage.getItem("snippetData")) {
-          const snippetData = {
-            ...JSON.parse(
+        });
+        if (data) {
+          localStorage.setItem("token", data.authWithGoogle.token);
+          if (localStorage.getItem("snippetData")) {
+            const snippetData = {
+              ...JSON.parse(
+                typeof window !== "undefined" &&
+                  window.localStorage.getItem("snippetData")
+              ),
+              token: data.authWithGoogle.token
+            };
+            const { data: res, error } = await createSnippet({
+              variables: snippetData
+            });
+            if (res) {
               typeof window !== "undefined" &&
-                window.localStorage.getItem("snippetData")
-            ),
-            token: data.authWithGoogle.token
-          };
-          const { data: res, error } = await createSnippet({
-            variables: snippetData
-          });
-          if (res) {
-            typeof window !== "undefined" &&
-              window.localStorage.removeItem("snippetData");
-            toasting({
-              position: "top-right",
-              title: "Yooohooo ! 🍹",
-              description: "Your snippet has been saved",
-              status: "success",
-              duration: 9000,
-              isClosable: true
-            });
+                window.localStorage.removeItem("snippetData");
+              toasting({
+                position: "top-right",
+                title: "Yooohooo ! 🍹",
+                description: "Your snippet has been saved",
+                status: "success",
+                duration: 9000,
+                isClosable: true
+              });
+            }
+            if (error) {
+              toasting({
+                position: "top-right",
+                title: "An error occurred.",
+                description: "Unable to create this snippet.",
+                status: "error",
+                duration: 9000,
+                isClosable: true
+              });
+            }
           }
-          if (error) {
-            toasting({
-              position: "top-right",
-              title: "An error occurred.",
-              description: "Unable to create this snippet.",
-              status: "error",
-              duration: 9000,
-              isClosable: true
-            });
-          }
+          navigate(handleRouteChange());
         }
         navigate(handleRouteChange());
+      } catch (error) {
+        console.log(error);
       }
-      navigate(handleRouteChange());
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    },
+    [createSnippet, loginWithSlack, toasting]
+  );
+
   useEffect(() => {
     PageView();
     const authenticate = async () => {
@@ -81,17 +85,17 @@ export default function SlackAuthenticator(props) {
         } = await axios.get(
           `https://slack.com/api/oauth.access?client_id=${config.slack.clientId}&client_secret=${config.slack.secret}&code=${code}`
         );
-        const allowedDomains = config.slack.allowedDomains.split(',');
+        const allowedDomains = config.slack.allowedDomains.split(",");
         if (user && allowedDomains.includes(team.domain)) {
           await login(user);
         } else {
-          navigate('/domain_not_allowed');
+          navigate("/domain_not_allowed");
         }
       }
     };
 
     authenticate();
-  }, []);
+  }, [props.location.search, login]);
 
   return (
     <Box mt="250px">

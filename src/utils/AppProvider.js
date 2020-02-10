@@ -1,4 +1,9 @@
-import React, { useReducer, createContext, useEffect } from "react";
+import React, {
+  useReducer,
+  createContext,
+  useEffect,
+  useCallback
+} from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { MY_SNIPPETs } from "../graphql/query";
 import localstorage from "../utils/localstorage";
@@ -85,18 +90,18 @@ const AppProvider = ({ children }) => {
     variables: { token }
   });
 
-  useEffect(() => {
-    fetchSnippetsData();
-  }, [data]);
-
-  const fetchSnippetsData = async () => {
+  const fetchSnippetsData = useCallback(async () => {
     try {
       const { getAuthUserSnippets } = await data;
       dispatch({ type: FETCH_SNIPPETS_DATA, payload: getAuthUserSnippets });
     } catch (error) {
       //console.warn(error);
     }
-  };
+  }, [data]);
+
+  useEffect(() => {
+    fetchSnippetsData();
+  }, [data, fetchSnippetsData]);
 
   const setFilteredSnippets = filteredSnippets => {
     dispatch({ type: FILTER_SNIPPETS, payload: filteredSnippets });

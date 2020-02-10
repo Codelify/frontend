@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { UPDATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
 import { useMutation } from "@apollo/react-hooks";
@@ -19,25 +19,29 @@ const SnippetTags = ({ id, tags }) => {
   const [tagsList, setTagsList] = useState(tags);
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
 
+  const handleEditTag = useCallback(
+    async tags => {
+      const token = window.localStorage.getItem("token");
+      try {
+        // eslint-disable-next-line no-empty-pattern
+        const {} = await updateSnippet({
+          variables: {
+            snippetId: id,
+            snippetInfo: { tags: tags },
+            token: token
+          },
+          refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [id, updateSnippet]
+  );
+
   useEffect(() => {
     handleEditTag(tagsList);
-  }, [tagsList]);
-
-  const handleEditTag = async tags => {
-    const token = window.localStorage.getItem("token");
-    try {
-      const { data } = await updateSnippet({
-        variables: {
-          snippetId: id,
-          snippetInfo: { tags: tags },
-          token: token
-        },
-        refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  }, [tagsList, handleEditTag]);
 
   const tagsId = `tags_${id}`;
   const handleBlur = event => {
