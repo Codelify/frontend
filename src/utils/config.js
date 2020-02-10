@@ -3,7 +3,8 @@ export default {
     clientId: process.env.REACT_APP_SLACK_CLIENT_ID,
     secret: process.env.REACT_APP_SLACK_CLIENT_SECRET,
     redirectUri: process.env.REACT_APP_SLACK_REDIRECT_URI,
-    teamId: process.env.REACT_APP_SLACK_TEAM_ID
+    teamId: process.env.REACT_APP_SLACK_TEAM_ID,
+    allowedDomains: process.env.REACT_APP_SLACK_ALLOWED_DOMAINS
   },
   mailchimp: {
     apiKey: process.env.REACT_APP_MAILCHIMP_API_KEY,
@@ -19,4 +20,5 @@ export default {
   backend: {
     uri: process.env.REACT_APP_BE_URI
   }
+
 };

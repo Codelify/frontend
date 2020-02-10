@@ -77,12 +77,15 @@ export default function SlackAuthenticator(props) {
       const { code = "" } = queryString.parse(props.location.search);
       if (code) {
         const {
-          data: { user }
+          data: { user, team }
         } = await axios.get(
           `https://slack.com/api/oauth.access?client_id=${config.slack.clientId}&client_secret=${config.slack.secret}&code=${code}`
         );
-        if (user) {
+        const allowedDomains = config.slack.allowedDomains.split(',');
+        if (user && allowedDomains.includes(team.domain)) {
           await login(user);
+        } else {
+          navigate('/domain_not_allowed');
         }
       }
     };
