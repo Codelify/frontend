@@ -89,7 +89,7 @@ export default function SlackAuthenticator(props) {
         if (user && allowedDomains.includes(team.domain)) {
           await login(user);
         } else {
-          navigate("/domain_not_allowed");
+          navigate("/access_denied");
         }
       }
     };
