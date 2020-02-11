@@ -7,7 +7,6 @@ import {
   Tag,
   TagLabel,
   TagCloseButton,
-  Collapse,
   Input,
   IconButton,
   Stack
@@ -17,6 +16,7 @@ import { MdAdd } from "react-icons/md";
 
 const SnippetTags = ({ id, tags }) => {
   const [tagsList, setTagsList] = useState(tags);
+  const [ addingTagMode, setAddingTagMode ] = useState(false)
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
 
   const handleEditTag = useCallback(
@@ -43,16 +43,25 @@ const SnippetTags = ({ id, tags }) => {
     handleEditTag(tagsList);
   }, [tagsList, handleEditTag]);
 
+
   const tagsId = `tags_${id}`;
   const handleBlur = event => {
-    handleToggle(false);
+    setAddingTagMode(false)
   };
-
-  const [show, setShow] = useState(false);
 
   const handleToggle = newShow => {
-    setShow(newShow);
+    if(newShow){
+      setAddingTagMode(true)
+    }
   };
+
+  useEffect(() => {
+    if(addingTagMode){
+      document.getElementById(tagsId).focus();
+    }
+  },[addingTagMode]
+
+  );
 
   // specfifid function to managed entered tags
   const handleAddTags = event => {
@@ -144,19 +153,19 @@ const SnippetTags = ({ id, tags }) => {
           }}
         />
       </Stack>
-
-      <Collapse isOpen={show}>
+      {
+        addingTagMode && 
         <Input
-          id={tagsId}
-          placeholder="Add tags (Press Enter or Comma for multiple tags)"
-          focusBorderColor="#319795"
-          name="tags"
-          my="5px"
-          onBlur={handleBlur}
-          onKeyDown={handleTab}
-          onKeyUp={handleAddTags}
-        />
-      </Collapse>
+        id={tagsId}
+        placeholder="Add tags (Press Enter or Comma for multiple tags)"
+        focusBorderColor="#319795"
+        name="tags"
+        my="5px"
+        onBlur={handleBlur}
+        onKeyDown={handleTab}
+        onKeyUp={handleAddTags}
+      />
+    }
     </>
   );
 };
