@@ -22,6 +22,17 @@ return (
     <ThemeProvider>
     <CSSReset />
     <Box mb={20}>
+        <Button 
+            leftIcon={IoIosArrowBack}
+            variant="ghost"
+            size="md"
+            m="10px"
+            onClick={() => {navigate('/')}}
+            variantColor="teal"
+            _focus={{ outline: "none" }}
+            >
+            Back
+        </Button>
         <Box as="section" pt={40} pb={50}>
         <Container>
             <Box maxW="xl" mx="auto" px="10px" textAlign="center">
@@ -41,19 +52,7 @@ return (
                 You can request an access to be added on our waiting list
             </Text>
 
-            <Box mt="6" >
-                
-                <Button 
-                    leftIcon={IoIosArrowBack}
-                    variant="ghost"
-                    size="md"
-                    mr="3px"
-                    onClick={() => {navigate('/')}}
-                    variantColor="teal"
-                    _focus={{ outline: "none" }}
-                    >
-                    Back
-                </Button>                
+            <Box mt="6" >                
                 <Button
                 ml="3px"
                 variantColor="teal"
