@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { UPDATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
 import { useMutation } from "@apollo/react-hooks";
@@ -7,7 +7,6 @@ import {
   Tag,
   TagLabel,
   TagCloseButton,
-  Collapse,
   Input,
   IconButton,
   Stack
@@ -17,38 +16,52 @@ import { MdAdd } from "react-icons/md";
 
 const SnippetTags = ({ id, tags }) => {
   const [tagsList, setTagsList] = useState(tags);
+  const [ addingTagMode, setAddingTagMode ] = useState(false)
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
+
+  const handleEditTag = useCallback(
+    async tags => {
+      const token = window.localStorage.getItem("token");
+      try {
+        // eslint-disable-next-line no-empty-pattern
+        const {} = await updateSnippet({
+          variables: {
+            snippetId: id,
+            snippetInfo: { tags: tags },
+            token: token
+          },
+          refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [id, updateSnippet]
+  );
 
   useEffect(() => {
     handleEditTag(tagsList);
-  }, [tagsList]);
+  }, [tagsList, handleEditTag]);
 
-  const handleEditTag = async tags => {
-    const token = window.localStorage.getItem("token");
-    try {
-      const { data } = await updateSnippet({
-        variables: {
-          snippetId: id,
-          snippetInfo: { tags: tags },
-          token: token
-        },
-        refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const tagsId = `tags_${id}`;
   const handleBlur = event => {
-    handleToggle(false);
+    setAddingTagMode(false)
   };
-
-  const [show, setShow] = useState(false);
 
   const handleToggle = newShow => {
-    setShow(newShow);
+    if(newShow){
+      setAddingTagMode(true)
+    }
   };
+
+  useEffect(() => {
+    if(addingTagMode){
+      document.getElementById(tagsId).focus();
+    }
+  },[addingTagMode]
+
+  );
 
   // specfifid function to managed entered tags
   const handleAddTags = event => {
@@ -140,19 +153,19 @@ const SnippetTags = ({ id, tags }) => {
           }}
         />
       </Stack>
-
-      <Collapse isOpen={show}>
+      {
+        addingTagMode && 
         <Input
-          id={tagsId}
-          placeholder="Add tags (Press Enter or Comma for multiple tags)"
-          focusBorderColor="#319795"
-          name="tags"
-          my="5px"
-          onBlur={handleBlur}
-          onKeyDown={handleTab}
-          onKeyUp={handleAddTags}
-        />
-      </Collapse>
+        id={tagsId}
+        placeholder="Add tags (Press Enter or Comma for multiple tags)"
+        focusBorderColor="#319795"
+        name="tags"
+        my="5px"
+        onBlur={handleBlur}
+        onKeyDown={handleTab}
+        onKeyUp={handleAddTags}
+      />
+    }
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { USER_DETAILS } from "../../graphql/query";
 
@@ -10,12 +10,7 @@ function useDataFetching() {
     variables: { token }
     //pollInterval: 10000
   });
-
-  useEffect(() => {
-    fetchData();
-  }, [data, loading, error]);
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const { getUserDetails } = await data;
       setResults(getUserDetails);
@@ -23,7 +18,11 @@ function useDataFetching() {
     } catch (error) {
       //console.warn(error);
     }
-  };
+  }, [data]);
+
+  useEffect(() => {
+    fetchData();
+  }, [data, loading, error, fetchData]);
 
   return {
     error,

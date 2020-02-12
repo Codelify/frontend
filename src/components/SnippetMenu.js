@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { AppContext } from "../utils/AppProvider";
 import {
-  Box,
   IconButton,
   Menu,
   MenuButton,
@@ -39,7 +38,8 @@ const SnippetMenu = ({ isFav, id }) => {
     setFavorite(!favorite);
     const token = window.localStorage.getItem("token");
     try {
-      const { data } = await updateSnippet({
+      // eslint-disable-next-line no-empty-pattern
+      const {} = await updateSnippet({
         variables: {
           snippetId: id,
           snippetInfo: { isFav: !favorite },
@@ -55,7 +55,8 @@ const SnippetMenu = ({ isFav, id }) => {
   const handleRestoreSnippet = async token => {
     try {
       setLoading(true);
-      const { data } = await updateSnippet({
+      // eslint-disable-next-line no-empty-pattern
+      const {} = await updateSnippet({
         variables: {
           snippetId: id,
           snippetInfo: { archivedAt: null },
