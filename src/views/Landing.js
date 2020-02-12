@@ -29,17 +29,22 @@ import { handleRouteChange } from "../utils/handleRouteChange";
 //import GoogleLogin from "react-google-login";
 
 const Feature = ({ title, icon, children, ...props }) => {
+  const { colorMode } = useColorMode();
+
   return (
-    <Box borderWidth="1px" borderRadius="5px" p="15px" d="flex" alignItems="flex-start" {...props}>
+    <Box
+      backgroundColor={
+        colorMode === "light" ? "#FAFAFA" : "rgba(45,55,72, 0.1)"
+      }
+      borderRadius="5px"
+      p="15px"
+      d="flex"
+      alignItems="flex-start"
+      {...props}
+    >
       <Box>
-        <Flex
-          rounded="full"
-          size={20}
-          align="center"
-          justify="center"
-          p="10px"
-        >
-          <Box size={40} color="teal.500" as={icon} />
+        <Flex rounded="full" size={20} align="center" justify="center" p="10px">
+          <Box size={40} color="teal.300" as={icon} />
         </Flex>
       </Box>
       <Box ml="10px">
@@ -155,7 +160,11 @@ function Landing() {
           </Container>
         </Flex>
 
-        <Container maxW="1600px" m="auto" py={["50px", "40px", "40px", "120px"]}>
+        <Container
+          maxW="1600px"
+          m="auto"
+          py={["50px", "40px", "40px", "120px"]}
+        >
           <Box mx="20px">
             <Grid
               templateColumns={{ sm: "repeat(1, 1fr)", md: "repeat(3, 1fr)" }}
@@ -164,17 +173,18 @@ function Landing() {
             >
               <Feature icon={MdBookmark} title="Store">
                 Code Snippets are everywhere in the developer info stream, on
-                twitter, stack overflow, tutorials, blog post ...
-                Codelify is the best place to store them all.
+                twitter, stack overflow, tutorials, blog post ... Codelify is
+                the best place to store them all.
               </Feature>
               <Feature icon={MdDescription} title="Manage">
-                Describe your snippets, assign meaningful Tags and Description to each of
-                them. Add the URL for context and futur reference. Set as fovorite ...
+                Describe your snippets, assign meaningful Tags and Description
+                to each of them. Add the URL for context and futur reference.
+                Set as fovorite ...
               </Feature>
               <Feature icon={MdFindInPage} title="Retrieve">
                 Easily retrieve any snippets with a built in search engine based
-                on Snippets Tags, Description, and Title ... So they you can reuse them
-                anytime
+                on Snippets Tags, Description, and Title ... So they you can
+                reuse them anytime
               </Feature>
             </Grid>
           </Box>
