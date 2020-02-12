@@ -151,8 +151,7 @@ function Landing() {
               src={colorMode === "light" ? screenShotLight : screenShotDark}
               alt="Codelify app screenshot"
               style={{
-                transform: "perspective(100em) rotateY(-10deg) rotateX(10deg)",
-                boxShadow: "0 20px 40px rgba(0,0,0,0.5)"
+                animation: "float 6s ease-in-out infinite"
               }}
             />
           </Container>
