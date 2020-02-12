@@ -30,21 +30,19 @@ import { handleRouteChange } from "../utils/handleRouteChange";
 
 const Feature = ({ title, icon, children, ...props }) => {
   return (
-    <Box d="flex" alignItems="flex-start" {...props}>
+    <Box borderWidth="1px" borderRadius="5px" p="15px" d="flex" alignItems="flex-start" {...props}>
       <Box>
         <Flex
           rounded="full"
           size={20}
           align="center"
           justify="center"
-          borderWidth="1px"
-          borderColor="teal.500"
           p="10px"
         >
           <Box size={40} color="teal.500" as={icon} />
         </Flex>
       </Box>
-      <Box ml="15px">
+      <Box ml="10px">
         <Heading as="h2" size="md" fontWeight="semibold" mt="0em" mb="0.5em">
           {title}
         </Heading>
@@ -100,7 +98,7 @@ function Landing() {
 
                 <Text opacity="0.7" fontSize="lg" mt="6">
                   Codelify give to developers a central place to easily Store,
-                  Manage and Retrieve code snippets they want to keep and reuse.
+                  Manage and Retrieve code snippets they want to reuse.
                 </Text>
 
                 <Box mt="6">
@@ -145,7 +143,7 @@ function Landing() {
             <Image
               mt={["0px", "0px", "0px", "50px"]}
               minWidth="340px"
-              w={["90%", "90%", "70%", "100%"]}
+              w={["90%", "90%", "90%", "100%"]}
               maxW="1280px"
               borderRadius="5px"
               src={colorMode === "light" ? screenShotLight : screenShotDark}
@@ -157,7 +155,7 @@ function Landing() {
           </Container>
         </Flex>
 
-        <Container maxW="1600px" m="auto" py={["50px", "0px", "0px", "120px"]}>
+        <Container maxW="1600px" m="auto" py={["50px", "40px", "40px", "120px"]}>
           <Box mx="20px">
             <Grid
               templateColumns={{ sm: "repeat(1, 1fr)", md: "repeat(3, 1fr)" }}
@@ -166,16 +164,16 @@ function Landing() {
             >
               <Feature icon={MdBookmark} title="Store">
                 Code Snippets are everywhere in the developer info stream, on
-                twitter, stack overflow, tutorials, medium/blog articles ...
+                twitter, stack overflow, tutorials, blog post ...
                 Codelify is the best place to store them all.
               </Feature>
               <Feature icon={MdDescription} title="Manage">
-                Describe your snippets, assign meaningful Tags to each each of
-                them, add the URL for context and futur reference.
+                Describe your snippets, assign meaningful Tags and Description to each of
+                them. Add the URL for context and futur reference. Set as fovorite ...
               </Feature>
               <Feature icon={MdFindInPage} title="Retrieve">
                 Easily retrieve any snippets with a built in search engine based
-                on Snippets Tags and description... So they you can reuse them
+                on Snippets Tags, Description, and Title ... So they you can reuse them
                 anytime
               </Feature>
             </Grid>
