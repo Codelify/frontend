@@ -29,21 +29,30 @@ import { handleRouteChange } from "../utils/handleRouteChange";
 //import GoogleLogin from "react-google-login";
 
 const Feature = ({ title, icon, children, ...props }) => {
+  const { colorMode } = useColorMode();
+
   return (
-    <Box {...props}>
-      <Flex
-        rounded="full"
-        size={20}
-        bg="teal.500"
-        align="center"
-        justify="center"
-      >
-        <Box size={12} color="white" as={icon} />
-      </Flex>
-      <Heading as="h2" size="md" fontWeight="semibold" mt="1em" mb="0.5em">
-        {title}
-      </Heading>
-      <Text>{children}</Text>
+    <Box
+      backgroundColor={
+        colorMode === "light" ? "#FAFAFA" : "rgba(45,55,72, 0.1)"
+      }
+      borderRadius="5px"
+      p="15px"
+      d="flex"
+      alignItems="flex-start"
+      {...props}
+    >
+      <Box>
+        <Flex rounded="full" size={20} align="center" justify="center" p="10px">
+          <Box size={40} color="teal.300" as={icon} />
+        </Flex>
+      </Box>
+      <Box ml="10px">
+        <Heading as="h2" size="md" fontWeight="semibold" mt="0em" mb="0.5em">
+          {title}
+        </Heading>
+        <Text>{children}</Text>
+      </Box>
     </Box>
   );
 };
@@ -65,90 +74,98 @@ function Landing() {
     <ThemeProvider>
       <CSSReset />
       <Box mb={20}>
-        <Box as="section" pt={40} pb={50}>
-          <Header landing={true} isLoggedIn={isLoggedIn} />
-          <Container>
-            <Box maxW="xl" mx="auto" px="10px" textAlign="center">
-              <Heading
-                as="h1"
-                size="xl"
-                fontWeight="bold"
-                onClick={() =>
-                  Event("Test Category", "Test Action", "Test Label")
-                }
-              >
-                Your
-                <Box as="span" color="teal.500">
-                  {" "}
-                  code snippets
-                </Box>{" "}
-                library
-              </Heading>
+        <Flex
+          pt={["0px", "0px", "0px", "90px"]}
+          maxW="1600px"
+          m="auto"
+          flexWrap="wrap"
+          justifyContent="space-around"
+        >
+          <Box minWidth="340px" w="30%" as="section" pt={40} pb={50}>
+            <Header landing={true} isLoggedIn={isLoggedIn} />
+            <Container>
+              <Box maxW="xl" mx="auto" px="10px" textAlign="center">
+                <Heading
+                  as="h1"
+                  size="xl"
+                  fontWeight="bold"
+                  onClick={() =>
+                    Event("Test Category", "Test Action", "Test Label")
+                  }
+                >
+                  Your
+                  <Box as="span" color="teal.500">
+                    {" "}
+                    code snippets
+                  </Box>{" "}
+                  library
+                </Heading>
 
-              <Text opacity="0.7" fontSize="lg" mt="6">
-                Codelify give to developers a central place to easily Store,
-                Manage and Retrieve code snippets they want to keep and reuse.
-              </Text>
+                <Text opacity="0.7" fontSize="lg" mt="6">
+                  Codelify give to developers a central place to easily Store,
+                  Manage and Retrieve code snippets they want to reuse.
+                </Text>
 
-              <Box mt="6">
-                {isLoggedIn && (
-                  <Button
-                    mr="10px"
-                    size="lg"
-                    as="a"
-                    variantColor="teal"
-                    href={handleRouteChange()}
-                    _focus={{ outline: "none" }}
-                  >
-                    Browse my Snippets
-                  </Button>
-                )}
-                {!isLoggedIn && (
-                  <Stack
-                    mx="3px"
-                    spacing={4}
-                    d="flex"
-                    justifyContent="center"
-                    isInline
-                  >
+                <Box mt="6">
+                  {isLoggedIn && (
                     <Button
+                      mr="10px"
                       size="lg"
+                      as="a"
+                      variantColor="teal"
+                      href={handleRouteChange()}
                       _focus={{ outline: "none" }}
-                      onClick={onOpen}
                     >
-                      Request Access
+                      Browse my Snippets
                     </Button>
-                    <RequestAccess isOpen={isOpen} onClose={onClose} />
-                    <SlackButton />
-                    {/* <GoogleButton /> */}
-                  </Stack>
-                )}
+                  )}
+                  {!isLoggedIn && (
+                    <Stack
+                      mx="3px"
+                      spacing={4}
+                      d="flex"
+                      justifyContent="center"
+                      isInline
+                    >
+                      <Button
+                        size="lg"
+                        _focus={{ outline: "none" }}
+                        onClick={onOpen}
+                      >
+                        Request Access
+                      </Button>
+                      <RequestAccess isOpen={isOpen} onClose={onClose} />
+                      <SlackButton />
+                      {/* <GoogleButton /> */}
+                    </Stack>
+                  )}
+                </Box>
               </Box>
-            </Box>
-          </Container>
-        </Box>
+            </Container>
+          </Box>
 
-        <Container>
-          <Box
-            style={{
-              boxShadow: "0 20px 40px rgba(0,0,0,0.5)"
-            }}
-            mx="auto"
-            minWidth="330px"
-            w="80%"
-            maxW="1280px"
-            borderRadius="5px"
-          >
+          <Container maxWidth="800px" mx="20px">
             <Image
+              mt={["0px", "0px", "0px", "50px"]}
+              minWidth="340px"
+              w={["90%", "90%", "90%", "100%"]}
+              maxW="1280px"
               borderRadius="5px"
               src={colorMode === "light" ? screenShotLight : screenShotDark}
               alt="Codelify app screenshot"
+              style={{
+                animation: "float 6s ease-in-out infinite"
+              }}
             />
-          </Box>
-        </Container>
+          </Container>
+        </Flex>
 
-        <Container mt="60px">
-          <Box mx="10px">
+        <Container
+          maxW="1600px"
+          m="auto"
+          py={["50px", "40px", "40px", "120px"]}
+        >
+          <Box mx="20px">
             <Grid
               templateColumns={{ sm: "repeat(1, 1fr)", md: "repeat(3, 1fr)" }}
               gap={10}
@@ -156,17 +173,18 @@ function Landing() {
             >
               <Feature icon={MdBookmark} title="Store">
                 Code Snippets are everywhere in the developer info stream, on
-                twitter, stack overflow, tutorials, medium/blog articles ...
-                Codelify is the best place to store them all.
+                twitter, stack overflow, tutorials, blog post ... Codelify is
+                the best place to store them all.
               </Feature>
               <Feature icon={MdDescription} title="Manage">
-                Describe your snippets, assign meaningful Tags to each each of
-                them, add the URL for context and futur reference.
+                Describe your snippets, assign meaningful Tags and Description
+                to each of them. Add the URL for context and futur reference.
+                Set as fovorite ...
               </Feature>
               <Feature icon={MdFindInPage} title="Retrieve">
                 Easily retrieve any snippets with a built in search engine based
-                on Snippets Tags and description... So they you can reuse them
-                anytime
+                on Snippets Tags, Description, and Title ... So they you can
+                reuse them anytime
               </Feature>
             </Grid>
           </Box>
