@@ -50,8 +50,7 @@ const AppHeader = props => {
 
   return (
     <Box
-      pos="fixed"
-      as="header"
+      pos={landing ? "absolute" : "fixed"}
       top="0"
       zIndex="4"
       bg={bg[colorMode]}
@@ -62,7 +61,6 @@ const AppHeader = props => {
       height="4rem"
       mx="auto"
       px="10px"
-      {...props}
     >
       <Flex align="center" justify="center" w="100%">
         <Box maxWidth="1600px" w="100%" h="100%">
