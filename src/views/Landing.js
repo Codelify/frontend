@@ -43,7 +43,7 @@ const Feature = ({ title, icon, children, ...props }) => {
       {...props}
     >
       <Box>
-        <Flex rounded="full" size={20} align="center" justify="center" p="10px">
+        <Flex size="64px" align="center" justify="center">
           <Box size={40} color="teal.300" as={icon} />
         </Flex>
       </Box>
@@ -51,7 +51,7 @@ const Feature = ({ title, icon, children, ...props }) => {
         <Heading as="h2" size="md" fontWeight="semibold" mt="0em" mb="0.5em">
           {title}
         </Heading>
-        <Text>{children}</Text>
+        <Text opacity="0.7">{children}</Text>
       </Box>
     </Box>
   );
@@ -102,7 +102,7 @@ function Landing() {
                 </Heading>
 
                 <Text opacity="0.7" fontSize="lg" mt="6">
-                  Codelify give to developers a central place to easily Store,
+                  Codelify give developers a central place to easily Store,
                   Manage and Retrieve code snippets they want to reuse.
                 </Text>
 
@@ -168,7 +168,7 @@ function Landing() {
           <Box mx="20px">
             <Grid
               templateColumns={{ sm: "repeat(1, 1fr)", md: "repeat(3, 1fr)" }}
-              gap={10}
+              gap={5}
               px={{ md: 12 }}
             >
               <Feature icon={MdBookmark} title="Store">
@@ -176,7 +176,7 @@ function Landing() {
                 twitter, stack overflow, tutorials, blog post ... Codelify is
                 the best place to store them all.
               </Feature>
-              <Feature icon={MdDescription} title="Manage">
+              <Feature icon={MdDescription} title="Organise">
                 Describe your snippets, assign meaningful Tags and Description
                 to each of them. Add the URL for context and futur reference.
                 Set as fovorite ...
