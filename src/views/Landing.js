@@ -43,7 +43,7 @@ const Feature = ({ title, icon, children, ...props }) => {
       {...props}
     >
       <Box>
-        <Flex rounded="full" size={20} align="center" justify="center" p="10px">
+        <Flex size="64px" align="center" justify="center">
           <Box size={40} color="teal.300" as={icon} />
         </Flex>
       </Box>
@@ -168,7 +168,7 @@ function Landing() {
           <Box mx="20px">
             <Grid
               templateColumns={{ sm: "repeat(1, 1fr)", md: "repeat(3, 1fr)" }}
-              gap={10}
+              gap={5}
               px={{ md: 12 }}
             >
               <Feature icon={MdBookmark} title="Store">
