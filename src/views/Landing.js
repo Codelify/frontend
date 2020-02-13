@@ -51,7 +51,7 @@ const Feature = ({ title, icon, children, ...props }) => {
         <Heading as="h2" size="md" fontWeight="semibold" mt="0em" mb="0.5em">
           {title}
         </Heading>
-        <Text>{children}</Text>
+        <Text opacity="0.7">{children}</Text>
       </Box>
     </Box>
   );
@@ -102,7 +102,7 @@ function Landing() {
                 </Heading>
 
                 <Text opacity="0.7" fontSize="lg" mt="6">
-                  Codelify give to developers a central place to easily Store,
+                  Codelify give developers a central place to easily Store,
                   Manage and Retrieve code snippets they want to reuse.
                 </Text>
 
@@ -176,7 +176,7 @@ function Landing() {
                 twitter, stack overflow, tutorials, blog post ... Codelify is
                 the best place to store them all.
               </Feature>
-              <Feature icon={MdDescription} title="Manage">
+              <Feature icon={MdDescription} title="Organise">
                 Describe your snippets, assign meaningful Tags and Description
                 to each of them. Add the URL for context and futur reference.
                 Set as fovorite ...
