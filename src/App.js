@@ -4,6 +4,7 @@ import Default from "./components/Default";
 import Login from "./components/Login";
 import Landing from "./views/Landing";
 import AccessDenied from './views/AccessDenied'
+import Profile from './views/Profile'
 import { Router } from "@reach/router";
 import SlackAuthenticator from "./components/SlackAuthenticator";
 import { initGA } from "./components/~common/Tracking";
@@ -17,6 +18,7 @@ function App() {
     <Router>
       <Landing path="/" />
       <AccessDenied path="/access_denied" />
+      <Profile path="/profile" />
       <Login path="/login" />
       <Default exact path="/snippets/:name" component={Default} />
       <SlackAuthenticator path="/slack/auth" />
