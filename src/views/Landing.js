@@ -103,7 +103,7 @@ function Landing() {
 
                 <Text opacity="0.7" fontSize="lg" mt="6">
                   Codelify give developers a central place to easily Store,
-                  Manage and Retrieve code snippets they want to reuse.
+                  Manage and Retrieve code snippets they want to keep.
                 </Text>
 
                 <Box mt="6">
@@ -152,6 +152,7 @@ function Landing() {
               maxW="1280px"
               borderRadius="5px"
               src={colorMode === "light" ? screenShotLight : screenShotDark}
+              opacity={colorMode === "dark" ? "0.7" : "1"}
               alt="Codelify app screenshot"
               style={{
                 animation: "float 6s ease-in-out infinite"
@@ -163,7 +164,7 @@ function Landing() {
         <Container
           maxW="1600px"
           m="auto"
-          py={["50px", "40px", "40px", "120px"]}
+          pt={["50px", "40px", "40px", "120px"]}
         >
           <Box mx="20px">
             <Grid
