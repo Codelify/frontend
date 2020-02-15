@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
     ThemeProvider,
     CSSReset,
@@ -13,7 +13,6 @@ import {
     Stack,
     useColorMode,
     InputLeftElement,
-    InputRightElement,
     InputGroup,
     Divider,
     Flex,
@@ -36,6 +35,7 @@ function Profile() {
     const [show, setShow] = React.useState(false);
     const handleClick = () => setShow(!show);    
     const description = 'This my sweet and short Bio. Few interesting things about me, or things I am interested at.'
+    const [profileMode, setProfileMode] = useState('view');
 
     return (
         <ThemeProvider>
@@ -70,6 +70,9 @@ function Profile() {
                     aria-label="Call Sage"
                     fontSize="20px"
                     icon={FaEdit}
+                    onClick={()=>{
+                        setProfileMode("edit")
+                    }}
                 />
                 </Flex>
                 <Box mb="40px" maxW="xl" mx="auto" px="10px" textAlign="center">
@@ -89,15 +92,11 @@ function Profile() {
                 >
                     Haja Andriamaro
                 </Heading>
-                {/* <Text opacity="0.7" fontSize="lg" mt="6">
-                    This my sweet and short Bio. Few interesting things about me, or
-                    things I am interested at.
-                </Text> */}
 
-                <Text opacity="0.5" as="div" mb="5px" contenteditable="true" fontSize="md">
+                <Text focusBorderColor="teal.500" borderWidth={profileMode === "edit" ? "1px" : "none" } p="5px" borderRadius="5px" opacity="0.5" as="div" mb="5px" contenteditable="true" fontSize="md">
                 <ContentEditable
                     html={description}
-                    disabled={false}
+                    disabled={profileMode === "edit" ? false : true }
                     style={{
                     outline: "none"
                     }}
@@ -115,7 +114,7 @@ function Profile() {
                 m="auto"
                 >
                 <FormControl w="100%" isRequired={false}>
-                    <Stack w="100%" spacing={4}>
+                    <Stack w="100%" spacing={8}>
                     <Box minW="300px">
                         <FormLabel fontSize="xs" htmlFor="email">EMAIL ADDRESS</FormLabel>
                         <InputGroup>
@@ -150,7 +149,7 @@ function Profile() {
                     </Stack>
                 </FormControl>
                 <Divider my="30px" />
-                <Stack justifyContent="space-between" w="100%" spacing={4}>
+                <Stack justifyContent="space-between" w="100%" spacing={8}>
                     <Box w="50%" minW="300px">
                         <FormLabel fontSize="xs" htmlFor="email">TWITTER</FormLabel>
                         <InputGroup>
