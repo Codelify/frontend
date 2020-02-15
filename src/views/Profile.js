@@ -17,6 +17,7 @@ import {
     Divider,
     Flex,
     IconButton,
+    InputRightElement
 } from "@chakra-ui/core";
 import ContentEditable from "react-contenteditable";
 import { navigate } from "@reach/router";
@@ -40,7 +41,7 @@ function Profile() {
     return (
         <ThemeProvider>
         <CSSReset />
-        <Button
+            <Button
             leftIcon={IoIosArrowBack}
             variant="ghost"
             size="md"
@@ -52,19 +53,21 @@ function Profile() {
             _focus={{ outline: "none" }}
             >
             Back
-            </Button>
+            </Button>        
             <Box                 
                 maxW="1280px" m="auto">
 
-            <Box as="section" pt={40} pb={50}>
+            <Box as="section" pt={20} pb={50}>
             <Container
                 backgroundColor={
                     colorMode === "light" ? "#FAFAFA" : "rgba(45,55,72, 0.1)"
                 } 
                 p={10}
             >
-                <Flex justifyContent="flex-end">
-                <IconButton
+                <Flex minH="60px" justifyContent="flex-end">
+                {
+                profileMode === 'view' && (
+                    <IconButton
                     variant="ghost"
                     variantColor="teal"
                     aria-label="Call Sage"
@@ -73,7 +76,8 @@ function Profile() {
                     onClick={()=>{
                         setProfileMode("edit")
                     }}
-                />
+                />)
+                }
                 </Flex>
                 <Box mb="40px" maxW="xl" mx="auto" px="10px" textAlign="center">
                 <Avatar
@@ -113,37 +117,37 @@ function Profile() {
                 w="100%"
                 m="auto"
                 >
-                <FormControl w="100%" isRequired={false}>
+                <FormControl w="100%" isRequired={profileMode === "edit" ? true : false }>
                     <Stack w="100%" spacing={8}>
                     <Box minW="300px">
                         <FormLabel fontSize="xs" htmlFor="email">EMAIL ADDRESS</FormLabel>
                         <InputGroup>
                             <InputLeftElement children={<Box as={MdMail} color="teal.400" />} />
                             <Input 
-                            background="none" 
-                            disabled={true} 
                             borderWidth="0px" 
+                            disabled 
                             type="email" 
                             value="haja.andri@gmail.com" 
-                            focusBorderColor="teal" 
+                            focusBorderColor="teal.500" 
                             />
                         </InputGroup>
                     </Box>
                     <Box w="50%" minW="300px">
                         <FormLabel fontSize="xs" htmlFor="fullname">PASSWORD</FormLabel>
-                        <Button h="1.75rem" size="sm" onClick={handleClick}>
-                                {show ? "Hide" : "Show"}
-                        </Button>
                         <InputGroup>
                         <InputLeftElement children={<Box as={MdVpnKey} color="teal.400" />} />
                         <Input
-                            disabled
-                            background="none"
-                            borderWidth="0px"
+                            borderWidth="0px" 
+                            disabled 
                             type={show ? "text" : "password"}
                             value="mypassword"
-                            focusBorderColor="teal.300"
+                            focusBorderColor="teal.500"
                         />
+                        <InputRightElement width="4.5rem">
+                            <Button mr="3px" h="1.75rem" size="sm" onClick={handleClick}>
+                                    {show ? "Hide" : "Show"}
+                            </Button>
+                        </InputRightElement>
                         </InputGroup>
                     </Box>
                     </Stack>
@@ -155,11 +159,10 @@ function Profile() {
                         <InputGroup>
                         <InputLeftElement children={<Box as={FaTwitter} color="teal.400" />} />
                         <Input 
-                        background="none" 
-                        disabled={true} 
-                        borderWidth="0px" 
-                        value="https://twitter.com/haja_andriam" 
-                        focusBorderColor="#319795" 
+                            borderWidth={profileMode === "edit" ? "1px" : "0px" } 
+                            disabled={profileMode === "edit" ? false : true } 
+                            value="https://twitter.com/haja_andriam" 
+                            focusBorderColor="teal.500" 
                         />
                         </InputGroup>
                     </Box>
@@ -168,16 +171,29 @@ function Profile() {
                         <InputGroup>
                         <InputLeftElement children={<Box as={FaLinkedin} color="teal.400" />} />
                         <Input 
-                        background="none" 
-                        disabled={true} 
-                        borderWidth="0px" 
-                        value="https://www.linkedin.com/in/haja-andriamaro/" 
-                        focusBorderColor="teal.500" 
+                            borderWidth={profileMode === "edit" ? "1px" : "0px" } 
+                            disabled={profileMode === "edit" ? false : true } 
+                            value="https://www.linkedin.com/in/haja-andriamaro/" 
+                            focusBorderColor="teal.500" 
+                            borderLeftColor="teal"
                         />
                         </InputGroup>
                     </Box>
                 </Stack>
                 </Box>
+                <Flex minH="60px" justifyContent="flex-end" mt="10px">
+                {
+                    profileMode === "edit" &&
+                    (
+                        <Box>
+                            <Button size="md" variantColor="teal" mr="5px">
+                            Save
+                            </Button>
+                            <Button onClick={()=>{setProfileMode("view")}} size="md">Cancel</Button>
+                        </Box>
+                    )
+                }
+                </Flex>
             </Container>
             </Box>
         </Box>
