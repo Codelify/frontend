@@ -35,8 +35,28 @@ function Profile() {
     const { colorMode } = useColorMode();
     const [show, setShow] = React.useState(false);
     const handleClick = () => setShow(!show);    
-    const description = 'This my sweet and short Bio. Few interesting things about me, or things I am interested at.'
-    const [profileMode, setProfileMode] = useState('view');
+    const bio = 'This my sweet and short Bio. Few interesting things about me, or things I am interested at.'
+    const [profileViewMode, setProfileViewMode] = useState(true);
+
+    const setFocusStyle = (event) => {
+        document.getElementById(event.target.id).classList.add("edited-div");
+    }
+
+    const handleBlur = event => {
+        console.log("called")
+        document.getElementById(event.target.id).classList.remove("edited-div");
+    };    
+
+    const handleProfileMode = () => {
+        setProfileViewMode(!profileViewMode)
+    }
+
+    useEffect(() => {
+        if(!profileViewMode){
+            document.getElementById("bio").focus();
+        }
+    }, [profileViewMode]
+    )
 
     return (
         <ThemeProvider>
@@ -57,143 +77,160 @@ function Profile() {
             <Box                 
                 maxW="1280px" m="auto">
 
-            <Box as="section" pt={20} pb={50}>
-            <Container
-                backgroundColor={
-                    colorMode === "light" ? "#FAFAFA" : "rgba(45,55,72, 0.1)"
-                } 
-                p={10}
-            >
-                <Flex minH="60px" justifyContent="flex-end">
-                {
-                profileMode === 'view' && (
-                    <IconButton
-                    variant="ghost"
-                    variantColor="teal"
-                    aria-label="Call Sage"
-                    fontSize="20px"
-                    icon={FaEdit}
-                    onClick={()=>{
-                        setProfileMode("edit")
-                    }}
-                />)
-                }
-                </Flex>
+            <Box as="section" pt={10}>
+            <Container>
                 <Box mb="40px" maxW="xl" mx="auto" px="10px" textAlign="center">
-                <Avatar
-                    backgroundColor="none"
-                    borderWidth="1px"
-                    p="2px"
-                    size="2xl"
-                    name="Dynamic Name"
-                    src={avatar}
-                />
-                <Heading
-                    as="h2"
-                    m="20px"
-                    size="xl"
-                    fontWeight="bold"
-                >
-                    Haja Andriamaro
-                </Heading>
+                    <Avatar
+                        backgroundColor="none"
+                        borderWidth="1px"
+                        p="2px"
+                        size="2xl"
+                        name="Dynamic Name"
+                        src={avatar}
+                    />
+                    <Heading
+                        as="h2"
+                        m="20px"
+                        size="xl"
+                        fontWeight="bold"
+                    >
+                        Haja Andriamaro
+                    </Heading>
 
-                <Text focusBorderColor="teal.500" borderWidth={profileMode === "edit" ? "1px" : "none" } p="5px" borderRadius="5px" opacity="0.5" as="div" mb="5px" contenteditable="true" fontSize="md">
-                <ContentEditable
-                    html={description}
-                    disabled={profileMode === "edit" ? false : true }
-                    style={{
-                    outline: "none"
-                    }}
-                />
-                </Text>                
+                    <Text 
+                        p="5px" 
+                        opacity="0.5" 
+                        as="div" 
+                        mb="5px" 
+                        contenteditable="true" 
+                        fontSize="md"
+                        backgroundColor={ 
+                            profileViewMode ? 
+                            ( "none" )
+                            :
+                            (
+                                colorMode === 'dark' ? (
+                                    "rgba(45,55,72, 0.3)"
+                                ): (
+                                    "#FFFFFF"
+                                )
+                            )
+                        }
+                    >
+                    <ContentEditable
+                        onFocus={setFocusStyle}
+                        onBlur={handleBlur}
+                        id="bio"
+                        html={bio}
+                        disabled={ profileViewMode ? true  : false }
+                        style={{
+                        outline: "none"
+                        }}
+                    />
+                    </Text>                
                 </Box>
                 <Box
-                borderRadius="10px"
-                backgroundColor={
-                    colorMode === "light" ? "#FFFFFF" : "rgba(45,55,72, 0.1)"
-                } 
-                maxW="800px"
-                p="20px"
-                w="100%"
-                m="auto"
-                >
-                <FormControl w="100%" isRequired={profileMode === "edit" ? true : false }>
-                    <Stack w="100%" spacing={8}>
-                    <Box minW="300px">
-                        <FormLabel fontSize="xs" htmlFor="email">EMAIL ADDRESS</FormLabel>
-                        <InputGroup>
-                            <InputLeftElement children={<Box as={MdMail} color="teal.400" />} />
-                            <Input 
-                            borderWidth="0px" 
-                            disabled 
-                            type="email" 
-                            value="haja.andri@gmail.com" 
-                            focusBorderColor="teal.500" 
-                            />
-                        </InputGroup>
-                    </Box>
-                    <Box w="50%" minW="300px">
-                        <FormLabel fontSize="xs" htmlFor="fullname">PASSWORD</FormLabel>
-                        <InputGroup>
-                        <InputLeftElement children={<Box as={MdVpnKey} color="teal.400" />} />
-                        <Input
-                            borderWidth="0px" 
-                            disabled 
-                            type={show ? "text" : "password"}
-                            value="mypassword"
-                            focusBorderColor="teal.500"
-                        />
-                        <InputRightElement width="4.5rem">
-                            <Button mr="3px" h="1.75rem" size="sm" onClick={handleClick}>
-                                    {show ? "Hide" : "Show"}
-                            </Button>
-                        </InputRightElement>
-                        </InputGroup>
-                    </Box>
-                    </Stack>
-                </FormControl>
-                <Divider my="30px" />
-                <Stack justifyContent="space-between" w="100%" spacing={8}>
-                    <Box w="50%" minW="300px">
-                        <FormLabel fontSize="xs" htmlFor="email">TWITTER</FormLabel>
-                        <InputGroup>
-                        <InputLeftElement children={<Box as={FaTwitter} color="teal.400" />} />
-                        <Input 
-                            borderWidth={profileMode === "edit" ? "1px" : "0px" } 
-                            disabled={profileMode === "edit" ? false : true } 
-                            value="https://twitter.com/haja_andriam" 
-                            focusBorderColor="teal.500" 
-                        />
-                        </InputGroup>
-                    </Box>
-                    <Box w="50%" minW="300px">
-                        <FormLabel fontSize="xs" htmlFor="email">LINKEDIN</FormLabel>
-                        <InputGroup>
-                        <InputLeftElement children={<Box as={FaLinkedin} color="teal.400" />} />
-                        <Input 
-                            borderWidth={profileMode === "edit" ? "1px" : "0px" } 
-                            disabled={profileMode === "edit" ? false : true } 
-                            value="https://www.linkedin.com/in/haja-andriamaro/" 
-                            focusBorderColor="teal.500" 
-                            borderLeftColor="teal"
-                        />
-                        </InputGroup>
-                    </Box>
-                </Stack>
-                </Box>
-                <Flex minH="60px" justifyContent="flex-end" mt="10px">
-                {
-                    profileMode === "edit" &&
-                    (
-                        <Box>
-                            <Button size="md" variantColor="teal" mr="5px">
-                            Save
-                            </Button>
-                            <Button onClick={()=>{setProfileMode("view")}} size="md">Cancel</Button>
+                        minW="330px"
+                        w="95%"
+                        borderRadius="10px"
+                        backgroundColor={
+                            colorMode === "light" ? "#FAFAFA" : "rgba(45,55,72, 0.1)"
+                        } 
+                        maxW="800px"
+                        p="20px"
+                        m="auto"
+                    >
+                    <FormControl w="100%" isRequired={profileViewMode ? false : true }>
+                        <Stack w="100%" isInline flexWrap="wrap" spacing={8}>
+                        <Box minW="300px">
+                            <FormLabel fontSize="xs" htmlFor="email">EMAIL ADDRESS</FormLabel>
+                            <InputGroup>
+                                <InputLeftElement children={<Box as={MdMail} color="teal.400" />} />
+                                <Input 
+                                borderWidth="0px" 
+                                disabled 
+                                type="email" 
+                                value="haja.andri@gmail.com" 
+                                focusBorderColor="teal.500" 
+                                background="none"
+                                />
+                            </InputGroup>
                         </Box>
-                    )
-                }
-                </Flex>
+                        <Box w="50%" minW="300px">
+                            <FormLabel fontSize="xs" htmlFor="fullname">PASSWORD</FormLabel>
+                            <InputGroup>
+                            <InputLeftElement children={<Box as={MdVpnKey} color="teal.400" />} />
+                            <Input
+                                borderWidth="0px" 
+                                disabled 
+                                type={show ? "text" : "password"}
+                                value="mypassword"
+                                focusBorderColor="teal.500"
+                                background="none"
+                            />
+                            <InputRightElement width="4.5rem">
+                                <Button mr="3px" h="1.75rem" size="sm" onClick={handleClick} _focus={{ outline: "none" }}>
+                                        {show ? "Hide" : "Show"}
+                                </Button>
+                            </InputRightElement>
+                            </InputGroup>
+                        </Box>
+                        </Stack>
+                    </FormControl>
+                    <Divider my="30px" />
+                    <Stack justifyContent="space-between" w="100%" spacing={8}>
+                        <Box w="50%" minW="300px">
+                            <FormLabel fontSize="xs" htmlFor="email">TWITTER</FormLabel>
+                            <InputGroup>
+                            <InputLeftElement children={<Box as={FaTwitter} color="teal.400" />} />
+                            <Input 
+                                borderWidth={profileViewMode ? "0px" : "1px" } 
+                                disabled={profileViewMode ? true : false } 
+                                value="https://twitter.com/haja_andriam" 
+                                focusBorderColor="teal.500" 
+                                background="none"
+                            />
+                            </InputGroup>
+                        </Box>
+                        <Box w="50%" minW="300px">
+                            <FormLabel fontSize="xs" htmlFor="email">LINKEDIN</FormLabel>
+                            <InputGroup>
+                            <InputLeftElement children={<Box as={FaLinkedin} color="teal.400" />} />
+                            <Input 
+                                borderWidth={profileViewMode ? "0px" : "1px" } 
+                                disabled={profileViewMode ? true : false } 
+                                value="https://www.linkedin.com/in/haja-andriamaro/" 
+                                focusBorderColor="teal.500" 
+                                borderLeftColor="teal"
+                                background="none"
+                            />
+                            </InputGroup>
+                        </Box>
+                    </Stack>
+                    </Box>
+                    <Flex pt="10px" maxW="800px" minH="60px" justifyContent="flex-end" m="auto">
+                        {
+                            profileViewMode ?
+                            (
+                                <IconButton
+                                variant="ghost"
+                                variantColor="teal"
+                                aria-label="Call Sage"
+                                fontSize="20px"
+                                icon={FaEdit}
+                                onClick={handleProfileMode}
+                            />
+                            ):
+                            (
+                                <Box>
+                                    <Button size="md" variantColor="teal" mr="5px">
+                                    Save
+                                    </Button>
+                                    <Button onClick={handleProfileMode} size="md">Cancel</Button>
+                                </Box>
+                            )
+                        }
+                    </Flex>
             </Container>
             </Box>
         </Box>
