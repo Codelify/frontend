@@ -9,10 +9,10 @@ import lambda from "../assets/img/Lambda-png.png"
 
 const Footer = () => {
     return(
-        <Box textAlign="center" py="60px" fontSize="xs">
+        <Box textAlign="center" pt="40px" fontSize="xs">
             <Flex align="center" justify="center">
             <Text >
-            Built during 
+            Born during 
             </Text>
             <Image
                 size="15px"

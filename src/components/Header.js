@@ -43,7 +43,8 @@ const AppHeader = props => {
 
   const onLogout = () => {
     // delete token
-    window.localStorage.clear();
+    window.localStorage.removeItem("token");
+
     // then direct to landing page
     navigate("/");
   };
