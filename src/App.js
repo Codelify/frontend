@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "./App.css";
 import Default from "./components/Default";
 import Login from "./components/Login";
+import { navigate } from "@reach/router";
 import Landing from "./views/Landing";
 import AccessDenied from './views/AccessDenied'
 import Profile from './views/Profile'
@@ -14,6 +15,14 @@ function App() {
   useEffect(() => {
     initGA(config.googleAnalytics.apiKey);
   }, []);
+
+  // if there is no token the user is redirected
+  // to landing page regardless of the routes called (for now)
+  // this may evolve when we enable login with custom PW/Email
+  const auth = localStorage.getItem('token')
+  if(!auth){
+    navigate("/");
+  }
   return (
     <Router>
       <Landing path="/" />
