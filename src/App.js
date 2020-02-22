@@ -9,7 +9,7 @@ import { Router } from "@reach/router";
 import SlackAuthenticator from "./components/SlackAuthenticator";
 import { initGA } from "./components/~common/Tracking";
 import config from "./utils/config";
-import { useLocation, Redirect } from "@reach/router"
+import { useLocation } from "@reach/router"
 
 function App() {
   useEffect(() => {
