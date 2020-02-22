@@ -14,7 +14,9 @@ export const WrapRootElement = ({ props, children }) => {
       <ThemeProvider>
         <ColorModeProvider {...props}>
           <CSSReset />
-          <AppProvider>{children}</AppProvider>
+          <AppProvider>
+          {children}
+          </AppProvider>
         </ColorModeProvider>
       </ThemeProvider>
       <ToastContainer autoClose={3000} position="top-right" hideProgressBar />
