@@ -19,7 +19,7 @@ function App() {
   const location = useLocation();
   // If no token and not trying to login with slack
   // then we render the Landing page by default
-  if (!auth && location.pathname !== '/slack/auth'){
+  if (!auth && (location.pathname !== '/slack/auth' || location.pathname !== '/access_denied') ){
     return (
       <Landing />
     )
