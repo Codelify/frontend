@@ -21,7 +21,7 @@ code {
   }
 }
 
-textarea, select, input, button { outline: none; }
+textarea, select, input, button, a { outline: none; }
 
 @keyframes float {
 	0% {
