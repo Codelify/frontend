@@ -32,7 +32,7 @@ const Description = ({
     <>
       <Text as="div" mb="5px" contenteditable="true" fontSize="md">
         <ContentEditable
-          html={description}
+          html={description ? description : "This snippet has no description"}
           disabled={false}
           id={descriptionId}
           onBlur={handleBlur}
@@ -42,7 +42,8 @@ const Description = ({
             handleToggle(true);
           }}
           style={{
-            outline: "none"
+            outline: "none",
+            opacity:"0.7"
           }}
         />
       </Text>

@@ -9,14 +9,17 @@ import {
   TagCloseButton,
   Input,
   IconButton,
-  Stack
+  Stack,
+  Text,
+  Box
 } from "@chakra-ui/core";
 
 import { MdAdd } from "react-icons/md";
 
 const SnippetTags = ({ id, tags }) => {
   const [tagsList, setTagsList] = useState(tags);
-  const [ addingTagMode, setAddingTagMode ] = useState(false)
+  const [tagsListLenght, setTagsListLenght] = useState(null)
+  const [addingTagMode, setAddingTagMode] = useState(false);
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
 
   const handleEditTag = useCallback(
@@ -40,28 +43,31 @@ const SnippetTags = ({ id, tags }) => {
   );
 
   useEffect(() => {
+    if( tagsList.length > 0){
+      setTagsListLenght(tagsList.length)
+    }
+    else {
+      setTagsListLenght(null)
+    }
     handleEditTag(tagsList);
   }, [tagsList, handleEditTag]);
 
-
   const tagsId = `tags_${id}`;
   const handleBlur = event => {
-    setAddingTagMode(false)
+    setAddingTagMode(false);
   };
 
   const handleToggle = newShow => {
-    if(newShow){
-      setAddingTagMode(true)
+    if (newShow) {
+      setAddingTagMode(true);
     }
   };
 
   useEffect(() => {
-    if(addingTagMode){
+    if (addingTagMode) {
       document.getElementById(tagsId).focus();
     }
-  },[addingTagMode]
-
-  );
+  }, [addingTagMode]);
 
   // specfifid function to managed entered tags
   const handleAddTags = event => {
@@ -139,6 +145,8 @@ const SnippetTags = ({ id, tags }) => {
               </Tag>
             );
           })}
+        <Stack alignItems="center" isInline>
+        { !tagsListLenght && <Text fontSize="md" opacity="0.7">No associated Tags</Text>}
         <IconButton
           my="3px"
           aria-label="Add a Tag"
@@ -152,20 +160,20 @@ const SnippetTags = ({ id, tags }) => {
             handleToggle(true);
           }}
         />
+        </Stack>
       </Stack>
-      {
-        addingTagMode && 
+      {addingTagMode && (
         <Input
-        id={tagsId}
-        placeholder="Add tags (Press Enter or Comma for multiple tags)"
-        focusBorderColor="#319795"
-        name="tags"
-        my="5px"
-        onBlur={handleBlur}
-        onKeyDown={handleTab}
-        onKeyUp={handleAddTags}
-      />
-    }
+          id={tagsId}
+          placeholder="Add tags (Press Enter or Comma for multiple tags)"
+          focusBorderColor="#319795"
+          name="tags"
+          my="5px"
+          onBlur={handleBlur}
+          onKeyDown={handleTab}
+          onKeyUp={handleAddTags}
+        />
+      )}
     </>
   );
 };
