@@ -161,7 +161,8 @@ function Landing() {
             <Img 
               src={colorMode === "light" ? screenShotLight : screenShotDark} 
               style={{
-                animation: "float 6s ease-in-out infinite"
+                animation: "float 6s ease-in-out infinite",
+                borderRadius:"5px",
               }}/>
           </Container>
         </Flex>
