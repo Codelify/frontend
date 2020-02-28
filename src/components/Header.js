@@ -124,10 +124,8 @@ const AppHeader = props => {
                         )}
                       </MenuButton>
                       <MenuList>
-                        <MenuGroup title="Account">
-                          <MenuItem onClick={()=>{navigate("/profile")}}>My Profile</MenuItem>
+                          {/* <MenuItem onClick={()=>{navigate("/profile")}}>My Profile</MenuItem> */}
                           <MenuItem onClick={onLogout}>Logout</MenuItem>
-                        </MenuGroup>
                       </MenuList>
                     </Menu>
                   )}

@@ -11,10 +11,9 @@ import {
   Button,
   Grid,
   Flex,
-  Image,
   useDisclosure,
   useColorMode,
-  Stack
+  Stack,
 } from "@chakra-ui/core";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -22,10 +21,11 @@ import Container from "../components/Container";
 import RequestAccess from "../components/RequestAccess";
 //import GoogleButton from "../components/GoogleButton";
 import { MdBookmark, MdFindInPage, MdDescription } from "react-icons/md";
-import screenShotLight from "../assets/img/app-shot-light.png";
-import screenShotDark from "../assets/img/app-shot-dark.png";
+import screenShotLight from "../assets/img/app-shot-light.jpeg";
+import screenShotDark from "../assets/img/app-shot-dark.jpeg";
 import SlackButton from "../components/SlackButton";
 import { handleRouteChange } from "../utils/handleRouteChange";
+import Img from "react-image"
 //import GoogleLogin from "react-google-login";
 
 const Feature = ({ title, icon, children, ...props }) => {
@@ -145,7 +145,7 @@ function Landing() {
           </Box>
 
           <Container maxWidth="800px" mx="20px">
-            <Image
+            {/* <Image
               mt={["0px", "0px", "0px", "50px"]}
               minWidth="340px"
               w={["90%", "90%", "90%", "100%"]}
@@ -157,7 +157,12 @@ function Landing() {
               style={{
                 animation: "float 6s ease-in-out infinite"
               }}
-            />
+            /> */}
+            <Img 
+              src={colorMode === "light" ? screenShotLight : screenShotDark} 
+              style={{
+                animation: "float 6s ease-in-out infinite"
+              }}/>
           </Container>
         </Flex>
 
