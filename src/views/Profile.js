@@ -52,7 +52,6 @@ function Profile() {
   };
 
   const handleBlur = event => {
-    console.log("called");
     document.getElementById(event.target.id).classList.remove("edited-div");
   };
 
@@ -61,12 +60,11 @@ function Profile() {
   };
 
   const updateUserProfile = async () => {
-    console.log("Update");
     setLoading(true);
     const token = window.localStorage.getItem("token");
     try {
       // eslint-disable-next-line no-empty-pattern
-      const { data } = await updateProfile({
+      const {} = await updateProfile({
         variables: {
           token: token,
           profileInfo: {
@@ -78,7 +76,6 @@ function Profile() {
         // refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }],
       });
       setLoading(false);
-      console.log(data);
     } catch (error) {
       console.log(error);
       setLoading(false);
