@@ -16,64 +16,61 @@ export default function SlackAuthenticator(props) {
   const [createSnippet] = useMutation(CREATE_SNIPPET);
   const toasting = useToast();
 
-  const login = useCallback(
-    async user => {
-      try {
-        const { data } = await loginWithSlack({
-          variables: {
-            input: {
-              firstName: user.name,
-              email: user.email,
-              password: user.id,
-              avatar: user.image_72
-            }
+  const login = async user => {
+    try {
+      const { data } = await loginWithSlack({
+        variables: {
+          input: {
+            firstName: user.name,
+            email: user.email,
+            password: user.id,
+            avatar: user.image_72
           }
-        });
-        if (data) {
-          localStorage.setItem("token", data.authWithGoogle.token);
-          if (localStorage.getItem("snippetData")) {
-            const snippetData = {
-              ...JSON.parse(
-                typeof window !== "undefined" &&
-                  window.localStorage.getItem("snippetData")
-              ),
-              token: data.authWithGoogle.token
-            };
-            const { data: res, error } = await createSnippet({
-              variables: snippetData
-            });
-            if (res) {
+        }
+      });
+      if (data) {
+        localStorage.setItem("token", data.authWithGoogle.token);
+        if (localStorage.getItem("snippetData")) {
+          const snippetData = {
+            ...JSON.parse(
               typeof window !== "undefined" &&
-                window.localStorage.removeItem("snippetData");
-              toasting({
-                position: "top-right",
-                title: "Yooohooo ! 🍹",
-                description: "Your snippet has been saved",
-                status: "success",
-                duration: 9000,
-                isClosable: true
-              });
-            }
-            if (error) {
-              toasting({
-                position: "top-right",
-                title: "An error occurred.",
-                description: "Unable to create this snippet.",
-                status: "error",
-                duration: 9000,
-                isClosable: true
-              });
-            }
+                window.localStorage.getItem("snippetData")
+            ),
+            token: data.authWithGoogle.token
+          };
+          const { data: res, error } = await createSnippet({
+            variables: snippetData
+          });
+          if (res) {
+            typeof window !== "undefined" &&
+              window.localStorage.removeItem("snippetData");
+            toasting({
+              position: "top-right",
+              title: "Yooohooo ! 🍹",
+              description: "Your snippet has been saved",
+              status: "success",
+              duration: 9000,
+              isClosable: true
+            });
           }
-          navigate(handleRouteChange());
+          if (error) {
+            toasting({
+              position: "top-right",
+              title: "An error occurred.",
+              description: "Unable to create this snippet.",
+              status: "error",
+              duration: 9000,
+              isClosable: true
+            });
+          }
         }
         navigate(handleRouteChange());
-      } catch (error) {
-        console.log(error);
       }
-    },
-    [createSnippet, loginWithSlack, toasting]
-  );
+      navigate(handleRouteChange());
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     PageView();
@@ -95,7 +92,7 @@ export default function SlackAuthenticator(props) {
     };
 
     authenticate();
-  }, [props.location.search, login]);
+  }, [props.location.search]);
 
   return (
     <Box mt="250px">

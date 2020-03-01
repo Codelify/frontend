@@ -21,19 +21,19 @@ code {
   }
 }
 
-textarea, select, input, button { outline: none; }
+textarea, select, input, button, a { outline: none; }
 
 @keyframes float {
 	0% {
     box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
-		transform: translatey(0px) perspective(100em) rotateY(-10deg) rotateX(10deg);
+    -webkit-transform: translatey(0px) perspective(100em) translateZ(-120px) rotateY(-10deg) rotateX(10deg);
 	}
 	50% {
 		box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
-		transform: translatey(-20px) perspective(100em) rotateY(-10deg) rotateX(10deg);
+		-webkit-transform: translatey(-20px) perspective(100em) translateZ(-120px) rotateY(-10deg) rotateX(10deg);
 	}
 	100% {
 		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
-		transform: translatey(0px) perspective(100em) rotateY(-10deg) rotateX(10deg);
+		-webkit-transform: translatey(0px) perspective(100em) translateZ(-120px) rotateY(-10deg) rotateX(10deg);
 	}
 }

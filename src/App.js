@@ -9,21 +9,40 @@ import { Router } from "@reach/router";
 import SlackAuthenticator from "./components/SlackAuthenticator";
 import { initGA } from "./components/~common/Tracking";
 import config from "./utils/config";
+import { useLocation } from "@reach/router"
 
 function App() {
   useEffect(() => {
     initGA(config.googleAnalytics.apiKey);
   }, []);
-  return (
-    <Router>
-      <Landing path="/" />
-      <AccessDenied path="/access_denied" />
-      <Profile path="/profile" />
-      <Login path="/login" />
-      <Default exact path="/snippets/:name" component={Default} />
-      <SlackAuthenticator path="/slack/auth" />
-    </Router>
-  );
+  const auth = typeof window !== "undefined" && window.localStorage.getItem("token");
+  const location = useLocation();
+  // If no token and not trying to login with slack
+  // then we render the Landing page by default
+  if(location.pathname === '/access_denied'){
+    return (
+      <AccessDenied />
+    )
+  }
+  else if (!auth && location.pathname !== '/slack/auth'){
+    return (
+      <Landing />
+    )
+  }
+  else {
+    return (
+      <Router>
+        <Landing path="/" />
+        <AccessDenied path="/access_denied" />
+        <Profile path="/profile" />
+        <Login path="/login" />
+        <Default exact path="/snippets/:name" component={Default} />
+        <SlackAuthenticator path="/slack/auth" />
+      </Router>
+    );  
+  }
+
+
 }
 
 export default App;
