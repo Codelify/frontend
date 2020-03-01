@@ -192,7 +192,7 @@ function Profile() {
                         borderWidth="0px"
                         disabled
                         type="email"
-                        value={results.email}
+                        value={results.email || "your email"}
                         focusBorderColor="teal.500"
                         background="none"
                       />
