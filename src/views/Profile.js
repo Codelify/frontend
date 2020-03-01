@@ -71,8 +71,8 @@ function Profile() {
           token: token,
           profileInfo: {
             bio: description,
-            twitter: linkedinSocial,
-            linkedin: twitterSocial,
+            twitter: twitterSocial,
+            linkedin: linkedinSocial,
           },
         },
         // refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }],
