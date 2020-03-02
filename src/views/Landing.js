@@ -155,7 +155,7 @@ function Landing() {
               opacity={colorMode === "dark" ? "0.7" : "1"}
               alt="Codelify app screenshot"
               style={{
-                animation: "float 6s ease-in-out infinite"
+                animation: "float 6s ease-in-out infinite",
               }}
             /> */}
             <Img 

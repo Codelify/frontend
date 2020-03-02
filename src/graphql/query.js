@@ -25,6 +25,9 @@ export const USER_DETAILS = gql`
       lastName
       firstName
       email
+      bio
+      twitter
+      linkedin
       snippets {
         id
         title

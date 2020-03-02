@@ -9,9 +9,8 @@ import {
   Menu,
   MenuButton,
   MenuList,
-  MenuGroup,
   MenuItem,
-  Avatar
+  Avatar,
 } from "@chakra-ui/core";
 import NewSnippet from "./NewSnippet";
 import { MdAdd } from "react-icons/md";
@@ -97,7 +96,7 @@ const AppHeader = props => {
                     fontSize={["20px", "30px", "30px", "30px"]}
                     icon={MdAdd}
                     _focus={{
-                      outline: "none"
+                      outline: "none",
                     }}
                     onClick={() => {
                       handleClick("full");
@@ -109,7 +108,7 @@ const AppHeader = props => {
                         variant={avatar !== "" ? "unstyled" : "ghost"}
                         as={Button}
                         _focus={{
-                          outline: "none"
+                          outline: "none",
                         }}
                       >
                         {avatar !== "" ? (
@@ -124,8 +123,14 @@ const AppHeader = props => {
                         )}
                       </MenuButton>
                       <MenuList>
-                          {/* <MenuItem onClick={()=>{navigate("/profile")}}>My Profile</MenuItem> */}
-                          <MenuItem onClick={onLogout}>Logout</MenuItem>
+                        <MenuItem
+                          onClick={() => {
+                            navigate("/profile");
+                          }}
+                        >
+                          My Profile
+                        </MenuItem>
+                        <MenuItem onClick={onLogout}>Logout</MenuItem>
                       </MenuList>
                     </Menu>
                   )}
@@ -143,7 +148,7 @@ const AppHeader = props => {
                 onClick={toggleColorMode}
                 icon={colorMode === "light" ? "moon" : "sun"}
                 _focus={{
-                  outline: "none"
+                  outline: "none",
                 }}
               />
               {/* <MobileNav /> */}
