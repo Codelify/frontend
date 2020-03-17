@@ -115,7 +115,7 @@ const CodeSnippet = ({
           <Box>
             {url && (
               <Link color="teal.500" href={url} isExternal>
-                Link <Icon name="external-link" mx="2px" />
+                Link to external recources <Icon name="external-link" mx="2px" />
               </Link>
             )}
           </Box>
