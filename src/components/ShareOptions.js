@@ -48,10 +48,9 @@ const ShareOptions = () => {
         </Stack>
         <Stack py="10px" alignItems="center" justifyContent="flex-start" isInline>
             <Box mx="5px" as={FaTwitter} />
-            <Text fontSize="sm">Push on Twitter</Text>
+            <Text fontSize="sm">Publish on Twitter</Text>
         </Stack>
         <Stack py="10px" alignItems="center" justifyContent="flex-start" isInline>
-            {/* <Box mx="5px" as={isPublic ? FaEye : FaEyeSlash } color={isPublic ? "green.300" : "red.200"} /> */}
             <Badge style={{cursor:"pointer"}} onClick={toggleVisibility} variantColor={isPublic ? "green" : "red"}>{isPublic ? <Public /> : <Private />}</Badge>
         </Stack>
         </>
