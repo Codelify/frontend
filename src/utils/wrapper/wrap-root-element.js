@@ -8,13 +8,19 @@ import "react-toastify/dist/ReactToastify.min.css";
 import AppProvider from "../AppProvider";
 import ApolloProvider from "./Apollo-Provider";
 
-export const WrapRootElement = ({ props, children }) => {
+export const WrapRootElement = ({ children }) => {
+  const colorMode = typeof window !== "undefined" && window.localStorage.getItem("darkMode");
+  if(!colorMode){
+    window.localStorage.setItem("darkMode", false);
+  }
   return (
     <ApolloProvider>
       <ThemeProvider>
-        <ColorModeProvider {...props}>
+        <ColorModeProvider>
           <CSSReset />
-          <AppProvider>{children}</AppProvider>
+          <AppProvider>
+          {children}
+          </AppProvider>
         </ColorModeProvider>
       </ThemeProvider>
       <ToastContainer autoClose={3000} position="top-right" hideProgressBar />
