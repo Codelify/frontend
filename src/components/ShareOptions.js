@@ -8,16 +8,34 @@ import {
     useClipboard,
     Divider,
 } from '@chakra-ui/core';
-import { FaLink, FaEye, FaEyeSlash, FaTwitter } from 'react-icons/fa'
+import { FaLink, FaEyeSlash, FaTwitter, FaGlobe } from 'react-icons/fa'
+
+const Private = () => {
+    return(
+        <Stack p="3px" isInline alignItems="center">
+            <Box fontSize="md" as={FaEyeSlash } color="red.400" />
+            <Text>Private</Text>
+        </Stack>
+    )
+}
+
+const Public = () => {
+    return(
+        <Stack p="3px" isInline alignItems="center">
+            <Box fontSize="md" as={FaGlobe} color="green.400" />
+            <Text>Public</Text>
+        </Stack>
+    )
+}
 
 const ShareOptions = () => {
     const [snippetPublicLink, setSnippetPublicLink] = useState("https://codelify.dev/snippets/hddeiHD739!hfii6gsU4");
     const [isPublic, setIsPublic] = useState(false)
-    const { onCopy, hasCopied } = useClipboard(snippetPublicLink);
+    const { onCopy, hasCopied } = useClipboard("https://codelify.dev/snippets/hddeiHD739!hfii6gsU4");
     const toggleVisibility = () => {
         setIsPublic(!isPublic)
     }
-
+    
     return(
         <>
         <Divider p="20px" />
@@ -33,8 +51,8 @@ const ShareOptions = () => {
             <Text fontSize="sm">Push on Twitter</Text>
         </Stack>
         <Stack py="10px" alignItems="center" justifyContent="flex-start" isInline>
-            <Box mx="5px" as={isPublic ? FaEye : FaEyeSlash } color={isPublic ? "green.300" : "red.200"} />
-            <Badge style={{cursor:"pointer"}} onClick={toggleVisibility} variantColor={isPublic ? "green" : "red"}>{isPublic ? "Public" : "Private"}</Badge>
+            {/* <Box mx="5px" as={isPublic ? FaEye : FaEyeSlash } color={isPublic ? "green.300" : "red.200"} /> */}
+            <Badge style={{cursor:"pointer"}} onClick={toggleVisibility} variantColor={isPublic ? "green" : "red"}>{isPublic ? <Public /> : <Private />}</Badge>
         </Stack>
         </>
     )
