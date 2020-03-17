@@ -25,7 +25,7 @@ const ShareOptions = () => {
             <Box mx="5px" as={FaLink} />
             <Text fontSize="sm">{snippetPublicLink}</Text>
             <Button onClick={onCopy} variantColor="gray" size="xs" _focus={{ outline: "none" }}>
-                {hasCopied ? "Copied" : "Copy"}
+                {hasCopied ? "Copied" : "Copy link"}
             </Button>
         </Stack>
         <Stack py="10px" alignItems="center" justifyContent="flex-start" isInline>
