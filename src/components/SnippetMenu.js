@@ -15,7 +15,8 @@ import {
   ModalCloseButton,
   Button,
   useToast,
-  useDisclosure
+  useDisclosure,
+  Box
 } from "@chakra-ui/core";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { FaStar, FaArchive, FaWindowRestore } from "react-icons/fa";
@@ -139,24 +140,11 @@ const SnippetMenu = ({ isFav, id }) => {
         </MenuButton>
         <MenuList placement="bottom-end">
           {state.currentView !== "FiArchive" && (
-            <MenuItem
-              onClick={toggleFavorite}
-              as="div"
-              style={{
-                cursor: "pointer"
-              }}
-            >
-              <IconButton
-                variant="ghost"
-                aria-label="Favorite Snippet"
-                fontSize="22px"
-                color="#FEB2B2"
-                icon={FaStar}
-                _focus={{
-                  outline: "none"
-                }}
-              />
-              {favorite ? "Remove from Favorite" : "Add to Favorite"}
+            <MenuItem onClick={toggleFavorite}>
+              <Box size="20px" mx="10px" as={FaStar} color="teal.300" />
+              <span>
+                {favorite ? "Remove from Favorite" : "Add to Favorite"}
+              </span>
             </MenuItem>
           )}
           {state.currentView === "FiArchive" && (
@@ -164,23 +152,10 @@ const SnippetMenu = ({ isFav, id }) => {
               onClick={() => {
                 onOpen();
                 setRestoreSnippet(true);
-              }}
-              as="div"
-              style={{
-                cursor: "pointer"
-              }}
+              }}            
             >
-              <IconButton
-                variant="ghost"
-                aria-label="Restore Snippet"
-                icon={FaWindowRestore}
-                color="#81E6D9"
-                fontSize="20px"
-                _focus={{
-                  outline: "none"
-                }}
-              />
-              Restore Snippet
+              <Box mx="10px" as={FaWindowRestore} color="teal.300" />
+              <span>Restore Snippet</span>
             </MenuItem>
           )}
           <MenuItem
@@ -188,24 +163,13 @@ const SnippetMenu = ({ isFav, id }) => {
               onOpen();
               setRestoreSnippet(false);
             }}
-            as="div"
-            style={{
-              cursor: "pointer"
-            }}
           >
-            <IconButton
-              variant="ghost"
-              aria-label="Delete Snippet"
-              fontSize={state.currentView === "FiArchive" && "25px"}
-              icon={state.currentView === "FiArchive" ? MdDelete : FaArchive}
-              color="#CBD5E0"
-              _focus={{
-                outline: "none"
-              }}
-            />
-            {state.currentView === "FiArchive"
-              ? "Delete Snippet"
-              : "Move to Archive"}
+            {
+              state.currentView === "FiArchive" 
+              ? <Box size="25px" mx="10px" as={MdDelete} color="red.300" />
+              : <Box mx="10px" as={FaArchive} color="teal.300" />
+            }
+            <span>{state.currentView === "FiArchive" ? "Delete Snippet" : "Move to Archive"}</span>
           </MenuItem>
         </MenuList>
       </Menu>
