@@ -8,7 +8,6 @@ import { UPDATE_SNIPPET } from "../graphql/mutation";
 import SnippetContent from "./SnippetContent";
 
 const CodeSnippet = ({
-  editMode=true,
   title,
   id,
   description,

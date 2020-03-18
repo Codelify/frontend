@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Heading,
   Collapse,
@@ -6,7 +6,7 @@ import {
   Button,
   IconButton
 } from "@chakra-ui/core";
-
+import SnippetContext from '../context/SnippetContext';
 import ContentEditable from "react-contenteditable";
 
 const SnippetHeading = ({
@@ -16,7 +16,9 @@ const SnippetHeading = ({
   handleUpdate,
   handleEdit
 }) => {
-  const handleBlur = event => {
+  const editMode = useContext(SnippetContext);
+
+    const handleBlur = event => {
     event.persist();
     document.getElementById(event.target.id).classList.remove("edited-div");
     handleToggle(false);
@@ -36,7 +38,7 @@ const SnippetHeading = ({
         <ContentEditable
           onChange={e => handleEdit(e, "title")}
           html={title}
-          disabled={false}
+          disabled={editMode}
           id={titleId}
           onBlur={e => handleBlur(e)}
           onClick={() => {
@@ -48,14 +50,17 @@ const SnippetHeading = ({
           }}
         />
       </Heading>
-      <Collapse mt={0} isOpen={show}>
+      {
+        !editMode &&
+        <Collapse mt={0} isOpen={show}>
         <ButtonGroup mb="10px" justifyContent="center" size="sm">
           <Button variantColor="teal" onMouseDown={() => handleUpdate("title")}>
             Save
           </Button>
           <IconButton icon="close" />
         </ButtonGroup>
-      </Collapse>
+        </Collapse>
+      }
     </>
   );
 };
