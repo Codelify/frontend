@@ -118,7 +118,9 @@ const SnippetContent = (
                   icon={MdContentCopy}
                 />
               )}
-              <SnippetMenu {...{ isFav, id }} />
+              {
+                !editMode && <SnippetMenu {...{ isFav, id }} />
+              }
             </Stack>
           </Box>
         </Stack>
