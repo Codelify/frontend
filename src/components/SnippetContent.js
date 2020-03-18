@@ -116,16 +116,6 @@ const SnippetContent = (
                   icon={MdContentCopy}
                 />
               )}
-              {/* <IconButton
-                variant="ghost"
-                mt="2px"
-                p="3px"
-                size="xs"
-                variantColor="teal"
-                aria-label="Call Sage"
-                fontSize="18px"
-                icon={MdOpenInNew}
-              /> */}
               <SnippetMenu {...{ isFav, id }} />
             </Stack>
           </Box>
