@@ -3,9 +3,10 @@ import { Box, Flex, Stack, Link, Icon, Divider } from "@chakra-ui/core";
 import SnippetHeading from "./SnippetHeading";
 import Description from "./SnippetDescription";
 import SnippetTags from "./SnippetTags";
+import ShareOptions from './ShareOptions';
+import SnippetContent from "./SnippetContent";
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_SNIPPET } from "../graphql/mutation";
-import SnippetContent from "./SnippetContent";
 
 const CodeSnippet = ({
   title,
@@ -30,6 +31,7 @@ const CodeSnippet = ({
   const [descriptionToUpdate, setDescroptionToUpdate] = useState(description);
   const [contentToUpdate, setContentToUpdate] = useState(content);
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
+
 
   const handleUpdate = async typeOfAction => {
     const costumObject = {};
@@ -115,12 +117,12 @@ const CodeSnippet = ({
           <Box>
             {url && (
               <Link color="teal.500" href={url} isExternal>
-                Link <Icon name="external-link" mx="2px" />
+                Link to external recources <Icon name="external-link" mx="2px" />
               </Link>
             )}
           </Box>
-
           <SnippetTags id={id} tags={tags} />
+          <ShareOptions />
         </Stack>
         <Box
           minWidth="310px"
