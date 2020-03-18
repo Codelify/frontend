@@ -32,6 +32,7 @@ const CodeSnippet = ({
   const [contentToUpdate, setContentToUpdate] = useState(content);
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
 
+
   const handleUpdate = async typeOfAction => {
     const costumObject = {};
     //construct costum object for every case for not repeting the mutation of each field
@@ -121,7 +122,9 @@ const CodeSnippet = ({
             )}
           </Box>
           <SnippetTags id={id} tags={tags} />
-          <ShareOptions />
+          <Box>
+              <ShareOptions />
+          </Box>
         </Stack>
         <Box
           minWidth="310px"

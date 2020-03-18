@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
 import {
+    Collapse,
     Badge,
     Box,
     Button,
+    Divider,
     Text,
     Stack,
     useClipboard,
-    Divider,
 } from '@chakra-ui/core';
-import { FaLink, FaEyeSlash, FaTwitter, FaGlobe } from 'react-icons/fa'
+import { FaLink, FaEyeSlash, FaTwitter, FaGlobe } from 'react-icons/fa';
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md' 
 
 const Private = () => {
     return(
@@ -35,24 +37,34 @@ const ShareOptions = () => {
     const toggleVisibility = () => {
         setIsPublic(!isPublic)
     }
+    const [show, setShow] = useState(false);
+
+    const handleToggle = () => {
+        setShow(!show);
+    };
     
     return(
         <>
-        <Divider p="20px" />
-        <Stack py="10px" alignItems="center" justifyContent="flex-start" isInline>
-            <Box mx="5px" as={FaLink} />
-            <Text fontSize="sm">{snippetPublicLink}</Text>
-            <Button onClick={onCopy} variantColor="gray" size="xs" _focus={{ outline: "none" }}>
-                {hasCopied ? "Copied" : "Copy link"}
-            </Button>
-        </Stack>
-        <Stack py="10px" alignItems="center" justifyContent="flex-start" isInline>
-            <Box mx="5px" as={FaTwitter} />
-            <Text fontSize="sm">Publish on Twitter</Text>
-        </Stack>
-        <Stack py="10px" alignItems="center" justifyContent="flex-start" isInline>
-            <Badge style={{cursor:"pointer"}} onClick={toggleVisibility} variantColor={isPublic ? "green" : "red"}>{isPublic ? <Public /> : <Private />}</Badge>
-        </Stack>
+        <Divider my="20px" />
+        <Button mb="20px" _focus={{outline: "none"}} rightIcon={ show ? MdKeyboardArrowDown : MdKeyboardArrowUp } variant="solid" size="sm" onClick={handleToggle}>
+            Sharing options
+        </Button>          
+        <Collapse isOpen={show}>
+            <Stack alignItems="center" justifyContent="flex-start" isInline>
+                <Box mx="5px" as={FaLink} />
+                <Text fontSize="sm">{snippetPublicLink}</Text>
+                <Button onClick={onCopy} variantColor="gray" size="xs" _focus={{ outline: "none" }}>
+                    {hasCopied ? "Copied" : "Copy link"}
+                </Button>
+            </Stack>
+            <Stack py="10px" alignItems="center" justifyContent="flex-start" isInline>
+                <Box mx="5px" as={FaTwitter} />
+                <Text fontSize="sm">Publish on Twitter</Text>
+            </Stack>
+            <Stack py="10px" alignItems="center" justifyContent="flex-start" isInline>
+                <Badge style={{cursor:"pointer"}} onClick={toggleVisibility} variantColor={isPublic ? "green" : "red"}>{isPublic ? <Public /> : <Private />}</Badge>
+            </Stack>
+        </Collapse>
         </>
     )
 }
