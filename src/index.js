@@ -4,10 +4,16 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { WrapRootElement } from "./utils/wrapper/wrap-root-element";
+import {
+  LocationProvider
+} from '@reach/router' 
+
 
 ReactDOM.render(
   <WrapRootElement>
-    <App />
+    <LocationProvider>
+      <App />
+    </LocationProvider>
   </WrapRootElement>,
 
   document.getElementById("root")
