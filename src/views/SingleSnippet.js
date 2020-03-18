@@ -1,6 +1,12 @@
-import { Box, Flex, useColorMode } from "@chakra-ui/core";
+import { 
+    Box, 
+    Flex, 
+    useColorMode,
+    ThemeProvider,
+    CSSReset
+} from "@chakra-ui/core";
 import React from "react";
-// import Header from "../components/Header";
+import UserBio from '../components/UserBio'
 import Footer from "../components/Footer";
 import CodeSnippet from "../components/CodeSnippet";
 
@@ -8,7 +14,10 @@ import CodeSnippet from "../components/CodeSnippet";
 const MainLayout = () => {
 const { colorMode } = useColorMode();
 return (
-<Box>
+<ThemeProvider>
+<CSSReset />
+<Box pt="30px">
+<UserBio />
     <Flex align="center" justifyContent="center" w="100%">
         <Box
         w="90%"
@@ -25,6 +34,7 @@ return (
     </Flex>
     <Footer />
 </Box>
+</ThemeProvider>
 );
 };
 
