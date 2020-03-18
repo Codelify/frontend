@@ -45,8 +45,7 @@ const ShareOptions = () => {
     
     return(
         <>
-        <Divider my="20px" />
-        <Button mb="20px" _focus={{outline: "none"}} rightIcon={ show ? MdKeyboardArrowDown : MdKeyboardArrowUp } variant="solid" size="sm" onClick={handleToggle}>
+        <Button mb="20px" _focus={{outline: "none"}} rightIcon={ show ? MdKeyboardArrowDown : MdKeyboardArrowUp } variant="link" size="sm" onClick={handleToggle}>
             Sharing options
         </Button>          
         <Collapse isOpen={show}>

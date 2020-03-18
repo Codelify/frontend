@@ -122,7 +122,7 @@ const CodeSnippet = ({
             )}
           </Box>
           <SnippetTags id={id} tags={tags} />
-          <Box>
+          <Box mt="20px" p="10px" borderTopWidth="1px">
               <ShareOptions />
           </Box>
         </Stack>
