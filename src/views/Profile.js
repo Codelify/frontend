@@ -103,7 +103,7 @@ function Profile() {
         ? results.linkedin
         : "https://www.linkedin.com/in/your_handler",
     );
-  }, [results.bio, results.linkedin, results.twitter]);
+  }, [results, results.bio, results.linkedin, results.twitter]);
 
   return (
     <ThemeProvider>

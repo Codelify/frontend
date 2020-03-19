@@ -10,7 +10,10 @@ import {
 } from '@chakra-ui/core';
 import SnippetContext from '../context/SnippetContext';
 import { FaLink, FaEyeSlash, FaTwitter, FaGlobe } from 'react-icons/fa';
-import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md' 
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md' ;
+import { useMutation } from "@apollo/react-hooks";
+import { UPDATE_SNIPPET } from "../graphql/mutation";
+import { MY_SNIPPETs } from "../graphql/query";
 
 const Private = () => {
     return(
@@ -30,12 +33,29 @@ const Public = () => {
     )
 }
 
-const ShareOptions = ({shareId}) => {
-    const [snippetPublicLink, setSnippetPublicLink] = useState(`https://codelify.dev/snippets/${shareId}`);
-    const [isPublic, setIsPublic] = useState(false)
-    const { onCopy, hasCopied } = useClipboard(`https://codelify.dev/snippets/${shareId}`);
-    const toggleVisibility = () => {
-        setIsPublic(!isPublic)
+const ShareOptions = ({isPublic, shareId, id}) => {
+    const snippetPublicLink = `https://codelify.dev/snippets/${shareId}`;
+    const { onCopy, hasCopied } = useClipboard(snippetPublicLink);
+    const [visible, setVisible] = useState(isPublic);
+    const [updateSnippet] = useMutation(UPDATE_SNIPPET);
+    
+    const toggleVisibility = async () => {
+        setVisible(!visible)
+        const token = window.localStorage.getItem("token");
+        try {
+            // eslint-disable-next-line no-empty-pattern
+            const {} = await updateSnippet({
+                variables: {
+                snippetId: id,
+                snippetInfo: { isPublic: !visible },
+                token: token
+                },
+                refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
+            });
+            } 
+        catch (error) {
+            console.log(error);
+            }        
     }
     const [show, setShow] = useState(false);
 
@@ -53,7 +73,7 @@ const ShareOptions = ({shareId}) => {
         <Collapse isOpen={show}>
             <Stack alignItems="center" justifyContent="flex-start" isInline>
                 <Box mx="5px" as={FaLink} />
-                <Text fontSize="sm">{snippetPublicLink}</Text>
+                <Text style={{overflow:"hidden"}} fontSize="sm">{snippetPublicLink}</Text>
                 <Button onClick={onCopy} variantColor="gray" size="xs" _focus={{ outline: "none" }}>
                     {hasCopied ? "Copied" : "Copy link"}
                 </Button>
@@ -62,12 +82,9 @@ const ShareOptions = ({shareId}) => {
                 <Box mx="5px" as={FaTwitter} />
                 <Text fontSize="sm">Publish on Twitter</Text>
             </Stack>
-            {
-                !editMode &&
-                <Stack py="10px" alignItems="center" justifyContent="flex-start" isInline>
-                    <Badge style={{cursor:"pointer"}} onClick={toggleVisibility} variantColor={isPublic ? "green" : "red"}>{isPublic ? <Public /> : <Private />}</Badge>
-                </Stack>
-            }
+            <Stack py="10px" alignItems="center" justifyContent="flex-start" isInline>
+                <Badge style={{cursor:"pointer"}} onClick={toggleVisibility} variantColor={visible ? "green" : "red"}>{visible ? <Public /> : <Private />}</Badge>
+            </Stack>
         </Collapse>
         </Box>
     )
