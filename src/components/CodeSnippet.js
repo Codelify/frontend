@@ -16,7 +16,9 @@ const CodeSnippet = ({
   tags,
   content,
   isFav,
-  index
+  index,
+  isPublic,
+  shareId
 }) => {
   //moved ControlButtons in each filed - so we can know whitch field user wants to update
   // const ControlButtons = () => {
@@ -122,7 +124,9 @@ const CodeSnippet = ({
             )}
           </Box>
           <SnippetTags id={id} tags={tags} />
-          <ShareOptions />
+          <Box mt="20px" borderTopWidth="1px">
+              <ShareOptions shareId={shareId}/>
+          </Box>
         </Stack>
         <Box
           minWidth="310px"

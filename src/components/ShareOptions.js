@@ -30,12 +30,10 @@ const Public = () => {
     )
 }
 
-const ShareOptions = () => {
-    
-    const editMode = useContext(SnippetContext);
-    const [snippetPublicLink, setSnippetPublicLink] = useState("https://codelify.dev/snippets/hddeiHD739!hfii6gsU4");
+const ShareOptions = ({shareId}) => {
+    const [snippetPublicLink, setSnippetPublicLink] = useState(`https://codelify.dev/snippets/${shareId}`);
     const [isPublic, setIsPublic] = useState(false)
-    const { onCopy, hasCopied } = useClipboard("https://codelify.dev/snippets/hddeiHD739!hfii6gsU4");
+    const { onCopy, hasCopied } = useClipboard(`https://codelify.dev/snippets/${shareId}`);
     const toggleVisibility = () => {
         setIsPublic(!isPublic)
     }
@@ -44,9 +42,11 @@ const ShareOptions = () => {
     const handleToggle = () => {
         setShow(!show);
     };
+
+    const editMode = useContext(SnippetContext);
     
     return(
-        <Box mt="20px" p="10px" borderTopWidth="1px">
+        <Box p="10px">
         <Button mb="20px" _focus={{outline: "none"}} rightIcon={ show ? MdKeyboardArrowDown : MdKeyboardArrowUp } variant="link" size="sm" onClick={handleToggle}>
             Sharing options
         </Button>          
