@@ -4,6 +4,8 @@ import CodeSnippet from "./CodeSnippet";
 import MainLayout from "../views/layout";
 import InfiniteScroll from "react-infinite-scroll-component";
 import NoSnippetView from "./NoSnippetsView";
+import SnippetContext from '../context/SnippetContext'
+
 
 const SnippetList = props => {
   const { colorMode } = useColorMode();
@@ -11,7 +13,8 @@ const SnippetList = props => {
   const [hasMore, setHasMore] = useState(true);
   const { currentView, data } = props;
   const dataToRender = data && data.slice(0, snippetPerPage);
-
+  
+  const disableEdit = false;
   //fetch more snippets from database
   const fetchMoreData = () => {
     if (dataToRender.length === data.length) {
@@ -48,6 +51,7 @@ const SnippetList = props => {
           hasMore={hasMore}
           loader={<h4>Loading...</h4>}
         >
+          <SnippetContext.Provider value={disableEdit}>
           {dataToRender &&
             dataToRender.map((snippet, index) => {
               return (
@@ -67,6 +71,7 @@ const SnippetList = props => {
                 />
               );
             })}
+            </SnippetContext.Provider>
         </InfiniteScroll>
       </Box>
     </MainLayout>

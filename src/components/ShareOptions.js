@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import {
     Collapse,
     Badge,
     Box,
     Button,
-    Divider,
     Text,
     Stack,
     useClipboard,
 } from '@chakra-ui/core';
+import SnippetContext from '../context/SnippetContext';
 import { FaLink, FaEyeSlash, FaTwitter, FaGlobe } from 'react-icons/fa';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md' 
 
@@ -42,9 +42,11 @@ const ShareOptions = ({shareId}) => {
     const handleToggle = () => {
         setShow(!show);
     };
+
+    const editMode = useContext(SnippetContext);
     
     return(
-        <>
+        <Box p="10px">
         <Button mb="20px" _focus={{outline: "none"}} rightIcon={ show ? MdKeyboardArrowDown : MdKeyboardArrowUp } variant="link" size="sm" onClick={handleToggle}>
             Sharing options
         </Button>          
@@ -60,11 +62,14 @@ const ShareOptions = ({shareId}) => {
                 <Box mx="5px" as={FaTwitter} />
                 <Text fontSize="sm">Publish on Twitter</Text>
             </Stack>
-            <Stack py="10px" alignItems="center" justifyContent="flex-start" isInline>
-                <Badge style={{cursor:"pointer"}} onClick={toggleVisibility} variantColor={isPublic ? "green" : "red"}>{isPublic ? <Public /> : <Private />}</Badge>
-            </Stack>
+            {
+                !editMode &&
+                <Stack py="10px" alignItems="center" justifyContent="flex-start" isInline>
+                    <Badge style={{cursor:"pointer"}} onClick={toggleVisibility} variantColor={isPublic ? "green" : "red"}>{isPublic ? <Public /> : <Private />}</Badge>
+                </Stack>
+            }
         </Collapse>
-        </>
+        </Box>
     )
 }
 
