@@ -4,7 +4,6 @@ import {
     Badge,
     Box,
     Button,
-    Divider,
     Text,
     Stack,
     useClipboard,
@@ -30,12 +29,13 @@ const Public = () => {
     )
 }
 
-const ShareOptions = ({shareId}) => {
-    const [snippetPublicLink, setSnippetPublicLink] = useState(`https://codelify.dev/snippets/${shareId}`);
-    const [isPublic, setIsPublic] = useState(false)
-    const { onCopy, hasCopied } = useClipboard(`https://codelify.dev/snippets/${shareId}`);
+const ShareOptions = ({isPublic, shareId}) => {
+    const snippetPublicLink = `https://codelify.dev/snippets/${shareId}`;
+    const { onCopy, hasCopied } = useClipboard(snippetPublicLink);
+    const [visible, setVisible] = useState(isPublic)
+    
     const toggleVisibility = () => {
-        setIsPublic(!isPublic)
+        setVisible(!visible)
     }
     const [show, setShow] = useState(false);
 
@@ -61,7 +61,7 @@ const ShareOptions = ({shareId}) => {
                 <Text fontSize="sm">Publish on Twitter</Text>
             </Stack>
             <Stack py="10px" alignItems="center" justifyContent="flex-start" isInline>
-                <Badge style={{cursor:"pointer"}} onClick={toggleVisibility} variantColor={isPublic ? "green" : "red"}>{isPublic ? <Public /> : <Private />}</Badge>
+                <Badge style={{cursor:"pointer"}} onClick={toggleVisibility} variantColor={visible ? "green" : "red"}>{visible ? <Public /> : <Private />}</Badge>
             </Stack>
         </Collapse>
         </>
