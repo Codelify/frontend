@@ -30,10 +30,10 @@ const Public = () => {
     )
 }
 
-const ShareOptions = () => {
-    const [snippetPublicLink, setSnippetPublicLink] = useState("https://codelify.dev/snippets/hddeiHD739!hfii6gsU4");
+const ShareOptions = ({shareId}) => {
+    const [snippetPublicLink, setSnippetPublicLink] = useState(`https://codelify.dev/snippets/${shareId}`);
     const [isPublic, setIsPublic] = useState(false)
-    const { onCopy, hasCopied } = useClipboard("https://codelify.dev/snippets/hddeiHD739!hfii6gsU4");
+    const { onCopy, hasCopied } = useClipboard(`https://codelify.dev/snippets/${shareId}`);
     const toggleVisibility = () => {
         setIsPublic(!isPublic)
     }
