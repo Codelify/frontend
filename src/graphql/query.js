@@ -12,6 +12,8 @@ export const MY_SNIPPETs = gql`
       createdAt
       isFav
       archivedAt
+      isPublic
+      shareId
     }
   }
 `;

@@ -62,6 +62,8 @@ const SnippetList = props => {
                   url={snippet.sourceUrl}
                   isFav={snippet.isFav}
                   isArchived={snippet.archivedAt}
+                  shareId={snippet.shareId}
+                  isPublic={snippet.isPublic}
                 />
               );
             })}
