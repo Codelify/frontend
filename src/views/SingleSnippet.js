@@ -4,7 +4,8 @@ import {
     Flex, 
     useColorMode,
     ThemeProvider,
-    CSSReset
+    CSSReset,
+    Spinner
 } from "@chakra-ui/core";
 import UserBio from '../components/UserBio'
 import Footer from "../components/Footer";
@@ -19,10 +20,9 @@ const SingleSnippet = (props) => {
     const { colorMode } = useColorMode();
     const disableEdit = true;
 
-    const { data } = useQuery(GET_SNIPPET, {
+    const { data, loading } = useQuery(GET_SNIPPET, {
         variables: { snippetId },
-    });    
-    const snippet = data.getSnippetDetails
+    });
 
     return (
     <ThemeProvider>
@@ -41,19 +41,24 @@ const SingleSnippet = (props) => {
             py="40px"
             >
             <SnippetContext.Provider value={disableEdit}>
-                <CodeSnippet
+                {
+                    loading ?
+                    <Spinner /> :
+                    <CodeSnippet
                     index={0}
-                    key={snippet.id}
-                    id={snippet.id}
-                    title={snippet.title}
-                    description={snippet.description}
-                    content={snippet.content}
-                    tags={snippet.tags}
-                    url={snippet.sourceUrl}
-                    isFav={snippet.isFav}
-                    isArchived={snippet.archivedAt}
+                    key={data.getSnippetDetails.id}
+                    id={data.getSnippetDetails.id}
+                    title={data.getSnippetDetails.title}
+                    description={data.getSnippetDetails.description}
+                    content={data.getSnippetDetails.content}
+                    tags={data.getSnippetDetails.tags}
+                    url={data.getSnippetDetails.sourceUrl}
+                    isFav={data.getSnippetDetails.isFav}
+                    isArchived={data.getSnippetDetails.archivedAt}
                     shareId={snippetId}
-                />
+                    />
+                }
+
             </SnippetContext.Provider>
             </Box>
         </Flex>
