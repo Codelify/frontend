@@ -61,7 +61,7 @@ const SnippetTags = ({ id, tags }) => {
     if(addingTagMode){
       document.getElementById(tagsId).focus();
     }
-  },[addingTagMode]
+  },[addingTagMode, tagsId]
 
   );
 

@@ -124,8 +124,8 @@ const CodeSnippet = ({
             )}
           </Box>
           <SnippetTags id={id} tags={tags} />
-          <Box mt="20px" borderTopWidth="1px">
-              <ShareOptions shareId={shareId}/>
+          <Box mt="20px" p="10px" borderTopWidth="1px">
+              <ShareOptions {...{isPublic, shareId, id}} />
           </Box>
         </Stack>
         <Box
