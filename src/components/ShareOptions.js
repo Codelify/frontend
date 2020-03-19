@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import {
     Collapse,
     Badge,
@@ -8,6 +8,7 @@ import {
     Stack,
     useClipboard,
 } from '@chakra-ui/core';
+import SnippetContext from '../context/SnippetContext';
 import { FaLink, FaEyeSlash, FaTwitter, FaGlobe } from 'react-icons/fa';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md' ;
 import { useMutation } from "@apollo/react-hooks";
@@ -61,9 +62,11 @@ const ShareOptions = ({isPublic, shareId, id}) => {
     const handleToggle = () => {
         setShow(!show);
     };
+
+    const editMode = useContext(SnippetContext);
     
     return(
-        <>
+        <Box p="10px">
         <Button mb="20px" _focus={{outline: "none"}} rightIcon={ show ? MdKeyboardArrowDown : MdKeyboardArrowUp } variant="link" size="sm" onClick={handleToggle}>
             Sharing options
         </Button>          
@@ -83,7 +86,7 @@ const ShareOptions = ({isPublic, shareId, id}) => {
                 <Badge style={{cursor:"pointer"}} onClick={toggleVisibility} variantColor={visible ? "green" : "red"}>{visible ? <Public /> : <Private />}</Badge>
             </Stack>
         </Collapse>
-        </>
+        </Box>
     )
 }
 

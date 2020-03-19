@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import { UPDATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
 import { useMutation } from "@apollo/react-hooks";
@@ -11,10 +11,12 @@ import {
   IconButton,
   Stack
 } from "@chakra-ui/core";
-
+import SnippetContext from '../context/SnippetContext'
 import { MdAdd } from "react-icons/md";
 
 const SnippetTags = ({ id, tags }) => {
+  
+  const editMode = useContext(SnippetContext);
   const [tagsList, setTagsList] = useState(tags);
   const [ addingTagMode, setAddingTagMode ] = useState(false)
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
@@ -128,7 +130,9 @@ const SnippetTags = ({ id, tags }) => {
                 <TagLabel fontSize=".8em" textTransform="uppercase" mr="3px">
                   {tag}
                 </TagLabel>
-                <TagCloseButton
+                {
+                  !editMode &&
+                  <TagCloseButton
                   _focus={{
                     outline: "none"
                   }}
@@ -136,22 +140,26 @@ const SnippetTags = ({ id, tags }) => {
                     handleDeleteTag(index);
                   }}
                 />
+                }
               </Tag>
             );
           })}
-        <IconButton
-          my="3px"
-          aria-label="Add a Tag"
-          size="sm"
-          fontSize="1.4em"
-          icon={MdAdd}
-          _focus={{
-            outline: "none"
-          }}
-          onClick={() => {
-            handleToggle(true);
-          }}
-        />
+          {
+            !editMode &&
+            <IconButton
+            my="3px"
+            aria-label="Add a Tag"
+            size="sm"
+            fontSize="1.4em"
+            icon={MdAdd}
+            _focus={{
+              outline: "none"
+            }}
+            onClick={() => {
+              handleToggle(true);
+            }}
+            />
+          }
       </Stack>
       {
         addingTagMode && 
