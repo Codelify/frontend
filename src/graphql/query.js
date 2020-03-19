@@ -19,8 +19,8 @@ export const MY_SNIPPETs = gql`
 `;
 
 export const GET_SNIPPET = gql`
-  query Snippets() {
-    getSnippetDetails() {
+  query Snippets($token: String!) {
+    getSnippetDetails(token: $token) {
       id
       title
       description
