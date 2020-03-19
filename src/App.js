@@ -36,9 +36,9 @@ function App() {
         <Landing path="/" />
         <AccessDenied path="/access_denied" />
         <Profile path="/profile" />
-        <SingleSnippet path="/view/snippet" />
+        <SingleSnippet path="/snippets/:shareId" />
         <Login path="/login" />
-        <Default exact path="/snippets/:name" component={Default} />
+        <Default exact path="/app" component={Default} />
         <SlackAuthenticator path="/slack/auth" />
       </Router>
     );  

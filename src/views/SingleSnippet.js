@@ -28,20 +28,22 @@ const handleChange = ({ target: { name, value } }) => {
 <Input name="fullname" placeholder="Dan Abramov" onChange={handleChange} />
     `;
 
-const snippet = {
-    title: "Single snippet Title",
-    id: "ID",
-    description: "When starting an update on the wrong branch, the following sequence allow to leave the branch clean, while moving all changes to the new (correct) branch",
-    url: "https://external-linkk.com",
-    tags: ["tag1", "tag2", "tag3"],
-    content: snippetPlaceHolder,
-    isFav: false,
-    index: 0
-    }
+const SingleSnippet = (props) => {
+    
+    const snippetShareId = props.shareId;
+    const { colorMode } = useColorMode();
+    const disableEdit = true;
 
-const SingleSnippet = () => {
-const { colorMode } = useColorMode();
-const disableEdit = true;
+    const snippet = {
+        title: "Single snippet Title",
+        id: "ID",
+        description: "When starting an update on the wrong branch, the following sequence allow to leave the branch clean, while moving all changes to the new (correct) branch",
+        url: "https://external-linkk.com",
+        tags: ["tag1", "tag2", "tag3"],
+        content: snippetPlaceHolder,
+        isFav: false,
+        index: 0
+    }
 
     return (
     <ThemeProvider>
@@ -71,6 +73,7 @@ const disableEdit = true;
                     url={snippet.sourceUrl}
                     isFav={snippet.isFav}
                     isArchived={snippet.archivedAt}
+                    shareId={snippetShareId}
                 />
             </SnippetContext.Provider>
             </Box>

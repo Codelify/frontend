@@ -10,8 +10,7 @@ import config from "../utils/config";
 const Default = () => {
   const { state, dispatch } = useContext(AppContext);
   //console.log("Menu View", state.currentView);
-  const token =
-    typeof window !== "undefined" && window.localStorage.getItem("token");
+  const token = typeof window !== "undefined" && window.localStorage.getItem("token");
   const { data, loading, refetch } = useQuery(MY_SNIPPETs, {
     variables: { token },
     //fetchPolicy: "no-cache",
