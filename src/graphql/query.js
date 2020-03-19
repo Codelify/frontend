@@ -19,8 +19,8 @@ export const MY_SNIPPETs = gql`
 `;
 
 export const GET_SNIPPET = gql`
-  query Snippets($token: String!) {
-    getSnippetDetails(token: $token) {
+  query Snippets($snippetId: String!) {
+    getSnippetDetails(snippetId: $snippetId) {
       id
       title
       description
@@ -29,8 +29,6 @@ export const GET_SNIPPET = gql`
       sourceUrl
       createdAt
       isFav
-      archivedAt
-      isPublic
       shareId
     }
   }
