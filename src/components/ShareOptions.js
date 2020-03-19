@@ -82,9 +82,12 @@ const ShareOptions = ({isPublic, shareId, id}) => {
                 <Box mx="5px" as={FaTwitter} />
                 <Text fontSize="sm">Publish on Twitter</Text>
             </Stack>
-            <Stack py="10px" alignItems="center" justifyContent="flex-start" isInline>
-                <Badge style={{cursor:"pointer"}} onClick={toggleVisibility} variantColor={visible ? "green" : "red"}>{visible ? <Public /> : <Private />}</Badge>
-            </Stack>
+            {
+                !editMode &&
+                <Stack py="10px" alignItems="center" justifyContent="flex-start" isInline>
+                    <Badge style={{cursor:"pointer"}} onClick={toggleVisibility} variantColor={visible ? "green" : "red"}>{visible ? <Public /> : <Private />}</Badge>
+                </Stack>
+            }
         </Collapse>
         </Box>
     )
