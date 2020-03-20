@@ -7,6 +7,7 @@ import {
     CSSReset,
     Spinner
 } from "@chakra-ui/core";
+import Header from "../components/Header";
 import UserBio from '../components/UserBio'
 import Footer from "../components/Footer";
 import CodeSnippet from "../components/CodeSnippet";
@@ -27,7 +28,8 @@ const SingleSnippet = (props) => {
     return (
     <ThemeProvider>
     <CSSReset />
-    <Box pt="30px">
+    <Header landing={true} isLoggedIn={true} />
+    <Box pt="100px">
     <UserBio />
         <Flex align="center" justifyContent="center" w="100%">
             <Box
