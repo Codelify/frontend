@@ -27,6 +27,17 @@ export const GET_SNIPPET = gql`
       content
       tags
       sourceUrl
+      owner { 
+        id
+        uid
+        avatar
+        lastName
+        firstName
+        email
+        bio
+        twitter
+        linkedin        
+      }
       createdAt
       isFav
       shareId

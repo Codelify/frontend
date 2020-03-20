@@ -18,7 +18,8 @@ const CodeSnippet = ({
   isFav,
   index,
   isPublic,
-  shareId
+  shareId,
+  owner
 }) => {
   //moved ControlButtons in each filed - so we can know whitch field user wants to update
   // const ControlButtons = () => {
@@ -33,7 +34,6 @@ const CodeSnippet = ({
   const [descriptionToUpdate, setDescroptionToUpdate] = useState(description);
   const [contentToUpdate, setContentToUpdate] = useState(content);
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
-
 
   const handleUpdate = async typeOfAction => {
     const costumObject = {};

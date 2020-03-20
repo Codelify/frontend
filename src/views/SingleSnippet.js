@@ -31,40 +31,41 @@ const SingleSnippet = (props) => {
     <CSSReset />
     <Header landing={true} isLoggedIn={isLoggedIn()} />
     <Box pt="100px">
-    <UserBio />
-        <Flex align="center" justifyContent="center" w="100%">
-            <Box
-            w="90%"
-            px={["10px", "10px", "10px", "20px"]}
-            borderRadius="10px"
-            backgroundColor={
-                colorMode === "light" ? "#FAFAFA" : "rgba(45,55,72, 0.1)"
-            }
-            mt="50px"
-            py="40px"
-            >
-            <SnippetContext.Provider value={disableEdit}>
-                {
-                    loading ?
-                    <Spinner /> :
-                    <CodeSnippet
-                    index={0}
-                    key={data.getSnippetDetails.id}
-                    id={data.getSnippetDetails.id}
-                    title={data.getSnippetDetails.title}
-                    description={data.getSnippetDetails.description}
-                    content={data.getSnippetDetails.content}
-                    tags={data.getSnippetDetails.tags}
-                    url={data.getSnippetDetails.sourceUrl}
-                    isFav={data.getSnippetDetails.isFav}
-                    isArchived={data.getSnippetDetails.archivedAt}
-                    shareId={snippetId}
-                    />
-                }
+        {
+            loading ? <Spinner /> :
+            <>
+                <UserBio owner={data.getSnippetDetails.owner}/>
+                <Flex align="center" justifyContent="center" w="100%">
+                    <Box
+                    w="90%"
+                    px={["10px", "10px", "10px", "20px"]}
+                    borderRadius="10px"
+                    backgroundColor={
+                        colorMode === "light" ? "#FAFAFA" : "rgba(45,55,72, 0.1)"
+                    }
+                    mt="50px"
+                    py="40px"
+                    >
+                    <SnippetContext.Provider value={disableEdit}>
 
-            </SnippetContext.Provider>
-            </Box>
-        </Flex>
+                            <CodeSnippet
+                            index={0}
+                            key={data.getSnippetDetails.id}
+                            id={data.getSnippetDetails.id}
+                            title={data.getSnippetDetails.title}
+                            description={data.getSnippetDetails.description}
+                            content={data.getSnippetDetails.content}
+                            tags={data.getSnippetDetails.tags}
+                            url={data.getSnippetDetails.sourceUrl}
+                            isFav={data.getSnippetDetails.isFav}
+                            isArchived={data.getSnippetDetails.archivedAt}
+                            shareId={snippetId}
+                            />
+                    </SnippetContext.Provider>
+                    </Box>
+                </Flex>
+            </>
+        }
         <Footer />
     </Box>
     </ThemeProvider>
