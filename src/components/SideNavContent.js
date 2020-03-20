@@ -31,14 +31,14 @@ const SideNavContent = ({ contentHeight = "calc(100vh - 4rem)", ...props }) => {
       name: "My Snippets",
       icon: FiHome,
       id: "FiHome",
-      link: "/snippets/list",
+      link: "/app/list",
       count: formatCount(state.snippetsData)
     },
     {
       name: "Archives",
       icon: FiArchive,
       id: "FiArchive",
-      link: "/snippets/archive",
+      link: "/app/archive",
       count: formatCount(state.archivedSnippets)
     }
   ];
@@ -48,14 +48,14 @@ const SideNavContent = ({ contentHeight = "calc(100vh - 4rem)", ...props }) => {
       name: "Favorites",
       icon: FiStar,
       id: "FiStar",
-      link: "/snippets/favorites",
+      link: "/app/favorites",
       count: formatCount(state.favoritesSnippets)
     },
     {
       name: "Tags",
       icon: FiTag,
       id: "FiTag",
-      link: "/snippets/tags",
+      link: "/app/tags",
       count: ""
     }
   ];
