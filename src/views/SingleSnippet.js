@@ -14,6 +14,7 @@ import CodeSnippet from "../components/CodeSnippet";
 import SnippetContext from '../context/SnippetContext';
 import { useQuery } from "@apollo/react-hooks";
 import { GET_SNIPPET } from "../graphql/query";
+import isLoggedIn from '../utils/auth';
 
 const SingleSnippet = (props) => {
     
@@ -28,7 +29,7 @@ const SingleSnippet = (props) => {
     return (
     <ThemeProvider>
     <CSSReset />
-    <Header landing={true} isLoggedIn={true} />
+    <Header landing={true} isLoggedIn={isLoggedIn()} />
     <Box pt="100px">
     <UserBio />
         <Flex align="center" justifyContent="center" w="100%">
