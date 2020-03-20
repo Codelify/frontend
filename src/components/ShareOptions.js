@@ -35,7 +35,7 @@ const Public = () => {
 }
 
 const ShareOptions = ({isPublic, shareId, id}) => {
-    const snippetPublicLink = `${config.host.uri}/snippets/${shareId}`;
+    const snippetPublicLink = `${config.host.uri}/view/snippet/${shareId}`;
     const { onCopy, hasCopied } = useClipboard(snippetPublicLink);
     const [visible, setVisible] = useState(isPublic);
     const [updateSnippet] = useMutation(UPDATE_SNIPPET);

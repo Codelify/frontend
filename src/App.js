@@ -4,6 +4,7 @@ import Default from "./components/Default";
 import Login from "./components/Login";
 import Landing from "./views/Landing";
 import AccessDenied from './views/AccessDenied';
+import PageNotFound from './views/PageNotFound'
 import Profile from './views/Profile';
 import SingleSnippet from './views/SingleSnippet'
 import { Router } from "@reach/router";
@@ -22,60 +23,32 @@ function App() {
   
   const NotFound = () =>{
     if(!auth && (location.pathname === '/app' || location.pathname === '/profile')){
-      return(
-        <AccessDenied />
-      )  
+      return <AccessDenied />
     }
-    else 
-      return(
-        <p>Sorry, nothing here</p>
-      )
+    else return <PageNotFound />
   } 
 
   return(
       <Router>
+        {/* Public routes */}
         <Landing path="/" />
         <AccessDenied path="/access_denied" />
-        <SingleSnippet path="/snippets/:shareId" />
+        <SingleSnippet path="/view/snippet/:shareId" />
         <Login path="/login" />
         <SlackAuthenticator path="/slack/auth" />
         {
           auth && (
+            // Protected routes
             <>
             <Default exact path="/app" component={Default} />
             <Profile path="/profile" />    
             </>
           )
         }
+        {/* Not found or forbiden */}
         <NotFound default />
       </Router>
     )
-  //If no token and not trying to login with slack
-  // then we render the Landing page by default
-  // if (auth) {
-  //   return(
-  //     <Router>
-  //       <Landing path="/" />
-  //       <AccessDenied path="/access_denied" />
-  //       <Profile path="/profile" />
-  //       <SingleSnippet path="/snippets/:shareId" />
-  //       <Login path="/login" />
-  //       <Default exact path="/app" component={Default} />
-  //       <SlackAuthenticator path="/slack/auth" />
-  //     </Router>
-  //   )
-  // }
-  // else 
-  // return (
-  //   <Router>
-  //     <Landing path="/" />
-  //     <AccessDenied path="/access_denied" />
-  //     <Profile path="/profile" />
-  //     <SingleSnippet path="/snippets/:shareId" />
-  //     <Login path="/login" />
-  //     <SlackAuthenticator path="/slack/auth" />
-  //   </Router>
-  // )
 }
 
 export default App;
