@@ -14,6 +14,7 @@ import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md' ;
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
+import config from '../utils/config'
 
 const Private = () => {
     return(
@@ -34,7 +35,7 @@ const Public = () => {
 }
 
 const ShareOptions = ({isPublic, shareId, id}) => {
-    const snippetPublicLink = `https://codelify.dev/snippets/${shareId}`;
+    const snippetPublicLink = `${config.host.uri}/snippets/${shareId}`;
     const { onCopy, hasCopied } = useClipboard(snippetPublicLink);
     const [visible, setVisible] = useState(isPublic);
     const [updateSnippet] = useMutation(UPDATE_SNIPPET);
