@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/core";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Feature from '../components/Features'
 import Container from "../components/Container";
 import RequestAccess from "../components/RequestAccess";
 //import GoogleButton from "../components/GoogleButton";
@@ -27,35 +28,6 @@ import SlackButton from "../components/SlackButton";
 import { handleRouteChange } from "../utils/handleRouteChange";
 import Img from "react-image"
 //import GoogleLogin from "react-google-login";
-
-const Feature = ({ title, icon, children, ...props }) => {
-  const { colorMode } = useColorMode();
-
-  return (
-    <Box
-      backgroundColor={
-        colorMode === "light" ? "#FAFAFA" : "rgba(45,55,72, 0.1)"
-      }
-      borderRadius="5px"
-      p="15px"
-      d="flex"
-      alignItems="flex-start"
-      {...props}
-    >
-      <Box>
-        <Flex size="64px" align="center" justify="center">
-          <Box size={40} color="teal.300" as={icon} />
-        </Flex>
-      </Box>
-      <Box ml="10px">
-        <Heading as="h2" size="md" fontWeight="semibold" mt="0em" mb="0.5em">
-          {title}
-        </Heading>
-        <Text opacity="0.7">{children}</Text>
-      </Box>
-    </Box>
-  );
-};
 
 function Landing() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
