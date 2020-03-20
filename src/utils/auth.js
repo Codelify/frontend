@@ -1,37 +1,45 @@
-const isBrowser = typeof window !== `undefined`;
-
-const getUser = () =>
-  window.localStorage.gatsbyUser
-    ? JSON.parse(window.localStorage.gatsbyUser)
-    : {};
-
-const setUser = user => (window.localStorage.gatsbyUser = JSON.stringify(user));
-
-export const handleLogin = ({ username, password }) => {
-  if (!isBrowser) return false;
-
-  if (username === `gatsby` && password === `demo`) {
-    console.log(`Credentials match! Setting the active user.`);
-    return setUser({
-      name: `Jim`,
-      legalName: `James K. User`,
-      email: `jim@example.org`,
-    });
-  }
-
-  return false;
+const isLoggedIn = () => {
+  if (typeof window !== "undefined" && window.localStorage.getItem("token")) {
+    return true;
+  } else  return false;
 };
 
-export const isLoggedIn = () => {
-  return !!localStorage.getItem('token');
-};
+export default isLoggedIn;
 
-export const getCurrentUser = () => isBrowser && getUser();
+// const isBrowser = typeof window !== `undefined`;
 
-export const logout = callback => {
-  if (!isBrowser) return;
+// const getUser = () =>
+//   window.localStorage.gatsbyUser
+//     ? JSON.parse(window.localStorage.gatsbyUser)
+//     : {};
 
-  console.log(`Ensuring the \`gatsbyUser\` property exists.`);
-  setUser({});
-  callback();
-};
+// const setUser = user => (window.localStorage.gatsbyUser = JSON.stringify(user));
+
+// export const handleLogin = ({ username, password }) => {
+//   if (!isBrowser) return false;
+
+//   if (username === `gatsby` && password === `demo`) {
+//     console.log(`Credentials match! Setting the active user.`);
+//     return setUser({
+//       name: `Jim`,
+//       legalName: `James K. User`,
+//       email: `jim@example.org`,
+//     });
+//   }
+
+//   return false;
+// };
+
+// export const isLoggedIn = () => {
+//   return !!localStorage.getItem('token');
+// };
+
+// export const getCurrentUser = () => isBrowser && getUser();
+
+// export const logout = callback => {
+//   if (!isBrowser) return;
+
+//   console.log(`Ensuring the \`gatsbyUser\` property exists.`);
+//   setUser({});
+//   callback();
+// };

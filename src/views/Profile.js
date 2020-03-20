@@ -114,7 +114,7 @@ function Profile() {
         size="md"
         m="10px"
         onClick={() => {
-          navigate("/snippets/list");
+          navigate("/app");
         }}
         variantColor="teal"
         _focus={{ outline: "none" }}

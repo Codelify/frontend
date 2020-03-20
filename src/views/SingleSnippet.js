@@ -4,77 +4,68 @@ import {
     Flex, 
     useColorMode,
     ThemeProvider,
-    CSSReset
+    CSSReset,
+    Spinner
 } from "@chakra-ui/core";
+import Header from "../components/Header";
 import UserBio from '../components/UserBio'
 import Footer from "../components/Footer";
 import CodeSnippet from "../components/CodeSnippet";
-import SnippetContext from '../context/SnippetContext'
+import SnippetContext from '../context/SnippetContext';
+import { useQuery } from "@apollo/react-hooks";
+import { GET_SNIPPET } from "../graphql/query";
+import isLoggedIn from '../utils/auth';
 
-const snippetPlaceHolder = `
-// Using useState hook to store the component state (form data)
-const [ formData, setFormData ] = useState({});
+const SingleSnippet = (props) => {
+    
+    const snippetId = props.shareId;
+    const { colorMode } = useColorMode();
+    const disableEdit = true;
 
-// This part handle the state update based on the form data values
-// It receive the target element name and value
-const handleChange = ({ target: { name, value } }) => {
-    setFormData(prevState => ({
-        ...prevState,
-        [name]: value
-    }));
-};
-
-// The field calling handleChange using onChange event
-<Input name="fullname" placeholder="Dan Abramov" onChange={handleChange} />
-    `;
-
-const snippet = {
-    title: "Single snippet Title",
-    id: "ID",
-    description: "When starting an update on the wrong branch, the following sequence allow to leave the branch clean, while moving all changes to the new (correct) branch",
-    url: "https://external-linkk.com",
-    tags: ["tag1", "tag2", "tag3"],
-    content: snippetPlaceHolder,
-    isFav: false,
-    index: 0
-    }
-
-const SingleSnippet = () => {
-const { colorMode } = useColorMode();
-const disableEdit = true;
+    const { data, loading } = useQuery(GET_SNIPPET, {
+        variables: { snippetId },
+    });
 
     return (
     <ThemeProvider>
     <CSSReset />
-    <Box pt="30px">
-    <UserBio />
-        <Flex align="center" justifyContent="center" w="100%">
-            <Box
-            w="90%"
-            px={["10px", "10px", "10px", "20px"]}
-            borderRadius="10px"
-            backgroundColor={
-                colorMode === "light" ? "#FAFAFA" : "rgba(45,55,72, 0.1)"
-            }
-            mt="50px"
-            py="40px"
-            >
-            <SnippetContext.Provider value={disableEdit}>
-                <CodeSnippet
-                    index={snippet.index}
-                    key={snippet.id}
-                    id={snippet.id}
-                    title={snippet.title}
-                    description={snippet.description}
-                    content={snippet.content}
-                    tags={snippet.tags}
-                    url={snippet.sourceUrl}
-                    isFav={snippet.isFav}
-                    isArchived={snippet.archivedAt}
-                />
-            </SnippetContext.Provider>
-            </Box>
-        </Flex>
+    <Header landing={true} isLoggedIn={isLoggedIn()} />
+    <Box pt="100px">
+        {
+            loading ? <Spinner /> :
+            <>
+                <UserBio owner={data.getSnippetDetails.owner}/>
+                <Flex align="center" justifyContent="center" w="100%">
+                    <Box
+                    w="90%"
+                    px={["10px", "10px", "10px", "20px"]}
+                    borderRadius="10px"
+                    backgroundColor={
+                        colorMode === "light" ? "#FAFAFA" : "rgba(45,55,72, 0.1)"
+                    }
+                    mt="50px"
+                    py="40px"
+                    >
+                    <SnippetContext.Provider value={disableEdit}>
+
+                            <CodeSnippet
+                            index={0}
+                            key={data.getSnippetDetails.id}
+                            id={data.getSnippetDetails.id}
+                            title={data.getSnippetDetails.title}
+                            description={data.getSnippetDetails.description}
+                            content={data.getSnippetDetails.content}
+                            tags={data.getSnippetDetails.tags}
+                            url={data.getSnippetDetails.sourceUrl}
+                            isFav={data.getSnippetDetails.isFav}
+                            isArchived={data.getSnippetDetails.archivedAt}
+                            shareId={snippetId}
+                            />
+                    </SnippetContext.Provider>
+                    </Box>
+                </Flex>
+            </>
+        }
         <Footer />
     </Box>
     </ThemeProvider>

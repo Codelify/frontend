@@ -7,14 +7,12 @@ import {
 } from "@chakra-ui/core";
 import ContentEditable from "react-contenteditable";
 import Container from "../components/Container";
-import useUserData from "../components/~common/useUserData";
 
-function UserBio() {
+function UserBio({owner}) {
     const [description, setDescription] = useState("");
-    const { results } = useUserData();
 
-    const avatar = results.avatar;
-    const fullName = `${results.lastName} ${results.firstName}`;
+    const avatar = owner.avatar;
+    const fullName = `${owner.lastName} ${owner.firstName}`;
 
 
     const setFocusStyle = event => {
@@ -27,11 +25,11 @@ function UserBio() {
 
     useEffect(() => {
         setDescription(
-        results &&
-            (results.bio ||
+            owner &&
+            (owner.bio ||
             "This user has not updated his bio yet"),
         );
-    }, [results.bio, results]);
+    }, [owner.bio, owner]);
 
     return (
         <Container>
