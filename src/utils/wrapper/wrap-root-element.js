@@ -3,7 +3,6 @@
 
 import React from "react";
 import { ColorModeProvider, CSSReset, ThemeProvider } from "@chakra-ui/core";
-import { Helmet } from "react-helmet";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
@@ -21,7 +20,6 @@ export const WrapRootElement = ({ children }) => {
       <ThemeProvider>
         <ColorModeProvider>
           <CSSReset />
-          <Helmet link={[{ rel: "icon", href: "", sizes: "16x16" }]} />
           <AppProvider>{children}</AppProvider>
         </ColorModeProvider>
       </ThemeProvider>

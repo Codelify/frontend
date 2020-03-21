@@ -1,17 +1,18 @@
 import React, { useEffect } from "react";
 import "./App.css";
+import { Helmet } from "react-helmet";
 import Default from "./components/Default";
 import Login from "./components/Login";
 import Landing from "./views/Landing";
-import AccessDenied from './views/AccessDenied';
-import PageNotFound from './views/PageNotFound'
-import Profile from './views/Profile';
-import SingleSnippet from './views/SingleSnippet'
+import AccessDenied from "./views/AccessDenied";
+import PageNotFound from "./views/PageNotFound";
+import Profile from "./views/Profile";
+import SingleSnippet from "./views/SingleSnippet";
 import { Router } from "@reach/router";
 import SlackAuthenticator from "./components/SlackAuthenticator";
 import { initGA } from "./components/~common/Tracking";
 import config from "./utils/config";
-import isLoggedIn from './utils/auth';
+import isLoggedIn from "./utils/auth";
 import { useLocation } from "@reach/router";
 
 function App() {
@@ -20,15 +21,19 @@ function App() {
   }, []);
   const auth = isLoggedIn();
   const location = useLocation();
-  
-  const NotFound = () =>{
-    if(!auth && (location.pathname === '/app' || location.pathname === '/profile')){
-      return <AccessDenied />
-    }
-    else return <PageNotFound />
-  } 
 
-  return(
+  const NotFound = () => {
+    if (
+      !auth &&
+      (location.pathname === "/app" || location.pathname === "/profile")
+    ) {
+      return <AccessDenied />;
+    } else return <PageNotFound />;
+  };
+
+  return (
+    <>
+      <Helmet link={[{ rel: "icon", href: "", sizes: "16x16" }]} />
       <Router>
         {/* Public routes */}
         <Landing path="/" />
@@ -36,20 +41,19 @@ function App() {
         <SingleSnippet path="/view/snippet/:shareId" />
         <Login path="/login" />
         <SlackAuthenticator path="/slack/auth" />
-        {
-          auth && (
-            // Protected routes
-            <>
+        {auth && (
+          // Protected routes
+          <>
             <Default exact path="/app/:name" component={Default} />
             <Default exact path="/app" component={Default} />
-            <Profile path="/profile" />    
-            </>
-          )
-        }
+            <Profile path="/profile" />
+          </>
+        )}
         {/* Not found or forbiden */}
         <NotFound default />
       </Router>
-    )
+    </>
+  );
 }
 
 export default App;
