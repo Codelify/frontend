@@ -40,6 +40,18 @@ export const UPDATE_SNIPPET = gql`
   }
 `;
 
+export const UPDATE_PROFILE = gql`
+  mutation UpdateProfile($token: String!, $profileInfo: ProfileInput!) {
+    updateProfile(input: $profileInfo, token: $token) {
+      id
+      email
+      bio
+      twitter
+      linkedin
+    }
+  }
+`;
+
 export const LOGIN_WITH_GOOGLE = gql`
   mutation authWithGoogle($input: RegisterInput!) {
     authWithGoogle(input: $input) {

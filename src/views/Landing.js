@@ -21,8 +21,8 @@ import Container from "../components/Container";
 import RequestAccess from "../components/RequestAccess";
 //import GoogleButton from "../components/GoogleButton";
 import { MdBookmark, MdFindInPage, MdDescription } from "react-icons/md";
-import screenShotLight from "../assets/img/app-shot-light.jpeg";
-import screenShotDark from "../assets/img/app-shot-dark.jpeg";
+// import screenShotLight from "../assets/img/app-shot-light.jpeg";
+// import screenShotDark from "../assets/img/app-shot-dark.jpeg";
 import SlackButton from "../components/SlackButton";
 import { handleRouteChange } from "../utils/handleRouteChange";
 import Img from "react-image"
@@ -155,11 +155,11 @@ function Landing() {
               opacity={colorMode === "dark" ? "0.7" : "1"}
               alt="Codelify app screenshot"
               style={{
-                animation: "float 6s ease-in-out infinite"
+                animation: "float 6s ease-in-out infinite",
               }}
             /> */}
             <Img 
-              src={colorMode === "light" ? screenShotLight : screenShotDark} 
+              src={colorMode === "light" ? "https://res.cloudinary.com/codelify/image/upload/f_auto,q_auto/v1583157283/app-shot-light_lp32ha.png" : "https://res.cloudinary.com/codelify/image/upload/f_auto,q_auto/v1583157270/app-shot-dark_jfiiqe.png"} 
               style={{
                 animation: "float 6s ease-in-out infinite",
                 borderRadius:"5px",
