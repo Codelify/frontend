@@ -12,6 +12,35 @@ export const MY_SNIPPETs = gql`
       createdAt
       isFav
       archivedAt
+      isPublic
+      shareId
+    }
+  }
+`;
+
+export const GET_SNIPPET = gql`
+  query Snippets($snippetId: String!) {
+    getSnippetDetails(snippetId: $snippetId) {
+      id
+      title
+      description
+      content
+      tags
+      sourceUrl
+      owner { 
+        id
+        uid
+        avatar
+        lastName
+        firstName
+        email
+        bio
+        twitter
+        linkedin        
+      }
+      createdAt
+      isFav
+      shareId
     }
   }
 `;

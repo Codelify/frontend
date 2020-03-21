@@ -3,9 +3,10 @@ import { Box, Flex, Stack, Link, Icon, Divider } from "@chakra-ui/core";
 import SnippetHeading from "./SnippetHeading";
 import Description from "./SnippetDescription";
 import SnippetTags from "./SnippetTags";
+import ShareOptions from './ShareOptions';
+import SnippetContent from "./SnippetContent";
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_SNIPPET } from "../graphql/mutation";
-import SnippetContent from "./SnippetContent";
 
 const CodeSnippet = ({
   title,
@@ -15,7 +16,10 @@ const CodeSnippet = ({
   tags,
   content,
   isFav,
-  index
+  index,
+  isPublic,
+  shareId,
+  owner
 }) => {
   //moved ControlButtons in each filed - so we can know whitch field user wants to update
   // const ControlButtons = () => {
@@ -115,12 +119,14 @@ const CodeSnippet = ({
           <Box>
             {url && (
               <Link color="teal.500" href={url} isExternal>
-                Link <Icon name="external-link" mx="2px" />
+                Link to external recources <Icon name="external-link" mx="2px" />
               </Link>
             )}
           </Box>
-
           <SnippetTags id={id} tags={tags} />
+          <Box mt="20px" p="10px" borderTopWidth="1px">
+              <ShareOptions {...{isPublic, shareId, id}} />
+          </Box>
         </Stack>
         <Box
           minWidth="310px"

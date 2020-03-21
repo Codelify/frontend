@@ -103,7 +103,7 @@ function Profile() {
         ? results.linkedin
         : "https://www.linkedin.com/in/your_handler",
     );
-  }, [results.bio, results.linkedin, results.twitter]);
+  }, [results, results.bio, results.linkedin, results.twitter]);
 
   return (
     <ThemeProvider>
@@ -114,7 +114,7 @@ function Profile() {
         size="md"
         m="10px"
         onClick={() => {
-          navigate("/snippets/list");
+          navigate("/app");
         }}
         variantColor="teal"
         _focus={{ outline: "none" }}

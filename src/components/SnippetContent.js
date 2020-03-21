@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Collapse,
   ButtonGroup,
@@ -8,6 +8,7 @@ import {
   useClipboard,
   Stack
 } from "@chakra-ui/core";
+import SnippetContext from '../context/SnippetContext';
 import { LiveProvider, LiveEditor, withLive } from "react-live";
 import theme from "prism-react-renderer/themes/nightOwl";
 import { MdContentCopy } from "react-icons/md";
@@ -15,9 +16,9 @@ import { FaStar } from "react-icons/fa";
 import SnippetMenu from "./SnippetMenu";
 
 const SnippetContent = (
-  { content, isFav, id, handleUpdate, handleEdit },
-  props
+  { content, isFav, id, handleUpdate, handleEdit }
 ) => {
+  const editMode = useContext(SnippetContext);
   const snippetPlaceHolder = `${content}`;
   const [value] = React.useState(snippetPlaceHolder);
   const { onCopy, hasCopied } = useClipboard(value);
@@ -34,6 +35,7 @@ const SnippetContent = (
   return (
     <>
       <LiveProvider
+        disabled={editMode}
         theme={theme}
         language="javascript"
         code={snippetPlaceHolder}
@@ -116,32 +118,27 @@ const SnippetContent = (
                   icon={MdContentCopy}
                 />
               )}
-              {/* <IconButton
-                variant="ghost"
-                mt="2px"
-                p="3px"
-                size="xs"
-                variantColor="teal"
-                aria-label="Call Sage"
-                fontSize="18px"
-                icon={MdOpenInNew}
-              /> */}
-              <SnippetMenu {...{ isFav, id }} />
+              {
+                !editMode && <SnippetMenu {...{ isFav, id }} />
+              }
             </Stack>
           </Box>
         </Stack>
       </LiveProvider>
-      <Collapse mt="15px" isOpen={show}>
-        <ButtonGroup mb="10px" justifyContent="center" size="sm">
-          <Button
-            variantColor="teal"
-            onMouseDown={e => handleUpdate("content")}
-          >
-            Save
-          </Button>
-          <IconButton icon="close" />
-        </ButtonGroup>
-      </Collapse>
+      {
+        !editMode &&
+          <Collapse mt="15px" isOpen={show}>
+            <ButtonGroup mb="10px" justifyContent="center" size="sm">
+              <Button
+                variantColor="teal"
+                onMouseDown={e => handleUpdate("content")}
+              >
+                Save
+              </Button>
+              <IconButton icon="close" />
+            </ButtonGroup>
+          </Collapse>
+      }
     </>
   );
 };

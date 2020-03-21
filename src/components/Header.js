@@ -48,6 +48,14 @@ const AppHeader = props => {
     navigate("/");
   };
 
+  const changeRoute = () => {
+    if(!isLoggedIn){
+      navigate("/login");
+    } else {
+      navigate(handleRouteChange())
+    }
+  }
+
   return (
     <Box
       pos={landing ? "absolute" : "fixed"}
@@ -77,17 +85,17 @@ const AppHeader = props => {
             {!landing && <SearchBox />}
             <Flex align="center" color="gray.500">
               {landing ? (
-                isLoggedIn && (
+
                   <Button
                     as="a"
                     size="xs"
                     ml={4}
-                    href={handleRouteChange()}
+                    onClick={ changeRoute }
                     _focus={{ outline: "none" }}
                   >
-                    Browse
+                    { isLoggedIn ? "My Snippets" : "Login"}
                   </Button>
-                )
+
               ) : (
                 <>
                   <IconButton

@@ -19,6 +19,9 @@ export default {
   },
   backend: {
     uri: process.env.REACT_APP_BE_URI
+  },
+  host: {
+    uri: process.env.REACT_APP_HOST,
   }
 
 };
