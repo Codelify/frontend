@@ -12,14 +12,14 @@ import { FaSlack } from 'react-icons/fa'
 
 const SlackLogin = () => {
     const handleRedirect = () => {
-       navigate(`https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.avatar,identity.team&client_id=${config.slack.clientId}&team=${config.slack.teamId}`)
+        navigate(`https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.avatar,identity.team&client_id=${config.slack.clientId}&team=${config.slack.teamId}`)
     }
     return (
-        <Tooltip py="5px" fontSize="xs" hasArrow label="For Lambda School Students" placement="bottom">
+        <Tooltip py="5px" fontSize="xs" hasArrow label="Pro access" placement="bottom">
             <Button 
             size="lg" 
-            variantColor="teal"
-            leftIcon={props => <FaSlack size="1.2em" {...props} />}
+            color="#319795"
+            leftIcon={FaSlack}
             onClick={handleRedirect}
             _focus={{ outline: "none" }}
             >

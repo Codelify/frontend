@@ -86,9 +86,9 @@ export default function GoogleButton() {
           href="#"
           onClick={renderProps.onClick}
           disabled={renderProps.disabled}
-          leftIcon={props => <AiOutlineGoogle size="1.5em" {...props} />}
+          leftIcon={AiOutlineGoogle}
         >
-          Sign In
+          Google Login
         </Button>
       )}
       buttonText="Login"

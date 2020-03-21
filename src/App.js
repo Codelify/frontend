@@ -40,6 +40,7 @@ function App() {
           auth && (
             // Protected routes
             <>
+            <Default exact path="/app/:name" component={Default} />
             <Default exact path="/app" component={Default} />
             <Profile path="/profile" />    
             </>

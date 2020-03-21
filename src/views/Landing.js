@@ -14,13 +14,14 @@ import {
   useDisclosure,
   useColorMode,
   Stack,
+  Divider,
 } from "@chakra-ui/core";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Feature from '../components/Features'
 import Container from "../components/Container";
 import RequestAccess from "../components/RequestAccess";
-// import GoogleButton from "../components/GoogleButton";
+import GoogleButton from "../components/GoogleButton";
 import { MdBookmark, MdFindInPage, MdDescription } from "react-icons/md";
 import SlackButton from "../components/SlackButton";
 import { handleRouteChange } from "../utils/handleRouteChange";
@@ -87,7 +88,14 @@ function Landing() {
                     </Button>
                   )}
                   {!isLoggedIn() && (
+                    <>
+                    <Box mb="20px">
+                      <GoogleButton py="10px"/>                      
+                    </Box>
+                    <Text fontSize="sm">Pro</Text>
                     <Stack
+                      borderTopWidth="1px"
+                      pt="10px"
                       mx="3px"
                       spacing={4}
                       d="flex"
@@ -98,13 +106,14 @@ function Landing() {
                         size="lg"
                         _focus={{ outline: "none" }}
                         onClick={onOpen}
+                        color="#718096"
                       >
                         Request Access
                       </Button>
                       <RequestAccess isOpen={isOpen} onClose={onClose} />
                       <SlackButton />
-                      {/* <GoogleButton /> */}
                     </Stack>
+                    </>
                   )}
                 </Box>
               </Box>
