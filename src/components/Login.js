@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/core";
 import { PageView } from "./~common/Tracking";
 import GoogleButton from "./GoogleButton";
-import MainLayout from "../views/layout";
+import MainLayout from "../layouts/layout";
 
 const Login = () => {
   const [show, setShow] = React.useState(false);

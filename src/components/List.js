@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, useColorMode } from "@chakra-ui/core";
 import CodeSnippet from "./CodeSnippet";
-import MainLayout from "../views/layout";
+import MainLayout from "../layouts/layout";
 import InfiniteScroll from "react-infinite-scroll-component";
 import NoSnippetView from "./NoSnippetsView";
 import SnippetContext from '../context/SnippetContext'
