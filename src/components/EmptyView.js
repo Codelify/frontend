@@ -1,5 +1,5 @@
 import React from "react";
-import MainLayout from "../views/layout";
+import MainLayout from "../layouts/AppLayout";
 import Spinner from "./~common/Spinner";
 import NoSnippetView from "./NoSnippetsView";
 
