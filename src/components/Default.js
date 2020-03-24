@@ -7,8 +7,7 @@ import { MY_SNIPPETs } from "../graphql/query";
 import { PageView, initGA } from "./~common/Tracking";
 import config from "../utils/config";
 
-const Default = (props) => {
-  console.log(props.name);
+const Default = () => {
   const { state, dispatch } = useContext(AppContext);
   //console.log("Menu View", state.currentView);
   const token = typeof window !== "undefined" && window.localStorage.getItem("token");

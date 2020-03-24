@@ -107,7 +107,7 @@ const AppHeader = props => {
                       outline: "none",
                     }}
                     onClick={() => {
-                      navigate("/app/news-nippet");
+                      handleClick("full");
                     }}
                   />
                   {token && (
