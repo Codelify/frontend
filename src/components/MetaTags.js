@@ -1,30 +1,8 @@
-// @flow
 import React from "react";
-import Helmet from "react-helmet";
-
-type Props = {
-  title?: string,
-  description?: string,
-  canonical?: string,
-  keywords?: string,
-  propertyOgLocale?: string,
-  propertyOgType?: string,
-  propertyOgTitle?: string,
-  propertyOgDescription?: string,
-  propertyOgUrl?: string,
-  propertyOgSiteName?: string,
-  propertyOgImage?: string,
-  propertyOgImageWidth?: string,
-  propertyOgImageHeight?: string,
-  propertyTwitterCard?: string,
-  twitterDescription?: string,
-  propertyTwitterTitle?: string,
-  propertyTwitterImage?: string,
-  websiteVoice?: string,
-};
+import { Helmet } from "react-helmet";
 
 const Metatags = ({
-  title = "EMURGO | Building a Global Cardano as the Official Venture Arm",
+  title = "Inside example",
   description = "",
   canonical = "",
   keywords = "",
@@ -41,8 +19,7 @@ const Metatags = ({
   twitterDescription = "",
   propertyTwitterTitle = "",
   propertyTwitterImage = "",
-  websiteVoice = "",
-}: Props) => (
+}) => (
   <Helmet>
     {/* Default tags (SEO) */}
     {title && <title>{title}</title>}
@@ -147,19 +124,6 @@ const Metatags = ({
         content={propertyTwitterImage}
         data-react-helmet="true"
       />
-    )}
-    {websiteVoice && (
-      <script
-        async
-        src="https://widget.websitevoice.com/Nki29ebWnudHDIG908tchw"
-      />
-    )}
-    {websiteVoice && (
-      <script>
-        {`window.wvData=window.wvData||{};function wvtag(a,b){wvData[a]=b;}
-        wvtag('id', 'Nki29ebWnudHDIG908tchw');
-        ${websiteVoice}`}
-      </script>
     )}
   </Helmet>
 );

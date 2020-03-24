@@ -3,6 +3,7 @@ import MainLayout from "../views/layout";
 import Spinner from "./~common/Spinner";
 import NoSnippetView from "./NoSnippetsView";
 
+
 const EmptyView = ({ loading }) => {
   return (
     <MainLayout>
