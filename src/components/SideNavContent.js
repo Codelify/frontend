@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { AppContext } from "../utils/AppProvider";
+import { AppContext } from "../context/AppContext";
 import { Box, PseudoBox, Heading } from "@chakra-ui/core";
 import localstorage from "../utils/localstorage";
 import { FiArchive, FiHome, FiStar, FiTag } from "react-icons/fi";

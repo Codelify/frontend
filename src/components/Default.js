@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useCallback } from "react";
-import { AppContext } from "../utils/AppProvider";
+import { AppContext } from "../context/AppContext";
 import EmptyView from "./EmptyView";
 import SnippetList from "./List";
 import { useQuery } from "@apollo/react-hooks";
@@ -7,7 +7,8 @@ import { MY_SNIPPETs } from "../graphql/query";
 import { PageView, initGA } from "./~common/Tracking";
 import config from "../utils/config";
 
-const Default = () => {
+const Default = (props) => {
+  console.log(props.name);
   const { state, dispatch } = useContext(AppContext);
   //console.log("Menu View", state.currentView);
   const token = typeof window !== "undefined" && window.localStorage.getItem("token");
