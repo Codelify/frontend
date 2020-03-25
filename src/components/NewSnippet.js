@@ -379,7 +379,9 @@ const formatCurrency = new Intl.NumberFormat("en-US",{
                 code={code.trim()}
               >
                 <FormLabel htmlFor="desc">Code</FormLabel>
-                <CodeLangageBar {...{langageSelection, codeLangage}} />
+                <Box py="5px" style={{whiteSpace:"nowrap", overflow:"auto"}}>
+                  <CodeLangageBar {...{langageSelection, codeLangage}} />
+                </Box>
 
                 <LiveEditor
                   padding={10}

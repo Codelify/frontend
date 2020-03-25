@@ -16,7 +16,7 @@ import { IoMdRadioButtonOn } from 'react-icons/io'
 
 const CodeLangageBar = ({langageSelection, codeLangage}) => {
     return (
-    <Box py="5px" style={{whiteSpace:"nowrap", overflow:"auto"}}>
+    <>
         <Tag size="lg" style={{cursor: "pointer"}} mx="5px" variantColor={codeLangage === "javascript" ? "orange" : "gray"} id="javascript" onClick={langageSelection}  >
         <JsIcon style={{width:"20px", height:"auto"}} />
         <TagLabel mx="5px">Javascript</TagLabel>
@@ -45,7 +45,7 @@ const CodeLangageBar = ({langageSelection, codeLangage}) => {
         <TagIcon icon={IoMdRadioButtonOn} />
         <TagLabel mx="5px">Other</TagLabel>
         </Tag>
-    </Box>
+    </>
     )
 }
 
