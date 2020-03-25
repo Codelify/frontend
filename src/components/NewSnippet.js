@@ -23,7 +23,7 @@ import {
   Heading,
   FormControl,
   Alert,
-  AlertIcon
+  AlertIcon,
 } from "@chakra-ui/core";
 import { LiveProvider, LiveEditor } from "react-live";
 import theme from "prism-react-renderer/themes/nightOwl";
@@ -32,6 +32,11 @@ import { useMutation } from "@apollo/react-hooks";
 import { CREATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
 import { handleRouteChange } from "../utils/handleRouteChange";
+import { ReactComponent as JsIcon } from '../assets/icons/javascript-plain.svg';
+import { ReactComponent as ReactIcon } from '../assets/icons/react-original.svg';
+import { ReactComponent as PythonIcon } from '../assets/icons/python-plain.svg';
+import { ReactComponent as HtmlIcon } from '../assets/icons/html5-original.svg';
+import { ReactComponent as NodeIcon } from '../assets/icons/nodejs-original.svg';
 
 const NewSnippet = props => {
   const { isOpen, onClose, firstField, btnRef, size } = props;
@@ -215,6 +220,13 @@ const a = 10;
     }
   };
 
+  const [ codeLangage, setCodeLangage ] = useState(null)
+
+  const langageSelection = (event) => {
+    setCodeLangage(event.target.parentElement.id)
+  }
+
+
   // this useffect each time a tags is added or removed
   // so that the main form data is sycnhed with the tags array
   useEffect(() => {
@@ -247,7 +259,6 @@ const a = 10;
         >
           <Heading>Create a new Snippet</Heading>
         </DrawerHeader>
-
         <DrawerBody>
           <Flex borderWidth="1px" flexWrap="wrap" w="100%">
             <Stack
@@ -370,6 +381,31 @@ const a = 10;
                 code={code.trim()}
               >
                 <FormLabel htmlFor="desc">Code</FormLabel>
+
+                <Stack my="5px" spacing={2} isInline>
+                <Tag size="sm" variantColor={codeLangage === "react" ? "cyan" : "gray"} id="react" onClick={langageSelection} >
+                  <ReactIcon style={{width:"20px", height:"auto"}} />
+                  <TagLabel mx="5px">React</TagLabel>
+                </Tag>
+                <Tag size="sm" variantColor={codeLangage === "javascript" ? "cyan" : "gray"} id="javascript" onClick={langageSelection}  >
+                  <JsIcon style={{width:"20px", height:"auto"}} />
+                  <TagLabel mx="5px">Javascript</TagLabel>
+                </Tag>
+                <Tag size="sm" variantColor={codeLangage === "python" ? "cyan" : "gray"} id="python" onClick={langageSelection}  >
+                  <PythonIcon style={{width:"20px", height:"auto"}} />
+                  <TagLabel mx="5px">Python</TagLabel>
+                </Tag>
+                <Tag size="sm" variantColor={codeLangage === "html" ? "cyan" : "gray"} id="html" onClick={langageSelection}  >
+                  <HtmlIcon style={{width:"20px", height:"auto"}} />
+                  <TagLabel mx="5px">HTML</TagLabel>
+                </Tag>
+                <Tag size="sm" variantColor={codeLangage === "node" ? "cyan" : "gray"} id="node" onClick={langageSelection}  >
+                  <NodeIcon style={{width:"20px", height:"auto"}} />
+                  <TagLabel mx="5px">Nodejs</TagLabel>
+                </Tag>
+              </Stack>
+
+
                 <LiveEditor
                   padding={10}
                   onChange={code => handleSnippetChange(code)}
