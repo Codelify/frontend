@@ -36,7 +36,8 @@ import { ReactComponent as JsIcon } from '../assets/icons/javascript-plain.svg';
 import { ReactComponent as ReactIcon } from '../assets/icons/react-original.svg';
 import { ReactComponent as PythonIcon } from '../assets/icons/python-plain.svg';
 import { ReactComponent as HtmlIcon } from '../assets/icons/html5-original.svg';
-import { ReactComponent as NodeIcon } from '../assets/icons/nodejs-original.svg';
+import { ReactComponent as GoIcon } from '../assets/icons/go-plain.svg';
+import { ReactComponent as RubyIcon } from '../assets/icons/ruby-plain.svg';
 
 const NewSnippet = props => {
   const { isOpen, onClose, firstField, btnRef, size } = props;
@@ -131,9 +132,8 @@ const NewSnippet = props => {
   };
 
   const snippetPlaceHolder = `
-/* Edit or copy and paste your code snippet here */
-
-const a = 10;
+/* Edit or paste your code snippet here */
+import React from "react";
     `;
 
   const [code, setCode] = useState(snippetPlaceHolder);
@@ -220,7 +220,7 @@ const a = 10;
     }
   };
 
-  const [ codeLangage, setCodeLangage ] = useState(null)
+  const [ codeLangage, setCodeLangage ] = useState("jsx")
 
   const langageSelection = (event) => {
     setCodeLangage(event.target.parentElement.id)
@@ -377,31 +377,35 @@ const a = 10;
             <Box mt="20px" minWidth="330px" w="60%">
               <LiveProvider
                 theme={theme}
-                language="javascript"
+                language={codeLangage}
                 code={code.trim()}
               >
                 <FormLabel htmlFor="desc">Code</FormLabel>
 
                 <Stack my="5px" spacing={2} isInline>
-                <Tag size="sm" variantColor={codeLangage === "react" ? "cyan" : "gray"} id="react" onClick={langageSelection} >
-                  <ReactIcon style={{width:"20px", height:"auto"}} />
-                  <TagLabel mx="5px">React</TagLabel>
-                </Tag>
                 <Tag size="sm" variantColor={codeLangage === "javascript" ? "cyan" : "gray"} id="javascript" onClick={langageSelection}  >
-                  <JsIcon style={{width:"20px", height:"auto"}} />
+                  <JsIcon style={{width:"15px", height:"auto"}} />
                   <TagLabel mx="5px">Javascript</TagLabel>
                 </Tag>
                 <Tag size="sm" variantColor={codeLangage === "python" ? "cyan" : "gray"} id="python" onClick={langageSelection}  >
-                  <PythonIcon style={{width:"20px", height:"auto"}} />
+                  <PythonIcon style={{width:"15px", height:"auto"}} />
                   <TagLabel mx="5px">Python</TagLabel>
                 </Tag>
+                <Tag size="sm" variantColor={codeLangage === "jsx" ? "cyan" : "gray"} id="jsx" onClick={langageSelection} >
+                  <ReactIcon style={{width:"15px", height:"auto"}} />
+                  <TagLabel mx="5px">React</TagLabel>
+                </Tag>
                 <Tag size="sm" variantColor={codeLangage === "html" ? "cyan" : "gray"} id="html" onClick={langageSelection}  >
-                  <HtmlIcon style={{width:"20px", height:"auto"}} />
+                  <HtmlIcon style={{width:"15px", height:"auto"}} />
                   <TagLabel mx="5px">HTML</TagLabel>
                 </Tag>
-                <Tag size="sm" variantColor={codeLangage === "node" ? "cyan" : "gray"} id="node" onClick={langageSelection}  >
-                  <NodeIcon style={{width:"20px", height:"auto"}} />
-                  <TagLabel mx="5px">Nodejs</TagLabel>
+                <Tag size="sm" variantColor={codeLangage === "ruby" ? "cyan" : "gray"} id="ruby" onClick={langageSelection}  >
+                  <RubyIcon style={{width:"15px", height:"auto"}} />
+                  <TagLabel mx="5px">Ruby</TagLabel>
+                </Tag>
+                <Tag size="sm" variantColor={codeLangage === "go" ? "cyan" : "gray"} id="go" onClick={langageSelection}  >
+                  <GoIcon style={{width:"15px", height:"auto"}} />
+                  <TagLabel mx="5px">Go</TagLabel>
                 </Tag>
               </Stack>
 
