@@ -6,7 +6,7 @@ import {
   IconButton,
   Box,
   useClipboard,
-  Stack
+  Stack,
 } from "@chakra-ui/core";
 import SnippetContext from '../context/SnippetContext';
 import { LiveProvider, LiveEditor, withLive } from "react-live";
@@ -16,7 +16,7 @@ import { FaStar } from "react-icons/fa";
 import SnippetMenu from "./SnippetMenu";
 
 const SnippetContent = (
-  { content, isFav, id, handleUpdate, handleEdit }
+  { content, id, isFav, handleEdit, handleUpdate, codeLangage }
 ) => {
   const editMode = useContext(SnippetContext);
   const snippetPlaceHolder = `${content}`;
@@ -37,7 +37,7 @@ const SnippetContent = (
       <LiveProvider
         disabled={editMode}
         theme={theme}
-        language="javascript"
+        language={codeLangage === "other" ? "javascript" : codeLangage}
         code={snippetPlaceHolder}
         transformCode={e => handleEdit(e, "content")}
         style={{

@@ -7,6 +7,7 @@ import ShareOptions from './ShareOptions';
 import SnippetContent from "./SnippetContent";
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_SNIPPET } from "../graphql/mutation";
+import CodeLangageBar from './CodeLangageBar'
 
 const CodeSnippet = ({
   title,
@@ -91,6 +92,12 @@ const CodeSnippet = ({
     document.getElementById(event.target.id).classList.add("edited-div");
   };
 
+  const [ codeLangage, setCodeLangage ] = useState("javascript")
+  const langageSelection = (event) => {
+    setCodeLangage(event.target.parentElement.id)
+  }
+
+
   return (
     <>
       {index !== 0 && <Divider py="10px" mb="30px" />}
@@ -108,7 +115,6 @@ const CodeSnippet = ({
             styledEdit={styledEdit}
             handleUpdate={handleUpdate}
           />
-
           <Description
             id={id}
             description={descriptionToUpdate}
@@ -116,6 +122,10 @@ const CodeSnippet = ({
             styledEdit={styledEdit}
             handleUpdate={handleUpdate}
           />
+          <Box py="5px" style={{whiteSpace:"nowrap", overflow:"auto"}}>
+            <CodeLangageBar {...{langageSelection, codeLangage}} />
+          </Box>
+          <Divider />
           <Box>
             {url && (
               <Link color="teal.500" href={url} isExternal>
@@ -132,13 +142,10 @@ const CodeSnippet = ({
           minWidth="310px"
           w={["100%", "100%", "100%", "60%"]}
           borderRadius="5px"
-        >
+        >          
           <SnippetContent
-            isFav={isFav}
             content={contentToUpdate}
-            id={id}
-            handleEdit={handleEdit}
-            handleUpdate={handleUpdate}
+            {...{id, isFav, handleEdit, handleUpdate, codeLangage}}
           />
         </Box>
       </Flex>
