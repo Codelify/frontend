@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useCallback } from "react";
-import { AppContext } from "../utils/AppProvider";
+import { AppContext } from "../context/AppContext";
 import EmptyView from "./EmptyView";
 import SnippetList from "./List";
 import { useQuery } from "@apollo/react-hooks";

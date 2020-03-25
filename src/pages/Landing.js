@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Event, PageView, initGA } from "../components/~common/Tracking";
 import config from "../utils/config";
 // import './App.css';
@@ -14,7 +14,6 @@ import {
   useDisclosure,
   useColorMode,
   Stack,
-  Divider,
 } from "@chakra-ui/core";
 import Header from "../components/Header";
 import Footer from "../components/Footer";

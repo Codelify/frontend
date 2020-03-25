@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { AppContext } from "../utils/AppProvider";
+import { AppContext } from "../context/AppContext";
 import {
   Icon,
   Input,

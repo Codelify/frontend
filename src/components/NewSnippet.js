@@ -23,7 +23,7 @@ import {
   Heading,
   FormControl,
   Alert,
-  AlertIcon
+  AlertIcon,
 } from "@chakra-ui/core";
 import { LiveProvider, LiveEditor } from "react-live";
 import theme from "prism-react-renderer/themes/nightOwl";
@@ -32,6 +32,7 @@ import { useMutation } from "@apollo/react-hooks";
 import { CREATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
 import { handleRouteChange } from "../utils/handleRouteChange";
+import CodeLangageBar from './CodeLangageBar'
 
 const NewSnippet = props => {
   const { isOpen, onClose, firstField, btnRef, size } = props;
@@ -108,7 +109,7 @@ const NewSnippet = props => {
         });
         // clear the tags array
         setTags([]);
-        // redirect to /snippets
+        // redirect to /app
         data.loading && navigate(handleRouteChange());
       }
       if (error) {
@@ -126,9 +127,11 @@ const NewSnippet = props => {
   };
 
   const snippetPlaceHolder = `
-/* Edit or copy and paste your code snippet here */
-
-const a = 10;
+/* Edit or paste your code snippet here */
+const formatCurrency = new Intl.NumberFormat("en-US",{
+  style:"currency",
+  currency:"USD"
+  })
     `;
 
   const [code, setCode] = useState(snippetPlaceHolder);
@@ -215,6 +218,13 @@ const a = 10;
     }
   };
 
+  const [ codeLangage, setCodeLangage ] = useState("javascript")
+
+  const langageSelection = (event) => {
+    setCodeLangage(event.target.parentElement.id)
+  }
+
+
   // this useffect each time a tags is added or removed
   // so that the main form data is sycnhed with the tags array
   useEffect(() => {
@@ -247,9 +257,8 @@ const a = 10;
         >
           <Heading>Create a new Snippet</Heading>
         </DrawerHeader>
-
         <DrawerBody>
-          <Flex borderWidth="1px" flexWrap="wrap" w="100%">
+          <Flex mb="20px" flexWrap="wrap" w="100%">
             <Stack
               padding="10px"
               rounded="10px"
@@ -269,7 +278,7 @@ const a = 10;
                     focusBorderColor="#319795"
                     name="title"
                     onChange={handleChange}
-                    onBlur={validateTitle}
+                    // onBlur={validateTitle}
                   />
                   {errorTitle && (
                     <Alert mt="3px" status="error">
@@ -366,10 +375,14 @@ const a = 10;
             <Box mt="20px" minWidth="330px" w="60%">
               <LiveProvider
                 theme={theme}
-                language="javascript"
+                language={codeLangage === "other" ? "javascript" : codeLangage}
                 code={code.trim()}
               >
                 <FormLabel htmlFor="desc">Code</FormLabel>
+                <Box py="5px" style={{whiteSpace:"nowrap", overflow:"auto"}}>
+                  <CodeLangageBar {...{langageSelection, codeLangage}} />
+                </Box>
+
                 <LiveEditor
                   padding={10}
                   onChange={code => handleSnippetChange(code)}
@@ -380,14 +393,13 @@ const a = 10;
                     flex: 2,
                     fontSize: "14px",
                     minHeight: "300px",
-                    boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
                     height: "90%"
                   }}
                 />
               </LiveProvider>
             </Box>
           </Flex>
-          <Flex mt="20px" justify="flex-end">
+          <Flex mt="40px" justify="flex-end">
             <Button variant="outline" mr={13} onClick={onClose}>
               Cancel
             </Button>
