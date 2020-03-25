@@ -50,7 +50,7 @@ const AppHeader = props => {
 
   const changeRoute = () => {
     if(!isLoggedIn){
-      navigate("/login");
+      navigate("/");
     } else {
       navigate(handleRouteChange())
     }
