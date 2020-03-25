@@ -18,6 +18,7 @@ const CodeSnippet = ({
   content,
   isFav,
   index,
+  lang,
   isPublic,
   shareId,
 }) => {
@@ -91,7 +92,7 @@ const CodeSnippet = ({
     document.getElementById(event.target.id).classList.add("edited-div");
   };
 
-  const [ codeLangage, setCodeLangage ] = useState("javascript")
+  const [ codeLangage, setCodeLangage ] = useState(lang)
   const langageSelection = (event) => {
     setCodeLangage(event.target.parentElement.id)
   }
