@@ -9,6 +9,7 @@ export const MY_SNIPPETs = gql`
       content
       tags
       sourceUrl
+      lang
       createdAt
       isFav
       archivedAt

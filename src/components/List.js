@@ -13,7 +13,8 @@ const SnippetList = props => {
   const [hasMore, setHasMore] = useState(true);
   const { currentView, data } = props;
   const dataToRender = data && data.slice(0, snippetPerPage);
-  
+  console.log(data)
+
   const disableEdit = false;
   //fetch more snippets from database
   const fetchMoreData = () => {

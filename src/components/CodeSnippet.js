@@ -20,7 +20,6 @@ const CodeSnippet = ({
   index,
   isPublic,
   shareId,
-  owner
 }) => {
   //moved ControlButtons in each filed - so we can know whitch field user wants to update
   // const ControlButtons = () => {
