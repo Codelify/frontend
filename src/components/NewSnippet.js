@@ -260,7 +260,7 @@ import React from "react";
           <Heading>Create a new Snippet</Heading>
         </DrawerHeader>
         <DrawerBody>
-          <Flex borderWidth="1px" flexWrap="wrap" w="100%">
+          <Flex mb="20px" flexWrap="wrap" w="100%">
             <Stack
               padding="10px"
               rounded="10px"
@@ -280,7 +280,7 @@ import React from "react";
                     focusBorderColor="#319795"
                     name="title"
                     onChange={handleChange}
-                    onBlur={validateTitle}
+                    // onBlur={validateTitle}
                   />
                   {errorTitle && (
                     <Alert mt="3px" status="error">
@@ -377,37 +377,39 @@ import React from "react";
             <Box mt="20px" minWidth="330px" w="60%">
               <LiveProvider
                 theme={theme}
-                language={codeLangage}
+                language={codeLangage === "other" ? "javascript" : codeLangage}
                 code={code.trim()}
               >
                 <FormLabel htmlFor="desc">Code</FormLabel>
-
-                <Stack my="5px" spacing={2} isInline>
-                <Tag size="sm" variantColor={codeLangage === "javascript" ? "cyan" : "gray"} id="javascript" onClick={langageSelection}  >
-                  <JsIcon style={{width:"15px", height:"auto"}} />
-                  <TagLabel mx="5px">Javascript</TagLabel>
-                </Tag>
-                <Tag size="sm" variantColor={codeLangage === "python" ? "cyan" : "gray"} id="python" onClick={langageSelection}  >
-                  <PythonIcon style={{width:"15px", height:"auto"}} />
-                  <TagLabel mx="5px">Python</TagLabel>
-                </Tag>
-                <Tag size="sm" variantColor={codeLangage === "jsx" ? "cyan" : "gray"} id="jsx" onClick={langageSelection} >
-                  <ReactIcon style={{width:"15px", height:"auto"}} />
-                  <TagLabel mx="5px">React</TagLabel>
-                </Tag>
-                <Tag size="sm" variantColor={codeLangage === "html" ? "cyan" : "gray"} id="html" onClick={langageSelection}  >
-                  <HtmlIcon style={{width:"15px", height:"auto"}} />
-                  <TagLabel mx="5px">HTML</TagLabel>
-                </Tag>
-                <Tag size="sm" variantColor={codeLangage === "ruby" ? "cyan" : "gray"} id="ruby" onClick={langageSelection}  >
-                  <RubyIcon style={{width:"15px", height:"auto"}} />
-                  <TagLabel mx="5px">Ruby</TagLabel>
-                </Tag>
-                <Tag size="sm" variantColor={codeLangage === "go" ? "cyan" : "gray"} id="go" onClick={langageSelection}  >
-                  <GoIcon style={{width:"15px", height:"auto"}} />
-                  <TagLabel mx="5px">Go</TagLabel>
-                </Tag>
-              </Stack>
+                <Box style={{whiteSpace:"nowrap", overflow:"auto"}}>
+                      <Tag size="sm" mx="5px" variantColor={codeLangage === "javascript" ? "cyan" : "gray"} id="javascript" onClick={langageSelection}  >
+                        <JsIcon style={{width:"15px", height:"auto"}} />
+                        <TagLabel mx="5px">Javascript</TagLabel>
+                      </Tag>
+                      <Tag size="sm" mx="5px" variantColor={codeLangage === "python" ? "cyan" : "gray"} id="python" onClick={langageSelection}  >
+                        <PythonIcon style={{width:"15px", height:"auto"}} />
+                        <TagLabel mx="5px">Python</TagLabel>
+                      </Tag>
+                      <Tag size="sm" mx="5px" variantColor={codeLangage === "jsx" ? "cyan" : "gray"} id="jsx" onClick={langageSelection} >
+                        <ReactIcon style={{width:"15px", height:"auto"}} />
+                        <TagLabel mx="5px">React</TagLabel>
+                      </Tag>
+                      <Tag size="sm" mx="5px" variantColor={codeLangage === "html" ? "cyan" : "gray"} id="html" onClick={langageSelection}  >
+                        <HtmlIcon style={{width:"15px", height:"auto"}} />
+                        <TagLabel mx="5px">HTML</TagLabel>
+                      </Tag>
+                      <Tag size="sm" mx="5px" variantColor={codeLangage === "ruby" ? "cyan" : "gray"} id="ruby" onClick={langageSelection}  >
+                        <RubyIcon style={{width:"15px", height:"auto"}} />
+                        <TagLabel mx="5px">Ruby</TagLabel>
+                      </Tag>
+                      <Tag size="sm" mx="5px" variantColor={codeLangage === "go" ? "cyan" : "gray"} id="go" onClick={langageSelection}  >
+                        <GoIcon style={{width:"15px", height:"auto"}} />
+                        <TagLabel mx="5px">Go</TagLabel>
+                      </Tag>
+                      <Tag size="sm" mx="5px" variantColor={codeLangage === "other" ? "cyan" : "gray"} id="other" onClick={langageSelection}  >
+                        <TagLabel mx="5px">Other</TagLabel>
+                      </Tag>
+                </Box>
 
 
                 <LiveEditor
@@ -420,14 +422,13 @@ import React from "react";
                     flex: 2,
                     fontSize: "14px",
                     minHeight: "300px",
-                    boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
                     height: "90%"
                   }}
                 />
               </LiveProvider>
             </Box>
           </Flex>
-          <Flex mt="20px" justify="flex-end">
+          <Flex mt="40px" justify="flex-end">
             <Button variant="outline" mr={13} onClick={onClose}>
               Cancel
             </Button>
