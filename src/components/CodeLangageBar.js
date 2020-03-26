@@ -47,6 +47,10 @@ const CodeLangageBar = ({langageSelection, codeLangage}) => {
         {
             selectionMode && (
                 <>
+                <Tag size="lg" style={{cursor: "pointer"}} mx="5px" variant="solid" backgroundColor={langage === "javascript" ? "orange.300" : "gray.600"} id="javascript" onClick={handleSelection}  >
+                    <DevIcon langage="javascript" />
+                    <TagLabel mx="5px">Javascript</TagLabel>
+                </Tag>
                 <Tag size="lg" style={{cursor: "pointer"}} mx="5px" variant="solid" backgroundColor={langage === "python" ? "orange.300" : "gray.600"} id="python" onClick={handleSelection}  >
                     <DevIcon langage="python" />
                     <TagLabel mx="5px">Python</TagLabel>
@@ -63,10 +67,10 @@ const CodeLangageBar = ({langageSelection, codeLangage}) => {
                     <DevIcon langage="ruby" />
                     <TagLabel mx="5px">Ruby</TagLabel>
                 </Tag>
-                <Tag size="lg" style={{cursor: "pointer"}} mx="5px" variant="solid" backgroundColor={langage === "go" ? "orange.300" : "gray.600"} id="go" onClick={handleSelection}  >
+                {/* <Tag size="lg" style={{cursor: "pointer"}} mx="5px" variant="solid" backgroundColor={langage === "go" ? "orange.300" : "gray.600"} id="go" onClick={handleSelection}  >
                     <DevIcon langage="go" />
                     <TagLabel mx="5px">Go</TagLabel>
-                </Tag>
+                </Tag> */}
                 <Tag size="lg" style={{cursor: "pointer"}} mx="5px" variant="solid" backgroundColor={langage === "other" ? "orange.300" : "gray.600"} id="other" onClick={handleSelection}  >
                     <TagIcon icon={IoMdRadioButtonOn} />
                     <TagLabel mx="5px">Other</TagLabel>

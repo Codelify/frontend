@@ -145,7 +145,7 @@ const CodeSnippet = ({
               whiteSpace:"nowrap", 
               overflow:"auto",
               opacity:"0.96",
-              background: "linear-gradient(to bottom, transparent 60%, #051525 40%)" 
+              background: "linear-gradient(to bottom, transparent 50%, #051525 50%)" 
             }}>
             <CodeLangageBar {...{langageSelection, codeLangage}} />
           </Box>

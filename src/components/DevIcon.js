@@ -11,7 +11,7 @@ import { ReactComponent as RubyIcon } from '../assets/icons/ruby-plain.svg';
 import { IoMdAlert } from 'react-icons/io';
 import { FaQuestionCircle } from 'react-icons/fa';
 
-const DevIcon = ({langage}) => {
+const DevIcon = ({langage, size}) => {
     if(langage === "javascript"){
         return (
             <JsIcon style={{width:"18px", height:"auto"}} />

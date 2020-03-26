@@ -12,7 +12,7 @@ import SnippetContext from '../context/SnippetContext';
 import { LiveProvider, LiveEditor, withLive } from "react-live";
 import theme from "prism-react-renderer/themes/nightOwl";
 import { MdContentCopy } from "react-icons/md";
-import { FaStar } from "react-icons/fa";
+import { FaRegStar } from "react-icons/fa";
 import SnippetMenu from "./SnippetMenu";
 
 const SnippetContent = (
@@ -64,22 +64,19 @@ const SnippetContent = (
             }}
           />
           <Box
-            h="45px"
             opacity="0.96"
             d="flex"
-            p={2}
+            pb={1}
             justifyContent="flex-end"
             backgroundColor="#051525"
           >
             {isFav ? (
               <Box
                 mx="10px"
-                borderRadius="5px"
-                p="3px"
                 backgroundColor="none"
-                as={FaStar}
-                size="25px"
-                color="#FEB2B2"
+                as={FaRegStar}
+                size="22px"
+                color="#4FD1C5"
                 style={{
                   animation: "rotation 1.5s linear"
                 }}
