@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
     Tag,
     TagLabel,
     TagIcon
-} from '@chakra-ui/core'
+} from '@chakra-ui/core';
+import SnippetContext from '../context/SnippetContext';
 import { IoMdRadioButtonOn } from 'react-icons/io';
 import DevIcon from './DevIcon';
 
@@ -11,9 +12,12 @@ import DevIcon from './DevIcon';
 const CodeLangageBar = ({langageSelection, codeLangage}) => {
     const [ langage, setLangage ] = useState(codeLangage);
     const [ selectionMode, setSelectionMode ] = useState(false);
+    const disableEdit = useContext(SnippetContext);
 
     const showLangageOptions = () => {
-        setSelectionMode(true)
+        if(!disableEdit){
+            setSelectionMode(true)
+        } 
     }
     const handleSelection = (e) => {
         langageSelection(e);
@@ -30,7 +34,7 @@ const CodeLangageBar = ({langageSelection, codeLangage}) => {
         {
             !langage ? (
                 !selectionMode && (
-                    <Tag size="lg" style={{cursor: "pointer"}} mx="5px" variant="solid" variantColor="red" id="undefined" onClick={showLangageOptions}  >
+                    <Tag size="lg" mx="5px" variant="solid" variantColor="red" id="undefined" onClick={showLangageOptions}  >
                     <DevIcon langage="undefined" />
                     <TagLabel mx="5px">Select Langage</TagLabel>
                     </Tag>    

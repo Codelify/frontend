@@ -47,7 +47,6 @@ const SingleSnippet = (props) => {
                     py="40px"
                     >
                     <SnippetContext.Provider value={disableEdit}>
-
                             <CodeSnippet
                             index={0}
                             key={data.getSnippetDetails.id}
