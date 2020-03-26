@@ -11,7 +11,6 @@ import {
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
-  DrawerCloseButton,
   FormLabel,
   InputGroup,
   InputLeftAddon,

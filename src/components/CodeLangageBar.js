@@ -37,10 +37,10 @@ const CodeLangageBar = ({langageSelection, codeLangage}) => {
                 )
             ) : (
                 !selectionMode && (
-                    <Tag borderWidth="1px" borderColor="transparent" size="lg" style={{cursor: "pointer"}} mx="5px" variant="solid" backgroundColor="orange.300" onClick={showLangageOptions}>
+                    <Tag py="3px" borderWidth="1px" borderColor="transparent" size="sm" style={{cursor: "pointer"}} mx="5px" variant="solid" backgroundColor="orange.300" onClick={showLangageOptions}>
                     <DevIcon langage={langage} />
                     <TagLabel style={{textTransform: "uppercase", fontSize:"bold"}} mx="5px">{langage}</TagLabel>
-                </Tag>
+                    </Tag>
                 )
             )
         }
