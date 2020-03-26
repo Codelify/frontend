@@ -350,7 +350,7 @@ const formatCurrency = new Intl.NumberFormat("en-US",{
                               outline: "none"
                             }}
                           >
-                            <TagLabel paddingX="10px">{tag}</TagLabel>
+                            <TagLabel textTransform="uppercase" paddingX="10px">{tag}</TagLabel>
                             <TagCloseButton
                               _focus={{
                                 outline: "none"

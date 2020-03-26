@@ -67,6 +67,7 @@ const SnippetContent = (
             opacity="0.96"
             d="flex"
             pb={1}
+            px={2}
             justifyContent="flex-end"
             backgroundColor="#051525"
           >
