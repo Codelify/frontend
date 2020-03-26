@@ -47,7 +47,6 @@ const SnippetMenu = ({ isFav, id }) => {
       <Menu autoSelect={false}>
         <MenuButton _focus={{ outline: "none" }} as="div">
           <IconButton
-            p="0px"
             size="xs"
             variant="ghost"
             variantColor="teal"

@@ -101,7 +101,6 @@ const SnippetContent = (
               ) : (
                 <IconButton
                   p="3px"
-                  mt="2px"
                   variant="ghost"
                   size="xs"
                   variantColor="teal"
