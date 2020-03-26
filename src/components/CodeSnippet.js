@@ -122,9 +122,6 @@ const CodeSnippet = ({
             styledEdit={styledEdit}
             handleUpdate={handleUpdate}
           />
-          <Box py="5px" style={{whiteSpace:"nowrap", overflow:"auto"}}>
-            <CodeLangageBar {...{langageSelection, codeLangage}} />
-          </Box>
           <Divider />
           <Box>
             {url && (
@@ -143,6 +140,15 @@ const CodeSnippet = ({
           w={["100%", "100%", "100%", "60%"]}
           borderRadius="5px"
         >          
+          <Box py="0px" pl="10px"
+            style={{
+              whiteSpace:"nowrap", 
+              overflow:"auto",
+              opacity:"0.96",
+              background: "linear-gradient(to bottom, transparent 60%, #051525 40%)" 
+            }}>
+            <CodeLangageBar {...{langageSelection, codeLangage}} />
+          </Box>
           <SnippetContent
             content={contentToUpdate}
             {...{id, isFav, handleEdit, handleUpdate, codeLangage}}

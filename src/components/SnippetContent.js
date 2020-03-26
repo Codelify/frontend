@@ -68,22 +68,18 @@ const SnippetContent = (
             opacity="0.96"
             d="flex"
             p={2}
-            justifyContent="space-between"
+            justifyContent="flex-end"
             backgroundColor="#051525"
-            style={{
-              borderTopRightRadius: "5px",
-              borderTopLeftRadius: "5px"
-            }}
           >
             {isFav ? (
               <Box
-                ml="10px"
+                mx="10px"
                 borderRadius="5px"
                 p="3px"
-                backgroundColor="#FEB2B2"
+                backgroundColor="none"
                 as={FaStar}
                 size="25px"
-                color="#FFFFFF"
+                color="#FEB2B2"
                 style={{
                   animation: "rotation 1.5s linear"
                 }}
