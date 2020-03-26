@@ -65,7 +65,7 @@ const ShareOptions = ({isPublic, shareId, id}) => {
         setShow(!show);
     };
 
-    const editMode = useContext(SnippetContext);
+    const disableEdit = useContext(SnippetContext);
     
     return(
         <Box p="10px">
@@ -85,7 +85,7 @@ const ShareOptions = ({isPublic, shareId, id}) => {
                 <Text fontSize="sm">Publish on Twitter</Text>
             </Stack>
             {
-                !editMode &&
+                !disableEdit &&
                 <Stack py="10px" alignItems="center" justifyContent="flex-start" isInline>
                     <Badge style={{cursor:"pointer"}} onClick={toggleVisibility} variantColor={visible ? "green" : "red"}>{visible ? <Public /> : <Private />}</Badge>
                 </Stack>

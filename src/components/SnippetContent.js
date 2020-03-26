@@ -18,7 +18,7 @@ import SnippetMenu from "./SnippetMenu";
 const SnippetContent = (
   { content, id, isFav, handleEdit, handleUpdate, codeLangage }
 ) => {
-  const editMode = useContext(SnippetContext);
+  const disableEdit = useContext(SnippetContext);
   const snippetPlaceHolder = `${content}`;
   const [value] = React.useState(snippetPlaceHolder);
   const { onCopy, hasCopied } = useClipboard(value);
@@ -35,7 +35,7 @@ const SnippetContent = (
   return (
     <>
       <LiveProvider
-        disabled={editMode}
+        disabled={disableEdit}
         theme={theme}
         language={codeLangage === "other" ? "javascript" : codeLangage}
         code={snippetPlaceHolder}
@@ -112,14 +112,14 @@ const SnippetContent = (
                 />
               )}
               {
-                !editMode && <SnippetMenu {...{ isFav, id }} />
+                !disableEdit && <SnippetMenu {...{ isFav, id }} />
               }
             </Stack>
           </Box>
         </Stack>
       </LiveProvider>
       {
-        !editMode &&
+        !disableEdit &&
           <Collapse mt="15px" isOpen={show}>
             <ButtonGroup mb="10px" justifyContent="center" size="sm">
               <Button
