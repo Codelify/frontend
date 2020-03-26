@@ -108,8 +108,7 @@ const NewSnippet = props => {
           duration: 9000,
           isClosable: true
         });
-        // clear the tags array
-        setTags([]);
+        clearForm();
         // redirect to /app
         data.loading && navigate(handleRouteChange());
       }
@@ -141,7 +140,6 @@ const formatCurrency = new Intl.NumberFormat("en-US",{
 
   const [formData, setFormData] = useState(initialFormValues);
 
-  console.log(formData)
   const handleSnippetChange = code => {
     setCode(code);
   };
@@ -239,6 +237,20 @@ const formatCurrency = new Intl.NumberFormat("en-US",{
     }));
   }, [tags]);
 
+  const clearForm = () => {
+        console.log("clearing the form")
+        // clear the tags array
+        setTags([]);
+        // clear form
+        setFormData(initialFormValues);
+        setCodeLangage(null)
+  }
+
+  const handleCancel = () => {
+    clearForm();
+    onClose();
+  }
+
   return (
     <Drawer
       isOpen={isOpen}
@@ -251,7 +263,6 @@ const formatCurrency = new Intl.NumberFormat("en-US",{
     >
       <DrawerOverlay />
       <DrawerContent>
-        <DrawerCloseButton />
         <DrawerHeader
           textAlign="center"
           fontSize="xl"
@@ -404,7 +415,7 @@ const formatCurrency = new Intl.NumberFormat("en-US",{
             </Box>
           </Flex>
           <Flex mt="40px" justify="flex-end">
-            <Button variant="outline" mr={13} onClick={onClose}>
+            <Button variant="outline" mr={13} onClick={handleCancel}>
               Cancel
             </Button>
             <Button
