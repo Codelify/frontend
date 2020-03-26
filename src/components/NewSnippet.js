@@ -42,7 +42,8 @@ const NewSnippet = props => {
   const initialFormValues = {
     sourceUrl: "",
     description: "",
-    title: ""
+    title: "",
+    lang: null
   };
   const toastin = useToast();
 
@@ -140,6 +141,7 @@ const formatCurrency = new Intl.NumberFormat("en-US",{
 
   const [formData, setFormData] = useState(initialFormValues);
 
+  console.log(formData)
   const handleSnippetChange = code => {
     setCode(code);
   };
@@ -218,10 +220,12 @@ const formatCurrency = new Intl.NumberFormat("en-US",{
     }
   };
 
-  const [ codeLangage, setCodeLangage ] = useState("javascript")
+  const [ codeLangage, setCodeLangage ] = useState(null)
 
   const langageSelection = (event) => {
-    setCodeLangage(event.target.parentElement.id)
+    const langage = event.target.parentElement.id;
+    setCodeLangage(langage);
+    formData.lang = langage;
   }
 
 
