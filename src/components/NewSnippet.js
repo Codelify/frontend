@@ -11,7 +11,6 @@ import {
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
-  DrawerCloseButton,
   FormLabel,
   InputGroup,
   InputLeftAddon,
@@ -42,7 +41,8 @@ const NewSnippet = props => {
   const initialFormValues = {
     sourceUrl: "",
     description: "",
-    title: ""
+    title: "",
+    lang: null
   };
   const toastin = useToast();
 
@@ -107,8 +107,7 @@ const NewSnippet = props => {
           duration: 9000,
           isClosable: true
         });
-        // clear the tags array
-        setTags([]);
+        clearForm();
         // redirect to /app
         data.loading && navigate(handleRouteChange());
       }
@@ -218,10 +217,12 @@ const formatCurrency = new Intl.NumberFormat("en-US",{
     }
   };
 
-  const [ codeLangage, setCodeLangage ] = useState("javascript")
+  const [ codeLangage, setCodeLangage ] = useState(null)
 
   const langageSelection = (event) => {
-    setCodeLangage(event.target.parentElement.id)
+    const langage = event.target.parentElement.id;
+    setCodeLangage(langage);
+    formData.lang = langage;
   }
 
 
@@ -235,6 +236,20 @@ const formatCurrency = new Intl.NumberFormat("en-US",{
     }));
   }, [tags]);
 
+  const clearForm = () => {
+        console.log("clearing the form")
+        // clear the tags array
+        setTags([]);
+        // clear form
+        setFormData(initialFormValues);
+        setCodeLangage(null)
+  }
+
+  const handleCancel = () => {
+    clearForm();
+    onClose();
+  }
+
   return (
     <Drawer
       isOpen={isOpen}
@@ -247,7 +262,6 @@ const formatCurrency = new Intl.NumberFormat("en-US",{
     >
       <DrawerOverlay />
       <DrawerContent>
-        <DrawerCloseButton />
         <DrawerHeader
           textAlign="center"
           fontSize="xl"
@@ -336,7 +350,7 @@ const formatCurrency = new Intl.NumberFormat("en-US",{
                               outline: "none"
                             }}
                           >
-                            <TagLabel paddingX="10px">{tag}</TagLabel>
+                            <TagLabel textTransform="uppercase" paddingX="10px">{tag}</TagLabel>
                             <TagCloseButton
                               _focus={{
                                 outline: "none"
@@ -400,7 +414,7 @@ const formatCurrency = new Intl.NumberFormat("en-US",{
             </Box>
           </Flex>
           <Flex mt="40px" justify="flex-end">
-            <Button variant="outline" mr={13} onClick={onClose}>
+            <Button variant="outline" mr={13} onClick={handleCancel}>
               Cancel
             </Button>
             <Button

@@ -13,7 +13,7 @@ const SnippetList = props => {
   const [hasMore, setHasMore] = useState(true);
   const { currentView, data } = props;
   const dataToRender = data && data.slice(0, snippetPerPage);
-  
+
   const disableEdit = false;
   //fetch more snippets from database
   const fetchMoreData = () => {
@@ -64,6 +64,7 @@ const SnippetList = props => {
                   content={snippet.content}
                   tags={snippet.tags}
                   url={snippet.sourceUrl}
+                  lang={snippet.lang}
                   isFav={snippet.isFav}
                   isArchived={snippet.archivedAt}
                   shareId={snippet.shareId}
