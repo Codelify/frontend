@@ -61,7 +61,7 @@ const SnippetMenu = ({ isFav, id }) => {
         <MenuList placement="bottom-end">
           {state.currentView !== "FiArchive" && (
             <MenuItem onClick={toggleFavorite}>
-              <Box size="20px" mx="10px" as={FaStar} color="red.200" />
+              <Box size="20px" mx="10px" as={FaStar} color="teal.300" />
               <span>
                 {favorite ? "Remove from Favorite" : "Add to Favorite"}
               </span>
