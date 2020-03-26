@@ -91,7 +91,7 @@ function Landing() {
                     <Box mb="20px">
                       <GoogleButton py="10px"/>                      
                     </Box>
-                    <Text fontSize="sm">Pro</Text>
+                    <Text opacity="0.5" fontSize="sm">Team access</Text>
                     <Stack
                       borderTopWidth="1px"
                       pt="10px"
