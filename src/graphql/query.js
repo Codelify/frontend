@@ -28,6 +28,7 @@ export const GET_SNIPPET = gql`
       content
       tags
       sourceUrl
+      lang
       owner { 
         id
         uid

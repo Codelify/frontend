@@ -57,6 +57,7 @@ const SingleSnippet = (props) => {
                             content={data.getSnippetDetails.content}
                             tags={data.getSnippetDetails.tags}
                             url={data.getSnippetDetails.sourceUrl}
+                            lang={data.getSnippetDetails.lang}
                             isFav={data.getSnippetDetails.isFav}
                             isArchived={data.getSnippetDetails.archivedAt}
                             shareId={snippetId}
