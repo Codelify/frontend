@@ -44,7 +44,7 @@ const DevIcon = ({langage, size}) => {
     }
     else if (langage === "undefined"){
         return (
-            <Box as={FaQuestionCircle} size="18px" color="red" />
+            <Box as={FaQuestionCircle} size="18px" color="red" style={{animation: "shake 1s"}} />
         )    
     }
     else return <Box as={IoMdAlert} size="18px" color="red" />
