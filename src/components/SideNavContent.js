@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { AppContext } from "../context/AppContext";
-import { Box, PseudoBox, Heading } from "@chakra-ui/core";
+import { Box, PseudoBox, Heading, useColorMode } from "@chakra-ui/core";
 import localstorage from "../utils/localstorage";
 import { FiArchive, FiHome, FiStar, FiTag } from "react-icons/fi";
 import { Link } from "@reach/router";
@@ -19,6 +19,7 @@ const NavGroupHeading = props => (
 const SideNavContent = ({ contentHeight = "calc(100vh - 4rem)", ...props }) => {
   const [navMenu, setNavMenu] = useState(localstorage.get() || "FiHome");
   const { state, setCurentView } = useContext(AppContext);
+  const { colorMode } = useColorMode();
   const formatCount = list => {
     if (list.length > 0) {
       return `(${list.length})`;
@@ -70,10 +71,6 @@ const SideNavContent = ({ contentHeight = "calc(100vh - 4rem)", ...props }) => {
     setNavMenu(localstorage.get() || "FiHome");
   };
 
-  useEffect(() => {
-    document.getElementById(navMenu).classList.add("active");
-  }, [navMenu]);
-
   return (
     <Box
       top="4rem"
@@ -94,24 +91,15 @@ const SideNavContent = ({ contentHeight = "calc(100vh - 4rem)", ...props }) => {
         {browseLinks.map(linkObject => (
           <Link to={linkObject.link} key={linkObject.id}>
             <PseudoBox
-              d="flex"
-              textAlign="left"
-              mb="4px"
+              className="nav-buttom"
               as="button"
-              fontWeight="bold"
-              w="100%"
-              py={3}
-              px={4}
-              rounded="md"
-              color="#4A5568"
+              color={ linkObject.id === navMenu ? "#285E61" : "#4A5568"}
+              bg={linkObject.id === navMenu ? "teal.100" : "none"}
+              opacity={colorMode === "dark" ? "0.7" : "1"}
               onClick={() => {
                 onActivate(linkObject.id);
               }}
               id={linkObject.id}
-              _hover={{ color: "#319795" }}
-              _focus={{
-                outline: "none"
-              }}
             >
               <Box mr="10px" fontSize="20px" as={linkObject.icon} />
               {/* {`${linkObject.name} ${linkObject.count}`} */}
@@ -125,24 +113,15 @@ const SideNavContent = ({ contentHeight = "calc(100vh - 4rem)", ...props }) => {
         {filterLinks.map(linkObject => (
           <Link to={linkObject.link} key={linkObject.id}>
             <PseudoBox
-              d="flex"
-              textAlign="left"
-              mb="4px"
+              className="nav-buttom"
               as="button"
-              fontWeight="bold"
-              w="100%"
-              py={3}
-              px={4}
-              rounded="md"
+              color={ linkObject.id === navMenu ? "#285E61" : "#4A5568"}
+              bg={linkObject.id === navMenu ? "teal.100" : "none"}
+              opacity={colorMode === "dark" ? "0.7" : "1"}
               onClick={() => {
                 onActivate(linkObject.id);
               }}
               id={linkObject.id}
-              color="#4A5568"
-              _hover={{ color: "#319795" }}
-              _focus={{
-                outline: "none"
-              }}
             >
               <Box
                 mr="10px"

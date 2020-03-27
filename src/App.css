@@ -3,6 +3,23 @@ button.active {
   background: #E6FFFA;
 }
 
+button.nav-buttom {
+  display: flex;
+  margin-bottom: 3px;
+  font-weight: bold;
+  width: 100%;
+  border-radius: 3px;
+  padding: 12px;
+}
+
+button.nav-buttom:hover {
+  color: #319795;
+}
+
+button.nav-buttom:focus {
+  outline: "none"
+}
+
 .edited-div{
   border:2px solid #319795;
   border-radius: 5px;
