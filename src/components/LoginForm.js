@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import {
     Box,
-    Flex,
+    Text,
     Input,
     Button,
     Stack,
@@ -9,9 +9,11 @@ import {
     FormLabel,
     InputGroup,
     InputRightElement,
+    Divider,
 } from "@chakra-ui/core";
 import { PageView } from "./~common/Tracking";
 import GoogleButton from "./GoogleButton";
+import SlackButton from "./SlackButton";
 
 const LoginForm = () => {
     const [show, setShow] = React.useState(false);
@@ -22,17 +24,8 @@ useEffect(() => {
 }, []);
 
 return (
-        <Flex
-        rounded="5px"
-        mt="20px"
-        borderWidth="1px"
-        justify="center"
-        w="100%"
-        minWidth="300px"
-        py="20px"
-        >
         <FormControl isRequired>
-            <Stack maxWidth="320px" spacing="24px">
+            <Stack maxWidth="350px"  borderWidth="1px" spacing="2px">
             <Box>
                 <FormLabel htmlFor="fname">User Name</FormLabel>
                 <Input id="fname" placeholder="User name" />
@@ -53,15 +46,15 @@ return (
                 </InputRightElement>
                 </InputGroup>
             </Box>
-            <Flex mt="30px" justify="flex-end">
-                <Button size="md" variantColor="teal" mr={2}>
+            <Button size="md" variantColor="teal">
                 Submit
-                </Button>
-                <GoogleButton />
-            </Flex>
+            </Button>
+            <Text textAlign="center">OR</Text>
+            <Divider />
+                <GoogleButton/>
+                <SlackButton/>
             </Stack>
         </FormControl>
-        </Flex>
     );
 };
 

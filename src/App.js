@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import Default from "./components/Default";
-import Login from "./components/Login";
+//import Login from "./components/Login";
+import LoginForm from "./components/LoginForm";
 import Landing from "./pages/Landing";
 import AccessDenied from './pages/AccessDenied';
 import PageNotFound from './pages/PageNotFound'
@@ -34,7 +35,8 @@ function App() {
         <Landing path="/" />
         <AccessDenied path="/access_denied" />
         <SingleSnippet path="/view/snippet/:shareId" />
-        <Login path="/login" />
+        {/* <Login path="/login" /> */}
+        <LoginForm path="/login" />
         <SlackAuthenticator path="/slack/auth" />
         {
           auth && (
