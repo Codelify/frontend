@@ -37,7 +37,7 @@ const SnippetContent = (
       <LiveProvider
         disabled={disableEdit}
         theme={theme}
-        language={codeLangage === "other" ? "javascript" : codeLangage}
+        language={codeLangage === "other" || codeLangage === null ? "javascript" : codeLangage}
         code={snippetPlaceHolder}
         transformCode={e => handleEdit(e, "content")}
         style={{
