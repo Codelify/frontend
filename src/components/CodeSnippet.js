@@ -113,7 +113,7 @@ const CodeSnippet = ({
   return (
     <>
       {index !== 0 && <Divider py="10px" mb="30px" />}
-      <Flex flexWrap="wrap">
+      <Flex mb="50px" flexWrap="wrap">
         <Stack
           mr="15px"
           minWidth="310px"
@@ -157,9 +157,9 @@ const CodeSnippet = ({
               whiteSpace:"nowrap", 
               overflow:"auto",
               opacity:"0.96",
-              background: "linear-gradient(to bottom, transparent 50%, #051525 50%)" 
+              background: "linear-gradient(to bottom, transparent 50%, #051525 50%)",
             }}>
-            <CodeLangageBar {...{langageSelection, codeLangage}} />
+            <CodeLangageBar {...{langageSelection, codeLangage}}/>
           </Box>
           <SnippetContent
             content={contentToUpdate}

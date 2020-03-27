@@ -40,9 +40,6 @@ const SnippetContent = (
         language={codeLangage === "other" || codeLangage === null ? "javascript" : codeLangage}
         code={snippetPlaceHolder}
         transformCode={e => handleEdit(e, "content")}
-        style={{
-          outline: "none"
-        }}
       >
         <Stack isReversed>
           <LiveEditor
@@ -57,7 +54,8 @@ const SnippetContent = (
               fontSize: "14px",
               minHeight: "300px",
               borderBottomRightRadius: "5px",
-              borderBottomLeftRadius: "5px"
+              borderBottomLeftRadius: "5px",
+              boxShadow: "0 5px 15px 0px rgba(0,0,0,0.6)",
             }}
             _focus={{
               outline: "none"
