@@ -3,9 +3,11 @@ import { Text, Box, IconButton, useDisclosure } from "@chakra-ui/core";
 import NewSnippet from "./NewSnippet";
 import { MdAddCircle } from "react-icons/md";
 import { FaRegSadTear, FaRegStar } from "react-icons/fa";
-import { FiArchive } from 'react-icons/fi'
+import { FiArchive } from 'react-icons/fi';
+import Spinner from "./~common/Spinner";
 
 const NoSnippetView = ({ currentView, loading }) => {
+  console.log(currentView);
   const [size, setSize] = React.useState("md");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const firstField = React.useRef();
@@ -35,6 +37,9 @@ const NoSnippetView = ({ currentView, loading }) => {
 
   return (
     <>
+      {
+        loading && <Spinner />
+      }
       <Box h="67vh" pt="120px" w="100%" textAlign="center">
         <Box mx="auto" as={emptyData.icon} size="60px" color="#FC8181" />
         <Text textColor="teal" fontSize="2xl" color="teal">
