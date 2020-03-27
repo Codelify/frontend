@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useCallback } from "react";
 import { AppContext } from "../context/AppContext";
+import MainLayout from "../layouts/AppLayout";
 import EmptyView from "./EmptyView";
 import SnippetList from "./List";
 import { useQuery } from "@apollo/react-hooks";
 import { MY_SNIPPETs } from "../graphql/query";
 import { PageView, initGA } from "./~common/Tracking";
 import config from "../utils/config";
+import Spinner from "./~common/Spinner";
 
 const Default = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -44,8 +46,15 @@ const Default = () => {
     return <SnippetList data={state.filteredSnippets} />;
   }
 
+  if(loading){
+    return (
+      <MainLayout>
+              <Spinner />
+      </MainLayout>
+    )
+  }
   // Render the list of snippets if their are any depends on the current side navigation menu
-  if (token) {
+  else {
     if (state.currentView === "FiHome") {
       return (
         <SnippetList
@@ -82,10 +91,6 @@ const Default = () => {
         />
       );
     }
-  }
-  // default view if there is no snippets
-  else {
-    return <EmptyView loading={loading} />;
   }
 };
 
