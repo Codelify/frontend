@@ -54,7 +54,7 @@ const Default = () => {
     )
   }
   // Render the list of snippets if their are any depends on the current side navigation menu
-  else if(token) {
+  else {
     if (state.currentView === "FiHome") {
       return (
         <SnippetList
@@ -91,14 +91,6 @@ const Default = () => {
         />
       );
     }
-  }
-  // default view if there is no snippets
-  else {
-    return(
-      <MainLayout>
-        <EmptyView />;
-      </MainLayout>
-    ) 
   }
 };
 
