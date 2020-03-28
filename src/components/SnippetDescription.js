@@ -17,7 +17,7 @@ const Description = ({
   handleUpdate
 }) => {
 
-  const editMode = useContext(SnippetContext);
+  const disableEdit = useContext(SnippetContext);
   const handleBlur = event => {
     document.getElementById(event.target.id).classList.remove("edited-div");
     handleToggle(false);
@@ -35,7 +35,7 @@ const Description = ({
       <Text as="div" mb="5px" contenteditable="true" fontSize="md">
         <ContentEditable
           html={description}
-          disabled={editMode}
+          disabled={disableEdit}
           id={descriptionId}
           onBlur={handleBlur}
           onChange={e => handleEdit(e, "description")}
@@ -49,7 +49,7 @@ const Description = ({
         />
       </Text>
       {
-        !editMode &&
+        !disableEdit &&
         <Collapse mt={0} isOpen={show}>
           <ButtonGroup mb="10px" justifyContent="center" size="sm">
             <Button

@@ -65,7 +65,7 @@ const ShareOptions = ({isPublic, shareId, id}) => {
         setShow(!show);
     };
 
-    const editMode = useContext(SnippetContext);
+    const disableEdit = useContext(SnippetContext);
     
     return(
         <Box p="10px">
@@ -77,7 +77,7 @@ const ShareOptions = ({isPublic, shareId, id}) => {
                 <Box mx="5px" as={FaLink} />
                 <Link href={snippetPublicLink} style={{overflow:"hidden"}} fontSize="sm" _focus={{ outline: "none" }}>{snippetPublicLink}</Link>
                 <Button onClick={onCopy} variantColor="gray" size="xs" _focus={{ outline: "none" }}>
-                    {hasCopied ? "Copied" : "Copy link"}
+                    {hasCopied ? "Copied" : "Copy"}
                 </Button>
             </Stack>
             <Stack py="10px" alignItems="center" justifyContent="flex-start" isInline>
@@ -85,7 +85,7 @@ const ShareOptions = ({isPublic, shareId, id}) => {
                 <Text fontSize="sm">Publish on Twitter</Text>
             </Stack>
             {
-                !editMode &&
+                !disableEdit &&
                 <Stack py="10px" alignItems="center" justifyContent="flex-start" isInline>
                     <Badge style={{cursor:"pointer"}} onClick={toggleVisibility} variantColor={visible ? "green" : "red"}>{visible ? <Public /> : <Private />}</Badge>
                 </Stack>

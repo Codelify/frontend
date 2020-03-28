@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Flex, Stack, Link, Icon, Divider } from "@chakra-ui/core";
 import SnippetHeading from "./SnippetHeading";
 import Description from "./SnippetDescription";
@@ -7,6 +7,7 @@ import ShareOptions from './ShareOptions';
 import SnippetContent from "./SnippetContent";
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_SNIPPET } from "../graphql/mutation";
+import CodeLangageBar from './CodeLangageBar'
 
 const CodeSnippet = ({
   title,
@@ -17,9 +18,9 @@ const CodeSnippet = ({
   content,
   isFav,
   index,
+  lang,
   isPublic,
   shareId,
-  owner
 }) => {
   //moved ControlButtons in each filed - so we can know whitch field user wants to update
   // const ControlButtons = () => {
@@ -41,11 +42,14 @@ const CodeSnippet = ({
     if (typeOfAction === "title") {
       costumObject[typeOfAction] = titleToUpdate;
     }
-    if (typeOfAction === "description") {
+    else if (typeOfAction === "description") {
       costumObject[typeOfAction] = descriptionToUpdate;
     }
-    if (typeOfAction === "content") {
+    else if (typeOfAction === "content") {
       costumObject[typeOfAction] = contentToUpdate;
+    }
+    else if (typeOfAction === "lang") {
+      costumObject[typeOfAction] = codeLangage;
     }
 
     const token = window.localStorage.getItem("token");
@@ -60,7 +64,7 @@ const CodeSnippet = ({
         //refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
       });
     } catch (error) {
-      console.log(error);
+      console.log("Update error: " + error);
     }
     //console.log(data,error, loading);
   };
@@ -91,10 +95,25 @@ const CodeSnippet = ({
     document.getElementById(event.target.id).classList.add("edited-div");
   };
 
+  // Data update from CodeLangageBar child comp
+  const [ codeLangage, setCodeLangage ] = useState(lang)
+  const langageSelection = (event) => {
+    setCodeLangage(event.target.parentElement.id);
+  }
+
+  // Useffect that trigger Code Snippet Langage update when
+  // data is received from CodeLangageBar child comp
+  useEffect(() => {
+    handleUpdate("lang")
+  },[codeLangage]
+
+  )
+
+
   return (
     <>
       {index !== 0 && <Divider py="10px" mb="30px" />}
-      <Flex flexWrap="wrap">
+      <Flex mb="50px" flexWrap="wrap">
         <Stack
           mr="15px"
           minWidth="310px"
@@ -108,7 +127,6 @@ const CodeSnippet = ({
             styledEdit={styledEdit}
             handleUpdate={handleUpdate}
           />
-
           <Description
             id={id}
             description={descriptionToUpdate}
@@ -116,6 +134,7 @@ const CodeSnippet = ({
             styledEdit={styledEdit}
             handleUpdate={handleUpdate}
           />
+          <Divider />
           <Box>
             {url && (
               <Link color="teal.500" href={url} isExternal>
@@ -132,13 +151,19 @@ const CodeSnippet = ({
           minWidth="310px"
           w={["100%", "100%", "100%", "60%"]}
           borderRadius="5px"
-        >
+        >          
+          <Box py="0px" pl="10px"
+            style={{
+              whiteSpace:"nowrap", 
+              overflow:"auto",
+              opacity:"0.96",
+              background: "linear-gradient(to bottom, transparent 50%, #051525 50%)",
+            }}>
+            <CodeLangageBar {...{langageSelection, codeLangage}}/>
+          </Box>
           <SnippetContent
-            isFav={isFav}
             content={contentToUpdate}
-            id={id}
-            handleEdit={handleEdit}
-            handleUpdate={handleUpdate}
+            {...{id, isFav, handleEdit, handleUpdate, codeLangage}}
           />
         </Box>
       </Flex>
