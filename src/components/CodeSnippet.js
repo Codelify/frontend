@@ -146,9 +146,8 @@ const CodeSnippet = ({
           minWidth="310px"
           w={["100%", "100%", "100%", "60%"]}
           borderRadius="5px"
-          id="my-node"
+          id={`post-img-${id}`}
         >
-          >
           <Box
             py="0px"
             pl="10px"

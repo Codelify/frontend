@@ -85,7 +85,7 @@ const ShareOptions = ({ isPublic, shareId, id }) => {
 
   const handleShare = () => {
     setLoading(true);
-    let node = document.getElementById("my-node");
+    let node = document.getElementById(`post-img-${id}`);
     domtoimage
       .toPng(node)
       .then(dataUrl => {
