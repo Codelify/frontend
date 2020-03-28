@@ -6,7 +6,6 @@ import { FaRegSadTear, FaRegStar } from "react-icons/fa";
 import { FiArchive } from 'react-icons/fi';
 
 const EmptyView = ({ currentView }) => {
-  console.log(currentView);
   const [size, setSize] = React.useState("md");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const firstField = React.useRef();
