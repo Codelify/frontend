@@ -3,7 +3,7 @@ import { Box, Flex, Stack, Link, Icon, Divider } from "@chakra-ui/core";
 import SnippetHeading from "./SnippetHeading";
 import Description from "./SnippetDescription";
 import SnippetTags from "./SnippetTags";
-import ShareOptions from './ShareOptions';
+import ShareOptions from "./ShareOptions";
 import SnippetContent from "./SnippetContent";
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_SNIPPET } from "../graphql/mutation";
@@ -119,19 +119,21 @@ const CodeSnippet = ({
           <Box>
             {url && (
               <Link color="teal.500" href={url} isExternal>
-                Link to external recources <Icon name="external-link" mx="2px" />
+                Link to external recources{" "}
+                <Icon name="external-link" mx="2px" />
               </Link>
             )}
           </Box>
           <SnippetTags id={id} tags={tags} />
           <Box mt="20px" p="10px" borderTopWidth="1px">
-              <ShareOptions {...{isPublic, shareId, id}} />
+            <ShareOptions {...{ isPublic, shareId, id }} />
           </Box>
         </Stack>
         <Box
           minWidth="310px"
           w={["100%", "100%", "100%", "60%"]}
           borderRadius="5px"
+          id="my-node"
         >
           <SnippetContent
             isFav={isFav}

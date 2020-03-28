@@ -5,7 +5,7 @@ import {
   useColorMode,
   ThemeProvider,
   CSSReset,
-  Spinner,
+  Spinner
 } from "@chakra-ui/core";
 import Header from "../components/Header";
 import UserBio from "../components/UserBio";
@@ -22,7 +22,7 @@ const SingleSnippet = props => {
   const disableEdit = true;
 
   const { data, loading } = useQuery(GET_SNIPPET, {
-    variables: { snippetId },
+    variables: { snippetId }
   });
 
   console.log(data);
@@ -49,19 +49,19 @@ const SingleSnippet = props => {
                 py="40px"
               >
                 <SnippetContext.Provider value={disableEdit}>
-                  <CodeSnippet
-                    index={0}
-                    key={data.getSnippetDetails.id}
-                    id={data.getSnippetDetails.id}
-                    title={data.getSnippetDetails.title}
-                    description={data.getSnippetDetails.description}
-                    content={data.getSnippetDetails.content}
-                    tags={data.getSnippetDetails.tags}
-                    url={data.getSnippetDetails.sourceUrl}
-                    isFav={data.getSnippetDetails.isFav}
-                    isArchived={data.getSnippetDetails.archivedAt}
-                    shareId={snippetId}
-                  />
+                    <CodeSnippet
+                      index={0}
+                      key={data.getSnippetDetails.id}
+                      id={data.getSnippetDetails.id}
+                      title={data.getSnippetDetails.title}
+                      description={data.getSnippetDetails.description}
+                      content={data.getSnippetDetails.content}
+                      tags={data.getSnippetDetails.tags}
+                      url={data.getSnippetDetails.sourceUrl}
+                      isFav={data.getSnippetDetails.isFav}
+                      isArchived={data.getSnippetDetails.archivedAt}
+                      shareId={snippetId}
+                    />
                 </SnippetContext.Provider>
               </Box>
             </Flex>

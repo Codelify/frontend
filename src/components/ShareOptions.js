@@ -7,30 +7,18 @@ import {
   Text,
   Stack,
   useClipboard,
-  Link,
+  Link
 } from "@chakra-ui/core";
 import SnippetContext from "../context/SnippetContext";
+// import TwiiterShareView from '../'
 import { FaLink, FaEyeSlash, FaTwitter, FaGlobe } from "react-icons/fa";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
 import config from "../utils/config";
-import { navigate } from "@reach/router";
 import domtoimage from "dom-to-image";
-
-import base64Img from "base64-img";
-import Twitter from "twitter";
-import testImg from "../assets/img/app-shot-light.png";
-
-// import fs from "fs-es6";
-
-const client = new Twitter({
-  consumer_key: "Irk7MrNmvDqwkuxo0uB7UgUUl",
-  consumer_secret: "PQQIdSWivJNkixaaViddGp4JerdAWEbU1UgqZmXEVL14fxTin7",
-  access_token_key: "1219735467756834818-5eQzXOqgwYSz4v2V7x80TV7pD0hA9J",
-  access_token_secret: "igTqzGEasZX2h2AaP0KkBYOBqYc7MY4qJRx70T36lhPaE",
-});
+import axios from "axios";
 
 const Private = () => {
   return (
@@ -54,6 +42,7 @@ const ShareOptions = ({ isPublic, shareId, id }) => {
   const snippetPublicLink = `${config.host.uri}/view/snippet/${shareId}`;
   const { onCopy, hasCopied } = useClipboard(snippetPublicLink);
   const [visible, setVisible] = useState(isPublic);
+  const [loading, setLoading] = useState(false);
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
   const refBox = React.useRef(null);
 
@@ -66,9 +55,9 @@ const ShareOptions = ({ isPublic, shareId, id }) => {
         variables: {
           snippetId: id,
           snippetInfo: { isPublic: !visible },
-          token: token,
+          token: token
         },
-        refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }],
+        refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
       });
     } catch (error) {
       console.log(error);
@@ -88,71 +77,40 @@ const ShareOptions = ({ isPublic, shareId, id }) => {
     const left = (window.outerWidth - width) / 2;
     const top = (window.outerHeight - height) / 2;
     const opts = `status=1,width=${width},height=${height},top=${top},left=${left}`;
-
     window.open(twitterUrl, "twitter", opts);
   }
-
-  const handleShare = () => {
-    client.post(
-      "media/upload",
-      {
-        media:
-          "https://res.cloudinary.com/dhsegkn40/image/upload/v1580472068/d1_gqlxzm.jpg",
-      },
-      function(error, media, response) {
-        if (error) {
-          console.log(error);
-        } else {
-          const status = {
-            status: "I tweeted from React.js!",
-            media_ids: media.media_id_string,
-          };
-          console.log(status);
-
-          client.post("statuses/update", status, function(
-            error,
-            tweet,
-            response,
-          ) {
-            if (error) {
-              console.log(error);
-            } else {
-              console.log("Successfully tweeted an image!");
-            }
-          });
-        }
-      },
-    );
-
-    // setTimeout(() => {
-    // }, 2000);
-    // const NodeImg = refBox.current;
-    // console.log(NodeImg);
-    // domtoimage
-    //   .toPng(NodeImg)
-    //   .then(dataUrl => {
-    //     // const Img = new Image();
-    //     // Img.src = dataUrl;
-    //     console.log("data URL:", dataUrl);
-    //     const imgLink =
-    //       "https://res.cloudinary.com/dhsegkn40/image/upload/v1580393154/image_from_ios_kocwtf.jpg";
-    //     const content = encodeURIComponent(
-    //       `Created with @codelify_dev ${imgLink}`,
-    //     );
-    //     const url = "http://35483158.ngrok.io";
-    //     const via = "codelify_dev";
-    //     const title = "Ttitle Example";
-    //     const hashtags = "codelify,snippet";
-    //     const twiiterURL = `https://twitter.com/share?url=${url}&text=${title}&via=${via}&hashtags=${hashtags}`;
-    //     openTwitterUrl(twiiterURL);
-    //   })
-    //   .catch(err => console.log(err));
+  var axiosConfig = {
+    headers: { "Access-Control-Allow-Origin": "*" }
   };
 
-  const url = "http://fc3b76c7.ngrok.io/";
-  const via = "codelify_dev";
-  const title = "Ttitle Example";
-  const hashtags = "codelify,snippet";
+  const handleShare = () => {
+    setLoading(true);
+    let node = document.getElementById("my-node");
+    domtoimage
+      .toPng(node)
+      .then(dataUrl => {
+        axios
+          .post(
+            "https://codelify-tweets.herokuapp.com/imagetotweet",
+            {
+              dataUrl: dataUrl
+            },
+            axiosConfig
+          )
+          .then(res => {
+            // console.log(snippetPublicLink);
+            const url = snippetPublicLink;
+            const via = "codelify_dev";
+            const title = res.data.message;
+            const hashtags = "codelify,snippet";
+            const twiiterURL = `https://twitter.com/share?url=${url}&text=${title}&via=${via}&hashtags=${hashtags}`;
+            openTwitterUrl(twiiterURL);
+          })
+          .finally(() => setLoading(false))
+          .catch(err => console.log(err, "ERRORRRRRR"));
+      })
+      .catch(err => console.log(err));
+  };
   return (
     <Box p="10px" ref={refBox}>
       <Button
@@ -192,14 +150,9 @@ const ShareOptions = ({ isPublic, shareId, id }) => {
           isInline
         >
           <Box mx="5px" as={FaTwitter} />
-          {/* <a
-            href={`https://twitter.com/share?url=${url}&text=${title}&via=${via}&hashtags=${hashtags}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          > */}
-          <Text onClick={handleShare} fontSize="sm">
+          <Button onClick={handleShare} fontSize="sm" isLoading={loading}>
             Publish on Twitter
-          </Text>
+          </Button>
           {/* </a> */}
           />
         </Stack>
