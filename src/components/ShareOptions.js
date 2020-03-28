@@ -93,7 +93,8 @@ const ShareOptions = ({ isPublic, shareId, id }) => {
           .post(
             "https://codelify-tweets.herokuapp.com/imagetotweet",
             {
-              dataUrl: dataUrl
+              dataUrl: dataUrl,
+              shareId
             },
             axiosConfig
           )
@@ -107,7 +108,7 @@ const ShareOptions = ({ isPublic, shareId, id }) => {
             openTwitterUrl(twiiterURL);
           })
           .finally(() => setLoading(false))
-          .catch(err => console.log(err, "ERRORRRRRR"));
+          .catch(err => console.log(err, "Error trying to tweet"));
       })
       .catch(err => console.log(err));
   };
