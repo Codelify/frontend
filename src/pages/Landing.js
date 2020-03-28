@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Event, PageView, initGA } from "../components/~common/Tracking";
 import config from "../utils/config";
 // import './App.css';
@@ -13,8 +13,7 @@ import {
   Flex,
   useDisclosure,
   useColorMode,
-  Stack,
-  Divider,
+  Stack
 } from "@chakra-ui/core";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -156,7 +155,7 @@ function Landing() {
                 }
                 style={{
                   animation: "float 6s ease-in-out infinite",
-                  borderRadius: "5px",
+                  borderRadius: "5px"
                 }}
               />
             </Container>

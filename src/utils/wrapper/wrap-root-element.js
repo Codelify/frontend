@@ -6,7 +6,7 @@ import { ColorModeProvider, CSSReset, ThemeProvider } from "@chakra-ui/core";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-import AppProvider from "../AppProvider";
+import AppProvider from "../../context/AppContext";
 import ApolloProvider from "./Apollo-Provider";
 
 export const WrapRootElement = ({ children }) => {

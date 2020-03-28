@@ -9,6 +9,7 @@ export const MY_SNIPPETs = gql`
       content
       tags
       sourceUrl
+      lang
       createdAt
       isFav
       archivedAt
@@ -27,6 +28,7 @@ export const GET_SNIPPET = gql`
       content
       tags
       sourceUrl
+      lang
       owner { 
         id
         uid

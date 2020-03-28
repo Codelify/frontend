@@ -3,11 +3,11 @@ import "./App.css";
 import { Helmet } from "react-helmet";
 import Default from "./components/Default";
 import Login from "./components/Login";
-import Landing from "./views/Landing";
-import AccessDenied from "./views/AccessDenied";
-import PageNotFound from "./views/PageNotFound";
-import Profile from "./views/Profile";
-import SingleSnippet from "./views/SingleSnippet";
+import Landing from "./pages/Landing";
+import AccessDenied from './pages/AccessDenied';
+import PageNotFound from './pages/PageNotFound'
+import Profile from './pages/Profile';
+import SingleSnippet from './pages/SingleSnippet'
 import { Router } from "@reach/router";
 import SlackAuthenticator from "./components/SlackAuthenticator";
 import { initGA } from "./components/~common/Tracking";

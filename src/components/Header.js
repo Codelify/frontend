@@ -50,7 +50,7 @@ const AppHeader = props => {
 
   const changeRoute = () => {
     if(!isLoggedIn){
-      navigate("/login");
+      navigate("/");
     } else {
       navigate(handleRouteChange())
     }
@@ -90,6 +90,7 @@ const AppHeader = props => {
                     as="a"
                     size="xs"
                     ml={4}
+                    cursor="pointer"
                     onClick={ changeRoute }
                     _focus={{ outline: "none" }}
                   >

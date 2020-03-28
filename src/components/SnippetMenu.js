@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { AppContext } from "../utils/AppProvider";
+import { AppContext } from "../context/AppContext";
 import {
   IconButton,
   Menu,
@@ -47,7 +47,6 @@ const SnippetMenu = ({ isFav, id }) => {
       <Menu autoSelect={false}>
         <MenuButton _focus={{ outline: "none" }} as="div">
           <IconButton
-            p="0px"
             size="xs"
             variant="ghost"
             variantColor="teal"
@@ -62,7 +61,7 @@ const SnippetMenu = ({ isFav, id }) => {
         <MenuList placement="bottom-end">
           {state.currentView !== "FiArchive" && (
             <MenuItem onClick={toggleFavorite}>
-              <Box size="20px" mx="10px" as={FaStar} color="red.200" />
+              <Box size="20px" mx="10px" as={FaStar} color="teal.300" />
               <span>
                 {favorite ? "Remove from Favorite" : "Add to Favorite"}
               </span>

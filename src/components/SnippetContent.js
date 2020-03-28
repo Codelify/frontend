@@ -6,19 +6,19 @@ import {
   IconButton,
   Box,
   useClipboard,
-  Stack
+  Stack,
 } from "@chakra-ui/core";
 import SnippetContext from '../context/SnippetContext';
 import { LiveProvider, LiveEditor, withLive } from "react-live";
 import theme from "prism-react-renderer/themes/nightOwl";
 import { MdContentCopy } from "react-icons/md";
-import { FaStar } from "react-icons/fa";
+import { FaRegStar } from "react-icons/fa";
 import SnippetMenu from "./SnippetMenu";
 
 const SnippetContent = (
-  { content, isFav, id, handleUpdate, handleEdit }
+  { content, id, isFav, handleEdit, handleUpdate, codeLangage }
 ) => {
-  const editMode = useContext(SnippetContext);
+  const disableEdit = useContext(SnippetContext);
   const snippetPlaceHolder = `${content}`;
   const [value] = React.useState(snippetPlaceHolder);
   const { onCopy, hasCopied } = useClipboard(value);
@@ -35,14 +35,11 @@ const SnippetContent = (
   return (
     <>
       <LiveProvider
-        disabled={editMode}
+        disabled={disableEdit}
         theme={theme}
-        language="javascript"
+        language={codeLangage === "other" || codeLangage === null ? "javascript" : codeLangage}
         code={snippetPlaceHolder}
         transformCode={e => handleEdit(e, "content")}
-        style={{
-          outline: "none"
-        }}
       >
         <Stack isReversed>
           <LiveEditor
@@ -57,33 +54,28 @@ const SnippetContent = (
               fontSize: "14px",
               minHeight: "300px",
               borderBottomRightRadius: "5px",
-              borderBottomLeftRadius: "5px"
+              borderBottomLeftRadius: "5px",
+              boxShadow: "0 5px 15px 0px rgba(0,0,0,0.6)",
             }}
             _focus={{
               outline: "none"
             }}
           />
           <Box
-            h="45px"
             opacity="0.96"
             d="flex"
-            p={2}
-            justifyContent="space-between"
+            pb={1}
+            px={2}
+            justifyContent="flex-end"
             backgroundColor="#051525"
-            style={{
-              borderTopRightRadius: "5px",
-              borderTopLeftRadius: "5px"
-            }}
           >
             {isFav ? (
               <Box
-                ml="10px"
-                borderRadius="5px"
-                p="3px"
-                backgroundColor="#FEB2B2"
-                as={FaStar}
-                size="25px"
-                color="#FFFFFF"
+                mx="10px"
+                backgroundColor="none"
+                as={FaRegStar}
+                size="22px"
+                color="#4FD1C5"
                 style={{
                   animation: "rotation 1.5s linear"
                 }}
@@ -108,7 +100,6 @@ const SnippetContent = (
               ) : (
                 <IconButton
                   p="3px"
-                  mt="2px"
                   variant="ghost"
                   size="xs"
                   variantColor="teal"
@@ -119,14 +110,14 @@ const SnippetContent = (
                 />
               )}
               {
-                !editMode && <SnippetMenu {...{ isFav, id }} />
+                !disableEdit && <SnippetMenu {...{ isFav, id }} />
               }
             </Stack>
           </Box>
         </Stack>
       </LiveProvider>
       {
-        !editMode &&
+        !disableEdit &&
           <Collapse mt="15px" isOpen={show}>
             <ButtonGroup mb="10px" justifyContent="center" size="sm">
               <Button

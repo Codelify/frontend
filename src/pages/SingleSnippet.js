@@ -25,8 +25,6 @@ const SingleSnippet = props => {
     variables: { snippetId }
   });
 
-  console.log(data);
-
   return (
     <ThemeProvider>
       <CSSReset />
@@ -36,7 +34,7 @@ const SingleSnippet = props => {
           <Spinner />
         ) : (
           <>
-            <UserBio owner={data && data.getSnippetDetails.owner} />
+            <UserBio owner={data.getSnippetDetails.owner} />
             <Flex align="center" justifyContent="center" w="100%">
               <Box
                 w="90%"
@@ -49,19 +47,20 @@ const SingleSnippet = props => {
                 py="40px"
               >
                 <SnippetContext.Provider value={disableEdit}>
-                    <CodeSnippet
-                      index={0}
-                      key={data.getSnippetDetails.id}
-                      id={data.getSnippetDetails.id}
-                      title={data.getSnippetDetails.title}
-                      description={data.getSnippetDetails.description}
-                      content={data.getSnippetDetails.content}
-                      tags={data.getSnippetDetails.tags}
-                      url={data.getSnippetDetails.sourceUrl}
-                      isFav={data.getSnippetDetails.isFav}
-                      isArchived={data.getSnippetDetails.archivedAt}
-                      shareId={snippetId}
-                    />
+                  <CodeSnippet
+                    index={0}
+                    key={data.getSnippetDetails.id}
+                    id={data.getSnippetDetails.id}
+                    title={data.getSnippetDetails.title}
+                    description={data.getSnippetDetails.description}
+                    content={data.getSnippetDetails.content}
+                    tags={data.getSnippetDetails.tags}
+                    url={data.getSnippetDetails.sourceUrl}
+                    lang={data.getSnippetDetails.lang}
+                    isFav={data.getSnippetDetails.isFav}
+                    isArchived={data.getSnippetDetails.archivedAt}
+                    shareId={snippetId}
+                  />
                 </SnippetContext.Provider>
               </Box>
             </Flex>

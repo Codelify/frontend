@@ -16,7 +16,7 @@ const SnippetHeading = ({
   handleUpdate,
   handleEdit
 }) => {
-  const editMode = useContext(SnippetContext);
+  const disableEdit = useContext(SnippetContext);
 
     const handleBlur = event => {
     event.persist();
@@ -38,7 +38,7 @@ const SnippetHeading = ({
         <ContentEditable
           onChange={e => handleEdit(e, "title")}
           html={title}
-          disabled={editMode}
+          disabled={disableEdit}
           id={titleId}
           onBlur={e => handleBlur(e)}
           onClick={() => {
@@ -51,7 +51,7 @@ const SnippetHeading = ({
         />
       </Heading>
       {
-        !editMode &&
+        !disableEdit &&
         <Collapse mt={0} isOpen={show}>
         <ButtonGroup mb="10px" justifyContent="center" size="sm">
           <Button variantColor="teal" onMouseDown={() => handleUpdate("title")}>
