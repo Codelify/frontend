@@ -16,7 +16,14 @@ import { FaRegStar } from "react-icons/fa";
 import SnippetMenu from "./SnippetMenu";
 
 const SnippetContent = (
-  { content, id, isFav, handleEdit, handleUpdate, codeLangage }
+  { 
+    content, 
+    id, 
+    isFav, 
+    handleEdit = () => { return }, 
+    handleUpdate, 
+    codeLangage 
+  }
 ) => {
   const disableEdit = useContext(SnippetContext);
   const snippetPlaceHolder = `${content}`;
