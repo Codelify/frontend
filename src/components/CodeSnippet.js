@@ -3,11 +3,11 @@ import { Box, Flex, Stack, Link, Icon, Divider } from "@chakra-ui/core";
 import SnippetHeading from "./SnippetHeading";
 import Description from "./SnippetDescription";
 import SnippetTags from "./SnippetTags";
-import ShareOptions from './ShareOptions';
+import ShareOptions from "./ShareOptions";
 import SnippetContent from "./SnippetContent";
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_SNIPPET } from "../graphql/mutation";
-import CodeLangageBar from './CodeLangageBar'
+import CodeLangageBar from "./CodeLangageBar";
 
 const CodeSnippet = ({
   title,
@@ -20,7 +20,7 @@ const CodeSnippet = ({
   index,
   lang,
   isPublic,
-  shareId,
+  shareId
 }) => {
   //moved ControlButtons in each filed - so we can know whitch field user wants to update
   // const ControlButtons = () => {
@@ -41,14 +41,11 @@ const CodeSnippet = ({
     //construct costum object for every case for not repeting the mutation of each field
     if (typeOfAction === "title") {
       costumObject[typeOfAction] = titleToUpdate;
-    }
-    else if (typeOfAction === "description") {
+    } else if (typeOfAction === "description") {
       costumObject[typeOfAction] = descriptionToUpdate;
-    }
-    else if (typeOfAction === "content") {
+    } else if (typeOfAction === "content") {
       costumObject[typeOfAction] = contentToUpdate;
-    }
-    else if (typeOfAction === "lang") {
+    } else if (typeOfAction === "lang") {
       costumObject[typeOfAction] = codeLangage;
     }
 
@@ -96,19 +93,16 @@ const CodeSnippet = ({
   };
 
   // Data update from CodeLangageBar child comp
-  const [ codeLangage, setCodeLangage ] = useState(lang)
-  const langageSelection = (event) => {
+  const [codeLangage, setCodeLangage] = useState(lang);
+  const langageSelection = event => {
     setCodeLangage(event.target.parentElement.id);
-  }
+  };
 
   // Useffect that trigger Code Snippet Langage update when
   // data is received from CodeLangageBar child comp
   useEffect(() => {
-    handleUpdate("lang")
-  },[codeLangage]
-
-  )
-
+    handleUpdate("lang");
+  }, [codeLangage]);
 
   return (
     <>
@@ -138,32 +132,38 @@ const CodeSnippet = ({
           <Box>
             {url && (
               <Link color="teal.500" href={url} isExternal>
-                Link to external recources <Icon name="external-link" mx="2px" />
+                Link to external recources{" "}
+                <Icon name="external-link" mx="2px" />
               </Link>
             )}
           </Box>
           <SnippetTags id={id} tags={tags} />
           <Box mt="20px" p="10px" borderTopWidth="1px">
-              <ShareOptions {...{isPublic, shareId, id}} />
+            <ShareOptions {...{ isPublic, shareId, id }} />
           </Box>
         </Stack>
         <Box
           minWidth="310px"
           w={["100%", "100%", "100%", "60%"]}
           borderRadius="5px"
-        >          
-          <Box py="0px" pl="10px"
+          id={`post-img-${id}`}
+        >
+          <Box
+            py="0px"
+            pl="10px"
             style={{
-              whiteSpace:"nowrap", 
-              overflow:"auto",
-              opacity:"0.96",
-              background: "linear-gradient(to bottom, transparent 50%, #051525 50%)",
-            }}>
-            <CodeLangageBar {...{langageSelection, codeLangage}}/>
+              whiteSpace: "nowrap",
+              overflow: "auto",
+              opacity: "0.96",
+              background:
+                "linear-gradient(to bottom, transparent 50%, #051525 50%)"
+            }}
+          >
+            <CodeLangageBar {...{ langageSelection, codeLangage }} />
           </Box>
           <SnippetContent
             content={contentToUpdate}
-            {...{id, isFav, handleEdit, handleUpdate, codeLangage}}
+            {...{ id, isFav, handleEdit, handleUpdate, codeLangage }}
           />
         </Box>
       </Flex>
