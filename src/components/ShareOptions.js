@@ -79,9 +79,6 @@ const ShareOptions = ({ isPublic, shareId, id }) => {
     const opts = `status=1,width=${width},height=${height},top=${top},left=${left}`;
     window.open(twitterUrl, "twitter", opts);
   }
-  var axiosConfig = {
-    headers: { "Access-Control-Allow-Origin": "*" }
-  };
 
   const handleShare = () => {
     setLoading(true);
@@ -91,15 +88,13 @@ const ShareOptions = ({ isPublic, shareId, id }) => {
       .then(dataUrl => {
         axios
           .post(
-            "https://codelify-tweets.herokuapp.com/imagetotweet",
+            `${config.backend.uri}/imagetotweet`,
             {
               dataUrl: dataUrl,
               shareId
             },
-            axiosConfig
           )
           .then(res => {
-            // console.log(snippetPublicLink);
             const url = snippetPublicLink;
             const via = "codelify_dev";
             const title = res.data.message;
