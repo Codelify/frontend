@@ -7,7 +7,8 @@ import Landing from "./pages/Landing";
 import AccessDenied from './pages/AccessDenied';
 import PageNotFound from './pages/PageNotFound'
 import Profile from './pages/Profile';
-import SingleSnippet from './pages/SingleSnippet'
+import SingleSnippet from './pages/SingleSnippet';
+import TwitterSnippetImage from './components/TwitterSnippetImage'
 import { Router } from "@reach/router";
 import SlackAuthenticator from "./components/SlackAuthenticator";
 import { initGA } from "./components/~common/Tracking";
@@ -39,6 +40,7 @@ function App() {
         <Landing path="/" />
         <AccessDenied path="/access_denied" />
         <SingleSnippet path="/view/snippet/:shareId" />
+        <TwitterSnippetImage path="/view/twit/:shareId" />
         <Login path="/login" />
         <SlackAuthenticator path="/slack/auth" />
         {auth && (
