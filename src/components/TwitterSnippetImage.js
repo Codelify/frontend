@@ -85,7 +85,7 @@ return (
                 w="900px"
                 py="50px"
                 px="80px"
-                backgroundColor={ colorMode === "light" ? "#FAFAFA" : "#ABB8C3" }
+                backgroundColor={ colorMode === "light" ? "#FAFAFA" : "#1c222f" }
             >
                 <SnippetContext.Provider value={disableEdit}>
                 <Box

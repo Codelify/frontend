@@ -50,7 +50,6 @@ const SnippetContent = (
       >
         <Stack isReversed>
           <LiveEditor
-            padding={10}
             onBlur={handleBlur}
             onClick={() => {
               handleToggle(true);
