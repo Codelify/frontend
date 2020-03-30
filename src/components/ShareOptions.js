@@ -147,7 +147,7 @@ const ShareOptions = ({ isPublic, shareId, id }) => {
         >
           <Box mx="5px" as={FaTwitter} />
           <Button _focus={{ outline: "none" }} variant="unstyled" fontWeight="normal" onClick={handleShare} fontSize="sm" isLoading={loading}>
-            Publish on Twitter
+            Share on Twitter
           </Button>
           {/* </a> */}
           />
