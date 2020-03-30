@@ -32,7 +32,7 @@ const Public = () => {
   return (
     <Stack p="3px" isInline alignItems="center">
       <Box fontSize="md" as={FaGlobe} color="green.400" />
-      <Text>Public</Text>
+      <Text>Visible on Public Wall</Text>
     </Stack>
   );
 };

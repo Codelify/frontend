@@ -25,6 +25,7 @@ const SingleSnippet = ({ snippetPublicLink, shareId, isOpen, onClose, id, size }
         variables: { snippetId }
     });
     const [isTwitting, setIsTwitting] = useState(false);
+    const [isSuccessTwitt, setIsSuccessTwitt] = useState(false);
 
     function openTwitterUrl(twitterUrl) {
         const width = 575;
@@ -59,6 +60,7 @@ const SingleSnippet = ({ snippetPublicLink, shareId, isOpen, onClose, id, size }
                 })
                 .finally(() => {
                     setIsTwitting(false);
+                    setIsSuccessTwitt(true)
                 } 
                 )
                 .catch(err => console.log(err, "Error trying to tweet"));
@@ -72,6 +74,7 @@ return (
         d="flex"
         flexDir="column"
         alignItems="center"
+        py="40px"
     >
         {loading ? (
         <Spinner />
@@ -82,7 +85,7 @@ return (
                 w="900px"
                 py="50px"
                 px="80px"
-                backgroundColor={ colorMode === "light" ? "#FAFAFA" : "rgba(45,55,72, 0.3)" }
+                backgroundColor={ colorMode === "light" ? "#FAFAFA" : "#ABB8C3" }
             >
                 <SnippetContext.Provider value={disableEdit}>
                 <Box
@@ -127,11 +130,15 @@ return (
                 isLoading={isTwitting}
                 loadingText="Wiring Twitter"
                 leftIcon={FaTwitter}
-                onClick={handleShare}
+                onClick={isSuccessTwitt ? ()=>{navigate("/app")} : handleShare}
             >
-            Tweet this snippet !
+                {
+                    isSuccessTwitt ? "All done ! Close this" : "Tweet this snippet !"
+                }
             </Button>
-            <Button _focus={{ outline: "none" }} onClick={()=>{navigate("/app")}}>Cancel</Button>
+            {
+                !isSuccessTwitt && <Button _focus={{ outline: "none" }} onClick={()=>{navigate("/app")}}>Cancel</Button>
+            }
             </Box>
         </>
         )}
