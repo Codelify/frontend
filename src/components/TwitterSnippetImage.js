@@ -23,20 +23,16 @@ const SingleSnippet = props => {
 });
 
 return (
-    <ThemeProvider>
-        <CSSReset />
-        <Box pt="100px">
+        <Box>
             {loading ? (
             <Spinner />
             ) : (
             <>
-                <Flex 
+                <Flex
                     id={`post-img-${data.getSnippetDetails.id}`}
                     w="900px"
-                    m="auto"
                     py="40px"
-                    px="60px"
-                    borderRadius="10px"
+                    px="20px"
                     justifyContent="center" 
                     backgroundColor={ colorMode === "light" ? "#FAFAFA" : "rgba(45,55,72, 0.1)" }
                 >
@@ -89,7 +85,6 @@ return (
             </>
             )}
         </Box>
-        </ThemeProvider>
     );
 };
 

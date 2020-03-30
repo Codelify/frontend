@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Flex, Stack, Link, Icon, Divider } from "@chakra-ui/core";
+import { Box, Flex, Stack, Link, Icon, Divider, useColorMode } from "@chakra-ui/core";
 import SnippetHeading from "./SnippetHeading";
 import Description from "./SnippetDescription";
 import SnippetTags from "./SnippetTags";
@@ -22,19 +22,12 @@ const CodeSnippet = ({
   isPublic,
   shareId
 }) => {
-  //moved ControlButtons in each filed - so we can know whitch field user wants to update
-  // const ControlButtons = () => {
-  //   return (
-  //     <ButtonGroup mb="10px" justifyContent="center" size="sm">
-  //       <Button variantColor="teal">Save</Button>
-  //       <IconButton icon="close" />
-  //     </ButtonGroup>
-  //   );
-  // };
+
   const [titleToUpdate, setTitleToUpdate] = useState(title);
   const [descriptionToUpdate, setDescroptionToUpdate] = useState(description);
   const [contentToUpdate, setContentToUpdate] = useState(content);
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
+  const { colorMode } = useColorMode();
 
   const handleUpdate = async typeOfAction => {
     const costumObject = {};
@@ -107,7 +100,7 @@ const CodeSnippet = ({
   return (
     <>
       {index !== 0 && <Divider py="10px" mb="30px" />}
-      <Flex mb="50px" flexWrap="wrap">
+      <Flex justifyContent="space-between" mb="50px" flexWrap="wrap">
         <Stack
           mr="15px"
           minWidth="310px"
@@ -145,8 +138,10 @@ const CodeSnippet = ({
         <Box
           minWidth="310px"
           w={["100%", "100%", "100%", "60%"]}
-          borderRadius="5px"
           id={`post-img-${id}`}
+          backgroundColor={
+            colorMode === "light" ? "#FAFAFA" : "none"
+          }
         >
           <Box
             py="0px"
