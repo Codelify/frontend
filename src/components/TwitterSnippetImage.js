@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Box,
     Flex,
     useColorMode,
-    ThemeProvider,
-    CSSReset,
+    Modal,
+    ModalBody,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalCloseButton,
+    ModalFooter,
+    Button,
+    Heading,
     Spinner
 } from "@chakra-ui/core";
 import CodeLangageBar from "../components/CodeLangageBar";
@@ -13,16 +20,29 @@ import SnippetContext from "../context/SnippetContext";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_SNIPPET } from "../graphql/query";
 
-const SingleSnippet = props => {
-    const snippetId = props.shareId;
+const SingleSnippet = ({ shareId, isOpen, onClose, size }) => {
+    const snippetId = shareId;
     const { colorMode } = useColorMode();
     const disableEdit = true;
-
     const { data, loading } = useQuery(GET_SNIPPET, {
         variables: { snippetId }
-});
+    });
+    const [isTwitting, setIsTwitting] = useState(false);
 
 return (
+<Modal 
+    onClose={onClose} 
+    size={size} 
+    isOpen={isOpen}
+    scrollBehavior="inside"
+>
+    <ModalOverlay />
+    <ModalContent>
+        <ModalHeader >
+            <Heading textAlign="center">Share on Twitter</Heading>
+        </ModalHeader>
+        <ModalCloseButton _focus={{outline:"none"}} />
+        <ModalBody>
         <Box>
             {loading ? (
             <Spinner />
@@ -31,10 +51,10 @@ return (
                 <Flex
                     id={`post-img-${data.getSnippetDetails.id}`}
                     w="900px"
-                    py="40px"
-                    px="20px"
+                    p="50px"
+                    m="auto"
                     justifyContent="center" 
-                    backgroundColor={ colorMode === "light" ? "#FAFAFA" : "rgba(45,55,72, 0.1)" }
+                    backgroundColor={ colorMode === "light" ? "#FAFAFA" : "#1c222f" }
                 >
                     {/* <SnippetContext.Provider value={disableEdit}>
                     <CodeSnippet
@@ -85,6 +105,21 @@ return (
             </>
             )}
         </Box>
+        </ModalBody>
+        <ModalFooter>
+        <Button 
+            _focus={{ outline: "none" }} 
+            variantColor="teal" 
+            mr={3} 
+            isLoading={isTwitting}
+            loadingText="Twitting"
+        >
+            Share
+            </Button>
+            <Button _focus={{ outline: "none" }} onClick={onClose}>Cancel</Button>    
+        </ModalFooter>
+    </ModalContent>
+</Modal>    
     );
 };
 

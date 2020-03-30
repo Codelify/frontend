@@ -7,9 +7,11 @@ import {
   Text,
   Stack,
   useClipboard,
-  Link
+  Link,
+  useDisclosure
 } from "@chakra-ui/core";
 import SnippetContext from "../context/SnippetContext";
+import TwitterSnippetImage from "./TwitterSnippetImage"
 // import TwiiterShareView from '../'
 import { FaLink, FaEyeSlash, FaTwitter, FaGlobe } from "react-icons/fa";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
@@ -39,6 +41,7 @@ const Public = () => {
 };
 
 const ShareOptions = ({ isPublic, shareId, id }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const snippetPublicLink = `${config.host.uri}/view/snippet/${shareId}`;
   const { onCopy, hasCopied } = useClipboard(snippetPublicLink);
   const [visible, setVisible] = useState(isPublic);
@@ -81,33 +84,35 @@ const ShareOptions = ({ isPublic, shareId, id }) => {
   }
 
   const handleShare = () => {
-    setLoading(true);
-    let node = document.getElementById(`post-img-${id}`);
-    domtoimage
-      .toPng(node)
-      .then(dataUrl => {
-        axios
-          .post(
-            `${config.backend.uri}/imagetotweet`,
-            {
-              dataUrl: dataUrl,
-              shareId
-            },
-          )
-          .then(res => {
-            const url = snippetPublicLink;
-            const via = "codelify_dev";
-            const title = res.data.message;
-            const hashtags = "codelify,snippet";
-            const twiiterURL = `https://twitter.com/share?url=${url}&text=${title}&via=${via}&hashtags=${hashtags}`;
-            openTwitterUrl(twiiterURL);
-          })
-          .finally(() => setLoading(false))
-          .catch(err => console.log(err, "Error trying to tweet"));
-      })
-      .catch(err => console.log(err));
+    onOpen();
+    // setLoading(true);
+    // let node = document.getElementById(`post-img-${id}`);
+    // domtoimage
+    //   .toPng(node)
+    //   .then(dataUrl => {
+    //     axios
+    //       .post(
+    //         `${config.backend.uri}/imagetotweet`,
+    //         {
+    //           dataUrl: dataUrl,
+    //           shareId
+    //         },
+    //       )
+    //       .then(res => {
+    //         const url = snippetPublicLink;
+    //         const via = "codelify_dev";
+    //         const title = res.data.message;
+    //         const hashtags = "codelify,snippet";
+    //         const twiiterURL = `https://twitter.com/share?url=${url}&text=${title}&via=${via}&hashtags=${hashtags}`;
+    //         openTwitterUrl(twiiterURL);
+    //       })
+    //       .finally(() => setLoading(false))
+    //       .catch(err => console.log(err, "Error trying to tweet"));
+    //   })
+    //   .catch(err => console.log(err));
   };
   return (
+    <>
     <Box p="10px" ref={refBox}>
       <Button
         mb="20px"
@@ -170,6 +175,13 @@ const ShareOptions = ({ isPublic, shareId, id }) => {
         )}
       </Collapse>
     </Box>
+    <TwitterSnippetImage 
+      shareId={shareId}
+      isOpen={isOpen}
+      onClose={onClose}
+      size="full"
+    />
+    </>
   );
 };
 
