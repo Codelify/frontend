@@ -11,10 +11,8 @@ import domtoimage from "dom-to-image";
 import axios from "axios";
 import { navigate } from "@reach/router";
 
-const TwitterSnippetImage = ({
-  snippetPublicLink,
-  shareId,
-}) => {
+const TwitterSnippetImage = ({shareId}) => {
+  const snippetPublicLink = `${config.host.uri}/view/snippet/${shareId}`;
   const snippetId = shareId;
   const { colorMode } = useColorMode();
   const disableEdit = true;
