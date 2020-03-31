@@ -81,8 +81,9 @@ export default function GoogleButton() {
         <Button
           _focus={{ outline: "none" }}
           variantColor="teal"
+          variant="outline"
           as="a"
-          size="lg"
+          size="md"
           href="#"
           onClick={renderProps.onClick}
           disabled={renderProps.disabled}
