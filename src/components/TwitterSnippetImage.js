@@ -32,7 +32,7 @@ const TwitterSnippetImage = ({shareId}) => {
     const twitterWindow = window.open(twitterUrl, "twitter", opts);
 
     var loop = setInterval(function() {
-      if (twitterWindow.closed) {
+      if (twitterWindow && twitterWindow.closed) {
         clearInterval(loop);
         setIsTwitting(false);
         setIsSuccessTwitt(true);
