@@ -1,5 +1,19 @@
 import React, { useState } from "react";
-import { Box, Button, Flex, useColorMode, Spinner } from "@chakra-ui/core";
+import { 
+  Box, 
+  Button, 
+  Flex, 
+  useColorMode, 
+  Spinner,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+  Stack,   
+  Text,
+} from "@chakra-ui/core";
 import CodeLangageBar from "../components/CodeLangageBar";
 import SnippetContent from "../components/SnippetContent";
 import SnippetContext from "../context/SnippetContext";
@@ -10,6 +24,7 @@ import config from "../utils/config";
 import domtoimage from "dom-to-image";
 import axios from "axios";
 import { navigate } from "@reach/router";
+import { FaSurprise } from "react-icons/fa"
 
 const TwitterSnippetImage = ({shareId}) => {
   const snippetPublicLink = `${config.host.uri}/view/snippet/${shareId}`;
@@ -21,6 +36,10 @@ const TwitterSnippetImage = ({shareId}) => {
   });
   const [isTwitting, setIsTwitting] = useState(false);
   const [isSuccessTwitt, setIsSuccessTwitt] = useState(false);
+
+  const [isOpen, setIsOpen] = React.useState();
+  const onClose = () => setIsOpen(false);
+  const cancelRef = React.useRef();  
 
   function openTwitterUrl(twitterUrl) {
     const width = 575;
@@ -62,12 +81,18 @@ const TwitterSnippetImage = ({shareId}) => {
           // .finally(() => {
           //   setIsTwitting(false);
           // })
-          .catch(err => console.log(err, "Error trying to tweet"));
+          .catch(err => {
+            console.log(err, "Error trying to tweet")
+            setIsTwitting(false);
+            setIsSuccessTwitt(false);
+            setIsOpen(true)
+          } );
       })
       .catch(err => console.log(err));
   };
 
   return (
+    <>
     <Box d="flex" flexDir="column" alignItems="center" py="40px">
       {loading ? (
         <Spinner />
@@ -139,6 +164,33 @@ const TwitterSnippetImage = ({shareId}) => {
         </>
       )}
     </Box>
+      <AlertDialog
+      isOpen={isOpen}
+      leastDestructiveRef={cancelRef}
+      onClose={onClose}
+    >
+      <AlertDialogOverlay />
+      <AlertDialogContent>
+          <AlertDialogHeader fontSize="lg" fontWeight="bold">
+            Oooops !
+          </AlertDialogHeader>        
+        <AlertDialogBody>
+          <Stack isInline spacing={6} alignItems="center" >
+          <Box as={FaSurprise} color="red.400" size="64px"/>
+          <Text fontSize="xl" >
+            Looks like something went wrong
+          </Text>
+          </Stack>
+        </AlertDialogBody>
+
+        <AlertDialogFooter>
+          <Button variantColor="teal" ref={cancelRef} onClick={onClose} _focus={{outline:"none"}} >
+            OK, will try later
+          </Button>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+    </>    
   );
 };
 
