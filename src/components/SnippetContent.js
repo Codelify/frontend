@@ -50,7 +50,6 @@ const SnippetContent = (
       >
         <Stack isReversed>
           <LiveEditor
-            padding={10}
             onBlur={handleBlur}
             onClick={() => {
               handleToggle(true);
@@ -62,7 +61,7 @@ const SnippetContent = (
               minHeight: "300px",
               borderBottomRightRadius: "5px",
               borderBottomLeftRadius: "5px",
-              boxShadow: "0 5px 15px 0px rgba(0,0,0,0.6)",
+              boxShadow: "10px 10px 25px -1px rgba(0,0,0,0.75)",
             }}
             _focus={{
               outline: "none"

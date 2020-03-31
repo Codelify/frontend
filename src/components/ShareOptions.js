@@ -9,6 +9,7 @@ import {
   useClipboard,
   Link
 } from "@chakra-ui/core";
+import { Link as ReachLink } from "@reach/router";
 import SnippetContext from "../context/SnippetContext";
 // import TwiiterShareView from '../'
 import { FaLink, FaEyeSlash, FaTwitter, FaGlobe } from "react-icons/fa";
@@ -17,8 +18,7 @@ import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
 import config from "../utils/config";
-import domtoimage from "dom-to-image";
-import axios from "axios";
+import isLoggedIn from "../utils/auth";
 
 const Private = () => {
   return (
@@ -33,7 +33,7 @@ const Public = () => {
   return (
     <Stack p="3px" isInline alignItems="center">
       <Box fontSize="md" as={FaGlobe} color="green.400" />
-      <Text>Public</Text>
+      <Text>Public Wall</Text>
     </Stack>
   );
 };
@@ -42,9 +42,9 @@ const ShareOptions = ({ isPublic, shareId, id }) => {
   const snippetPublicLink = `${config.host.uri}/view/snippet/${shareId}`;
   const { onCopy, hasCopied } = useClipboard(snippetPublicLink);
   const [visible, setVisible] = useState(isPublic);
-  const [loading, setLoading] = useState(false);
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
   const refBox = React.useRef(null);
+  const auth = isLoggedIn();
 
   const toggleVisibility = async () => {
     setVisible(!visible);
@@ -71,43 +71,8 @@ const ShareOptions = ({ isPublic, shareId, id }) => {
 
   const editMode = useContext(SnippetContext);
 
-  function openTwitterUrl(twitterUrl) {
-    const width = 575;
-    const height = 400;
-    const left = (window.outerWidth - width) / 2;
-    const top = (window.outerHeight - height) / 2;
-    const opts = `status=1,width=${width},height=${height},top=${top},left=${left}`;
-    window.open(twitterUrl, "twitter", opts);
-  }
-
-  const handleShare = () => {
-    setLoading(true);
-    let node = document.getElementById(`post-img-${id}`);
-    domtoimage
-      .toPng(node)
-      .then(dataUrl => {
-        axios
-          .post(
-            `${config.backend.uri}/imagetotweet`,
-            {
-              dataUrl: dataUrl,
-              shareId
-            },
-          )
-          .then(res => {
-            const url = snippetPublicLink;
-            const via = "codelify_dev";
-            const title = res.data.message;
-            const hashtags = "codelify,snippet";
-            const twiiterURL = `https://twitter.com/share?url=${url}&text=${title}&via=${via}&hashtags=${hashtags}`;
-            openTwitterUrl(twiiterURL);
-          })
-          .finally(() => setLoading(false))
-          .catch(err => console.log(err, "Error trying to tweet"));
-      })
-      .catch(err => console.log(err));
-  };
   return (
+    <>
     <Box p="10px" ref={refBox}>
       <Button
         mb="20px"
@@ -139,19 +104,21 @@ const ShareOptions = ({ isPublic, shareId, id }) => {
             {hasCopied ? "Copied" : "Copy link"}
           </Button>
         </Stack>
-        <Stack
-          py="10px"
-          alignItems="center"
-          justifyContent="flex-start"
-          isInline
-        >
-          <Box mx="5px" as={FaTwitter} />
-          <Button onClick={handleShare} fontSize="sm" isLoading={loading}>
-            Publish on Twitter
-          </Button>
-          {/* </a> */}
-          />
-        </Stack>
+        {
+          auth && (
+            <Stack
+            py="10px"
+            alignItems="center"
+            justifyContent="flex-start"
+            isInline
+          >
+            <Box mx="5px" as={FaTwitter} />
+            <Link as={ReachLink} to={`/view/twit/${shareId}`} fontSize="sm">
+              Share on Twitter
+            </Link>
+          </Stack>  
+          )
+        }
         {!editMode && (
           <Stack
             py="10px"
@@ -170,6 +137,7 @@ const ShareOptions = ({ isPublic, shareId, id }) => {
         )}
       </Collapse>
     </Box>
+    </>
   );
 };
 
