@@ -18,6 +18,7 @@ import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
 import config from "../utils/config";
+import isLoggedIn from "../utils/auth";
 
 const Private = () => {
   return (
@@ -43,6 +44,7 @@ const ShareOptions = ({ isPublic, shareId, id }) => {
   const [visible, setVisible] = useState(isPublic);
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
   const refBox = React.useRef(null);
+  const auth = isLoggedIn();
 
   const toggleVisibility = async () => {
     setVisible(!visible);
@@ -102,19 +104,21 @@ const ShareOptions = ({ isPublic, shareId, id }) => {
             {hasCopied ? "Copied" : "Copy link"}
           </Button>
         </Stack>
-        <Stack
-          py="10px"
-          alignItems="center"
-          justifyContent="flex-start"
-          isInline
-        >
-          <Box mx="5px" as={FaTwitter} />
-          <Link as={ReachLink} to={`/view/twit/${shareId}`} fontSize="sm">
-            Share on Twitter
-          </Link>
-          {/* </a> */}
-          />
-        </Stack>
+        {
+          auth && (
+            <Stack
+            py="10px"
+            alignItems="center"
+            justifyContent="flex-start"
+            isInline
+          >
+            <Box mx="5px" as={FaTwitter} />
+            <Link as={ReachLink} to={`/view/twit/${shareId}`} fontSize="sm">
+              Share on Twitter
+            </Link>
+          </Stack>  
+          )
+        }
         {!editMode && (
           <Stack
             py="10px"
