@@ -11,13 +11,9 @@ import domtoimage from "dom-to-image";
 import axios from "axios";
 import { navigate } from "@reach/router";
 
-const SingleSnippet = ({
+const TwitterSnippetImage = ({
   snippetPublicLink,
   shareId,
-  isOpen,
-  onClose,
-  id,
-  size
 }) => {
   const snippetId = shareId;
   const { colorMode } = useColorMode();
@@ -148,4 +144,4 @@ const SingleSnippet = ({
   );
 };
 
-export default SingleSnippet;
+export default TwitterSnippetImage;
