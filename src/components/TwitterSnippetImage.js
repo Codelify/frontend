@@ -172,17 +172,15 @@ const TwitterSnippetImage = ({shareId}) => {
       <AlertDialogOverlay />
       <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            Oooops !
           </AlertDialogHeader>        
         <AlertDialogBody>
           <Stack isInline spacing={6} alignItems="center" >
           <Box as={FaSurprise} color="red.400" size="64px"/>
           <Text fontSize="xl" >
-            Looks like something went wrong
+            Looks like something went wrong !
           </Text>
           </Stack>
         </AlertDialogBody>
-
         <AlertDialogFooter>
           <Button variantColor="teal" ref={cancelRef} onClick={onClose} _focus={{outline:"none"}} >
             OK, will try later
