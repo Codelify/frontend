@@ -40,7 +40,8 @@ const SingleSnippet = ({
     var loop = setInterval(function() {
       if (twitterWindow.closed) {
         clearInterval(loop);
-        alert("closed");
+        setIsTwitting(false);
+        setIsSuccessTwitt(true);
       }
     }, 1000);
   }
@@ -64,10 +65,9 @@ const SingleSnippet = ({
             const twitterURL = `https://twitter.com/share?url=${url}&text=${title}&via=${via}&hashtags=${hashtags}`;
             openTwitterUrl(twitterURL);
           })
-          .finally(() => {
-            setIsTwitting(false);
-            setIsSuccessTwitt(true);
-          })
+          // .finally(() => {
+          //   setIsTwitting(false);
+          // })
           .catch(err => console.log(err, "Error trying to tweet"));
       })
       .catch(err => console.log(err));
