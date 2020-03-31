@@ -11,14 +11,8 @@ import domtoimage from "dom-to-image";
 import axios from "axios";
 import { navigate } from "@reach/router";
 
-const SingleSnippet = ({
-  snippetPublicLink,
-  shareId,
-  isOpen,
-  onClose,
-  id,
-  size
-}) => {
+const TwitterSnippetImage = ({shareId}) => {
+  const snippetPublicLink = `${config.host.uri}/view/snippet/${shareId}`;
   const snippetId = shareId;
   const { colorMode } = useColorMode();
   const disableEdit = true;
@@ -38,7 +32,7 @@ const SingleSnippet = ({
     const twitterWindow = window.open(twitterUrl, "twitter", opts);
 
     var loop = setInterval(function() {
-      if (twitterWindow.closed) {
+      if (twitterWindow && twitterWindow.closed) {
         clearInterval(loop);
         setIsTwitting(false);
         setIsSuccessTwitt(true);
@@ -59,7 +53,7 @@ const SingleSnippet = ({
           })
           .then(res => {
             const url = snippetPublicLink;
-            const via = "codelify_dev";
+            const via = "Codelify_dev";
             const title = res.data.message;
             const hashtags = "codelify,snippet";
             const twitterURL = `https://twitter.com/share?url=${url}&text=${title}&via=${via}&hashtags=${hashtags}`;
@@ -148,4 +142,4 @@ const SingleSnippet = ({
   );
 };
 
-export default SingleSnippet;
+export default TwitterSnippetImage;
