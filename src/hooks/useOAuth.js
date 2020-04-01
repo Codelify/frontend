@@ -7,14 +7,14 @@ import { LOGIN_WITH_GOOGLE, CREATE_SNIPPET } from "../graphql/mutation";
 import { handleRouteChange } from "../utils/handleRouteChange";
 
 export default function useOAuth() {
-  const [loginWithSlack] = useMutation(LOGIN_WITH_GOOGLE);
+  const [OAuth ] = useMutation(LOGIN_WITH_GOOGLE);
   const [createSnippet] = useMutation(CREATE_SNIPPET);
   const toasting = useToast();
 
   const login = async user => {
       console.log('User',user)
     try {
-      const { data } = await loginWithSlack({
+      const { data } = await OAuth({
         variables: {
           input: user
         }

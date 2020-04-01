@@ -6,7 +6,7 @@ import { FaGithub } from 'react-icons/fa'
 import GitHubLogin from 'react-github-login';
 import axios from 'axios';
 import config from '../utils/config'
-import useOAUth from '../utils/OAuth'
+import useOAUth from '../hooks/useOAuth'
 const GithubButton = (props) => {
   const [isDisabled, setIsDisabled] = useState(false)
   const [login] = useOAUth()
@@ -47,20 +47,24 @@ const GithubButton = (props) => {
   } 
   
   return (
+    // <Button 
+    // _focus={{ outline: "none" }}
+    // variantColor="teal"
+    // variant="solid"
+    // size="md"
+    // onClick={onLogin}
+    // disabled={isDisabled}
+    // leftIcon={FaGithub}
+    // >
+    //   GitHub Login
+    // </Button>
     <GitHubLogin
-    _focus={{ outline: "none" }}
-    variantColor="teal"
-    variant="solid"
-    size="md"
-    onClick={onLogin}
-    disabled={isDisabled}
-    leftIcon={FaGithub}
     onSuccess={onSuccessGithub}
-    buttonText="Github Login"
-    className="git-login"
     valid={true}
     redirectUri=""
     clientId={config.github.clientId}
+    buttonText="GitHub Login"
+    className="github-button"
   /> 
   )
 }
