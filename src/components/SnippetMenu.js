@@ -7,14 +7,17 @@ import {
   MenuList,
   MenuItem,
   useDisclosure,
-  Box
+  Box,
+  useToast,
 } from "@chakra-ui/core";
-import SnippetMenuModal from './SnippetMenuModal'
+import SnippetMenuModal from './SnippetMenuModal';
+import DialogModal from './DialogModal'
 import { FiMoreHorizontal } from "react-icons/fi";
 import { FaStar, FaArchive, FaWindowRestore } from "react-icons/fa";
+import { IoMdAlert } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 import { useMutation } from "@apollo/react-hooks";
-import { UPDATE_SNIPPET } from "../graphql/mutation";
+import { UPDATE_SNIPPET, DELETE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
 
 const SnippetMenu = ({ isFav, id }) => {
@@ -23,6 +26,9 @@ const SnippetMenu = ({ isFav, id }) => {
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { state, dispatch } = useContext(AppContext);
+  const [loading, setLoading] = useState(false);
+  const toast = useToast();
+  const [deleteSnippet, data] = useMutation(DELETE_SNIPPET);
 
   const toggleFavorite = async () => {
     setFavorite(!favorite);
@@ -41,6 +47,84 @@ const SnippetMenu = ({ isFav, id }) => {
       console.log(error);
     }
   };
+
+  let dialogHeader = "";
+  if (state.currentView === "FiArchive"){
+    if( restoreSnippet){
+      dialogHeader = "This will restore the Snippet"
+    }
+    else dialogHeader = "This will delete your Snippet"
+  }
+  else dialogHeader = "This will archive this Snippet"
+
+  const handleRestoreSnippet = async token => {
+    try {
+    setLoading(true);
+    // eslint-disable-next-line no-empty-pattern
+    const {} = await updateSnippet({
+        variables: {
+        snippetId: id,
+        snippetInfo: { archivedAt: null },
+        token: token
+        },
+        refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
+    });
+    setLoading(false);
+    toast({
+        position: "top-right",
+        title: "Restore",
+        description: "Your snippet has been successfully restored",
+        status: "success",
+        duration: 9000,
+        isClosable: true
+    });
+    } catch (error) {
+    setLoading(false);
+    console.log(error);
+    }
+  };
+
+  const handleDeleteSnippet = async token => {
+    try {
+    const { data } = await deleteSnippet({
+        variables: {
+        snippetId: id,
+        token,
+        archive: state.currentView === "FiArchive" ? false : true
+        },
+        refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
+    });
+
+    dispatch({ type: "DELETE_SNIPPET", payload: id });
+    !data.loading && onClose(false);
+    toast({
+        position: "top-right",
+        title: state.currentView === "FiArchive" ? "Delete" : "Update",
+        description:
+        state.currentView === "FiArchive"
+            ? "Your snippet has been successfully deleted"
+            : "Your snippet has been successfully archived ",
+        status: "success",
+        duration: 9000,
+        isClosable: true
+    });
+    } catch (error) {
+    console.log(error);
+    }
+  };
+
+
+  const handleSnippetMutation = async () => {
+    const token =
+    typeof window !== "undefined" && window.localStorage.getItem("token");
+    if (token) {
+    if (restoreSnippet) {
+        handleRestoreSnippet(token);
+    } else {
+        handleDeleteSnippet(token);
+    }
+    }
+  };  
 
   return (
     <>
@@ -93,7 +177,16 @@ const SnippetMenu = ({ isFav, id }) => {
           </MenuItem>
         </MenuList>
       </Menu>
-      <SnippetMenuModal {...{ restoreSnippet, isOpen, onClose, id, state, dispatch }} />
+      {/* <SnippetMenuModal {...{ restoreSnippet, isOpen, onClose, id, state, dispatch }} /> */}
+      <DialogModal {
+      ...{isOpen, onClose, dialogHeader}} 
+      dialogContent = "Do you want to continue ?"
+      dialogIcon={IoMdAlert}
+      cancelButton="Cancel" 
+      confirmButton="Yes"
+      confirmCallback={handleSnippetMutation}
+      isLoading={loading || data.loading}
+      />
     </>
   );
 };

@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/core";
 import CodeLangageBar from "../components/CodeLangageBar";
 import SnippetContent from "../components/SnippetContent";
-import DialogPopup from "../components/DialogPopup"
+import DialogModal from "../components/DialogModal"
 import SnippetContext from "../context/SnippetContext";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_SNIPPET } from "../graphql/query";
@@ -155,7 +155,7 @@ const TwitterSnippetImage = ({shareId}) => {
         </>
       )}
     </Box>
-    <DialogPopup {
+    <DialogModal {
       ...{isOpen, onClose}} 
       dialogContent = "Oooops something went wrong !"
       dialogIcon={FaSurprise}

@@ -12,14 +12,16 @@ import {
   Text,
 } from "@chakra-ui/core";
 
-const DialogPopup = ({
+const DialogModal = ({
   isOpen, 
   onClose, 
   dialogContent, 
   dialogIcon = null,
+  dialogHeader = null,
   cancelButton, 
   confirmButton = null, 
-  confirmCallback = null
+  confirmCallback = null,
+  isLoading = false
 }) => {
 
   const cancelRef = React.useRef();  
@@ -37,24 +39,27 @@ const DialogPopup = ({
     onClose={onClose}
   >
   <AlertDialogOverlay />
-  <AlertDialogContent>
+  <AlertDialogContent borderRadius="5px">
     <AlertDialogHeader fontSize="lg" fontWeight="bold">
+    {
+      dialogHeader && dialogHeader
+    }
     </AlertDialogHeader>        
     <AlertDialogBody>
       <Stack isInline spacing={6} alignItems="center" >
-      <Box as={ dialogIcon ? dialogIcon : "div"} color="red.400" size="64px"/>
+      <Box as={ dialogIcon ? dialogIcon : "div"} color="red.400" size={ dialogIcon ? "48px" : "0px"}/>
       <Text fontSize="xl" >
         { dialogContent }
       </Text>
       </Stack>
     </AlertDialogBody>
     <AlertDialogFooter>
-        <Button size="sm" ref={cancelRef} onClick={onClose} _focus={{outline:"none"}} >
+        <Button size="lg" ref={cancelRef} onClick={onClose} _focus={{outline:"none"}} >
           { cancelButton }
         </Button>
       {
         confirmButton && 
-        <Button size="sm" variantColor="teal" onClick={handleConfirm} ml={3}>
+        <Button isLoading={isLoading} size="lg" variantColor="teal" onClick={handleConfirm} ml={3}>
           { confirmButton }
         </Button>      
       }
@@ -64,4 +69,4 @@ const DialogPopup = ({
   )
 }
 
-export default DialogPopup;
+export default DialogModal;
