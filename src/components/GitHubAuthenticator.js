@@ -24,7 +24,7 @@ export default function GitHubAuthenticator(props) {
       if (code) {
         if (code) {
             const { data: { access_token = ''}} = await axios.post(
-              `https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token?client_id=${clientId}&client_secret=${clientSecret}&code=${code.code}`,
+              `https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token?client_id=${clientId}&client_secret=${clientSecret}&code=${code}`,
               {},
               {
                 headers: { 'Accept': 'application/json'}
