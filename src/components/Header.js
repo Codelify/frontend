@@ -20,6 +20,7 @@ import SearchBox from "./SearchBox";
 import { navigate } from "@reach/router";
 import { handleRouteChange } from "../utils/handleRouteChange";
 import useUserData from "./~common/useUserData";
+import getResolution from '../utils/screenResolution'
 
 const AppHeader = props => {
   const { landing, isLoggedIn } = props;
@@ -56,7 +57,10 @@ const AppHeader = props => {
     }
   }
 
+  const [screenWidth, screenHeight] = getResolution();
+
   return (
+    <>
     <Box
       pos={landing ? "absolute" : "fixed"}
       top="0"
@@ -64,13 +68,12 @@ const AppHeader = props => {
       bg={bg[colorMode]}
       left="0"
       right="0"
-      borderBottomWidth="1px"
+      borderBottomWidth={["0px", "1px", "1px", "1px"]}
       width="100%"
-      height="4rem"
       mx="auto"
       px="10px"
     >
-      <Flex align="center" justify="center" w="100%">
+      <Flex  align="center" justify="center" w="100%">
         <Box my="10px" maxWidth="1600px" w="100%" h="100%">
           <Flex size="100%" align="center" justify="space-between">
             <Box
@@ -82,7 +85,14 @@ const AppHeader = props => {
             >
               <Logo />
             </Box>
-            {!landing && <SearchBox />}
+            {!landing && (
+              screenWidth > 400 && (
+                <Box w="100%" display={["none", "block", "block", "block"]} > 
+                  <SearchBox />
+                </Box>
+              )
+              )
+            }
             <Flex align="center" color="gray.500">
               {landing ? (
 
@@ -165,6 +175,12 @@ const AppHeader = props => {
           </Flex>
         </Box>
       </Flex>
+      {!landing && (
+        <Box py="20px" borderTopWidth="1px" display={["block", "none", "none", "none"]} > 
+          <SearchBox />
+        </Box>
+      )
+      }      
       <NewSnippet
         isOpen={isOpen}
         onOpen={onOpen}
@@ -174,6 +190,7 @@ const AppHeader = props => {
         setSize={setSize}
       />
     </Box>
+    </>    
   );
 };
 
