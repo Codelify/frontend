@@ -20,7 +20,6 @@ import SearchBox from "./SearchBox";
 import { navigate } from "@reach/router";
 import { handleRouteChange } from "../utils/handleRouteChange";
 import useUserData from "./~common/useUserData";
-import getResolution from '../utils/screenResolution'
 
 const AppHeader = props => {
   const { landing, isLoggedIn } = props;
@@ -57,8 +56,6 @@ const AppHeader = props => {
     }
   }
 
-  const [screenWidth, screenHeight] = getResolution();
-
   return (
     <>
     <Box
@@ -86,11 +83,9 @@ const AppHeader = props => {
               <Logo />
             </Box>
             {!landing && (
-              screenWidth > 400 && (
                 <Box w="100%" display={["none", "block", "block", "block"]} > 
                   <SearchBox />
                 </Box>
-              )
               )
             }
             <Flex align="center" color="gray.500">

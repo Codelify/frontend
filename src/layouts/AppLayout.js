@@ -24,8 +24,8 @@ const MainLayout = ({ children }) => {
             backgroundColor={
               colorMode === "light" ? "#FAFAFA" : "rgba(45,55,72, 0.1)"
             }
-            mt="50px"
-            py="40px"
+            mt={["120px", "50px", "50px", "50px"]}
+            py={["20px", "40px", "40px", "40px"]}
           >            
             {children}
           </Box>
