@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 
 const Metatags = ({
-  title = "Inside example",
+  title = "Codelify | Your code snippets library",
   description = "",
   canonical = "",
   keywords = "",
@@ -18,7 +18,7 @@ const Metatags = ({
   propertyTwitterCard = "",
   twitterDescription = "",
   propertyTwitterTitle = "",
-  propertyTwitterImage = "",
+  propertyTwitterImage = ""
 }) => (
   <Helmet>
     {/* Default tags (SEO) */}

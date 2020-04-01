@@ -40,21 +40,8 @@ function Landing() {
   return (
     <>
       <MetaTags
-        title="Land"
-        description="Test Desc"
-        propertyOgLocale="en_US"
-        propertyOgType="article"
-        propertyOgTitle="Test Title"
-        propertyOgDescription="Aritcle Title"
-        propertyOgUrl="https://res.cloudinary.com/dhsegkn40/image/upload/v1580393154/image_from_ios_kocwtf.jpg"
-        propertyOgSiteName="COdelify"
-        propertyOgImage={appImg}
-        propertyOgImageWidth="1000"
-        propertyOgImageHeight="667"
-        propertyTwitterCard="summary_large_image"
-        propertyTwitterTitle="!!!!! Article Title Test test"
-        twitterTwitterDescription="!!!!!! Article Tweeter desc"
-        propertyTwitterImage="https://res.cloudinary.com/dhsegkn40/image/upload/v1580471086/t2_iarklx.jpg"
+        title="Codelify | Your code snippets library"
+        keywords="Codelify, snippet"
       />
       <ThemeProvider>
         <CSSReset />
