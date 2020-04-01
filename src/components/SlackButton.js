@@ -17,7 +17,7 @@ const SlackLogin = () => {
     return (
         <Tooltip py="5px" fontSize="xs" hasArrow label="Pro access" placement="bottom">
             <Button 
-            size="lg" 
+            size="md" 
             color="#319795"
             leftIcon={FaSlack}
             onClick={handleRedirect}

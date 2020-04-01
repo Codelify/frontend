@@ -13,7 +13,8 @@ import {
   Flex,
   useDisclosure,
   useColorMode,
-  Stack
+  Stack,
+  Divider
 } from "@chakra-ui/core";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -21,6 +22,7 @@ import Feature from "../components/Features";
 import Container from "../components/Container";
 import RequestAccess from "../components/RequestAccess";
 import GoogleButton from "../components/GoogleButton";
+import GithubButton from "../components/GithubButton";
 import { MdBookmark, MdFindInPage, MdDescription } from "react-icons/md";
 import SlackButton from "../components/SlackButton";
 import { handleRouteChange } from "../utils/handleRouteChange";
@@ -96,8 +98,8 @@ function Landing() {
                   </Heading>
 
                   <Text opacity="0.7" fontSize="lg" mt="6">
-                    Codelify give developers a central place to easily Store,
-                    Manage and Retrieve code snippets they want to keep.
+                    We give developers a central place to easily Store,
+                    Manage, Retrieve and Share code snippets.
                   </Text>
 
                   <Box mt="6">
@@ -115,10 +117,15 @@ function Landing() {
                     )}
                     {!isLoggedIn() && (
                       <>
-                        <Box mb="20px">
-                          <GoogleButton py="10px" />
-                        </Box>
-                        <Text fontSize="sm">Pro</Text>
+                        <Stack my={["30px", "30px", "30px", "30px"]} justifyContent="center" spacing={3} isInline>
+                          <Box>
+                            <GoogleButton py="10px" />
+                          </Box>
+                          <Box>
+                            <GithubButton py="10px" />                            
+                          </Box>
+                        </Stack>
+                        <Text opacity="0.7" fontSize="sm">Team</Text>
                         <Stack
                           borderTopWidth="1px"
                           pt="10px"
@@ -128,14 +135,14 @@ function Landing() {
                           justifyContent="center"
                           isInline
                         >
-                          <Button
+                          {/* <Button
                             size="lg"
                             _focus={{ outline: "none" }}
                             onClick={onOpen}
                             color="#718096"
                           >
                             Request Access
-                          </Button>
+                          </Button> */}
                           <RequestAccess isOpen={isOpen} onClose={onClose} />
                           <SlackButton />
                         </Stack>
