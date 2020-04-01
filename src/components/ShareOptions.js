@@ -101,7 +101,7 @@ const ShareOptions = ({ isPublic, shareId, id }) => {
             size="xs"
             _focus={{ outline: "none" }}
           >
-            {hasCopied ? "Copied" : "Copy link"}
+            {hasCopied ? "Copied" : "Copy"}
           </Button>
         </Stack>
         {

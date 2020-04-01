@@ -1,11 +1,18 @@
 import React, { useState } from "react";
-import { Box, Button, Flex, useColorMode, Spinner } from "@chakra-ui/core";
+import { 
+  Box, 
+  Button, 
+  Flex, 
+  useColorMode, 
+  Spinner
+} from "@chakra-ui/core";
 import CodeLangageBar from "../components/CodeLangageBar";
 import SnippetContent from "../components/SnippetContent";
+import DialogModal from "../components/DialogModal"
 import SnippetContext from "../context/SnippetContext";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_SNIPPET } from "../graphql/query";
-import { FaTwitter } from "react-icons/fa";
+import { FaTwitter, FaSurprise } from "react-icons/fa";
 import config from "../utils/config";
 import domtoimage from "dom-to-image";
 import axios from "axios";
@@ -21,6 +28,9 @@ const TwitterSnippetImage = ({shareId}) => {
   });
   const [isTwitting, setIsTwitting] = useState(false);
   const [isSuccessTwitt, setIsSuccessTwitt] = useState(false);
+
+  const [isOpen, setIsOpen] = React.useState();
+  const onClose = () => setIsOpen(false);
 
   function openTwitterUrl(twitterUrl) {
     const width = 575;
@@ -62,12 +72,18 @@ const TwitterSnippetImage = ({shareId}) => {
           // .finally(() => {
           //   setIsTwitting(false);
           // })
-          .catch(err => console.log(err, "Error trying to tweet"));
+          .catch(err => {
+            console.log(err, "Error trying to tweet")
+            setIsTwitting(false);
+            setIsSuccessTwitt(false);
+            setIsOpen(true)
+          } );
       })
       .catch(err => console.log(err));
   };
 
   return (
+    <>
     <Box d="flex" flexDir="column" alignItems="center" py="40px">
       {loading ? (
         <Spinner />
@@ -139,6 +155,13 @@ const TwitterSnippetImage = ({shareId}) => {
         </>
       )}
     </Box>
+    <DialogModal {
+      ...{isOpen, onClose}} 
+      dialogContent = "Oooops something went wrong !"
+      dialogIcon={FaSurprise}
+      cancelButton="OK, will Tweet later"
+      />
+    </>
   );
 };
 

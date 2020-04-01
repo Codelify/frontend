@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Event, PageView, initGA } from "../components/~common/Tracking";
 import config from "../utils/config";
-// import './App.css';
 import {
   ThemeProvider,
   CSSReset,
@@ -13,28 +12,24 @@ import {
   Flex,
   useDisclosure,
   useColorMode,
-  Stack,
-  Divider
+  Stack
 } from "@chakra-ui/core";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Feature from "../components/Features";
 import Container from "../components/Container";
-import RequestAccess from "../components/RequestAccess";
 import GoogleButton from "../components/GoogleButton";
 import GithubButton from "../components/GithubButton";
-import { MdBookmark, MdFindInPage, MdDescription } from "react-icons/md";
+import { MdBookmark, MdFindInPage, MdDescription, MdExplore } from "react-icons/md";
 import SlackButton from "../components/SlackButton";
-import { handleRouteChange } from "../utils/handleRouteChange";
 import Img from "react-image";
 import isLoggedIn from "../utils/auth";
-//import GoogleLogin from "react-google-login";
+import { navigate } from "@reach/router"
 
 import appImg from "../assets/img/app-shot-dark.png";
 import MetaTags from "../components/MetaTags";
 
 function Landing() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode } = useColorMode();
 
   useEffect(() => {
@@ -105,14 +100,13 @@ function Landing() {
                   <Box mt="6">
                     {isLoggedIn() && (
                       <Button
-                        mr="10px"
                         size="lg"
-                        as="a"
                         variantColor="teal"
-                        href={handleRouteChange()}
+                        leftIcon={MdExplore}
+                        onClick={()=>{navigate("/app")}}
                         _focus={{ outline: "none" }}
                       >
-                        Browse my Snippets
+                        Explore Snippets
                       </Button>
                     )}
                     {!isLoggedIn() && (
@@ -143,7 +137,7 @@ function Landing() {
                           >
                             Request Access
                           </Button> */}
-                          <RequestAccess isOpen={isOpen} onClose={onClose} />
+                          {/* <RequestAccess isOpen={isOpen} onClose={onClose} /> */}
                           <SlackButton />
                         </Stack>
                       </>
