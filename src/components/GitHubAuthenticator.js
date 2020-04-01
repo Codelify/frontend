@@ -2,13 +2,9 @@ import React, { useEffect } from 'react';
 import queryString from 'query-string';
 import axios from 'axios';
 import config from '../utils/config';
-import { useMutation } from '@apollo/react-hooks';
-import { useToast } from '@chakra-ui/core';
-import { navigate } from '@reach/router';
-import { LOGIN_WITH_GOOGLE, CREATE_SNIPPET } from '../graphql/mutation';
 import Spinner from '../components/~common/Spinner';
 import { Box } from '@chakra-ui/core';
-import useOAuth from '../utils/OAuth'
+import useOAuth from '../hooks/useOAuth'
 import { PageView } from './~common/Tracking';
 
 export default function GitHubAuthenticator(props) {
