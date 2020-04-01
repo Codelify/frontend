@@ -10,7 +10,6 @@ import {
   Box,
   useToast,
 } from "@chakra-ui/core";
-import SnippetMenuModal from './SnippetMenuModal';
 import DialogModal from './DialogModal'
 import { FiMoreHorizontal } from "react-icons/fi";
 import { FaStar, FaArchive, FaWindowRestore } from "react-icons/fa";
