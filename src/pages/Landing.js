@@ -20,11 +20,16 @@ import Feature from "../components/Features";
 import Container from "../components/Container";
 import GoogleButton from "../components/GoogleButton";
 import GithubButton from "../components/GithubButton";
-import { MdBookmark, MdFindInPage, MdDescription, MdExplore } from "react-icons/md";
+import {
+  MdBookmark,
+  MdFindInPage,
+  MdDescription,
+  MdExplore
+} from "react-icons/md";
 import SlackButton from "../components/SlackButton";
 import Img from "react-image";
 import isLoggedIn from "../utils/auth";
-import { navigate } from "@reach/router"
+import { navigate } from "@reach/router";
 
 import appImg from "../assets/img/app-shot-dark.png";
 import MetaTags from "../components/MetaTags";
@@ -80,8 +85,8 @@ function Landing() {
                   </Heading>
 
                   <Text opacity="0.7" fontSize="lg" mt="6">
-                    We give developers a central place to easily Store,
-                    Manage, Retrieve and Share code snippets.
+                    We give developers a central place to easily Store, Manage,
+                    Retrieve and Share code snippets.
                   </Text>
 
                   <Box mt="6">
@@ -90,7 +95,9 @@ function Landing() {
                         size="lg"
                         variantColor="teal"
                         leftIcon={MdExplore}
-                        onClick={()=>{navigate("/app")}}
+                        onClick={() => {
+                          navigate("/app");
+                        }}
                         _focus={{ outline: "none" }}
                       >
                         Explore Snippets
@@ -98,15 +105,22 @@ function Landing() {
                     )}
                     {!isLoggedIn() && (
                       <>
-                        <Stack my={["30px", "30px", "30px", "30px"]} justifyContent="center" spacing={3} isInline>
+                        <Stack
+                          my={["30px", "30px", "30px", "30px"]}
+                          justifyContent="center"
+                          spacing={3}
+                          isInline
+                        >
                           <Box>
                             <GoogleButton py="10px" />
                           </Box>
                           <Box>
-                            <GithubButton py="10px" />                            
+                            <GithubButton py="10px" />
                           </Box>
                         </Stack>
-                        <Text opacity="0.7" fontSize="sm">Team</Text>
+                        <Text opacity="0.7" fontSize="sm">
+                          Team
+                        </Text>
                         <Stack
                           borderTopWidth="1px"
                           pt="10px"
