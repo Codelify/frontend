@@ -4,27 +4,19 @@ import {
   Button, 
   Flex, 
   useColorMode, 
-  Spinner,
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogContent,
-  AlertDialogOverlay,
-  Stack,   
-  Text,
+  Spinner
 } from "@chakra-ui/core";
 import CodeLangageBar from "../components/CodeLangageBar";
 import SnippetContent from "../components/SnippetContent";
+import DialogPopup from "../components/DialogPopup"
 import SnippetContext from "../context/SnippetContext";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_SNIPPET } from "../graphql/query";
-import { FaTwitter } from "react-icons/fa";
+import { FaTwitter, FaSurprise } from "react-icons/fa";
 import config from "../utils/config";
 import domtoimage from "dom-to-image";
 import axios from "axios";
 import { navigate } from "@reach/router";
-import { FaSurprise } from "react-icons/fa"
 
 const TwitterSnippetImage = ({shareId}) => {
   const snippetPublicLink = `${config.host.uri}/view/snippet/${shareId}`;
@@ -39,7 +31,6 @@ const TwitterSnippetImage = ({shareId}) => {
 
   const [isOpen, setIsOpen] = React.useState();
   const onClose = () => setIsOpen(false);
-  const cancelRef = React.useRef();  
 
   function openTwitterUrl(twitterUrl) {
     const width = 575;
@@ -164,31 +155,13 @@ const TwitterSnippetImage = ({shareId}) => {
         </>
       )}
     </Box>
-      <AlertDialog
-      isOpen={isOpen}
-      leastDestructiveRef={cancelRef}
-      onClose={onClose}
-    >
-      <AlertDialogOverlay />
-      <AlertDialogContent>
-          <AlertDialogHeader fontSize="lg" fontWeight="bold">
-          </AlertDialogHeader>        
-        <AlertDialogBody>
-          <Stack isInline spacing={6} alignItems="center" >
-          <Box as={FaSurprise} color="red.400" size="64px"/>
-          <Text fontSize="xl" >
-            Looks like something went wrong !
-          </Text>
-          </Stack>
-        </AlertDialogBody>
-        <AlertDialogFooter>
-          <Button variantColor="teal" ref={cancelRef} onClick={onClose} _focus={{outline:"none"}} >
-            OK, will try later
-          </Button>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-    </>    
+    <DialogPopup {
+      ...{isOpen, onClose}} 
+      dialogContent = "Oooops something went wrong !"
+      dialogIcon={FaSurprise}
+      cancelButton="OK, will Tweet later"
+      />
+    </>
   );
 };
 
