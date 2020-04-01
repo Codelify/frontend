@@ -32,7 +32,7 @@ const CodeSnippet = ({
   //   );
   // };
   const [titleToUpdate, setTitleToUpdate] = useState(title);
-  const [descriptionToUpdate, setDescroptionToUpdate] = useState(description);
+  const [descriptionToUpdate, setDescroptionToUpdate] = useState(description || "No description");
   const [contentToUpdate, setContentToUpdate] = useState(content);
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
 
