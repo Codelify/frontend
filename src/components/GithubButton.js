@@ -34,39 +34,36 @@ const GithubButton = (props) => {
         if (response.status === 200) {
           console.log('Via Button')
           const { login: username, name: firstName, bio, email, avatar_url: avatar, node_id: password } = response.data
-           await login({
-             firstName,
-             email: email ? email : `${username}@gmail.com`,
-             bio,
-             avatar,
-             password
-           })
+            await login({
+              firstName,
+              email: email ? email : `${username}@gmail.com`,
+              bio,
+              avatar,
+              password
+            })
         }
       }
     }
   } 
   
   return (
-    // <Button 
-    // _focus={{ outline: "none" }}
-    // variantColor="teal"
-    // variant="solid"
-    // size="md"
-    // onClick={onLogin}
-    // disabled={isDisabled}
-    // leftIcon={FaGithub}
-    // >
-    //   GitHub Login
-    // </Button>
+    <Button 
+    _focus={{ outline: "none" }}
+    variantColor="teal"
+    size="md"
+    disabled={isDisabled}
+    leftIcon={FaGithub}
+    >
     <GitHubLogin
-    onSuccess={onSuccessGithub}
-    valid={true}
-    redirectUri=""
-    clientId={config.github.clientId}
-    buttonText="GitHub Login"
-    className="github-button"
-  /> 
+      onSuccess={onSuccessGithub}
+      valid={true}
+      redirectUri=""
+      clientId={config.github.clientId}
+      buttonText="GitHub Login"
+      className="git-button"
+    />
+    </Button>
+
   )
 }
-
 export default GithubButton;
