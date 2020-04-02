@@ -38,6 +38,7 @@
     "react-infinite-scroll-component": "^5.0.4",
     "react-live": "^2.2.2",
     "react-router-dom": "^5.1.2",
+    "react-router-sitemap": "^1.2.0",
     "react-scripts": "3.3.0",
     "react-share": "^4.1.0",
     "react-toastify": "^5.5.0",
@@ -47,6 +48,7 @@
     "start": "PORT=8000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "sitemap": "babel-node ./src/sitemap-builder.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -63,5 +65,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-register": "^6.26.0"
   }
 }
