@@ -12,6 +12,10 @@ code {
     monospace;
 }
 
+.git-button {
+  font-weight: 600;
+}
+
 @keyframes rotation {
   from {
     transform: rotate(0deg);
