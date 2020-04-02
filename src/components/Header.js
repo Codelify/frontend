@@ -65,7 +65,7 @@ const AppHeader = props => {
       bg={bg[colorMode]}
       left="0"
       right="0"
-      borderBottomWidth={["0px", "1px", "1px", "1px"]}
+      borderBottomWidth="1px"
       width="100%"
       mx="auto"
       px="10px"
@@ -172,7 +172,8 @@ const AppHeader = props => {
         </Box>
       </Flex>
       {!landing && (
-        <Box py="20px" borderTopWidth="1px" display={["block", "none", "none", "none"]} > 
+        appView &&
+        <Box pb="10px" display={["block", "none", "none", "none"]} > 
           <SearchBox />
         </Box>
       )
