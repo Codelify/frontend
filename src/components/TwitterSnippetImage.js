@@ -4,7 +4,8 @@ import {
   Button, 
   Flex, 
   useColorMode, 
-  Spinner
+  Spinner,
+  Tooltip
 } from "@chakra-ui/core";
 import CodeLangageBar from "../components/CodeLangageBar";
 import SnippetContent from "../components/SnippetContent";
@@ -121,26 +122,28 @@ const TwitterSnippetImage = ({shareId}) => {
             </SnippetContext.Provider>
           </Flex>
           <Box d="flex" w="900px" py="50px" justifyContent="flex-end">
-            <Button
-              _focus={{ outline: "none" }}
-              variantColor="teal"
-              mr={3}
-              type="submit"
-              isLoading={isTwitting}
-              loadingText="Wiring Twitter"
-              leftIcon={FaTwitter}
-              onClick={
-                isSuccessTwitt
-                  ? () => {
-                      navigate("/app");
-                    }
-                  : handleShare
-              }
-            >
+            <Tooltip py="5px" fontSize="xs" hasArrow label="Make sure Popups are Unblocked" placement="top">
+              <Button
+                _focus={{ outline: "none" }}
+                variantColor="teal"
+                mr={3}
+                type="submit"
+                isLoading={isTwitting}
+                loadingText="Wiring Twitter"
+                leftIcon={FaTwitter}
+                onClick={
+                  isSuccessTwitt
+                    ? () => {
+                        navigate("/app");
+                      }
+                    : handleShare
+                }
+              >
               {isSuccessTwitt
-                ? "All done ! Close this"
-                : "Tweet this snippet !"}
-            </Button>
+                  ? "All done ! Close this"
+                  : "Tweet this snippet !"}
+              </Button>
+            </Tooltip>
             {!isSuccessTwitt && (
               <Button
                 _focus={{ outline: "none" }}
