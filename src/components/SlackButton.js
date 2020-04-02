@@ -15,7 +15,7 @@ const SlackLogin = () => {
         navigate(`https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.avatar,identity.team&client_id=${config.slack.clientId}&team=${config.slack.teamId}`)
     }
     return (
-        <Tooltip py="5px" fontSize="xs" hasArrow label="Pro access" placement="bottom">
+        <Tooltip py="5px" fontSize="xs" hasArrow label="Team access" placement="bottom">
             <Button 
             size="md" 
             color="#319795"

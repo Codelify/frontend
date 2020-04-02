@@ -10,7 +10,6 @@ import {
   Button,
   Grid,
   Flex,
-  useDisclosure,
   useColorMode,
   Stack
 } from "@chakra-ui/core";
@@ -31,7 +30,6 @@ import Img from "react-image";
 import isLoggedIn from "../utils/auth";
 import { navigate } from "@reach/router";
 
-import appImg from "../assets/img/app-shot-dark.png";
 import MetaTags from "../components/MetaTags";
 
 function Landing() {
@@ -118,11 +116,10 @@ function Landing() {
                             <GithubButton py="10px" />
                           </Box>
                         </Stack>
-                        <Text opacity="0.7" fontSize="sm">
+                        <Text m="auto" borderBottomWidth="1px" opacity="0.7" fontSize="sm" width="300px">
                           Team
                         </Text>
                         <Stack
-                          borderTopWidth="1px"
                           pt="10px"
                           mx="3px"
                           spacing={4}
