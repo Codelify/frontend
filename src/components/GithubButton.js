@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React from 'react';
 import {
   Button,
 } from '@chakra-ui/core'
@@ -7,12 +7,8 @@ import GitHubLogin from 'react-github-login';
 import axios from 'axios';
 import config from '../utils/config'
 import useOAUth from '../hooks/useOAuth'
-const GithubButton = (props) => {
-  const [isDisabled, setIsDisabled] = useState(false)
+const GithubButton = () => {
   const [login] = useOAUth()
-  const onLogin = () => {
-    setIsDisabled(true)
-  }
   const onSuccessGithub = async (code) => {
     const { clientId, clientSecret } = config.github;
     if (code) {
@@ -51,7 +47,6 @@ const GithubButton = (props) => {
     _focus={{ outline: "none" }}
     variantColor="teal"
     size="md"
-    disabled={isDisabled}
     leftIcon={FaGithub}
     >
     <GitHubLogin
