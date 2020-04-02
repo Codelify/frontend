@@ -17,7 +17,7 @@ import isLoggedIn from "./utils/auth";
 import { useLocation } from "@reach/router";
 import favicon16 from "./assets/img/codelify-ico.ico";
 
-import GitHubAuthenticator from "./components/GitHubAuthenticator"
+import GitHubAuthenticator from "./components/GitHubAuthenticator";
 function App() {
   useEffect(() => {
     initGA(config.googleAnalytics.apiKey);
