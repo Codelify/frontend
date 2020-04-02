@@ -8,7 +8,7 @@ const Sitemap = require("react-router-sitemap").default;
 function generateSitemap() {
   return new Sitemap(router)
     .build("https://codelify.dev")
-    .save("./public/sitemap.xml");
+    .save("./sitemap.xml");
 }
 
 generateSitemap();
