@@ -28,7 +28,7 @@ const SingleSnippet = props => {
   return (
     <ThemeProvider>
       <CSSReset />
-      <Header landing={true} isLoggedIn={isLoggedIn()} />
+      <Header appView={false} landing={false} isLoggedIn={isLoggedIn()} />
       <Box pt="100px">
         {loading ? (
           <Spinner />

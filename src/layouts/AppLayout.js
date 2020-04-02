@@ -12,7 +12,7 @@ const MainLayout = ({ children }) => {
   return (
     <Box>
       <Container>
-        <Header />
+        <Header appView={true}/>
       </Container>
       <Flex align="center" justify="center" w="100%">
         <Container d="flex">
