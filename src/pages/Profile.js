@@ -224,17 +224,17 @@ function Profile() {
                         />
                       </InputGroup>
                     </Box>
-                    <Box w="40%" minW="300px">
-                      <Stack isInline>
+                    <Stack w="40%" minW="300px">
+                      <Stack alignItems="center" isInline>
                       <FormLabel fontSize="xs" htmlFor="fullname">
                         NEWSLETTER 
                       </FormLabel>
                       {
-                        subscription ? <Box as={FaRegSmileWink} color="teal.400"/> : <Box as={FaRegSadTear} color="red.300"/>
+                        subscription ? <Box as={FaRegSmileWink} size="24px" color="teal.400"/> : <Box as={FaRegSadTear} size="24px" color="red.300"/>
                       }
                       </Stack>
-                      <Switch w="auto" onChange={() =>{setSubscription(!subscription)}} isChecked={subscription} color="teal" size="md" />
-                  </Box>                    
+                      <Switch _focus={{outline:"none"}} w="auto" onChange={() =>{setSubscription(!subscription)}} isChecked={subscription} color="teal" size="md" />
+                    </Stack>                    
                     {/* <Box w="50%" minW="300px">
                     <FormLabel fontSize="xs" htmlFor="fullname">
                       PASSWORD
