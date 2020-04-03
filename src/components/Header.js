@@ -100,7 +100,7 @@ const AppHeader = props => {
                     onClick={ changeRoute }
                     _focus={{ outline: "none" }}
                   >
-                    { isLoggedIn ? "My Snippets" : "Login"}
+                    { isLoggedIn ? "MY SNIPPETS" : "Login"}
                   </Button>
 
               ) : (

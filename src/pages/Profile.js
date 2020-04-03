@@ -206,7 +206,7 @@ function Profile() {
                   isRequired={profileViewMode ? false : true}
                 >
                   <Stack w="100%" isInline flexWrap="wrap" spacing={8}>
-                    <Box minW="300px">
+                    <Box mb="20px" minW="300px">
                       <FormLabel fontSize="xs" htmlFor="email">
                         EMAIL ADDRESS
                       </FormLabel>
@@ -319,14 +319,15 @@ function Profile() {
                 m="auto"
               >
                 {profileViewMode ? (
-                  <IconButton
+                  <Button
                     variant="ghost"
                     variantColor="teal"
-                    aria-label="Call Sage"
-                    fontSize="20px"
-                    icon={FaEdit}
+                    aria-label="Edit Profile"
+                    leftIcon={FaEdit}
                     onClick={handleProfileMode}
-                  />
+                  >
+                    Edit Profile
+                  </Button>
                 ) : (
                   <Box>
                     <Button
