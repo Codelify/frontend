@@ -17,6 +17,7 @@ import {
   Divider,
   Flex,
   IconButton,
+  Switch
   //   InputRightElement,
 } from "@chakra-ui/core";
 import ContentEditable from "react-contenteditable";
@@ -24,7 +25,7 @@ import { navigate } from "@reach/router";
 import Container from "../components/Container";
 import { IoIosArrowBack } from "react-icons/io";
 import useUserData from "../components/~common/useUserData";
-import { FaTwitter, FaLinkedin, FaEdit } from "react-icons/fa";
+import { FaTwitter, FaLinkedin, FaEdit, FaRegSmileWink, FaRegSadTear } from "react-icons/fa";
 import { MdMail } from "react-icons/md";
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_PROFILE } from "../graphql/mutation";
@@ -44,6 +45,7 @@ function Profile() {
   //   const [show, setShow] = React.useState(false);
   //   const handleClick = () => setShow(!show);
   const [updateProfile] = useMutation(UPDATE_PROFILE);
+  const [subscription, setSubscription] = useState(false);
 
   const avatar = results.avatar;
   const fullName = `${results.lastName} ${results.firstName}`;
@@ -222,6 +224,17 @@ function Profile() {
                         />
                       </InputGroup>
                     </Box>
+                    <Box w="40%" minW="300px">
+                      <Stack isInline>
+                      <FormLabel fontSize="xs" htmlFor="fullname">
+                        NEWSLETTER 
+                      </FormLabel>
+                      {
+                        subscription ? <Box as={FaRegSmileWink} color="teal.400"/> : <Box as={FaRegSadTear} color="red.300"/>
+                      }
+                      </Stack>
+                      <Switch w="auto" onChange={() =>{setSubscription(!subscription)}} isChecked={subscription} color="teal" size="md" />
+                  </Box>                    
                     {/* <Box w="50%" minW="300px">
                     <FormLabel fontSize="xs" htmlFor="fullname">
                       PASSWORD
