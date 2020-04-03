@@ -212,7 +212,7 @@ function Profile() {
                       </FormLabel>
                       <InputGroup>
                         <InputLeftElement
-                          children={<Box as={MdMail} color="teal.400" />}
+                          children={<Box as={MdMail} size="24px" color="teal.400" />}
                         />
                         <Input
                           borderWidth="0px"
@@ -274,7 +274,7 @@ function Profile() {
                     </FormLabel>
                     <InputGroup>
                       <InputLeftElement
-                        children={<Box as={FaTwitter} color="teal.400" />}
+                        children={<Box as={FaTwitter} size="24px" color="teal.400" />}
                       />
                       <Input
                         borderWidth={profileViewMode ? "0px" : "1px"}
@@ -294,7 +294,7 @@ function Profile() {
                     </FormLabel>
                     <InputGroup>
                       <InputLeftElement
-                        children={<Box as={FaLinkedin} color="teal.400" />}
+                        children={<Box as={FaLinkedin} size="24px" color="teal.400" />}
                       />
                       <Input
                         borderWidth={profileViewMode ? "0px" : "1px"}
