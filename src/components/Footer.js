@@ -14,7 +14,7 @@ const Footer = ({ landing=false }) => {
             <Flex align="center" justify="center">
             <Link _focus={{outline: "none"}} href="http://bit.ly/code-twit" isExternal>
             <Stack alignItems="center" isInline>
-                <Text>Find us on Twitter</Text> <Box size="16px" as={FaTwitter} /> <Text>@Codelify_dev</Text>
+                <Text>Get in touch</Text> <Box color="teal.400" size="16px" as={FaTwitter} /> <Text>@Codelify_dev</Text>
             </Stack>
             </Link>            
             </Flex>

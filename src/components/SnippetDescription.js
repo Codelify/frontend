@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Text,
   Collapse,
@@ -6,7 +6,7 @@ import {
   Button,
   IconButton
 } from "@chakra-ui/core";
-
+import SnippetContext from '../context/SnippetContext'
 import ContentEditable from "react-contenteditable";
 
 const Description = ({
@@ -16,6 +16,8 @@ const Description = ({
   styledEdit,
   handleUpdate
 }) => {
+
+  const disableEdit = useContext(SnippetContext);
   const handleBlur = event => {
     document.getElementById(event.target.id).classList.remove("edited-div");
     handleToggle(false);
@@ -33,7 +35,7 @@ const Description = ({
       <Text as="div" mb="5px" contenteditable="true" fontSize="md">
         <ContentEditable
           html={description}
-          disabled={false}
+          disabled={disableEdit}
           id={descriptionId}
           onBlur={handleBlur}
           onChange={e => handleEdit(e, "description")}
@@ -46,17 +48,20 @@ const Description = ({
           }}
         />
       </Text>
-      <Collapse mt={0} isOpen={show}>
-        <ButtonGroup mb="10px" justifyContent="center" size="sm">
-          <Button
-            variantColor="teal"
-            onMouseDown={() => handleUpdate("description")}
-          >
-            Save
-          </Button>
-          <IconButton icon="close" />
-        </ButtonGroup>
-      </Collapse>
+      {
+        !disableEdit &&
+        <Collapse mt={0} isOpen={show}>
+          <ButtonGroup mb="10px" justifyContent="center" size="sm">
+            <Button
+              variantColor="teal"
+              onMouseDown={() => handleUpdate("description")}
+            >
+              Save
+            </Button>
+            <IconButton icon="close" />
+          </ButtonGroup>
+        </Collapse>
+      }
     </>
   );
 };

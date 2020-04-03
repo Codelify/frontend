@@ -1,17 +1,17 @@
 import React, { useContext, useEffect, useCallback } from "react";
-import { AppContext } from "../utils/AppProvider";
-import EmptyView from "./EmptyView";
+import { AppContext } from "../context/AppContext";
+import MainLayout from "../layouts/AppLayout";
 import SnippetList from "./List";
 import { useQuery } from "@apollo/react-hooks";
 import { MY_SNIPPETs } from "../graphql/query";
 import { PageView, initGA } from "./~common/Tracking";
 import config from "../utils/config";
+import Spinner from "./~common/Spinner";
 
 const Default = () => {
   const { state, dispatch } = useContext(AppContext);
   //console.log("Menu View", state.currentView);
-  const token =
-    typeof window !== "undefined" && window.localStorage.getItem("token");
+  const token = typeof window !== "undefined" && window.localStorage.getItem("token");
   const { data, loading, refetch } = useQuery(MY_SNIPPETs, {
     variables: { token },
     //fetchPolicy: "no-cache",
@@ -45,8 +45,15 @@ const Default = () => {
     return <SnippetList data={state.filteredSnippets} />;
   }
 
+  if(loading){
+    return (
+      <MainLayout>
+              <Spinner />
+      </MainLayout>
+    )
+  }
   // Render the list of snippets if their are any depends on the current side navigation menu
-  if (token) {
+  else {
     if (state.currentView === "FiHome") {
       return (
         <SnippetList
@@ -83,10 +90,6 @@ const Default = () => {
         />
       );
     }
-  }
-  // default view if there is no snippets
-  else {
-    return <EmptyView loading={loading} />;
   }
 };
 

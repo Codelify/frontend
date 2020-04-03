@@ -22,7 +22,7 @@ import { handleRouteChange } from "../utils/handleRouteChange";
 import useUserData from "./~common/useUserData";
 
 const AppHeader = props => {
-  const { landing, isLoggedIn } = props;
+  const { landing, isLoggedIn, appView } = props;
   const { colorMode, toggleColorMode } = useColorMode();
   const bg = { light: "white", dark: "gray.800" };
   const { results } = useUserData();
@@ -48,7 +48,16 @@ const AppHeader = props => {
     navigate("/");
   };
 
+  const changeRoute = () => {
+    if(!isLoggedIn){
+      navigate("/");
+    } else {
+      navigate(handleRouteChange())
+    }
+  }
+
   return (
+    <>
     <Box
       pos={landing ? "absolute" : "fixed"}
       top="0"
@@ -58,11 +67,10 @@ const AppHeader = props => {
       right="0"
       borderBottomWidth="1px"
       width="100%"
-      height="4rem"
       mx="auto"
       px="10px"
     >
-      <Flex align="center" justify="center" w="100%">
+      <Flex  align="center" justify="center" w="100%">
         <Box my="10px" maxWidth="1600px" w="100%" h="100%">
           <Flex size="100%" align="center" justify="space-between">
             <Box
@@ -74,20 +82,27 @@ const AppHeader = props => {
             >
               <Logo />
             </Box>
-            {!landing && <SearchBox />}
+            {appView && (
+                <Box w="100%" display={["none", "block", "block", "block"]} > 
+                  <SearchBox />
+                </Box>
+              )
+            }
             <Flex align="center" color="gray.500">
-              {landing ? (
-                isLoggedIn && (
+              {!appView ? (
+                !landing &&
                   <Button
                     as="a"
                     size="xs"
-                    ml={4}
-                    href={handleRouteChange()}
+                    mx="10px"
+                    variant="outline"
+                    cursor="pointer"
+                    onClick={ changeRoute }
                     _focus={{ outline: "none" }}
                   >
-                    Browse
+                    { isLoggedIn ? "My Snippets" : "Login"}
                   </Button>
-                )
+
               ) : (
                 <>
                   <IconButton
@@ -102,39 +117,40 @@ const AppHeader = props => {
                       handleClick("full");
                     }}
                   />
-                  {token && (
-                    <Menu autoSelect={false}>
-                      <MenuButton
-                        variant={avatar !== "" ? "unstyled" : "ghost"}
-                        as={Button}
-                        _focus={{
-                          outline: "none",
-                        }}
-                      >
-                        {avatar !== "" ? (
-                          <Avatar
-                            showBorder={true}
-                            size="sm"
-                            name=""
-                            src={avatar}
-                          />
-                        ) : (
-                          <Box as={FaUserAlt} />
-                        )}
-                      </MenuButton>
-                      <MenuList>
-                        <MenuItem
-                          onClick={() => {
-                            navigate("/profile");
-                          }}
-                        >
-                          My Profile
-                        </MenuItem>
-                        <MenuItem onClick={onLogout}>Logout</MenuItem>
-                      </MenuList>
-                    </Menu>
-                  )}
                 </>
+              )}
+
+              {token && (
+                <Menu autoSelect={false}>
+                  <MenuButton
+                    variant={avatar !== "" ? "unstyled" : "ghost"}
+                    as={Button}
+                    _focus={{
+                      outline: "none",
+                    }}
+                  >
+                    {avatar !== "" ? (
+                      <Avatar
+                        showBorder={true}
+                        size="sm"
+                        name=""
+                        src={avatar}
+                      />
+                    ) : (
+                      <Box as={FaUserAlt} />
+                    )}
+                  </MenuButton>
+                  <MenuList>
+                    <MenuItem
+                      onClick={() => {
+                        navigate("/profile");
+                      }}
+                    >
+                      My Profile
+                    </MenuItem>
+                    <MenuItem onClick={onLogout}>Logout</MenuItem>
+                  </MenuList>
+                </Menu>
               )}
 
               <IconButton
@@ -143,7 +159,6 @@ const AppHeader = props => {
                 } mode`}
                 variant="ghost"
                 color="current"
-                ml="2"
                 fontSize={["18px", "20px", "20px", "20px"]}
                 onClick={toggleColorMode}
                 icon={colorMode === "light" ? "moon" : "sun"}
@@ -156,6 +171,13 @@ const AppHeader = props => {
           </Flex>
         </Box>
       </Flex>
+      {!landing && (
+        appView &&
+        <Box pb="10px" display={["block", "none", "none", "none"]} > 
+          <SearchBox />
+        </Box>
+      )
+      }      
       <NewSnippet
         isOpen={isOpen}
         onOpen={onOpen}
@@ -165,6 +187,7 @@ const AppHeader = props => {
         setSize={setSize}
       />
     </Box>
+    </>    
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { AppContext } from "../utils/AppProvider";
+import { AppContext } from "../context/AppContext";
 import {
   Icon,
   Input,
@@ -80,7 +80,7 @@ const Search = () => {
   //   }
   // };
   return (
-    <Box w={["90%", "90%", "90%", "50%"]}>
+    <Box m="auto" w="90%" maxW="800px">
       <Root>
         <Downshift
           //onStateChange={handleStateChange}

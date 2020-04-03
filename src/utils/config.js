@@ -19,6 +19,13 @@ export default {
   },
   backend: {
     uri: process.env.REACT_APP_BE_URI
+  },
+  host: {
+    uri: process.env.REACT_APP_HOST,
+  },
+  github: {
+    clientId: process.env.REACT_APP_GITHUB_CLIENT_ID,
+    clientSecret: process.env.REACT_APP_GITHUB_CLIENT_SECRET,
   }
 
 };
