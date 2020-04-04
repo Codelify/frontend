@@ -34,35 +34,35 @@ const SnippetList = props => {
 
   return (
     <MainLayout>
-        <InfiniteScroll
-          dataLength={snippetPerPage}
-          next={fetchMoreData}
-          hasMore={hasMore}
-          loader={<h4>Loading...</h4>}
-        >
-          <SnippetContext.Provider value={disableEdit}>
-          {dataToRender &&
-            dataToRender.map((snippet, index) => {
-              return (
-                <CodeSnippet
-                  index={index}
-                  key={snippet.id}
-                  id={snippet.id}
-                  title={snippet.title}
-                  description={snippet.description}
-                  content={snippet.content}
-                  tags={snippet.tags}
-                  url={snippet.sourceUrl}
-                  lang={snippet.lang}
-                  isFav={snippet.isFav}
-                  isArchived={snippet.archivedAt}
-                  shareId={snippet.shareId}
-                  isPublic={snippet.isPublic}
-                />
-              );
-            })}
-            </SnippetContext.Provider>
-        </InfiniteScroll>
+      <InfiniteScroll
+        dataLength={snippetPerPage}
+        next={fetchMoreData}
+        hasMore={hasMore}
+        loader={<h4>Loading...</h4>}
+      >
+        <SnippetContext.Provider value={disableEdit}>
+        {dataToRender &&
+          dataToRender.map((snippet, index) => {
+            return (
+              <CodeSnippet
+                index={index}
+                key={snippet.id}
+                id={snippet.id}
+                title={snippet.title}
+                description={snippet.description}
+                content={snippet.content}
+                tags={snippet.tags}
+                url={snippet.sourceUrl}
+                lang={snippet.lang}
+                isFav={snippet.isFav}
+                isArchived={snippet.archivedAt}
+                shareId={snippet.shareId}
+                isPublic={snippet.isPublic}
+              />
+            );
+          })}
+          </SnippetContext.Provider>
+      </InfiniteScroll>
     </MainLayout>
   );
 };

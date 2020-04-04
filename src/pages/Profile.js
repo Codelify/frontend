@@ -29,6 +29,9 @@ import { MdMail } from "react-icons/md";
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_PROFILE } from "../graphql/mutation";
 
+import appImg from "../assets/img/app-shot-dark.png";
+import MetaTags from "../components/MetaTags";
+
 // import { MdVpnKey } from "react-icons/md";
 
 function Profile() {
@@ -106,99 +109,120 @@ function Profile() {
   }, [results, results.bio, results.linkedin, results.twitter]);
 
   return (
-    <ThemeProvider>
-      <CSSReset />
-      <Button
-        leftIcon={IoIosArrowBack}
-        variant="ghost"
-        size="md"
-        m="10px"
-        onClick={() => {
-          navigate("/app");
-        }}
-        variantColor="teal"
-        _focus={{ outline: "none" }}
-      >
-        Back
-      </Button>
-      <Box maxW="1280px" m="auto">
-        <Box as="section" pt={10}>
-          <Container>
-            <Box mb="40px" maxW="xl" mx="auto" px="10px" textAlign="center">
-              <Avatar
-                backgroundColor="none"
-                borderWidth="1px"
-                p="2px"
-                size="2xl"
-                name="Dynamic Name"
-                src={avatar}
-              />
-              <Heading as="h2" m="20px" size="xl" fontWeight="bold">
-                {fullName}
-              </Heading>
-
-              <Text
-                p="5px"
-                opacity="0.5"
-                as="div"
-                mb="5px"
-                contenteditable="true"
-                fontSize="md"
-                backgroundColor={
-                  profileViewMode
-                    ? "none"
-                    : colorMode === "dark"
-                    ? "rgba(45,55,72, 0.3)"
-                    : "#FFFFFF"
-                }
-              >
-                <ContentEditable
-                  onFocus={setFocusStyle}
-                  onBlur={handleBlur}
-                  id="bio"
-                  html={description}
-                  disabled={profileViewMode ? true : false}
-                  onChange={e => {
-                    setDescription(e.target.value);
-                  }}
-                  style={{
-                    outline: "none",
-                  }}
+    <>
+      <MetaTags
+        title="Twitter"
+        description="Test Desc"
+        propertyOgLocale="en_US"
+        propertyOgType="article"
+        propertyOgTitle="Test Title"
+        propertyOgDescription="Aritcle Title"
+        propertyOgUrl="http://fc3b76c7.ngrok.io/"
+        propertyOgSiteName="COdelify"
+        propertyOgImage={appImg}
+        propertyOgImageWidth="1000"
+        propertyOgImageHeight="667"
+        propertyTwitterCard="summary_large_image"
+        propertyTwitterTitle="Article Title"
+        twitterTwitterDescription="Article Tweeter desc"
+        propertyTwitterImage={appImg}
+      />
+      <ThemeProvider>
+        <CSSReset />
+        <Button
+          leftIcon={IoIosArrowBack}
+          variant="ghost"
+          size="md"
+          m="10px"
+          onClick={() => {
+            navigate("/app");
+          }}
+          variantColor="teal"
+          _focus={{ outline: "none" }}
+        >
+          Back
+        </Button>
+        <Box maxW="1280px" m="auto">
+          <Box as="section" pt={10}>
+            <Container>
+              <Box mb="40px" maxW="xl" mx="auto" px="10px" textAlign="center">
+                <Avatar
+                  backgroundColor="none"
+                  borderWidth="1px"
+                  p="2px"
+                  size="2xl"
+                  name="Dynamic Name"
+                  src={avatar}
                 />
-              </Text>
-            </Box>
-            <Box
-              minW="330px"
-              w="95%"
-              borderRadius="10px"
-              backgroundColor={
-                colorMode === "light" ? "#FAFAFA" : "rgba(45,55,72, 0.1)"
-              }
-              maxW="800px"
-              p="20px"
-              m="auto"
-            >
-              <FormControl w="100%" isRequired={profileViewMode ? false : true}>
-                <Stack w="100%" isInline flexWrap="wrap" spacing={8}>
-                  <Box minW="300px">
-                    <FormLabel fontSize="xs" htmlFor="email">
-                      EMAIL ADDRESS
-                    </FormLabel>
-                    <InputGroup>
-                      <InputLeftElement
-                        children={<Box as={MdMail} color="teal.400" />}
-                      />
-                      <Input
-                        borderWidth="0px"
-                        disabled
-                        type="email"
-                        value={results.email || "your email"}
-                        focusBorderColor="teal.500"
-                        background="none"
-                      />
-                    </InputGroup>
-                  </Box>
-                  {/* <Box w="50%" minW="300px">
+                <Heading as="h2" m="20px" size="xl" fontWeight="bold">
+                  {fullName}
+                </Heading>
+
+                <Text
+                  p="5px"
+                  opacity="0.5"
+                  as="div"
+                  mb="5px"
+                  contenteditable="true"
+                  fontSize="md"
+                  backgroundColor={
+                    profileViewMode
+                      ? "none"
+                      : colorMode === "dark"
+                      ? "rgba(45,55,72, 0.3)"
+                      : "#FFFFFF"
+                  }
+                >
+                  <ContentEditable
+                    onFocus={setFocusStyle}
+                    onBlur={handleBlur}
+                    id="bio"
+                    html={description}
+                    disabled={profileViewMode ? true : false}
+                    onChange={e => {
+                      setDescription(e.target.value);
+                    }}
+                    style={{
+                      outline: "none",
+                    }}
+                  />
+                </Text>
+              </Box>
+              <Box
+                minW="330px"
+                w="95%"
+                borderRadius="10px"
+                backgroundColor={
+                  colorMode === "light" ? "#FAFAFA" : "rgba(45,55,72, 0.1)"
+                }
+                maxW="800px"
+                p="20px"
+                m="auto"
+              >
+                <FormControl
+                  w="100%"
+                  isRequired={profileViewMode ? false : true}
+                >
+                  <Stack w="100%" isInline flexWrap="wrap" spacing={8}>
+                    <Box minW="300px">
+                      <FormLabel fontSize="xs" htmlFor="email">
+                        EMAIL ADDRESS
+                      </FormLabel>
+                      <InputGroup>
+                        <InputLeftElement
+                          children={<Box as={MdMail} color="teal.400" />}
+                        />
+                        <Input
+                          borderWidth="0px"
+                          disabled
+                          type="email"
+                          value={results.email || "your email"}
+                          focusBorderColor="teal.500"
+                          background="none"
+                        />
+                      </InputGroup>
+                    </Box>
+                    {/* <Box w="50%" minW="300px">
                     <FormLabel fontSize="xs" htmlFor="fullname">
                       PASSWORD
                     </FormLabel>
@@ -227,90 +251,91 @@ function Profile() {
                       </InputRightElement>
                     </InputGroup>
                   </Box> */}
+                  </Stack>
+                </FormControl>
+                <Divider my="30px" />
+                <Stack justifyContent="space-between" w="100%" spacing={8}>
+                  <Box w="50%" minW="300px">
+                    <FormLabel fontSize="xs" htmlFor="email">
+                      TWITTER
+                    </FormLabel>
+                    <InputGroup>
+                      <InputLeftElement
+                        children={<Box as={FaTwitter} color="teal.400" />}
+                      />
+                      <Input
+                        borderWidth={profileViewMode ? "0px" : "1px"}
+                        disabled={profileViewMode ? true : false}
+                        value={twitterSocial}
+                        onChange={e => {
+                          setTtwitterSocial(e.target.value);
+                        }}
+                        focusBorderColor="teal.500"
+                        background="none"
+                      />
+                    </InputGroup>
+                  </Box>
+                  <Box w="50%" minW="300px">
+                    <FormLabel fontSize="xs" htmlFor="email">
+                      LINKEDIN
+                    </FormLabel>
+                    <InputGroup>
+                      <InputLeftElement
+                        children={<Box as={FaLinkedin} color="teal.400" />}
+                      />
+                      <Input
+                        borderWidth={profileViewMode ? "0px" : "1px"}
+                        disabled={profileViewMode ? true : false}
+                        value={linkedinSocial}
+                        onChange={e => {
+                          setLinkedinSocial(e.target.value);
+                        }}
+                        focusBorderColor="teal.500"
+                        borderLeftColor="teal"
+                        background="none"
+                      />
+                    </InputGroup>
+                  </Box>
                 </Stack>
-              </FormControl>
-              <Divider my="30px" />
-              <Stack justifyContent="space-between" w="100%" spacing={8}>
-                <Box w="50%" minW="300px">
-                  <FormLabel fontSize="xs" htmlFor="email">
-                    TWITTER
-                  </FormLabel>
-                  <InputGroup>
-                    <InputLeftElement
-                      children={<Box as={FaTwitter} color="teal.400" />}
-                    />
-                    <Input
-                      borderWidth={profileViewMode ? "0px" : "1px"}
-                      disabled={profileViewMode ? true : false}
-                      value={twitterSocial}
-                      onChange={e => {
-                        setTtwitterSocial(e.target.value);
-                      }}
-                      focusBorderColor="teal.500"
-                      background="none"
-                    />
-                  </InputGroup>
-                </Box>
-                <Box w="50%" minW="300px">
-                  <FormLabel fontSize="xs" htmlFor="email">
-                    LINKEDIN
-                  </FormLabel>
-                  <InputGroup>
-                    <InputLeftElement
-                      children={<Box as={FaLinkedin} color="teal.400" />}
-                    />
-                    <Input
-                      borderWidth={profileViewMode ? "0px" : "1px"}
-                      disabled={profileViewMode ? true : false}
-                      value={linkedinSocial}
-                      onChange={e => {
-                        setLinkedinSocial(e.target.value);
-                      }}
-                      focusBorderColor="teal.500"
-                      borderLeftColor="teal"
-                      background="none"
-                    />
-                  </InputGroup>
-                </Box>
-              </Stack>
-            </Box>
-            <Flex
-              pt="10px"
-              maxW="800px"
-              minH="60px"
-              justifyContent="flex-end"
-              m="auto"
-            >
-              {profileViewMode ? (
-                <IconButton
-                  variant="ghost"
-                  variantColor="teal"
-                  aria-label="Call Sage"
-                  fontSize="20px"
-                  icon={FaEdit}
-                  onClick={handleProfileMode}
-                />
-              ) : (
-                <Box>
-                  <Button
-                    onClick={updateUserProfile}
-                    size="md"
+              </Box>
+              <Flex
+                pt="10px"
+                maxW="800px"
+                minH="60px"
+                justifyContent="flex-end"
+                m="auto"
+              >
+                {profileViewMode ? (
+                  <IconButton
+                    variant="ghost"
                     variantColor="teal"
-                    mr="5px"
-                    isLoading={loading}
-                  >
-                    Save
-                  </Button>
-                  <Button onClick={handleProfileMode} size="md">
-                    Cancel
-                  </Button>
-                </Box>
-              )}
-            </Flex>
-          </Container>
+                    aria-label="Call Sage"
+                    fontSize="20px"
+                    icon={FaEdit}
+                    onClick={handleProfileMode}
+                  />
+                ) : (
+                  <Box>
+                    <Button
+                      onClick={updateUserProfile}
+                      size="md"
+                      variantColor="teal"
+                      mr="5px"
+                      isLoading={loading}
+                    >
+                      Save
+                    </Button>
+                    <Button onClick={handleProfileMode} size="md">
+                      Cancel
+                    </Button>
+                  </Box>
+                )}
+              </Flex>
+            </Container>
+          </Box>
         </Box>
-      </Box>
-    </ThemeProvider>
+      </ThemeProvider>
+    </>
   );
 }
 

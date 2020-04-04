@@ -3,10 +3,9 @@ import { Text, Box, IconButton, useDisclosure } from "@chakra-ui/core";
 import NewSnippet from "./NewSnippet";
 import { MdAddCircle } from "react-icons/md";
 import { FaRegSadTear, FaRegStar } from "react-icons/fa";
-import { FiArchive } from 'react-icons/fi';
+import { FiArchive } from "react-icons/fi";
 
 const EmptyView = ({ currentView }) => {
-  console.log(currentView);
   const [size, setSize] = React.useState("md");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const firstField = React.useRef();
@@ -17,21 +16,19 @@ const EmptyView = ({ currentView }) => {
     document.getElementById("FiHome").focus();
   };
 
-
   let emptyData = {
     text: "You have no snippets yet",
     icon: FaRegSadTear,
     actionText: "Add your first snippets"
-  }
-  if(currentView === "FiArchive"){
+  };
+  if (currentView === "FiArchive") {
     emptyData.text = "Your archive is currently empty";
     emptyData.icon = FiArchive;
-    emptyData.actionText = ""
-  }
-  else if(currentView === "FiStar"){
+    emptyData.actionText = "";
+  } else if (currentView === "FiStar") {
     emptyData.text = "You don’t have any favorites snippets yet";
     emptyData.icon = FaRegStar;
-    emptyData.actionText = ""
+    emptyData.actionText = "";
   }
 
   return (
@@ -42,11 +39,10 @@ const EmptyView = ({ currentView }) => {
           {emptyData.text}
         </Text>
         <Text fontSize="xl" opacity="0.6">
-        {emptyData.actionText}
+          {emptyData.actionText}
         </Text>
-        {
-          currentView === "FiHome" && (
-            <IconButton
+        {currentView === "FiHome" && (
+          <IconButton
             variant="ghost"
             ml="5px"
             aria-label="Add new snippet"
@@ -59,9 +55,8 @@ const EmptyView = ({ currentView }) => {
             _focus={{
               outline: "none"
             }}
-          />  
-          )
-        }
+          />
+        )}
       </Box>
       <NewSnippet
         isOpen={isOpen}

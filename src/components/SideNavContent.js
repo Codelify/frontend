@@ -93,9 +93,9 @@ const SideNavContent = ({ contentHeight = "calc(100vh - 4rem)", ...props }) => {
             <PseudoBox
               className="nav-buttom"
               as="button"
-              color={ linkObject.id === navMenu ? "#285E61" : "#4A5568"}
+              color={ linkObject.id === navMenu ? "#319795" : "#4A5568"}
               bg={linkObject.id === navMenu ? "teal.100" : "none"}
-              opacity={colorMode === "dark" ? "0.7" : "1"}
+              opacity={colorMode === "dark" ? "0.8" : "1"}
               onClick={() => {
                 onActivate(linkObject.id);
               }}
@@ -117,7 +117,7 @@ const SideNavContent = ({ contentHeight = "calc(100vh - 4rem)", ...props }) => {
               as="button"
               color={ linkObject.id === navMenu ? "#285E61" : "#4A5568"}
               bg={linkObject.id === navMenu ? "teal.100" : "none"}
-              opacity={colorMode === "dark" ? "0.7" : "1"}
+              opacity={colorMode === "dark" ? "0.8" : "1"}
               onClick={() => {
                 onActivate(linkObject.id);
               }}
