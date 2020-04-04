@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Button,
 } from '@chakra-ui/core'
@@ -8,8 +8,10 @@ import axios from 'axios';
 import config from '../utils/config'
 import useOAUth from '../hooks/useOAuth'
 const GithubButton = () => {
+  const [ loading, setLoading ] = useState(false);
   const [login] = useOAUth()
   const onSuccessGithub = async (code) => {
+    setLoading(true)
     const { clientId, clientSecret } = config.github;
     if (code) {
       const { data: { access_token = ''}} = await axios.post(
@@ -48,6 +50,7 @@ const GithubButton = () => {
     variantColor="teal"
     size="md"
     leftIcon={FaGithub}
+    loading={loading}
     >
     <GitHubLogin
       onSuccess={onSuccessGithub}
