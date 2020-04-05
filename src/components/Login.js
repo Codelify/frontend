@@ -8,7 +8,6 @@ import MainLayout from "../layouts/AppLayout";
 import LoginForm from './LoginForm'
 
 const Login = () => {
-  const [show, setShow] = React.useState(false);
 
   useEffect(() => {
     PageView();
