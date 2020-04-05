@@ -17,29 +17,27 @@ import {
   Divider,
   Flex,
   IconButton,
-  //   InputRightElement,
+  Switch
 } from "@chakra-ui/core";
 import ContentEditable from "react-contenteditable";
 import { navigate } from "@reach/router";
 import Container from "../components/Container";
 import { IoIosArrowBack } from "react-icons/io";
 import useUserData from "../components/~common/useUserData";
-import { FaTwitter, FaLinkedin, FaEdit } from "react-icons/fa";
+import { FaTwitter, FaLinkedin, FaEdit, FaRegSadTear, FaRegSmileWink } from "react-icons/fa";
 import { MdMail } from "react-icons/md";
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_PROFILE } from "../graphql/mutation";
-
-// import { MdVpnKey } from "react-icons/md";
 
 function Profile() {
   const [description, setDescription] = useState("");
   const [twitterSocial, setTtwitterSocial] = useState("");
   const [linkedinSocial, setLinkedinSocial] = useState("");
   const [loading, setLoading] = useState(false);
+  const [subscription, setSubscription] = useState(false);
+
   const { results } = useUserData();
   const { colorMode } = useColorMode();
-  //   const [show, setShow] = React.useState(false);
-  //   const handleClick = () => setShow(!show);
   const [updateProfile] = useMutation(UPDATE_PROFILE);
 
   const avatar = results.avatar;
@@ -104,6 +102,10 @@ function Profile() {
         : "https://www.linkedin.com/in/your_handler",
     );
   }, [results.bio, results.linkedin, results.twitter]);
+
+  const onSwitch = (isChecked) => {
+    console.dir(isChecked)
+  }
 
   return (
     <ThemeProvider>
@@ -180,7 +182,7 @@ function Profile() {
             >
               <FormControl w="100%" isRequired={profileViewMode ? false : true}>
                 <Stack w="100%" isInline flexWrap="wrap" spacing={8}>
-                  <Box minW="300px">
+                  <Box w="50%" minW="300px" mb={["30px", "30px", "0px", "0px"]}>
                     <FormLabel fontSize="xs" htmlFor="email">
                       EMAIL ADDRESS
                     </FormLabel>
@@ -198,35 +200,17 @@ function Profile() {
                       />
                     </InputGroup>
                   </Box>
-                  {/* <Box w="50%" minW="300px">
-                    <FormLabel fontSize="xs" htmlFor="fullname">
-                      PASSWORD
-                    </FormLabel>
-                    <InputGroup>
-                      <InputLeftElement
-                        children={<Box as={MdVpnKey} color="teal.400" />}
-                      />
-                      <Input
-                        borderWidth="0px"
-                        disabled
-                        type={show ? "text" : "password"}
-                        value="mypassword"
-                        focusBorderColor="teal.500"
-                        background="none"
-                      />
-                      <InputRightElement width="4.5rem">
-                        <Button
-                          mr="3px"
-                          h="1.75rem"
-                          size="sm"
-                          onClick={handleClick}
-                          _focus={{ outline: "none" }}
-                        >
-                          {show ? "Hide" : "Show"}
-                        </Button>
-                      </InputRightElement>
-                    </InputGroup>
-                  </Box> */}
+                  <Box w="40%" minW="300px">
+                      <Stack isInline>
+                      <FormLabel fontSize="xs" htmlFor="fullname">
+                        NEWSLETTER 
+                      </FormLabel>
+                      {
+                        subscription ? <Box as={FaRegSmileWink} color="teal.400"/> : <Box as={FaRegSadTear} color="red.300"/>
+                      }
+                      </Stack>
+                      <Switch w="auto" onChange={() =>{setSubscription(!subscription)}} isChecked={subscription} color="teal" size="md" />
+                  </Box>
                 </Stack>
               </FormControl>
               <Divider my="30px" />

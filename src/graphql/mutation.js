@@ -36,6 +36,7 @@ export const UPDATE_SNIPPET = gql`
       content
       tags
       isFav
+      isPublic
     }
   }
 `;
