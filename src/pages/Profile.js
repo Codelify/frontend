@@ -16,9 +16,7 @@ import {
   InputGroup,
   Divider,
   Flex,
-  IconButton,
   Switch
-  //   InputRightElement,
 } from "@chakra-ui/core";
 import ContentEditable from "react-contenteditable";
 import { navigate } from "@reach/router";
