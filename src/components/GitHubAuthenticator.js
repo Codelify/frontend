@@ -36,13 +36,13 @@ export default function GitHubAuthenticator(props) {
               
               if (response.status === 200) {
                 const { login: username, name: firstName, bio, email, avatar_url: avatar, node_id: password } = response.data
-                 await login({
-                   firstName,
-                   email: email ? email : `${username}@gmail.com`,
-                   bio,
-                   avatar,
-                   password
-                 })
+                  await login({
+                    firstName,
+                    email: email ? email : `${username}@gmail.com`,
+                    bio,
+                    avatar,
+                    password
+                  })
               }
             }
           }

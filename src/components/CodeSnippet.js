@@ -102,7 +102,7 @@ const CodeSnippet = ({
   // data is received from CodeLangageBar child comp
   useEffect(() => {
     handleUpdate("lang");
-  }, [codeLangage, handleUpdate]);
+  }, [codeLangage]);
 
   return (
     <>
