@@ -15,7 +15,7 @@ export default function GitHubAuthenticator(props) {
     PageView();
     const authenticate = async () => {
       const { code = '' } = queryString.parse(props.location.search);
-      console.log('Via Authenticator');
+  
       const { clientId, clientSecret } = config.github;
       if (code) {
         if (code) {
