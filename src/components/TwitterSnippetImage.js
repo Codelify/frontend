@@ -66,7 +66,7 @@ const TwitterSnippetImage = ({shareId}) => {
             const url = snippetPublicLink;
             const via = "Codelify_dev";
             const title = res.data.message;
-            const hashtags = "codelify,snippet";
+            const hashtags = `codelify,${data.getSnippetDetails.lang}`;
             const twitterURL = `https://twitter.com/share?url=${url}&text=${title}&via=${via}&hashtags=${hashtags}`;
             openTwitterUrl(twitterURL);
           })
