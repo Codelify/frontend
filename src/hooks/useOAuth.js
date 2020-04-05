@@ -12,7 +12,6 @@ export default function useOAuth() {
   const toasting = useToast();
 
   const login = async user => {
-      console.log('User',user)
     try {
       const { data } = await OAuth({
         variables: {
