@@ -140,7 +140,7 @@ const AppHeader = props => {
                       <Box as={FaUserAlt} />
                     )}
                   </MenuButton>
-                  <MenuList>
+                  <MenuList placement="bottom-end">
                     <MenuItem
                       onClick={() => {
                         navigate("/profile");
