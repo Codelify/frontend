@@ -100,7 +100,7 @@ const AppHeader = props => {
                     onClick={ changeRoute }
                     _focus={{ outline: "none" }}
                   >
-                    { isLoggedIn ? "My Snippets" : "Login"}
+                    { isLoggedIn ? "MY SNIPPETS" : "Login"}
                   </Button>
 
               ) : (
@@ -140,7 +140,7 @@ const AppHeader = props => {
                       <Box as={FaUserAlt} />
                     )}
                   </MenuButton>
-                  <MenuList>
+                  <MenuList placement="bottom-end">
                     <MenuItem
                       onClick={() => {
                         navigate("/profile");
