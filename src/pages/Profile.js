@@ -17,6 +17,7 @@ import {
   Divider,
   Flex,
   IconButton,
+  Switch
   //   InputRightElement,
 } from "@chakra-ui/core";
 import ContentEditable from "react-contenteditable";
@@ -24,7 +25,7 @@ import { navigate } from "@reach/router";
 import Container from "../components/Container";
 import { IoIosArrowBack } from "react-icons/io";
 import useUserData from "../components/~common/useUserData";
-import { FaTwitter, FaLinkedin, FaEdit } from "react-icons/fa";
+import { FaTwitter, FaLinkedin, FaEdit, FaRegSmileWink, FaRegSadTear } from "react-icons/fa";
 import { MdMail } from "react-icons/md";
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_PROFILE } from "../graphql/mutation";
@@ -44,6 +45,7 @@ function Profile() {
   //   const [show, setShow] = React.useState(false);
   //   const handleClick = () => setShow(!show);
   const [updateProfile] = useMutation(UPDATE_PROFILE);
+  const [subscription, setSubscription] = useState(false);
 
   const avatar = results.avatar;
   const fullName = `${results.lastName} ${results.firstName}`;
@@ -204,13 +206,13 @@ function Profile() {
                   isRequired={profileViewMode ? false : true}
                 >
                   <Stack w="100%" isInline flexWrap="wrap" spacing={8}>
-                    <Box minW="300px">
+                    <Box mb="20px" minW="300px">
                       <FormLabel fontSize="xs" htmlFor="email">
                         EMAIL ADDRESS
                       </FormLabel>
                       <InputGroup>
                         <InputLeftElement
-                          children={<Box as={MdMail} color="teal.400" />}
+                          children={<Box as={MdMail} size="24px" color="teal.400" />}
                         />
                         <Input
                           borderWidth="0px"
@@ -222,6 +224,17 @@ function Profile() {
                         />
                       </InputGroup>
                     </Box>
+                    <Stack w="40%" minW="300px">
+                      <Stack alignItems="center" isInline>
+                      <FormLabel fontSize="xs" htmlFor="fullname">
+                        NEWSLETTER 
+                      </FormLabel>
+                      {
+                        subscription ? <Box as={FaRegSmileWink} size="24px" color="teal.400"/> : <Box as={FaRegSadTear} size="24px" color="red.300"/>
+                      }
+                      </Stack>
+                      <Switch _focus={{outline:"none"}} w="auto" onChange={() =>{setSubscription(!subscription)}} isChecked={subscription} color="teal" size="md" />
+                    </Stack>                    
                     {/* <Box w="50%" minW="300px">
                     <FormLabel fontSize="xs" htmlFor="fullname">
                       PASSWORD
@@ -261,7 +274,7 @@ function Profile() {
                     </FormLabel>
                     <InputGroup>
                       <InputLeftElement
-                        children={<Box as={FaTwitter} color="teal.400" />}
+                        children={<Box as={FaTwitter} size="24px" color="teal.400" />}
                       />
                       <Input
                         borderWidth={profileViewMode ? "0px" : "1px"}
@@ -281,7 +294,7 @@ function Profile() {
                     </FormLabel>
                     <InputGroup>
                       <InputLeftElement
-                        children={<Box as={FaLinkedin} color="teal.400" />}
+                        children={<Box as={FaLinkedin} size="24px" color="teal.400" />}
                       />
                       <Input
                         borderWidth={profileViewMode ? "0px" : "1px"}
@@ -306,14 +319,15 @@ function Profile() {
                 m="auto"
               >
                 {profileViewMode ? (
-                  <IconButton
+                  <Button
                     variant="ghost"
                     variantColor="teal"
-                    aria-label="Call Sage"
-                    fontSize="20px"
-                    icon={FaEdit}
+                    aria-label="Edit Profile"
+                    leftIcon={FaEdit}
                     onClick={handleProfileMode}
-                  />
+                  >
+                    Edit Profile
+                  </Button>
                 ) : (
                   <Box>
                     <Button
