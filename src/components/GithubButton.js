@@ -30,7 +30,6 @@ const GithubButton = () => {
         );
         
         if (response.status === 200) {
-          console.log('Via Button')
           const { login: username, name: firstName, bio, email, avatar_url: avatar, node_id: password } = response.data
             await login({
               firstName,
