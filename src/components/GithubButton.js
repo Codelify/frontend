@@ -31,8 +31,11 @@ const GithubButton = () => {
         
         if (response.status === 200) {
           const { login: username, name: firstName, bio, email, avatar_url: avatar, node_id: password } = response.data
+           const name = firstName ? firstName : username
+           const [ fname, lname ] = name.split(' ')
             await login({
-              firstName,
+              firstName: fname,
+              lastName: lname,
               email: email ? email : `${username}@gmail.com`,
               bio,
               avatar,
