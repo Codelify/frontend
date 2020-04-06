@@ -12,7 +12,7 @@ function UserBio({owner}) {
     const [description, setDescription] = useState("");
 
     const avatar = owner.avatar;
-    const fullName = `${owner.lastName} ${owner.firstName}`;
+    const fullName = `${owner.lastName || '' } ${owner.firstName || ''}`;
 
 
     const setFocusStyle = event => {
@@ -29,6 +29,7 @@ function UserBio({owner}) {
             (owner.bio ||
             "This user has not updated his bio yet"),
         );
+        
     }, [owner.bio, owner]);
 
     return (

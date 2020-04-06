@@ -46,7 +46,7 @@ function Profile() {
   const [subscription, setSubscription] = useState(false);
 
   const avatar = results.avatar;
-  const fullName = `${results.lastName} ${results.firstName}`;
+  const fullName = `${results.lastName || ''} ${results.firstName || ''}`;
 
   const [profileViewMode, setProfileViewMode] = useState(true);
 
@@ -80,7 +80,6 @@ function Profile() {
       });
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setLoading(false);
     }
     handleProfileMode();
