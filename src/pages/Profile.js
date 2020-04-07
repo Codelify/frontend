@@ -164,7 +164,7 @@ function Profile() {
                   name="Dynamic Name"
                   src={avatar}
                 />
-                <Heading as="h2" m="20px" size="xl" fontWeight="bold">
+                <Heading as="h2" m="20px" size="xl">
                   {fullName}
                 </Heading>
 
