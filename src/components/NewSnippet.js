@@ -237,7 +237,6 @@ const formatCurrency = new Intl.NumberFormat("en-US",{
   }, [tags]);
 
   const clearForm = () => {
-        console.log("clearing the form")
         // clear the tags array
         setTags([]);
         // clear form

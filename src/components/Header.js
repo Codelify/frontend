@@ -71,7 +71,7 @@ const AppHeader = props => {
       px="10px"
     >
       <Flex  align="center" justify="center" w="100%">
-        <Box my="10px" maxWidth="1600px" w="100%" h="100%">
+        <Box mx="15px" my="10px" maxWidth="1600px" w="100%" h="100%">
           <Flex size="100%" align="center" justify="space-between">
             <Box
               minWidth="120px"
