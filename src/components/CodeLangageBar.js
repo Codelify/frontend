@@ -46,7 +46,7 @@ const CodeLangageBar = ({langageSelection, codeLangage}) => {
         {
             !langage ? (
                 !selectionMode && (
-                    <Tag size="lg" mx="5px" variant="solid" variantColor="red" id="undefined" onClick={showLangageOptions}  >
+                    <Tag style={{cursor: "pointer"}} size="lg" mx="5px" variant="solid" variantColor="red" id="undefined" onClick={showLangageOptions}  >
                     <DevIcon langage="undefined" />
                     <TagLabel mx="5px">Select Langage</TagLabel>
                     </Tag>    
