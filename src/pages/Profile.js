@@ -37,13 +37,14 @@ function Profile() {
   const [description, setDescription] = useState("");
   const [twitterSocial, setTtwitterSocial] = useState("");
   const [linkedinSocial, setLinkedinSocial] = useState("");
+  const [subscription, setSubscription] = useState(false);
   const [loading, setLoading] = useState(false);
   const { results } = useUserData();
+  console.log(results);
   const { colorMode } = useColorMode();
   //   const [show, setShow] = React.useState(false);
   //   const handleClick = () => setShow(!show);
   const [updateProfile] = useMutation(UPDATE_PROFILE);
-  const [subscription, setSubscription] = useState(false);
 
   const avatar = results.avatar;
   const fullName = `${results.lastName || ''} ${results.firstName || ''}`;
@@ -74,6 +75,7 @@ function Profile() {
             bio: description,
             twitter: twitterSocial,
             linkedin: linkedinSocial,
+            enableNewsletter: subscription,
           },
         },
         // refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }],
@@ -105,6 +107,11 @@ function Profile() {
         ? results.linkedin
         : "https://www.linkedin.com/in/your_handler",
     );
+    setSubscription(
+      results.enableNewsletter
+      ? results.enableNewsletter
+      : false
+    )
   }, [results, results.bio, results.linkedin, results.twitter]);
 
   return (
@@ -230,7 +237,7 @@ function Profile() {
                         subscription ? <Box as={FaRegSmileWink} size="24px" color="teal.400"/> : <Box as={FaRegSadTear} size="24px" color="red.300"/>
                       }
                       </Stack>
-                      <Switch _focus={{outline:"none"}} w="auto" onChange={() =>{setSubscription(!subscription)}} isChecked={subscription} color="teal" size="md" />
+                      <Switch isDisabled={profileViewMode} _focus={{outline:"none"}} w="auto" onChange={() =>{setSubscription(!subscription)}} isChecked={subscription} color="teal" size="md" />
                     </Stack>                    
                     {/* <Box w="50%" minW="300px">
                     <FormLabel fontSize="xs" htmlFor="fullname">

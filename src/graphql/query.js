@@ -59,6 +59,8 @@ export const USER_DETAILS = gql`
       bio
       twitter
       linkedin
+      github
+      enableNewsletter
       snippets {
         id
         title

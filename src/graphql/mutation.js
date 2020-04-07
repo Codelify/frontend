@@ -49,6 +49,7 @@ export const UPDATE_PROFILE = gql`
       bio
       twitter
       linkedin
+      enableNewsletter
     }
   }
 `;
