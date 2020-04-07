@@ -35,9 +35,9 @@ import MetaTags from "../components/MetaTags";
 
 function Profile() {
   const [description, setDescription] = useState("");
-  const [twitterSocial, setTtwitterSocial] = useState("");
+  const [twitterLink, setTtwitterLink] = useState("");
   const [gitHubLink, setGitHubLink] = useState("");
-  const [linkedinSocial, setLinkedinSocial] = useState("");
+  const [linkedinLink, setlinkedinLink] = useState("");
   const [subscription, setSubscription] = useState(false);
   const [loading, setLoading] = useState(false);
   const { results } = useUserData();
@@ -74,9 +74,9 @@ function Profile() {
           token: token,
           profileInfo: {
             bio: description,
-            twitter: twitterSocial,
+            twitter: twitterLink,
             github: gitHubLink,
-            linkedin: linkedinSocial,
+            linkedin: linkedinLink,
             enableNewsletter: subscription,
           },
         },
@@ -101,13 +101,13 @@ function Profile() {
         (results.bio ||
           "This is my sweet and short Bio. Few interesting things about me, or things I am interested at."),
     );
-    setTtwitterSocial(
+    setTtwitterLink(
       results.twitter ? results.twitter : "https://twitter.com/your_handler",
     );
     setGitHubLink(
       results.github ? results.github : "Link to your Github profile",
     );
-    setLinkedinSocial(
+    setlinkedinLink(
       results.linkedin
         ? results.linkedin
         : "https://www.linkedin.com/in/your_handler",
@@ -259,9 +259,9 @@ function Profile() {
                       <Input
                         borderWidth={profileViewMode ? "0px" : "1px"}
                         disabled={profileViewMode ? true : false}
-                        value={twitterSocial}
+                        value={twitterLink}
                         onChange={e => {
-                          setTtwitterSocial(e.target.value);
+                          setTtwitterLink(e.target.value);
                         }}
                         focusBorderColor="teal.500"
                         background="none"
@@ -300,9 +300,9 @@ function Profile() {
                       <Input
                         borderWidth={profileViewMode ? "0px" : "1px"}
                         disabled={profileViewMode ? true : false}
-                        value={linkedinSocial}
+                        value={linkedinLink}
                         onChange={e => {
-                          setLinkedinSocial(e.target.value);
+                          setlinkedinLink(e.target.value);
                         }}
                         focusBorderColor="teal.500"
                         borderLeftColor="teal"
