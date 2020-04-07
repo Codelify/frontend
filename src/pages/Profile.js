@@ -41,7 +41,6 @@ function Profile() {
   const [subscription, setSubscription] = useState(false);
   const [loading, setLoading] = useState(false);
   const { results } = useUserData();
-  console.log(results);
   const { colorMode } = useColorMode();
   //   const [show, setShow] = React.useState(false);
   //   const handleClick = () => setShow(!show);
@@ -102,7 +101,7 @@ function Profile() {
           "This is my sweet and short Bio. Few interesting things about me, or things I am interested at."),
     );
     setTtwitterLink(
-      results.twitter ? results.twitter : "https://twitter.com/your_handler",
+      results.twitter ? results.twitter : "Link to your Twitter profile",
     );
     setGitHubLink(
       results.github ? results.github : "Link to your Github profile",
@@ -110,7 +109,7 @@ function Profile() {
     setlinkedinLink(
       results.linkedin
         ? results.linkedin
-        : "https://www.linkedin.com/in/your_handler",
+        : "Link to your LinkedIn profile",
     );
     setSubscription(
       results.enableNewsletter
