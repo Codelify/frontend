@@ -23,7 +23,7 @@ import { navigate } from "@reach/router";
 import Container from "../components/Container";
 import { IoIosArrowBack } from "react-icons/io";
 import useUserData from "../components/~common/useUserData";
-import { FaTwitter, FaLinkedin, FaEdit, FaRegSmileWink, FaRegSadTear } from "react-icons/fa";
+import { FaTwitter, FaLinkedin, FaEdit, FaRegSmileWink, FaRegSadTear, FaGithub } from "react-icons/fa";
 import { MdMail } from "react-icons/md";
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_PROFILE } from "../graphql/mutation";
@@ -36,6 +36,7 @@ import MetaTags from "../components/MetaTags";
 function Profile() {
   const [description, setDescription] = useState("");
   const [twitterSocial, setTtwitterSocial] = useState("");
+  const [gitHubLink, setGitHubLink] = useState("");
   const [linkedinSocial, setLinkedinSocial] = useState("");
   const [subscription, setSubscription] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -74,6 +75,7 @@ function Profile() {
           profileInfo: {
             bio: description,
             twitter: twitterSocial,
+            github: gitHubLink,
             linkedin: linkedinSocial,
             enableNewsletter: subscription,
           },
@@ -101,6 +103,9 @@ function Profile() {
     );
     setTtwitterSocial(
       results.twitter ? results.twitter : "https://twitter.com/your_handler",
+    );
+    setGitHubLink(
+      results.github ? results.github : "Link to your Github profile",
     );
     setLinkedinSocial(
       results.linkedin
@@ -239,35 +244,6 @@ function Profile() {
                       </Stack>
                       <Switch isDisabled={profileViewMode} _focus={{outline:"none"}} w="auto" onChange={() =>{setSubscription(!subscription)}} isChecked={subscription} color="teal" size="md" />
                     </Stack>                    
-                    {/* <Box w="50%" minW="300px">
-                    <FormLabel fontSize="xs" htmlFor="fullname">
-                      PASSWORD
-                    </FormLabel>
-                    <InputGroup>
-                      <InputLeftElement
-                        children={<Box as={MdVpnKey} color="teal.400" />}
-                      />
-                      <Input
-                        borderWidth="0px"
-                        disabled
-                        type={show ? "text" : "password"}
-                        value="mypassword"
-                        focusBorderColor="teal.500"
-                        background="none"
-                      />
-                      <InputRightElement width="4.5rem">
-                        <Button
-                          mr="3px"
-                          h="1.75rem"
-                          size="sm"
-                          onClick={handleClick}
-                          _focus={{ outline: "none" }}
-                        >
-                          {show ? "Hide" : "Show"}
-                        </Button>
-                      </InputRightElement>
-                    </InputGroup>
-                  </Box> */}
                   </Stack>
                 </FormControl>
                 <Divider my="30px" />
@@ -288,6 +264,27 @@ function Profile() {
                           setTtwitterSocial(e.target.value);
                         }}
                         focusBorderColor="teal.500"
+                        background="none"
+                      />
+                    </InputGroup>
+                  </Box>
+                  <Box w="50%" minW="300px">
+                    <FormLabel fontSize="xs" htmlFor="email">
+                      GITHUB
+                    </FormLabel>
+                    <InputGroup>
+                      <InputLeftElement
+                        children={<Box as={FaGithub} size="24px" color="teal.400" />}
+                      />
+                      <Input
+                        borderWidth={profileViewMode ? "0px" : "1px"}
+                        disabled={profileViewMode ? true : false}
+                        value={gitHubLink}
+                        onChange={e => {
+                          setGitHubLink(e.target.value);
+                        }}
+                        focusBorderColor="teal.500"
+                        borderLeftColor="teal"
                         background="none"
                       />
                     </InputGroup>
