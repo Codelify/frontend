@@ -35,36 +35,52 @@ const CodeSnippet = ({
   const [descriptionToUpdate, setDescroptionToUpdate] = useState(description || "No description");
   const [contentToUpdate, setContentToUpdate] = useState(content);
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
+  const [codeLangage, setCodeLangage] = useState(lang);
 
-  const handleUpdate = async typeOfAction => {
-    const costumObject = {};
-    //construct costum object for every case for not repeting the mutation of each field
-    if (typeOfAction === "title") {
-      costumObject[typeOfAction] = titleToUpdate;
-    } else if (typeOfAction === "description") {
-      costumObject[typeOfAction] = descriptionToUpdate;
-    } else if (typeOfAction === "content") {
-      costumObject[typeOfAction] = contentToUpdate;
-    } else if (typeOfAction === "lang") {
-      costumObject[typeOfAction] = codeLangage;
-    }
 
-    const token = window.localStorage.getItem("token");
-    try {
-      // eslint-disable-next-line no-empty-pattern
-      const {} = await updateSnippet({
-        variables: {
-          snippetId: id,
-          snippetInfo: costumObject,
-          token: token
-        }
-        //refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
-      });
-    } catch (error) {
-      console.log("Update error: " + error);
-    }
-    //console.log(data,error, loading);
-  };
+
+  const handleUpdateCallback = React.useCallback(( typeOfAction ) => {
+    async function handleUpdate (typeOfAction) {
+      const costumObject = {};
+      //construct costum object for every case for not repeting the mutation of each field
+      if (typeOfAction === "title") {
+        costumObject[typeOfAction] = titleToUpdate;
+      } else if (typeOfAction === "description") {
+        costumObject[typeOfAction] = descriptionToUpdate;
+      } else if (typeOfAction === "content") {
+        costumObject[typeOfAction] = contentToUpdate;
+      } else if (typeOfAction === "lang") {
+        costumObject[typeOfAction] = codeLangage;
+      }
+  
+      const token = window.localStorage.getItem("token");
+      try {
+        // eslint-disable-next-line no-empty-pattern
+        const {} = await updateSnippet({
+          variables: {
+            snippetId: id,
+            snippetInfo: costumObject,
+            token: token
+          }
+          //refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
+        });
+      } catch (error) {
+        console.log("Update error: " + error);
+      }
+      //console.log(data,error, loading);
+    };
+    handleUpdate(typeOfAction)
+  },
+  // useCallback dependencies 
+  [
+    contentToUpdate, 
+    descriptionToUpdate, 
+    titleToUpdate, 
+    codeLangage, 
+    id, 
+    updateSnippet
+  ]
+  );
 
   const handleEdit = (event, typeOfAction) => {
     // Case we update the code from Live Provider
@@ -93,7 +109,6 @@ const CodeSnippet = ({
   };
 
   // Data update from CodeLangageBar child comp
-  const [codeLangage, setCodeLangage] = useState(lang);
   const langageSelection = event => {
     setCodeLangage(event.target.parentElement.id);
   };
@@ -101,8 +116,8 @@ const CodeSnippet = ({
   // Useffect that trigger Code Snippet Langage update when
   // data is received from CodeLangageBar child comp
   useEffect(() => {
-    handleUpdate("lang");
-  }, [codeLangage]);
+    handleUpdateCallback("lang");
+  }, [codeLangage, handleUpdateCallback]);
 
   return (
     <>
@@ -119,14 +134,14 @@ const CodeSnippet = ({
             title={titleToUpdate}
             handleEdit={handleEdit}
             styledEdit={styledEdit}
-            handleUpdate={handleUpdate}
+            handleUpdate={handleUpdateCallback}
           />
           <Description
             id={id}
             description={descriptionToUpdate}
             handleEdit={handleEdit}
             styledEdit={styledEdit}
-            handleUpdate={handleUpdate}
+            handleUpdate={handleUpdateCallback}
           />
           <Divider />
           <Box>
@@ -163,7 +178,8 @@ const CodeSnippet = ({
           </Box>
           <SnippetContent
             content={contentToUpdate}
-            {...{ id, isFav, handleEdit, handleUpdate, codeLangage }}
+            handleUpdate={handleUpdateCallback}
+            {...{ id, isFav, handleEdit, codeLangage }}
           />
         </Box>
       </Flex>

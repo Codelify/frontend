@@ -16,61 +16,66 @@ export default function SlackAuthenticator(props) {
   const [createSnippet] = useMutation(CREATE_SNIPPET);
   const toasting = useToast();
 
-  const login = async user => {
-    try {
-      const { data } = await loginWithSlack({
-        variables: {
-          input: {
-            firstName: user.name,
-            email: user.email,
-            password: user.id,
-            avatar: user.image_72
+  const loginCallback = React.useCallback((user) => {
+    async function login (user) {
+      try {
+        const { data } = await loginWithSlack({
+          variables: {
+            input: {
+              firstName: user.name,
+              email: user.email,
+              password: user.id,
+              avatar: user.image_72
+            }
           }
-        }
-      });
-      if (data) {
-        localStorage.setItem("token", data.authWithGoogle.token);
-        if (localStorage.getItem("snippetData")) {
-          const snippetData = {
-            ...JSON.parse(
+        });
+        if (data) {
+          localStorage.setItem("token", data.authWithGoogle.token);
+          if (localStorage.getItem("snippetData")) {
+            const snippetData = {
+              ...JSON.parse(
+                typeof window !== "undefined" &&
+                  window.localStorage.getItem("snippetData")
+              ),
+              token: data.authWithGoogle.token
+            };
+            const { data: res, error } = await createSnippet({
+              variables: snippetData
+            });
+            if (res) {
               typeof window !== "undefined" &&
-                window.localStorage.getItem("snippetData")
-            ),
-            token: data.authWithGoogle.token
-          };
-          const { data: res, error } = await createSnippet({
-            variables: snippetData
-          });
-          if (res) {
-            typeof window !== "undefined" &&
-              window.localStorage.removeItem("snippetData");
-            toasting({
-              position: "top-right",
-              title: "Yooohooo ! 🍹",
-              description: "Your snippet has been saved",
-              status: "success",
-              duration: 9000,
-              isClosable: true
-            });
+                window.localStorage.removeItem("snippetData");
+              toasting({
+                position: "top-right",
+                title: "Yooohooo ! 🍹",
+                description: "Your snippet has been saved",
+                status: "success",
+                duration: 9000,
+                isClosable: true
+              });
+            }
+            if (error) {
+              toasting({
+                position: "top-right",
+                title: "An error occurred.",
+                description: "Unable to create this snippet.",
+                status: "error",
+                duration: 9000,
+                isClosable: true
+              });
+            }
           }
-          if (error) {
-            toasting({
-              position: "top-right",
-              title: "An error occurred.",
-              description: "Unable to create this snippet.",
-              status: "error",
-              duration: 9000,
-              isClosable: true
-            });
-          }
+          navigate(handleRouteChange());
         }
         navigate(handleRouteChange());
+      } catch (error) {
+        console.log(error);
       }
-      navigate(handleRouteChange());
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    };
+    login(user);
+  }, [createSnippet, loginWithSlack, toasting]
+
+  );
 
   useEffect(() => {
     PageView();
@@ -84,7 +89,7 @@ export default function SlackAuthenticator(props) {
         );
         const allowedDomains = config.slack.allowedDomains.split(",");
         if (user && allowedDomains.includes(team.domain)) {
-          await login(user);
+          await loginCallback(user);
         } else {
           navigate("/access_denied");
         }
@@ -92,7 +97,7 @@ export default function SlackAuthenticator(props) {
     };
 
     authenticate();
-  }, [props.location.search]);
+  }, [props.location.search, loginCallback]);
 
   return (
     <Box mt="250px">
