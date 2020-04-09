@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import {
-  Button,
+  Box,
+  PseudoBox,
+  Stack,
 } from '@chakra-ui/core'
 import { FaGithub } from 'react-icons/fa'
 import GitHubLogin from 'react-github-login';
@@ -31,8 +33,8 @@ const GithubButton = () => {
         
         if (response.status === 200) {
           const { login: username, name: firstName, bio, email, avatar_url: avatar, node_id: password } = response.data
-           const name = firstName ? firstName : username
-           const [ fname, lname ] = name.split(' ')
+            const name = firstName ? firstName : username
+            const [ fname, lname ] = name.split(' ')
             await login({
               firstName: fname,
               lastName: lname,
@@ -47,13 +49,26 @@ const GithubButton = () => {
   } 
   
   return (
-    <Button 
-    _focus={{ outline: "none" }}
-    variantColor="teal"
-    size="md"
-    leftIcon={FaGithub}
-    loading={loading}
-    >
+    // <Button 
+    // _focus={{ outline: "none" }}
+    // variantColor="teal"
+    // size="md"
+    // leftIcon={FaGithub}
+    // loading={loading}
+    // >
+  <PseudoBox
+    as="div"
+    color="white"
+    background="teal"
+    fontWeight="semibold"
+    py={2}
+    px={4}
+    rounded="md"
+    _hover={{ bg: "teal.500" }}
+    _focus={{ boxShadow: "outline" }}
+  >
+    <Stack isInline alignItems="center">
+    <Box as={FaGithub} />
     <GitHubLogin
       onSuccess={onSuccessGithub}
       valid={true}
@@ -62,7 +77,8 @@ const GithubButton = () => {
       buttonText="GitHub Login"
       className="git-button"
     />
-    </Button>
+    </Stack>
+</PseudoBox>    
 
   )
 }
