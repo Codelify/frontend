@@ -32,13 +32,19 @@ import { navigate } from "@reach/router";
 
 import MetaTags from "../components/MetaTags";
 
-function Landing() {
+function Landing({auth}) {
   const { colorMode } = useColorMode();
 
   useEffect(() => {
-    initGA(config.googleAnalytics.apiKey);
-    PageView();
-  }, []);
+      initGA(config.googleAnalytics.apiKey);
+      PageView();  
+    // at this stage their is no value for users
+    // to see the LP if they are already logged in
+    // we redirect to /app
+    if(auth) {
+      navigate("/app")
+    }
+  }, [auth]);
 
   return (
     <>

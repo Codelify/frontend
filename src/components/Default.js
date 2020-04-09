@@ -1,4 +1,7 @@
 import React, { useContext, useEffect, useCallback } from "react";
+import {
+  Skeleton, Stack, Divider
+} from "@chakra-ui/core";
 import { AppContext } from "../context/AppContext";
 import MainLayout from "../layouts/AppLayout";
 import SnippetList from "./List";
@@ -6,7 +9,6 @@ import { useQuery } from "@apollo/react-hooks";
 import { MY_SNIPPETs } from "../graphql/query";
 import { PageView, initGA } from "./~common/Tracking";
 import config from "../utils/config";
-import Spinner from "./~common/Spinner";
 
 const Default = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -48,7 +50,13 @@ const Default = () => {
   if(loading){
     return (
       <MainLayout>
-              <Spinner />
+        <Stack spacing={3}>
+        <Skeleton height="20px" my="10px" />
+        <Divider />
+        <Skeleton height="20px" my="10px" />
+        <Divider />
+        <Skeleton height="20px" my="10px" />
+        </Stack>
       </MainLayout>
     )
   }
