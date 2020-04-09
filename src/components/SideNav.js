@@ -4,21 +4,12 @@ import {
 } from "@chakra-ui/core";
 import SideNavContent from "./SideNavContent"
 
-const SideNavContainer = props => (
-  <Box
-    maxWidth="350px" 
-    height="100%"
-    top="0"
-    right="0"
-    {...props}
-  />
-);
 
 const SideNav = props => {
   return (
-    <SideNavContainer {...props}>
-      <SideNavContent />
-    </SideNavContainer>
+    <Box mr="20px" display={['none', null, 'block']}>
+      <SideNavContent pos="fixed"/>
+    </Box>
   );
 };
 

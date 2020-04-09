@@ -1,27 +1,16 @@
 import React from "react";
 import { AiOutlineGoogle } from "react-icons/ai";
 import GoogleLogin from "react-google-login";
-import { Button } from "@chakra-ui/core";
+import { Button, useToast } from "@chakra-ui/core";
 import { navigate } from "@reach/router";
-import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
-import { toast } from "react-toastify";
-import { CREATE_SNIPPET } from "../graphql/mutation";
-const LOGIN_WITH_GOOGLE = gql`
-  mutation authWithGoogle($input: RegisterInput!) {
-    authWithGoogle(input: $input) {
-      email
-      token
-      firstName
-      lastName
-      avatar
-    }
-  }
-`;
+import { CREATE_SNIPPET, LOGIN_WITH_GOOGLE } from "../graphql/mutation";
+import { handleRouteChange } from "../utils/handleRouteChange";
 
 export default function GoogleButton() {
   const [login] = useMutation(LOGIN_WITH_GOOGLE);
   const [createSnippet] = useMutation(CREATE_SNIPPET);
+  const toasting = useToast();
 
   const responseGoogle = async response => {
     const { profileObj } = response;
@@ -33,19 +22,16 @@ export default function GoogleButton() {
         email,
         imageUrl: avatar
       } = profileObj;
+      // localStorage.setItem("avatar", profileObj.imageUrl);
       try {
-        const { data, error } = await login({
+        const { data } = await login({
           variables: {
             input: { firstName, lastName, email, password, avatar }
           }
         });
         if (data) {
-          typeof window !== "undefined" &&
-            window.localStorage.setItem("token", data.authWithGoogle.token);
-          if (
-            typeof window !== "undefined" &&
-            window.localStorage.getItem("snippetData")
-          ) {
+          localStorage.setItem("token", data.authWithGoogle.token);
+          if (localStorage.getItem("snippetData")) {
             const snippetData = {
               ...JSON.parse(
                 typeof window !== "undefined" &&
@@ -59,15 +45,29 @@ export default function GoogleButton() {
             if (res) {
               typeof window !== "undefined" &&
                 window.localStorage.removeItem("snippetData");
-              toast("Snippet successfully save 🍹");
+              toasting({
+                position: "top-right",
+                title: "Yooohooo ! 🍹",
+                description: "Your snippet has been saved",
+                status: "success",
+                duration: 9000,
+                isClosable: true
+              });
             }
             if (error) {
-              toast.error("Oops, an error occurred trying to save snippet 😔");
+              toasting({
+                position: "top-right",
+                title: "An error occurred.",
+                description: "Unable to create this snippet.",
+                status: "error",
+                duration: 9000,
+                isClosable: true
+              });
             }
           }
-          navigate("/app");
+          navigate(handleRouteChange());
         }
-        navigate("/app");
+        navigate(handleRouteChange());
       } catch (err) {
         console.log(err);
       }
@@ -79,14 +79,17 @@ export default function GoogleButton() {
       clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
       render={renderProps => (
         <Button
+          _focus={{ outline: "none" }}
+          variantColor="teal"
+          variant="outline"
           as="a"
-          size="lg"
+          size="md"
           href="#"
           onClick={renderProps.onClick}
           disabled={renderProps.disabled}
-          leftIcon={props => <AiOutlineGoogle size="1.5em" {...props} />}
+          leftIcon={AiOutlineGoogle}
         >
-          Sign In
+          Google Login
         </Button>
       )}
       buttonText="Login"

@@ -1,30 +1,22 @@
 import React from "react";
 import {
     Box,
-    Image,
+    Link,
     Flex,
     Text,
+    Stack,
 } from "@chakra-ui/core";
-import lambda from "../assets/img/Lambda-png.png"
+import { FaTwitter } from "react-icons/fa"
 
-const Footer = () => {
+const Footer = ({ landing=false }) => {
     return(
-        <Box textAlign="center" pt="20px" pb="10" fontSize="xs">
+        <Box my="10px" opacity="0.7" pt="40px" width="100%" fontSize="xs">
             <Flex align="center" justify="center">
-            <Text >
-            Built during 
-            </Text>
-            <Image
-                size="15px"
-                objectFit="cover"
-                src={lambda}
-                alt="Lamba School logo"
-                margin="5px"
-                padding="1px"
-            />  
-            <Text>
-            winter 2020 Hackathon
-            </Text>
+            <Link _focus={{outline: "none"}} href="http://bit.ly/code-twit" isExternal>
+            <Stack alignItems="center" isInline>
+                <Text>Get in touch</Text> <Box color="teal.400" size="16px" as={FaTwitter} /> <Text>@Codelify_dev</Text>
+            </Stack>
+            </Link>            
             </Flex>
         </Box>
     );

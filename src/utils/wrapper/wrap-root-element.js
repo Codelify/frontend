@@ -2,19 +2,23 @@
 // and chakraUI
 
 import React from "react";
-import { ApolloProvider } from "@apollo/react-hooks";
 import { ColorModeProvider, CSSReset, ThemeProvider } from "@chakra-ui/core";
-import { client } from "./apollo-client";
+
 import { ToastContainer } from "react-toastify";
-
 import "react-toastify/dist/ReactToastify.min.css";
-import AppProvider from "../AppProvider";
+import AppProvider from "../../context/AppContext";
+import ApolloProvider from "./Apollo-Provider";
 
-export const WrapRootElement = ({ props, children }) => {
+export const WrapRootElement = ({ children }) => {
+  const colorMode =
+    typeof window !== "undefined" && window.localStorage.getItem("darkMode");
+  if (!colorMode) {
+    window.localStorage.setItem("darkMode", false);
+  }
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider>
       <ThemeProvider>
-        <ColorModeProvider value="light" {...props}>
+        <ColorModeProvider>
           <CSSReset />
           <AppProvider>{children}</AppProvider>
         </ColorModeProvider>
