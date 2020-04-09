@@ -1,4 +1,7 @@
 import React, { useContext, useEffect, useCallback } from "react";
+import {
+  Skeleton
+} from "@chakra-ui/core";
 import { AppContext } from "../context/AppContext";
 import MainLayout from "../layouts/AppLayout";
 import SnippetList from "./List";
@@ -48,7 +51,9 @@ const Default = () => {
   if(loading){
     return (
       <MainLayout>
-              <Spinner />
+        <Skeleton height="20px" my="10px" />
+        <Skeleton height="20px" my="10px" />
+        <Skeleton height="20px" my="10px" />
       </MainLayout>
     )
   }
