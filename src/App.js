@@ -39,7 +39,7 @@ function App() {
       <Helmet link={[{ rel: "icon", href: favicon16, sizes: "16x16" }]} />
       <Router>
         {/* Public routes */}
-        <Landing path="/" />
+        <Landing path="/" auth={auth} />
         <AccessDenied path="/access_denied" />
         <SingleSnippet path="/view/snippet/:shareId" />
         <TwitterSnippetImage path="/view/twit/:shareId" />
