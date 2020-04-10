@@ -69,6 +69,7 @@ const SnippetMenu = ({ isFav, id }) => {
         refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
     });
     setLoading(false);
+    onClose();
     toast({
         position: "top-right",
         title: "Restore",
