@@ -28,8 +28,6 @@ const DialogModal = ({
   const handleConfirm = () => {
     // run confirm call back function
     confirmCallback();
-    // then close
-    onClose()
   }
 
   return (

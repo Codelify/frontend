@@ -3,6 +3,7 @@ import {
   Box,
   PseudoBox,
   Stack,
+  Spinner
 } from '@chakra-ui/core'
 import { FaGithub } from 'react-icons/fa'
 import GitHubLogin from 'react-github-login';
@@ -10,10 +11,9 @@ import axios from 'axios';
 import config from '../utils/config'
 import useOAUth from '../hooks/useOAuth'
 const GithubButton = () => {
-  const [ loading, setLoading ] = useState(false);
+  const [ isLoading, setIsLoading ] = useState(false);
   const [login] = useOAUth()
   const onSuccessGithub = async (code) => {
-    setLoading(true)
     const { clientId, clientSecret } = config.github;
     if (code) {
       const { data: { access_token = ''}} = await axios.post(
@@ -60,6 +60,7 @@ const GithubButton = () => {
     as="div"
     color="white"
     background="teal"
+    opacity={isLoading ? "0.5" : "1"}
     fontWeight="semibold"
     py={2}
     px={4}
@@ -68,13 +69,19 @@ const GithubButton = () => {
     _focus={{ boxShadow: "outline" }}
   >
     <Stack isInline alignItems="center">
-    <Box as={FaGithub} />
+    {
+      isLoading
+      ? <Spinner size="sm" />
+      : <Box as={FaGithub} />
+    }
     <GitHubLogin
       onSuccess={onSuccessGithub}
+      onRequest={()=>{setIsLoading(true)}}
+      onFailure={()=>{setIsLoading(false)}}
       valid={true}
       redirectUri=""
       clientId={config.github.clientId}
-      buttonText="GitHub Login"
+      buttonText={ isLoading ? "Submitting" : "GitHub Login"}
       className="git-button"
     />
     </Stack>
