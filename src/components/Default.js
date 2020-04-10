@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useCallback } from "react";
-import {
-  Skeleton, Stack, Divider
-} from "@chakra-ui/core";
 import { AppContext } from "../context/AppContext";
 import MainLayout from "../layouts/AppLayout";
+import CodeSnippetSkeleton from "./CodeSnippetSkeleton"
 import SnippetList from "./List";
 import { useQuery } from "@apollo/react-hooks";
 import { MY_SNIPPETs } from "../graphql/query";
@@ -12,7 +10,6 @@ import config from "../utils/config";
 
 const Default = () => {
   const { state, dispatch } = useContext(AppContext);
-  //console.log("Menu View", state.currentView);
   const token = typeof window !== "undefined" && window.localStorage.getItem("token");
   const { data, loading, refetch } = useQuery(MY_SNIPPETs, {
     variables: { token },
@@ -50,13 +47,7 @@ const Default = () => {
   if(loading){
     return (
       <MainLayout>
-        <Stack spacing={3}>
-        <Skeleton height="20px" my="10px" />
-        <Divider />
-        <Skeleton height="20px" my="10px" />
-        <Divider />
-        <Skeleton height="20px" my="10px" />
-        </Stack>
+        <CodeSnippetSkeleton />
       </MainLayout>
     )
   }
