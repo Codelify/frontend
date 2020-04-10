@@ -97,7 +97,7 @@ export default function GoogleButton() {
       )}
       buttonText="Login"
       onSuccess={responseGoogle}
-      onFailure={responseGoogle}
+      onFailure={()=>{setIsLoading(false)}}
       onRequest={()=>{setIsLoading(true)}}
       cookiePolicy={"single_host_origin"}
     />
