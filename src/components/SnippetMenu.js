@@ -57,8 +57,8 @@ const SnippetMenu = ({ isFav, id }) => {
   else dialogHeader = "This will archive this Snippet"
 
   const handleRestoreSnippet = async token => {
-    try {
     setLoading(true);
+    try {
     // eslint-disable-next-line no-empty-pattern
     const {} = await updateSnippet({
         variables: {
@@ -84,6 +84,7 @@ const SnippetMenu = ({ isFav, id }) => {
   };
 
   const handleDeleteSnippet = async token => {
+    setLoading(true)
     try {
     const { data } = await deleteSnippet({
         variables: {
@@ -96,6 +97,7 @@ const SnippetMenu = ({ isFav, id }) => {
 
     dispatch({ type: "DELETE_SNIPPET", payload: id });
     !data.loading && onClose(false);
+    setLoading(false)
     toast({
         position: "top-right",
         title: state.currentView === "FiArchive" ? "Delete" : "Update",
@@ -108,12 +110,14 @@ const SnippetMenu = ({ isFav, id }) => {
         isClosable: true
     });
     } catch (error) {
-    console.log(error);
+      setLoading(false)
+      console.log(error);
     }
   };
 
 
   const handleSnippetMutation = async () => {
+    setLoading(true);
     const token =
     typeof window !== "undefined" && window.localStorage.getItem("token");
     if (token) {
