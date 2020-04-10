@@ -8,6 +8,7 @@ import { CREATE_SNIPPET, LOGIN_WITH_GOOGLE } from "../graphql/mutation";
 import { handleRouteChange } from "../utils/handleRouteChange";
 
 export default function GoogleButton() {
+  const [ isLoading, setIsLoading] = React.useState(false)
   const [login] = useMutation(LOGIN_WITH_GOOGLE);
   const [createSnippet] = useMutation(CREATE_SNIPPET);
   const toasting = useToast();
@@ -85,6 +86,8 @@ export default function GoogleButton() {
           as="a"
           size="md"
           href="#"
+          isLoading={isLoading}
+          loadingText="Submitting"
           onClick={renderProps.onClick}
           disabled={renderProps.disabled}
           leftIcon={AiOutlineGoogle}
@@ -95,6 +98,7 @@ export default function GoogleButton() {
       buttonText="Login"
       onSuccess={responseGoogle}
       onFailure={responseGoogle}
+      onRequest={()=>{setIsLoading(true)}}
       cookiePolicy={"single_host_origin"}
     />
   );
