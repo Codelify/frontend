@@ -63,6 +63,8 @@ export const LOGIN_WITH_GOOGLE = gql`
       firstName
       lastName
       avatar
+      gitAccessToken
+      gitUsername
     }
   }
 `;

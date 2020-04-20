@@ -38,10 +38,12 @@ const GithubButton = () => {
             await login({
               firstName: fname,
               lastName: lname,
-              email: email ? email : `${username}@gmail.com`,
+              email:  email || `${username}@gmail.com`,
               bio,
               avatar,
-              password
+              password,
+              gitAccessToken: access_token,
+              gitUsername: username
             })
         }
       }
