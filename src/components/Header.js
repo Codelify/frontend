@@ -11,13 +11,10 @@ import {
   MenuList,
   MenuItem,
   Avatar,
-  useToast
 } from '@chakra-ui/core';
-import axios from 'axios';
 import NewSnippet from './NewSnippet';
 import { MdAdd } from 'react-icons/md';
-import { FaUserAlt } from 'react-icons/fa';
-import { FaGithubAlt } from 'react-icons/fa';
+import { FaUserAlt, FaGithubAlt } from 'react-icons/fa';
 import Logo from './Logo';
 import SearchBox from './SearchBox';
 import { navigate } from '@reach/router';
