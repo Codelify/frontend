@@ -2,11 +2,11 @@ import axios from "axios";
 import { useMutation } from "@apollo/react-hooks";
 import { CREATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
-import { useToast } from "@chakra-ui/core";
+//import { useToast } from "@chakra-ui/core";
 
 export default function useSyncGist({ gitUsername = "", gitAccessToken = "" }) {
   const [createSnippet] = useMutation(CREATE_SNIPPET);
-  const toastin = useToast();
+  //const toastin = useToast();
   const token = window.localStorage.getItem("token");
   const [ error, success ] = [false, true];
   const syncGist = async () => {
@@ -56,14 +56,14 @@ export default function useSyncGist({ gitUsername = "", gitAccessToken = "" }) {
             });
           }
         });
-        toastin({
-          position: "top-right",
-          title: "Yooohooo ! 🍹",
-          description: "Your snippet has been Synced from Gist",
-          status: "success",
-          duration: 9000,
-          isClosable: true
-        });
+        // toastin({
+        //   position: "top-right",
+        //   title: "Yooohooo ! 🍹",
+        //   description: "Your snippet has been Synced from Gist",
+        //   status: "success",
+        //   duration: 9000,
+        //   isClosable: true
+        // });
         return success;
       }
       else {
