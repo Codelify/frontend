@@ -9,10 +9,7 @@ import {
   Avatar,
   Text
 } from "@chakra-ui/core";
-import {
-  FaUserAlt,
-  FaRegUser,
-} from "react-icons/fa";
+import { FaUserAlt, FaRegUser } from "react-icons/fa";
 import { AiOutlineLogout } from "react-icons/ai";
 import { navigate } from "@reach/router";
 import useUserData from "./~common/useUserData";
@@ -28,44 +25,37 @@ const ProfileMenu = () => {
     navigate("/");
   };
 
-
   return (
     <Menu autoSelect={false}>
-    <MenuButton
-      mx="3px"
-      variant={avatar !== "" ? "unstyled" : "ghost"}
-      as={Button}
-      _focus={{
-        outline: "none"
-      }}
-    >
-      {avatar !== "" ? (
-        <Avatar
-          showBorder={true}
-          size="sm"
-          name=""
-          src={avatar}
-        />
-      ) : (
-        <Box as={FaUserAlt} />
-      )}
-    </MenuButton>
-    <MenuList placement="bottom-end">
-      <MenuItem
-        onClick={() => {
-          navigate("/profile");
+      <MenuButton
+        mx="3px"
+        variant={avatar !== "" ? "unstyled" : "ghost"}
+        as={Button}
+        _focus={{
+          outline: "none"
         }}
       >
-        <Box mx="8px" as={FaRegUser} size="16px" />
-        <Text>Profile</Text>
-      </MenuItem>
-      <MenuItem onClick={onLogout}>
-        <Box mx="8px" as={AiOutlineLogout} size="16px" />
-        <Text>Logout</Text>
-      </MenuItem>
-    </MenuList>
-  </Menu>
-
+        {avatar !== "" ? (
+          <Avatar showBorder={true} size="sm" name="" src={avatar} />
+        ) : (
+          <Box as={FaUserAlt} />
+        )}
+      </MenuButton>
+      <MenuList placement="bottom-end">
+        <MenuItem
+          onClick={() => {
+            navigate("/profile");
+          }}
+        >
+          <Box mx="8px" as={FaRegUser} size="16px" />
+          <Text>Profile</Text>
+        </MenuItem>
+        <MenuItem onClick={onLogout}>
+          <Box mx="8px" as={AiOutlineLogout} size="16px" />
+          <Text>Logout</Text>
+        </MenuItem>
+      </MenuList>
+    </Menu>
   );
 };
 

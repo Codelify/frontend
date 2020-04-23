@@ -1,71 +1,18 @@
-import React, { useEffect } from "react";
-import {
-  Box,
-  Flex,
-  IconButton,
-  useColorMode,
-  useDisclosure,
-  Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  Avatar,
-  Text
-} from "@chakra-ui/core";
-import NewSnippet from "./NewSnippet";
-import DialogModal from "./DialogModal";
+import React from "react";
+import { Box, Flex, IconButton, useColorMode, Button } from "@chakra-ui/core";
 import ProfileMenu from "./ProfileMenu";
-import { MdAdd } from "react-icons/md";
-import {
-  FaUserAlt,
-  FaRegNewspaper,
-  FaGithubAlt,
-  FaRegUser,
-  FaSurprise,
-  FaSmile
-} from "react-icons/fa";
-import { AiOutlineLogout } from "react-icons/ai";
+import AddSnippetMenu from "./AddSnippetMenu";
 import Logo from "./Logo";
 import SearchBox from "./SearchBox";
 import { navigate } from "@reach/router";
 import { handleRouteChange } from "../utils/handleRouteChange";
-import useUserData from "./~common/useUserData";
-import useSyncGist from "../hooks/useSyncGist";
 
 const AppHeader = props => {
   const { landing, isLoggedIn, appView } = props;
   const { colorMode, toggleColorMode } = useColorMode();
   const bg = { light: "white", dark: "gray.800" };
-  const { results } = useUserData();
 
   const token = window.localStorage.getItem("token");
-  // const avatar = window.localStorage.getItem("avatar")
-
-  const [size, setSize] = React.useState("md");
-  const [isAlert, setIsAlert] = React.useState(false);
-  const [alertMessage, setAlertMessage] = React.useState("");
-  const [isGitSynching, setIsGistSynching] = React.useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { gitUsername = "", gitAccessToken = "" } = results;
-  const isLogedInWithGit = gitUsername && gitAccessToken;
-  const syncGistSnippet = useSyncGist({ gitUsername, gitAccessToken });
-
-  const firstField = React.useRef();
-  const avatar = results.avatar;
-  const handleClick = newSize => {
-    setSize(newSize);
-    onOpen();
-    document.getElementById("FiHome").focus();
-  };
-
-  const onLogout = () => {
-    // delete token
-    window.localStorage.removeItem("token");
-
-    // then direct to landing page
-    navigate("/");
-  };
 
   const changeRoute = () => {
     if (!isLoggedIn) {
@@ -74,36 +21,6 @@ const AppHeader = props => {
       navigate(handleRouteChange());
     }
   };
-
-  const handleGistSync = () => {
-    setIsAlert(true);
-    setIsGistSynching(true)
-  };
-
-  useEffect(() => {
-    async function triggerGitSync() {
-      if (!isLogedInWithGit) {
-        setIsGistSynching(false);
-        setAlertMessage(
-          "You must be logged in with Github for this feature to work"
-        );
-      } else {
-        setAlertMessage("Wiring Github, synching in progress ...");
-        const attemptToSynch = await syncGistSnippet();
-        if(attemptToSynch){
-          setAlertMessage("Congratulation your Gists have been imported")
-        }
-        else {
-          setAlertMessage("Ooops an error occured linking to gist")
-        }
-        //setIsGitSyncSuccess(await syncGistSnippet());
-        setIsGistSynching(false);
-      }
-    }
-    if(isGitSynching) {
-      triggerGitSync();
-    }
-  }, [isGitSynching, isLogedInWithGit, syncGistSnippet]);
 
   return (
     <>
@@ -152,41 +69,10 @@ const AppHeader = props => {
                     </Button>
                   )
                 ) : (
-                  <>
-                    <Menu autoSelect={false}>
-                      <MenuButton
-                        variant="ghost"
-                        as={Button}
-                        aria-label="Add new Snippet"
-                        _focus={{
-                          outline: "none"
-                        }}
-                        p={0}
-                        m={0}
-                      >
-                        <Box as={MdAdd} size="32px" />
-                      </MenuButton>
-                      <MenuList placement="bottom-end">
-                        <MenuItem
-                          onClick={() => {
-                            handleClick("full");
-                          }}
-                        >
-                          <Box mx="8px" as={FaRegNewspaper} size="16px" />
-                          <Text>New Snippet</Text>
-                        </MenuItem>
-                        <MenuItem onClick={handleGistSync}>
-                          <Box mx="8px" as={FaGithubAlt} size="16px" />
-                          <Text>Import from Gist</Text>
-                        </MenuItem>
-                      </MenuList>
-                    </Menu>
-                  </>
+                  <AddSnippetMenu />
                 )}
 
-                {token && (
-                  <ProfileMenu />
-                )}
+                {token && <ProfileMenu />}
 
                 <IconButton
                   aria-label={`Switch to ${
@@ -211,28 +97,7 @@ const AppHeader = props => {
             <SearchBox />
           </Box>
         )}
-        <NewSnippet
-          isOpen={isOpen}
-          onOpen={onOpen}
-          onClose={onClose}
-          firstField={firstField}
-          size={size}
-          setSize={setSize}
-        />
       </Box>
-      <DialogModal
-        isOpen={isAlert}
-        onClose={() => {
-          setIsAlert(false);
-          setIsGistSynching(false);
-        }}
-        dialogContent={alertMessage}
-        dialogIcon={
-          isGitSynching ? null : (!isLogedInWithGit ? FaSurprise : FaSmile)
-        }
-        spinner={isGitSynching}
-        cancelButton="OK"
-      />
     </>
   );
 };
