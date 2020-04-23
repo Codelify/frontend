@@ -14,9 +14,16 @@ import {
   Text
 } from "@chakra-ui/core";
 import NewSnippet from "./NewSnippet";
-import DialogModal from "./DialogModal"
+import DialogModal from "./DialogModal";
 import { MdAdd } from "react-icons/md";
-import { FaUserAlt, FaRegNewspaper, FaGithubAlt, FaRegUser, FaSurprise, FaSmile } from "react-icons/fa";
+import {
+  FaUserAlt,
+  FaRegNewspaper,
+  FaGithubAlt,
+  FaRegUser,
+  FaSurprise,
+  FaSmile
+} from "react-icons/fa";
 import { AiOutlineLogout } from "react-icons/ai";
 import Logo from "./Logo";
 import SearchBox from "./SearchBox";
@@ -36,12 +43,12 @@ const AppHeader = props => {
 
   const [size, setSize] = React.useState("md");
   const [isAlert, setIsAlert] = React.useState(false);
-  const [ alertMessage ,setAlertMessage] = React.useState("")
+  const [alertMessage, setAlertMessage] = React.useState("");
   const [isGitSynching, setIsGistSynching] = React.useState(false);
-  const [isGitSyncError,setIsGitSyncError] = React.useState(false);
+  const [isGitSyncError, setIsGitSyncError] = React.useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { gitUsername = "", gitAccessToken = "" } = results;
-  const isLogedInWithGit = (gitUsername && gitAccessToken);
+  const isLogedInWithGit = gitUsername && gitAccessToken;
   const syncGistSnippet = useSyncGist({ gitUsername, gitAccessToken });
 
   const firstField = React.useRef();
@@ -70,23 +77,22 @@ const AppHeader = props => {
 
   const handleGistSync = () => {
     setIsAlert(true);
-  }
+  };
 
   useEffect(() => {
     async function triggerGitSync() {
-      if(!isLogedInWithGit) {
-        setAlertMessage("You must be logged in with Github for this feature to work")
-      }
-      else {
-        setAlertMessage("Wiring Github, synching in progress ...")
-        isGitSynching(true)
+      if (!isLogedInWithGit) {
+        setAlertMessage(
+          "You must be logged in with Github for this feature to work"
+        );
+      } else {
+        setAlertMessage("Wiring Github, synching in progress ...");
+        isGitSynching(true);
         setIsGitSyncError(await syncGistSnippet());
-      }  
+      }
     }
     triggerGitSync();
-  },[isGitSynching, isLogedInWithGit, syncGistSnippet]
-
-  )
+  }, [isGitSynching, isLogedInWithGit, syncGistSnippet]);
 
   return (
     <>
@@ -147,7 +153,7 @@ const AppHeader = props => {
                         p={0}
                         m={0}
                       >
-                          <Box as={MdAdd} size="32px"/>
+                        <Box as={MdAdd} size="32px" />
                       </MenuButton>
                       <MenuList placement="bottom-end">
                         <MenuItem
@@ -155,11 +161,11 @@ const AppHeader = props => {
                             handleClick("full");
                           }}
                         >
-                          <Box mx="8px" as={FaRegNewspaper} size="16px"/>
+                          <Box mx="8px" as={FaRegNewspaper} size="16px" />
                           <Text>New Snippet</Text>
                         </MenuItem>
                         <MenuItem onClick={handleGistSync}>
-                          <Box mx="8px" as={FaGithubAlt} size="16px"/>
+                          <Box mx="8px" as={FaGithubAlt} size="16px" />
                           <Text>Import from Gist</Text>
                         </MenuItem>
                       </MenuList>
@@ -194,12 +200,12 @@ const AppHeader = props => {
                           navigate("/profile");
                         }}
                       >
-                        <Box mx="8px" as={FaRegUser} size="16px"/>
+                        <Box mx="8px" as={FaRegUser} size="16px" />
                         <Text>Profile</Text>
                       </MenuItem>
                       <MenuItem onClick={onLogout}>
-                        <Box mx="8px" as={AiOutlineLogout} size="16px"/>
-                        <Text>Logout</Text>                      
+                        <Box mx="8px" as={AiOutlineLogout} size="16px" />
+                        <Text>Logout</Text>
                       </MenuItem>
                     </MenuList>
                   </Menu>
@@ -237,21 +243,23 @@ const AppHeader = props => {
           setSize={setSize}
         />
       </Box>
-      <DialogModal 
-      isOpen={isAlert}
-      onClose={()=>{setIsAlert(false); setIsGitSyncError(false); setIsGistSynching(false)}} 
-      dialogContent = { isGitSyncError ? "Ooops an error occured linking to gist" : alertMessage}
-      dialogIcon={ 
-        isGitSynching 
-        ? (
-          null
-        )
-        :(
-          !isLogedInWithGit ? FaSurprise : FaSmile
-        ) 
-      }
-      spinner={isGitSynching}
-      cancelButton="OK"
+      <DialogModal
+        isOpen={isAlert}
+        onClose={() => {
+          setIsAlert(false);
+          setIsGitSyncError(false);
+          setIsGistSynching(false);
+        }}
+        dialogContent={
+          isGitSyncError
+            ? "Ooops an error occured linking to gist"
+            : alertMessage
+        }
+        dialogIcon={
+          isGitSynching ? null : !isLogedInWithGit ? FaSurprise : FaSmile
+        }
+        spinner={isGitSynching}
+        cancelButton="OK"
       />
     </>
   );
