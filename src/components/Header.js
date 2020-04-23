@@ -87,12 +87,12 @@ const AppHeader = props => {
         );
       } else {
         setAlertMessage("Wiring Github, synching in progress ...");
-        isGitSynching(true);
+        setIsGistSynching(true);
         setIsGitSyncError(await syncGistSnippet());
       }
     }
     triggerGitSync();
-  }, [isGitSynching, isLogedInWithGit, syncGistSnippet]);
+  }, [isLogedInWithGit, syncGistSnippet]);
 
   return (
     <>
