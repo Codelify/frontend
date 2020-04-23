@@ -77,22 +77,26 @@ const AppHeader = props => {
 
   const handleGistSync = () => {
     setIsAlert(true);
+    setIsGistSynching(true)
   };
 
   useEffect(() => {
     async function triggerGitSync() {
       if (!isLogedInWithGit) {
+        setIsGistSynching(false);
         setAlertMessage(
           "You must be logged in with Github for this feature to work"
         );
       } else {
         setAlertMessage("Wiring Github, synching in progress ...");
-        setIsGistSynching(true);
         setIsGitSyncError(await syncGistSnippet());
+        setIsGistSynching(false);
       }
     }
-    triggerGitSync();
-  }, [isLogedInWithGit, syncGistSnippet]);
+    if(isGitSynching) {
+      triggerGitSync();
+    }
+  }, [isGitSynching, isLogedInWithGit, syncGistSnippet]);
 
   return (
     <>
