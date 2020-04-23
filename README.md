@@ -1,7 +1,7 @@
 
 <p align="center">
   <a href="https://www.codelify.dev">
-    <img alt="Codelify" src="https://codelify.dev/static/media/logo-green-grad.c9723661.png" width="400" />
+    <img alt="Codelify" src="https://res.cloudinary.com/codelify/image/upload/f_auto,q_auto/v1583158030/logo-green-grad_b5mjgi.svg" width="400" />
   </a>
 </p>
 
