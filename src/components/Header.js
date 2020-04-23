@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Box,
   Flex,
@@ -11,50 +11,52 @@ import {
   MenuList,
   MenuItem,
   Avatar,
-} from '@chakra-ui/core';
-import NewSnippet from './NewSnippet';
-import { MdAdd } from 'react-icons/md';
-import { FaUserAlt, FaGithubAlt } from 'react-icons/fa';
-import Logo from './Logo';
-import SearchBox from './SearchBox';
-import { navigate } from '@reach/router';
-import { handleRouteChange } from '../utils/handleRouteChange';
-import useUserData from './~common/useUserData';
-import useSyncGist from '../hooks/useSyncGist'
+  Text
+} from "@chakra-ui/core";
+import NewSnippet from "./NewSnippet";
+import { MdAdd } from "react-icons/md";
+import { FaUserAlt, FaRegNewspaper, FaGithubAlt, FaRegUser } from "react-icons/fa";
+import { AiOutlineLogout } from "react-icons/ai";
+import Logo from "./Logo";
+import SearchBox from "./SearchBox";
+import { navigate } from "@reach/router";
+import { handleRouteChange } from "../utils/handleRouteChange";
+import useUserData from "./~common/useUserData";
+import useSyncGist from "../hooks/useSyncGist";
 
-const AppHeader = (props) => {
+const AppHeader = props => {
   const { landing, isLoggedIn, appView } = props;
   const { colorMode, toggleColorMode } = useColorMode();
-  const bg = { light: 'white', dark: 'gray.800' };
+  const bg = { light: "white", dark: "gray.800" };
   const { results } = useUserData();
 
-  const token = window.localStorage.getItem('token');
+  const token = window.localStorage.getItem("token");
   // const avatar = window.localStorage.getItem("avatar")
 
-  const [size, setSize] = React.useState('md');
+  const [size, setSize] = React.useState("md");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { gitUsername = '', gitAccessToken = ''} = results
-  const syncGistSnippet = useSyncGist({gitUsername, gitAccessToken});
- 
+  const { gitUsername = "", gitAccessToken = "" } = results;
+  const syncGistSnippet = useSyncGist({ gitUsername, gitAccessToken });
+
   const firstField = React.useRef();
   const avatar = results.avatar;
-  const handleClick = (newSize) => {
+  const handleClick = newSize => {
     setSize(newSize);
     onOpen();
-    document.getElementById('FiHome').focus();
+    document.getElementById("FiHome").focus();
   };
 
   const onLogout = () => {
     // delete token
-    window.localStorage.removeItem('token');
+    window.localStorage.removeItem("token");
 
     // then direct to landing page
-    navigate('/');
+    navigate("/");
   };
-  
+
   const changeRoute = () => {
     if (!isLoggedIn) {
-      navigate('/');
+      navigate("/");
     } else {
       navigate(handleRouteChange());
     }
@@ -63,7 +65,7 @@ const AppHeader = (props) => {
   return (
     <>
       <Box
-        pos={landing ? 'absolute' : 'fixed'}
+        pos={landing ? "absolute" : "fixed"}
         top="0"
         zIndex="4"
         bg={bg[colorMode]}
@@ -87,11 +89,11 @@ const AppHeader = (props) => {
                 <Logo />
               </Box>
               {appView && (
-                <Box w="100%" display={['none', 'block', 'block', 'block']}>
+                <Box w="100%" display={["none", "block", "block", "block"]}>
                   <SearchBox />
                 </Box>
               )}
-              <Flex align="center" color="gray.500">
+              <Flex justifyContent="space-between" color="gray.500">
                 {!appView ? (
                   !landing && (
                     <Button
@@ -101,48 +103,55 @@ const AppHeader = (props) => {
                       variant="outline"
                       cursor="pointer"
                       onClick={changeRoute}
-                      _focus={{ outline: 'none' }}
+                      _focus={{ outline: "none" }}
                     >
-                      {isLoggedIn ? 'MY SNIPPETS' : 'Login'}
+                      {isLoggedIn ? "MY SNIPPETS" : "Login"}
                     </Button>
                   )
                 ) : (
                   <>
-                    <IconButton
-                      variant="ghost"
-                      aria-label="Call Sage"
-                      fontSize={['20px', '30px', '30px', '30px']}
-                      icon={MdAdd}
-                      _focus={{
-                        outline: 'none',
-                      }}
-                      onClick={() => {
-                        handleClick('full');
-                      }}
-                    />
-                    <IconButton
-                      variant="ghost"
-                      aria-label="Call Sage"
-                      fontSize={['20px', '30px', '30px', '30px']}
-                      icon={FaGithubAlt}
-                      _focus={{
-                        outline: 'none',
-                      }}
-                      onClick={syncGistSnippet}
-                    />
+                    <Menu autoSelect={false}>
+                      <MenuButton
+                        variant="ghost"
+                        as={Button}
+                        aria-label="Add new Snippet"
+                        _focus={{
+                          outline: "none"
+                        }}
+                        p={0}
+                        m={0}
+                      >
+                          <Box as={MdAdd} size="32px"/>
+                      </MenuButton>
+                      <MenuList placement="bottom-end">
+                        <MenuItem
+                          onClick={() => {
+                            handleClick("full");
+                          }}
+                        >
+                          <Box mx="8px" as={FaRegNewspaper} size="16px"/>
+                          <Text>New Snippet</Text>
+                        </MenuItem>
+                        <MenuItem onClick={syncGistSnippet}>
+                          <Box mx="8px" as={FaGithubAlt} size="16px"/>
+                          <Text>Import from Gist</Text>
+                        </MenuItem>
+                      </MenuList>
+                    </Menu>
                   </>
                 )}
 
                 {token && (
                   <Menu autoSelect={false}>
                     <MenuButton
-                      variant={avatar !== '' ? 'unstyled' : 'ghost'}
+                      mx="3px"
+                      variant={avatar !== "" ? "unstyled" : "ghost"}
                       as={Button}
                       _focus={{
-                        outline: 'none',
+                        outline: "none"
                       }}
                     >
-                      {avatar !== '' ? (
+                      {avatar !== "" ? (
                         <Avatar
                           showBorder={true}
                           size="sm"
@@ -156,27 +165,31 @@ const AppHeader = (props) => {
                     <MenuList placement="bottom-end">
                       <MenuItem
                         onClick={() => {
-                          navigate('/profile');
+                          navigate("/profile");
                         }}
                       >
-                        My Profile
+                        <Box mx="8px" as={FaRegUser} size="16px"/>
+                        <Text>Profile</Text>
                       </MenuItem>
-                      <MenuItem onClick={onLogout}>Logout</MenuItem>
+                      <MenuItem onClick={onLogout}>
+                        <Box mx="8px" as={AiOutlineLogout} size="16px"/>
+                        <Text>Logout</Text>                      
+                      </MenuItem>
                     </MenuList>
                   </Menu>
                 )}
 
                 <IconButton
                   aria-label={`Switch to ${
-                    colorMode === 'light' ? 'dark' : 'light'
+                    colorMode === "light" ? "dark" : "light"
                   } mode`}
                   variant="ghost"
                   color="current"
-                  fontSize={['18px', '20px', '20px', '20px']}
+                  fontSize={["18px", "20px", "20px", "20px"]}
                   onClick={toggleColorMode}
-                  icon={colorMode === 'light' ? 'moon' : 'sun'}
+                  icon={colorMode === "light" ? "moon" : "sun"}
                   _focus={{
-                    outline: 'none',
+                    outline: "none"
                   }}
                 />
                 {/* <MobileNav /> */}
@@ -185,7 +198,7 @@ const AppHeader = (props) => {
           </Box>
         </Flex>
         {!landing && appView && (
-          <Box pb="10px" display={['block', 'none', 'none', 'none']}>
+          <Box pb="10px" display={["block", "none", "none", "none"]}>
             <SearchBox />
           </Box>
         )}
