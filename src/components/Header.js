@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/core";
 import NewSnippet from "./NewSnippet";
 import DialogModal from "./DialogModal";
+import ProfileMenu from "./ProfileMenu";
 import { MdAdd } from "react-icons/md";
 import {
   FaUserAlt,
@@ -184,41 +185,7 @@ const AppHeader = props => {
                 )}
 
                 {token && (
-                  <Menu autoSelect={false}>
-                    <MenuButton
-                      mx="3px"
-                      variant={avatar !== "" ? "unstyled" : "ghost"}
-                      as={Button}
-                      _focus={{
-                        outline: "none"
-                      }}
-                    >
-                      {avatar !== "" ? (
-                        <Avatar
-                          showBorder={true}
-                          size="sm"
-                          name=""
-                          src={avatar}
-                        />
-                      ) : (
-                        <Box as={FaUserAlt} />
-                      )}
-                    </MenuButton>
-                    <MenuList placement="bottom-end">
-                      <MenuItem
-                        onClick={() => {
-                          navigate("/profile");
-                        }}
-                      >
-                        <Box mx="8px" as={FaRegUser} size="16px" />
-                        <Text>Profile</Text>
-                      </MenuItem>
-                      <MenuItem onClick={onLogout}>
-                        <Box mx="8px" as={AiOutlineLogout} size="16px" />
-                        <Text>Logout</Text>
-                      </MenuItem>
-                    </MenuList>
-                  </Menu>
+                  <ProfileMenu />
                 )}
 
                 <IconButton
