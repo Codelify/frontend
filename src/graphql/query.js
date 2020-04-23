@@ -61,6 +61,8 @@ export const USER_DETAILS = gql`
       linkedin
       github
       enableNewsletter
+      gitAccessToken
+      gitUsername
       snippets {
         id
         title
