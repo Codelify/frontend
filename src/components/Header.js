@@ -45,7 +45,6 @@ const AppHeader = props => {
   const [isAlert, setIsAlert] = React.useState(false);
   const [alertMessage, setAlertMessage] = React.useState("");
   const [isGitSynching, setIsGistSynching] = React.useState(false);
-  const [isGitSyncError, setIsGitSyncError] = React.useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { gitUsername = "", gitAccessToken = "" } = results;
   const isLogedInWithGit = gitUsername && gitAccessToken;
@@ -89,7 +88,14 @@ const AppHeader = props => {
         );
       } else {
         setAlertMessage("Wiring Github, synching in progress ...");
-        setIsGitSyncError(await syncGistSnippet());
+        const attemptToSynch = await syncGistSnippet();
+        if(attemptToSynch){
+          setAlertMessage("Congratulation your Gists have been imported")
+        }
+        else {
+          setAlertMessage("Ooops an error occured linking to gist")
+        }
+        //setIsGitSyncSuccess(await syncGistSnippet());
         setIsGistSynching(false);
       }
     }
@@ -251,16 +257,11 @@ const AppHeader = props => {
         isOpen={isAlert}
         onClose={() => {
           setIsAlert(false);
-          setIsGitSyncError(false);
           setIsGistSynching(false);
         }}
-        dialogContent={
-          isGitSyncError
-            ? "Ooops an error occured linking to gist"
-            : alertMessage
-        }
+        dialogContent={alertMessage}
         dialogIcon={
-          isGitSynching ? null : !isLogedInWithGit ? FaSurprise : FaSmile
+          isGitSynching ? null : (!isLogedInWithGit ? FaSurprise : FaSmile)
         }
         spinner={isGitSynching}
         cancelButton="OK"
