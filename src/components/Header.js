@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Flex,
@@ -14,8 +14,9 @@ import {
   Text
 } from "@chakra-ui/core";
 import NewSnippet from "./NewSnippet";
+import DialogModal from "./DialogModal"
 import { MdAdd } from "react-icons/md";
-import { FaUserAlt, FaRegNewspaper, FaGithubAlt, FaRegUser } from "react-icons/fa";
+import { FaUserAlt, FaRegNewspaper, FaGithubAlt, FaRegUser, FaSurprise } from "react-icons/fa";
 import { AiOutlineLogout } from "react-icons/ai";
 import Logo from "./Logo";
 import SearchBox from "./SearchBox";
@@ -34,6 +35,8 @@ const AppHeader = props => {
   // const avatar = window.localStorage.getItem("avatar")
 
   const [size, setSize] = React.useState("md");
+  const [isGistSync, setIsGistSync] = React.useState(null);
+  const [isAlert, setIsAlert] = React.useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { gitUsername = "", gitAccessToken = "" } = results;
   const syncGistSnippet = useSyncGist({ gitUsername, gitAccessToken });
@@ -61,6 +64,18 @@ const AppHeader = props => {
       navigate(handleRouteChange());
     }
   };
+
+  const handleGistSync = async () => {
+    setIsGistSync(await syncGistSnippet());
+  }
+
+  useEffect(() => {
+    if(isGistSync === "failed") {
+      setIsAlert(true);
+    }
+  },[isGistSync]
+
+  )
 
   return (
     <>
@@ -132,7 +147,7 @@ const AppHeader = props => {
                           <Box mx="8px" as={FaRegNewspaper} size="16px"/>
                           <Text>New Snippet</Text>
                         </MenuItem>
-                        <MenuItem onClick={syncGistSnippet}>
+                        <MenuItem onClick={handleGistSync}>
                           <Box mx="8px" as={FaGithubAlt} size="16px"/>
                           <Text>Import from Gist</Text>
                         </MenuItem>
@@ -211,6 +226,13 @@ const AppHeader = props => {
           setSize={setSize}
         />
       </Box>
+      <DialogModal 
+      isOpen={isAlert}
+      onClose={()=>{setIsAlert(false); setIsGistSync(null)}} 
+      dialogContent = "Oooops something went wrong! Please make sure you logged in with Github"
+      dialogIcon={FaSurprise}
+      cancelButton="OK"
+      />
     </>
   );
 };
