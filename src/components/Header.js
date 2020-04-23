@@ -35,8 +35,10 @@ const AppHeader = props => {
   // const avatar = window.localStorage.getItem("avatar")
 
   const [size, setSize] = React.useState("md");
-  const [isGistSync, setIsGistSync] = React.useState(null);
-  const [isAlert, setIsAlert] = React.useState(false)
+  const [isAlert, setIsAlert] = React.useState(false);
+  const [ alertMessage ,setAlertMessage] = React.useState("")
+  const [isGitSynching, setIsGistSynching] = React.useState(false);
+  const [isGitSyncError,setIsGitSyncError] = React.useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { gitUsername = "", gitAccessToken = "" } = results;
   const syncGistSnippet = useSyncGist({ gitUsername, gitAccessToken });
@@ -65,15 +67,22 @@ const AppHeader = props => {
     }
   };
 
-  const handleGistSync = async () => {
-    setIsGistSync(await syncGistSnippet());
+  const handleGistSync = () => {
+    setIsAlert(true);
   }
 
   useEffect(() => {
-    if(isGistSync === "failed") {
-      setIsAlert(true);
+    async function triggerGitSync() {
+      if(!gitUsername || !gitAccessToken) {
+        setAlertMessage("You must be logged in with Github for this feature to work")
+      }
+      else {
+        setAlertMessage("Wiring Github, synching in progress ...")
+        setIsGitSyncError(await syncGistSnippet());
+      }  
     }
-  },[isGistSync]
+    triggerGitSync();
+  },[isGitSynching, gitUsername, gitAccessToken, syncGistSnippet]
 
   )
 
@@ -228,8 +237,8 @@ const AppHeader = props => {
       </Box>
       <DialogModal 
       isOpen={isAlert}
-      onClose={()=>{setIsAlert(false); setIsGistSync(null)}} 
-      dialogContent = "Oooops something went wrong! Please make sure you logged in with Github"
+      onClose={()=>{setIsAlert(false); setIsGitSyncError(false); setIsGistSynching(false)}} 
+      dialogContent = { isGitSyncError ? "Ooops an error occured linking to gist" : alertMessage}
       dialogIcon={FaSurprise}
       cancelButton="OK"
       />

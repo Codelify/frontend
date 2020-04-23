@@ -8,6 +8,7 @@ export default function useSyncGist({ gitUsername = "", gitAccessToken = "" }) {
   const [createSnippet] = useMutation(CREATE_SNIPPET);
   const toastin = useToast();
   const token = window.localStorage.getItem("token");
+  const [ error, success ] = [false, true];
   const syncGist = async () => {
     if (gitUsername && gitAccessToken) {
       const response = await axios.get(
@@ -63,14 +64,15 @@ export default function useSyncGist({ gitUsername = "", gitAccessToken = "" }) {
           duration: 9000,
           isClosable: true
         });
+        return success;
       }
       else {
-        return "failed"
+        return error
       }
     }
     else {
-      return "failed"
+      return error
     }
-};
+  };
   return syncGist;
 }
