@@ -6,7 +6,8 @@ import {
   Collapse,
   ButtonGroup,
   Button,
-  IconButton
+  IconButton,
+  Text
 } from "@chakra-ui/core";
 import SnippetContext from "../context/SnippetContext";
 import ContentEditable from "react-contenteditable";
@@ -18,7 +19,7 @@ const SnippetHeading = ({ id, title, styledEdit }) => {
   const [snippetTitle, setSnippetTitle] = useState(title || "No title");
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
   const [isUpdating, setIsUpdating] = useState(false);
-  const [isError, setIsError] = useState(false)
+  const [isError, setIsError] = useState(false);
 
   const handleEdit = event => {
     let dataWithUpdate = event.target && event.target.value;
@@ -41,7 +42,7 @@ const SnippetHeading = ({ id, title, styledEdit }) => {
       handleClose();
     } catch (error) {
       console.log("Update error: " + error);
-      setIsError(true)
+      setIsError(true);
     }
     setIsUpdating(false);
   };
@@ -49,8 +50,8 @@ const SnippetHeading = ({ id, title, styledEdit }) => {
   const handleClose = () => {
     document.getElementById(titleId).classList.remove("edited-div");
     handleToggle(false);
-    if(isError){
-      setIsError(false)
+    if (isError) {
+      setIsError(false);
     }
   };
 
@@ -94,7 +95,9 @@ const SnippetHeading = ({ id, title, styledEdit }) => {
           {isError && (
             <Alert mb="20px" status="error">
               <AlertIcon />
-              There was an error processing your update
+              <Text fontSize="xs">
+                There was an error processing your update
+              </Text>
             </Alert>
           )}
         </Collapse>

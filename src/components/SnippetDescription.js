@@ -20,7 +20,7 @@ const Description = ({ id, description, styledEdit }) => {
   const disableEdit = useContext(SnippetContext);
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
   const [isUpdating, setIsUpdating] = useState(false);
-  const [isError, setIsError] = useState(false)
+  const [isError, setIsError] = useState(false);
 
   const [show, setShow] = useState(false);
 
@@ -48,7 +48,7 @@ const Description = ({ id, description, styledEdit }) => {
       handleClose();
     } catch (error) {
       console.log("Update error: " + error);
-      setIsError(true)
+      setIsError(true);
     }
     setIsUpdating(false);
   };
@@ -56,10 +56,10 @@ const Description = ({ id, description, styledEdit }) => {
   const handleClose = () => {
     document.getElementById(descriptionId).classList.remove("edited-div");
     handleToggle(false);
-    if(isError){
-      setIsError(false)
+    if (isError) {
+      setIsError(false);
     }
-  };  
+  };
 
   const descriptionId = `description_${id}`;
   return (
@@ -94,7 +94,9 @@ const Description = ({ id, description, styledEdit }) => {
           {isError && (
             <Alert mb="20px" status="error">
               <AlertIcon />
-              There was an error processing your update
+              <Text fontSize="xs">
+                There was an error processing your update
+              </Text>
             </Alert>
           )}
         </Collapse>
