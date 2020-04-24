@@ -15,9 +15,12 @@ import SnippetContext from '../context/SnippetContext'
 import { MdAdd } from "react-icons/md";
 
 const SnippetTags = ({ id, tags }) => {
-  
   const editMode = useContext(SnippetContext);
-  const [tagsList, setTagsList] = useState(tags);
+  // When a snippet was synched from GIST. The tags comes as NULL
+  // thus breaking the code when attmepting an update. Therefore 
+  // we add a safegard to default to an empty array
+  // Probaly need to handled from the BE (defaulted to an empty array from the data fetched)
+  const [tagsList, setTagsList] = useState(tags || []);
   const [ addingTagMode, setAddingTagMode ] = useState(false)
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
 
