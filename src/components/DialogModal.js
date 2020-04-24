@@ -8,7 +8,8 @@ import {
   AlertDialogHeader,
   AlertDialogContent,
   AlertDialogOverlay,
-  Stack,   
+  Stack,
+  Spinner,   
   Text,
 } from "@chakra-ui/core";
 
@@ -17,11 +18,13 @@ const DialogModal = ({
   onClose, 
   dialogContent, 
   dialogIcon = null,
+  spinner = false,
   dialogHeader = null,
   cancelButton, 
   confirmButton = null, 
   confirmCallback = null,
-  isLoading = false
+  isLoading = false,
+  isError = true // we assume that most alert will be related to an issue or warning
 }) => {
 
   const cancelRef = React.useRef();  
@@ -45,16 +48,28 @@ const DialogModal = ({
     </AlertDialogHeader>        
     <AlertDialogBody>
       <Stack isInline spacing={6} alignItems="center" >
-      <Box as={ dialogIcon ? dialogIcon : "div"} color="red.400" size={ dialogIcon ? "48px" : "0px"}/>
+      <Box 
+        as={dialogIcon ? dialogIcon : "div"} 
+        color={ isError ? "red.400" : "teal.400"} 
+        size={ dialogIcon ? "48px" : "0px"} 
+      />
       <Text fontSize="xl" >
         { dialogContent }
       </Text>
       </Stack>
     </AlertDialogBody>
     <AlertDialogFooter>
-        <Button size="lg" ref={cancelRef} onClick={onClose} _focus={{outline:"none"}} >
+      {
+        spinner 
+        ? (
+          <Spinner m="10px" color="teal.500" />
+        )
+        : (
+          <Button size="lg" ref={cancelRef} onClick={onClose} _focus={{outline:"none"}} >
           { cancelButton }
-        </Button>
+          </Button>
+        )
+      }
       {
         confirmButton && 
         <Button isLoading={isLoading} size="lg" variantColor="teal" onClick={handleConfirm} ml={3}>
