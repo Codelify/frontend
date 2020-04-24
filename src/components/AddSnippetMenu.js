@@ -28,6 +28,7 @@ const AddSnippetMenu = () => {
   const [isAlert, setIsAlert] = React.useState(false);
   const [alertMessage, setAlertMessage] = React.useState("");
   const [isGitSynching, setIsGistSynching] = React.useState(false);
+  const [isSyncError, setIsSyncError] = React.useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { gitUsername = "", gitAccessToken = "" } = results;
   const isLogedInWithGit = gitUsername && gitAccessToken;
@@ -49,6 +50,7 @@ const AddSnippetMenu = () => {
     async function triggerGitSync() {
       if (!isLogedInWithGit) {
         setIsGistSynching(false);
+        setIsSyncError(true)
         setAlertMessage(
           "You must be logged in with Github for this feature to work"
         );
@@ -59,8 +61,8 @@ const AddSnippetMenu = () => {
           setAlertMessage("Congratulation your Gists have been imported");
         } else {
           setAlertMessage("Ooops an error occured linking to gist");
+          setIsSyncError(true)
         }
-        //setIsGitSyncSuccess(await syncGistSnippet());
         setIsGistSynching(false);
       }
     }
@@ -115,9 +117,16 @@ const AddSnippetMenu = () => {
         }}
         dialogContent={alertMessage}
         dialogIcon={
-          isGitSynching ? null : !isLogedInWithGit ? FaSurprise : FaSmile
+          isGitSynching 
+            ? null 
+            : !isLogedInWithGit 
+              ? FaSurprise
+              : isSyncError
+                ? FaSurprise
+                : FaSmile
         }
         spinner={isGitSynching}
+        isError={isSyncError}
         cancelButton="OK"
       />
     </>

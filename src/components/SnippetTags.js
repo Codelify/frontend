@@ -4,22 +4,29 @@ import { MY_SNIPPETs } from "../graphql/query";
 import { useMutation } from "@apollo/react-hooks";
 
 import {
+  Alert,
+  AlertIcon,
   Tag,
   TagLabel,
   TagCloseButton,
   Input,
   IconButton,
-  Stack
+  Stack,
+  Text
 } from "@chakra-ui/core";
-import SnippetContext from '../context/SnippetContext'
+import SnippetContext from "../context/SnippetContext";
 import { MdAdd } from "react-icons/md";
 
 const SnippetTags = ({ id, tags }) => {
-  
   const editMode = useContext(SnippetContext);
-  const [tagsList, setTagsList] = useState(tags);
-  const [ addingTagMode, setAddingTagMode ] = useState(false)
+  // When a snippet was synched from GIST. The tags comes as NULL
+  // thus breaking the code when attmepting an update. Therefore
+  // we add a safegard to default to an empty array
+  // Probaly need to handled from the BE (defaulted to an empty array from the data fetched)
+  const [tagsList, setTagsList] = useState(tags || []);
+  const [addingTagMode, setAddingTagMode] = useState(false);
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
+  const [isError, setIsError] = useState(false);
 
   const handleEditTag = useCallback(
     async tags => {
@@ -36,6 +43,7 @@ const SnippetTags = ({ id, tags }) => {
         });
       } catch (error) {
         console.log(error);
+        setIsError(true);
       }
     },
     [id, updateSnippet]
@@ -45,25 +53,23 @@ const SnippetTags = ({ id, tags }) => {
     handleEditTag(tagsList);
   }, [tagsList, handleEditTag]);
 
-
   const tagsId = `tags_${id}`;
   const handleBlur = event => {
-    setAddingTagMode(false)
+    setAddingTagMode(false);
+    setIsError(false);
   };
 
   const handleToggle = newShow => {
-    if(newShow){
-      setAddingTagMode(true)
+    if (newShow) {
+      setAddingTagMode(true);
     }
   };
 
   useEffect(() => {
-    if(addingTagMode){
+    if (addingTagMode) {
       document.getElementById(tagsId).focus();
     }
-  },[addingTagMode, tagsId]
-
-  );
+  }, [addingTagMode, tagsId]);
 
   // specfifid function to managed entered tags
   const handleAddTags = event => {
@@ -130,23 +136,21 @@ const SnippetTags = ({ id, tags }) => {
                 <TagLabel fontSize=".8em" textTransform="uppercase" mr="3px">
                   {tag}
                 </TagLabel>
-                {
-                  !editMode &&
+                {!editMode && (
                   <TagCloseButton
-                  _focus={{
-                    outline: "none"
-                  }}
-                  onClick={() => {
-                    handleDeleteTag(index);
-                  }}
-                />
-                }
+                    _focus={{
+                      outline: "none"
+                    }}
+                    onClick={() => {
+                      handleDeleteTag(index);
+                    }}
+                  />
+                )}
               </Tag>
             );
           })}
-          {
-            !editMode &&
-            <IconButton
+        {!editMode && (
+          <IconButton
             my="3px"
             aria-label="Add a Tag"
             size="sm"
@@ -158,22 +162,29 @@ const SnippetTags = ({ id, tags }) => {
             onClick={() => {
               handleToggle(true);
             }}
-            />
-          }
+          />
+        )}
       </Stack>
-      {
-        addingTagMode && 
-        <Input
-        id={tagsId}
-        placeholder="Add tags (Press Enter or Comma for multiple tags)"
-        focusBorderColor="#319795"
-        name="tags"
-        my="5px"
-        onBlur={handleBlur}
-        onKeyDown={handleTab}
-        onKeyUp={handleAddTags}
-      />
-    }
+      {isError && (
+        <Alert mb="20px" status="error">
+          <AlertIcon />
+          <Text fontSize="xs">There was an error processing your update</Text>
+        </Alert>
+      )}
+      {addingTagMode && ( 
+        <>
+          <Input
+            id={tagsId}
+            placeholder="Add tags (Press Enter or Comma for multiple tags)"
+            focusBorderColor="#319795"
+            name="tags"
+            my="5px"
+            onBlur={handleBlur}
+            onKeyDown={handleTab}
+            onKeyUp={handleAddTags}
+          />
+        </>
+      )}
     </>
   );
 };
