@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Box, Flex, Stack, Link, Icon, Divider } from "@chakra-ui/core";
 import SnippetHeading from "./SnippetHeading";
 import Description from "./SnippetDescription";
 import SnippetTags from "./SnippetTags";
 import ShareOptions from "./ShareOptions";
 import SnippetContent from "./SnippetContent";
-import { useMutation } from "@apollo/react-hooks";
-import { UPDATE_SNIPPET } from "../graphql/mutation";
 import CodeLangageBar from "./CodeLangageBar";
 
 const CodeSnippet = ({
@@ -22,61 +20,11 @@ const CodeSnippet = ({
   isPublic,
   shareId
 }) => {
-  //moved ControlButtons in each filed - so we can know whitch field user wants to update
-  // const ControlButtons = () => {
-  //   return (
-  //     <ButtonGroup mb="10px" justifyContent="center" size="sm">
-  //       <Button variantColor="teal">Save</Button>
-  //       <IconButton icon="close" />
-  //     </ButtonGroup>
-  //   );
-  // };
+
   const [titleToUpdate, setTitleToUpdate] = useState(title);
   const [descriptionToUpdate, setDescroptionToUpdate] = useState(description || "No description");
   const [contentToUpdate, setContentToUpdate] = useState(content);
-  const [updateSnippet] = useMutation(UPDATE_SNIPPET);
 
-
-
-  const handleUpdateCallback = React.useCallback(( typeOfAction ) => {
-    async function handleUpdate (typeOfAction) {
-      const costumObject = {};
-      //construct costum object for every case for not repeting the mutation of each field
-      if (typeOfAction === "title") {
-        costumObject[typeOfAction] = titleToUpdate;
-      } else if (typeOfAction === "description") {
-        costumObject[typeOfAction] = descriptionToUpdate;
-      } else if (typeOfAction === "content") {
-        costumObject[typeOfAction] = contentToUpdate;
-      }
-  
-      const token = window.localStorage.getItem("token");
-      try {
-        // eslint-disable-next-line no-empty-pattern
-        const {} = await updateSnippet({
-          variables: {
-            snippetId: id,
-            snippetInfo: costumObject,
-            token: token
-          }
-          //refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
-        });
-      } catch (error) {
-        console.log("Update error: " + error);
-      }
-      //console.log(data,error, loading);
-    };
-    handleUpdate(typeOfAction)
-  },
-  // useCallback dependencies 
-  [
-    contentToUpdate, 
-    descriptionToUpdate, 
-    titleToUpdate,
-    id, 
-    updateSnippet
-  ]
-  );
 
   const handleEdit = (event, typeOfAction) => {
     // Case we update the code from Live Provider
