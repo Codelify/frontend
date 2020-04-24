@@ -8,17 +8,41 @@ import {
 } from "@chakra-ui/core";
 import SnippetContext from '../context/SnippetContext';
 import ContentEditable from "react-contenteditable";
+import { useMutation } from "@apollo/react-hooks";
+import { UPDATE_SNIPPET } from "../graphql/mutation";
 
 const SnippetHeading = ({
   id,
   title,
-  styledEdit,
-  handleUpdate,
-  handleEdit
+  styledEdit
 }) => {
   const disableEdit = useContext(SnippetContext);
+  const[snippetTitle, setSnippetTitle] = useState(title || "No title");
+  const [updateSnippet] = useMutation(UPDATE_SNIPPET);
+  
+  const handleEdit = (event) => {
+    let dataWithUpdate = event.target && event.target.value;
+    setSnippetTitle(dataWithUpdate)
+  }
 
-    const handleBlur = event => {
+  const handleUpdate = async () =>{
+    const token = window.localStorage.getItem("token");
+    try {
+      // eslint-disable-next-line no-empty-pattern
+      const {} = await updateSnippet({
+        variables: {
+          snippetId: id,
+          snippetInfo: {"title" : snippetTitle},
+          token: token
+        }
+        //refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
+      });
+    } catch (error) {
+      console.log("Update error: " + error);
+    }
+  }
+
+  const handleBlur = event => {
     event.persist();
     document.getElementById(event.target.id).classList.remove("edited-div");
     handleToggle(false);
@@ -37,7 +61,7 @@ const SnippetHeading = ({
       <Heading mb="5px" as="h3" size="lg">
         <ContentEditable
           onChange={e => handleEdit(e, "title")}
-          html={title}
+          html={snippetTitle}
           disabled={disableEdit}
           id={titleId}
           onBlur={e => handleBlur(e)}

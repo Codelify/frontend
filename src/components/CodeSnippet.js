@@ -35,7 +35,6 @@ const CodeSnippet = ({
   const [descriptionToUpdate, setDescroptionToUpdate] = useState(description || "No description");
   const [contentToUpdate, setContentToUpdate] = useState(content);
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
-  const [codeLangage, setCodeLangage] = useState(lang);
 
 
 
@@ -49,8 +48,6 @@ const CodeSnippet = ({
         costumObject[typeOfAction] = descriptionToUpdate;
       } else if (typeOfAction === "content") {
         costumObject[typeOfAction] = contentToUpdate;
-      } else if (typeOfAction === "lang") {
-        costumObject[typeOfAction] = codeLangage;
       }
   
       const token = window.localStorage.getItem("token");
@@ -75,8 +72,7 @@ const CodeSnippet = ({
   [
     contentToUpdate, 
     descriptionToUpdate, 
-    titleToUpdate, 
-    codeLangage, 
+    titleToUpdate,
     id, 
     updateSnippet
   ]
@@ -108,17 +104,6 @@ const CodeSnippet = ({
     document.getElementById(event.target.id).classList.add("edited-div");
   };
 
-  // Data update from CodeLangageBar child comp
-  const langageSelection = event => {
-    setCodeLangage(event.target.parentElement.id);
-  };
-
-  // Useffect that trigger Code Snippet Langage update when
-  // data is received from CodeLangageBar child comp
-  useEffect(() => {
-    handleUpdateCallback("lang");
-  }, [codeLangage, handleUpdateCallback]);
-
   return (
     <>
       {index !== 0 && <Divider py="10px" mb="30px" />}
@@ -132,16 +117,12 @@ const CodeSnippet = ({
           <SnippetHeading
             id={id}
             title={titleToUpdate}
-            handleEdit={handleEdit}
             styledEdit={styledEdit}
-            handleUpdate={handleUpdateCallback}
           />
           <Description
             id={id}
             description={descriptionToUpdate}
-            handleEdit={handleEdit}
             styledEdit={styledEdit}
-            handleUpdate={handleUpdateCallback}
           />
           <Divider />
           <Box>
@@ -174,12 +155,13 @@ const CodeSnippet = ({
                 "linear-gradient(to bottom, transparent 50%, #051525 50%)"
             }}
           >
-            <CodeLangageBar {...{ langageSelection, codeLangage }} />
+            <CodeLangageBar codeLangage={lang} {...{ id }} />
           </Box>
           <SnippetContent
             content={contentToUpdate}
             handleUpdate={handleUpdateCallback}
-            {...{ id, isFav, handleEdit, codeLangage }}
+            codeLangage={lang}
+            {...{ id, isFav, handleEdit }}
           />
         </Box>
       </Flex>

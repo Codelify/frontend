@@ -6,17 +6,15 @@ import {
   Button,
   IconButton
 } from "@chakra-ui/core";
-import SnippetContext from '../context/SnippetContext'
+import SnippetContext from "../context/SnippetContext";
 import ContentEditable from "react-contenteditable";
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_SNIPPET } from "../graphql/mutation";
 
-const Description = ({
-  id,
-  description,
-  styledEdit
-}) => {
-  const[snippetDescription, setSnippetDescription] = useState(description || "")
+const Description = ({ id, description, styledEdit }) => {
+  const [snippetDescription, setSnippetDescription] = useState(
+    description || "No description"
+  );
   const disableEdit = useContext(SnippetContext);
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
   const handleBlur = event => {
@@ -30,19 +28,19 @@ const Description = ({
     setShow(newShow);
   };
 
-  const handleEdit = (event) => {
+  const handleEdit = event => {
     let dataWithUpdate = event.target && event.target.value;
-    setSnippetDescription(dataWithUpdate)
-  }
+    setSnippetDescription(dataWithUpdate);
+  };
 
-  const handleUpdate = async () =>{
+  const handleUpdate = async () => {
     const token = window.localStorage.getItem("token");
     try {
       // eslint-disable-next-line no-empty-pattern
       const {} = await updateSnippet({
         variables: {
           snippetId: id,
-          snippetInfo: {"description" : snippetDescription},
+          snippetInfo: { "description": snippetDescription },
           token: token
         }
         //refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
@@ -50,7 +48,8 @@ const Description = ({
     } catch (error) {
       console.log("Update error: " + error);
     }
-  }
+  };
+
   const descriptionId = `description_${id}`;
   return (
     <>
@@ -70,8 +69,7 @@ const Description = ({
           }}
         />
       </Text>
-      {
-        !disableEdit &&
+      {!disableEdit && (
         <Collapse mt={0} isOpen={show}>
           <ButtonGroup mb="10px" justifyContent="center" size="sm">
             <Button
@@ -83,7 +81,7 @@ const Description = ({
             <IconButton icon="close" />
           </ButtonGroup>
         </Collapse>
-      }
+      )}
     </>
   );
 };

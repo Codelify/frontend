@@ -8,16 +8,18 @@ import {
 import SnippetContext from '../context/SnippetContext';
 import { IoMdRadioButtonOn } from 'react-icons/io';
 import DevIcon from './DevIcon';
+import { useMutation } from "@apollo/react-hooks";
+import { UPDATE_SNIPPET } from "../graphql/mutation";
 
 
-const CodeLangageBar = ({langageSelection, codeLangage}) => {
+const CodeLangageBar = ({codeLangage, id}) => {
     const [ langage, setLangage ] = useState(codeLangage);
     const [ selectionMode, setSelectionMode ] = useState(false);
     const disableEdit = useContext(SnippetContext);
     const { colorMode } = useColorMode();
     const [ selectedColor, setSelectedColor ] = useState(null);
+    const [updateSnippet] = useMutation(UPDATE_SNIPPET);
 
-    
     useEffect(()=> {
         if(colorMode === "dark") {
             setSelectedColor("orange.900")
@@ -31,15 +33,28 @@ const CodeLangageBar = ({langageSelection, codeLangage}) => {
             setSelectionMode(true)
         } 
     }
-    const handleSelection = (e) => {
-        langageSelection(e);
-        setSelectionMode(false)
+    const handleSelection = (event) => {
+      const lang = event.target.parentElement.id; 
+      setLangage(lang);  
+      setSelectionMode(false)
+      handleUpdate(lang)
     }
 
-    useEffect(()=> {
-        setLangage(codeLangage);
-    },[codeLangage]
-    )
+    const handleUpdate = async (lang) => {
+      const token = window.localStorage.getItem("token");
+      try {
+        // eslint-disable-next-line no-empty-pattern
+        const {} = await updateSnippet({
+          variables: {
+            snippetId: id,
+            snippetInfo: { "lang": lang },
+            token: token
+          }
+        });
+      } catch (error) {
+        console.log("Update error: " + error);
+      }
+    };
     
     return (
     <>
