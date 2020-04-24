@@ -159,7 +159,6 @@ const CodeSnippet = ({
           </Box>
           <SnippetContent
             content={contentToUpdate}
-            handleUpdate={handleUpdateCallback}
             codeLangage={lang}
             {...{ id, isFav, handleEdit }}
           />

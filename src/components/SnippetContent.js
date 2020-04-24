@@ -14,6 +14,8 @@ import theme from "prism-react-renderer/themes/nightOwl";
 import { MdContentCopy } from "react-icons/md";
 import { FaRegStar } from "react-icons/fa";
 import SnippetMenu from "./SnippetMenu";
+import { useMutation } from "@apollo/react-hooks";
+import { UPDATE_SNIPPET } from "../graphql/mutation";
 
 const SnippetContent = (
   { 
@@ -21,7 +23,6 @@ const SnippetContent = (
     id, 
     isFav, 
     handleEdit = () => { return }, 
-    handleUpdate, 
     codeLangage 
   }
 ) => {
@@ -29,6 +30,7 @@ const SnippetContent = (
   const snippetPlaceHolder = `${content}`;
   const [value] = React.useState(snippetPlaceHolder);
   const { onCopy, hasCopied } = useClipboard(value);
+  const [updateSnippet] = useMutation(UPDATE_SNIPPET);
 
   const handleBlur = event => {
     handleToggle(false);
@@ -38,6 +40,23 @@ const SnippetContent = (
   const handleToggle = newShow => {
     setShow(newShow);
   };
+
+  const handleUpdate = async () => {
+    const token = window.localStorage.getItem("token");
+    try {
+      // eslint-disable-next-line no-empty-pattern
+      const {} = await updateSnippet({
+        variables: {
+          snippetId: id,
+          snippetInfo: { "content": snippetPlaceHolder },
+          token: token
+        }
+        //refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
+      });
+    } catch (error) {
+      console.log("Update error: " + error);
+    }
+  };  
 
   return (
     <>
