@@ -171,7 +171,7 @@ const SnippetTags = ({ id, tags }) => {
           <Text fontSize="xs">There was an error processing your update</Text>
         </Alert>
       )}
-      {addingTagMode && (
+      {addingTagMode && ( 
         <>
           <Input
             id={tagsId}
