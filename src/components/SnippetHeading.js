@@ -1,51 +1,58 @@
 import React, { useState, useContext } from "react";
 import {
+  Alert,
+  AlertIcon,
   Heading,
   Collapse,
   ButtonGroup,
   Button,
-  IconButton
+  IconButton,
+  Stack
 } from "@chakra-ui/core";
-import SnippetContext from '../context/SnippetContext';
+import SnippetContext from "../context/SnippetContext";
 import ContentEditable from "react-contenteditable";
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_SNIPPET } from "../graphql/mutation";
 
-const SnippetHeading = ({
-  id,
-  title,
-  styledEdit
-}) => {
+const SnippetHeading = ({ id, title, styledEdit }) => {
   const disableEdit = useContext(SnippetContext);
-  const[snippetTitle, setSnippetTitle] = useState(title || "No title");
+  const [snippetTitle, setSnippetTitle] = useState(title || "No title");
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
-  
-  const handleEdit = (event) => {
-    let dataWithUpdate = event.target && event.target.value;
-    setSnippetTitle(dataWithUpdate)
-  }
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [isError, setIsError] = useState(false)
 
-  const handleUpdate = async () =>{
+  const handleEdit = event => {
+    let dataWithUpdate = event.target && event.target.value;
+    setSnippetTitle(dataWithUpdate);
+  };
+
+  const handleUpdate = async () => {
+    setIsUpdating(true);
     const token = window.localStorage.getItem("token");
     try {
       // eslint-disable-next-line no-empty-pattern
       const {} = await updateSnippet({
         variables: {
           snippetId: id,
-          snippetInfo: {"title" : snippetTitle},
+          snippetInfo: { title: snippetTitle },
           token: token
         }
         //refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
       });
+      handleClose();
     } catch (error) {
       console.log("Update error: " + error);
+      setIsError(true)
     }
-  }
+    setIsUpdating(false);
+  };
 
-  const handleBlur = event => {
-    event.persist();
-    document.getElementById(event.target.id).classList.remove("edited-div");
+  const handleClose = () => {
+    document.getElementById(titleId).classList.remove("edited-div");
     handleToggle(false);
+    if(isError){
+      setIsError(false)
+    }
   };
 
   const [show, setShow] = useState(false);
@@ -64,7 +71,6 @@ const SnippetHeading = ({
           html={snippetTitle}
           disabled={disableEdit}
           id={titleId}
-          onBlur={e => handleBlur(e)}
           onClick={() => {
             handleToggle(true);
           }}
@@ -74,17 +80,26 @@ const SnippetHeading = ({
           }}
         />
       </Heading>
-      {
-        !disableEdit &&
+      {!disableEdit && (
         <Collapse mt={0} isOpen={show}>
-        <ButtonGroup mb="10px" justifyContent="center" size="sm">
-          <Button variantColor="teal" onMouseDown={() => handleUpdate("title")}>
-            Save
-          </Button>
-          <IconButton icon="close" />
-        </ButtonGroup>
+          <ButtonGroup mb="10px" justifyContent="center" size="sm">
+            <Button
+              isLoading={isUpdating}
+              variantColor="teal"
+              onMouseDown={() => handleUpdate()}
+            >
+              Save
+            </Button>
+            <IconButton onClick={handleClose} icon="close" />
+          </ButtonGroup>
+          {isError && (
+            <Alert mb="20px" status="error">
+              <AlertIcon />
+              There was an error processing your update
+            </Alert>
+          )}
         </Collapse>
-      }
+      )}
     </>
   );
 };
