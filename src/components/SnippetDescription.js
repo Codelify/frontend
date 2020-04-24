@@ -1,5 +1,7 @@
 import React, { useState, useContext } from "react";
 import {
+  Alert,
+  AlertIcon,
   Text,
   Collapse,
   ButtonGroup,
@@ -17,10 +19,8 @@ const Description = ({ id, description, styledEdit }) => {
   );
   const disableEdit = useContext(SnippetContext);
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
-  const handleBlur = event => {
-    document.getElementById(event.target.id).classList.remove("edited-div");
-    handleToggle(false);
-  };
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [isError, setIsError] = useState(false)
 
   const [show, setShow] = useState(false);
 
@@ -34,21 +34,32 @@ const Description = ({ id, description, styledEdit }) => {
   };
 
   const handleUpdate = async () => {
+    setIsUpdating(true);
     const token = window.localStorage.getItem("token");
     try {
       // eslint-disable-next-line no-empty-pattern
       const {} = await updateSnippet({
         variables: {
           snippetId: id,
-          snippetInfo: { "description": snippetDescription },
+          snippetInfo: { description: snippetDescription },
           token: token
         }
-        //refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
       });
+      handleClose();
     } catch (error) {
       console.log("Update error: " + error);
+      setIsError(true)
     }
+    setIsUpdating(false);
   };
+
+  const handleClose = () => {
+    document.getElementById(descriptionId).classList.remove("edited-div");
+    handleToggle(false);
+    if(isError){
+      setIsError(false)
+    }
+  };  
 
   const descriptionId = `description_${id}`;
   return (
@@ -58,7 +69,6 @@ const Description = ({ id, description, styledEdit }) => {
           html={snippetDescription}
           disabled={disableEdit}
           id={descriptionId}
-          onBlur={handleBlur}
           onChange={e => handleEdit(e)}
           onFocus={styledEdit}
           onClick={() => {
@@ -73,13 +83,20 @@ const Description = ({ id, description, styledEdit }) => {
         <Collapse mt={0} isOpen={show}>
           <ButtonGroup mb="10px" justifyContent="center" size="sm">
             <Button
+              isLoading={isUpdating}
               variantColor="teal"
               onMouseDown={() => handleUpdate("description")}
             >
               Save
             </Button>
-            <IconButton icon="close" />
+            <IconButton onClick={handleClose} icon="close" />
           </ButtonGroup>
+          {isError && (
+            <Alert mb="20px" status="error">
+              <AlertIcon />
+              There was an error processing your update
+            </Alert>
+          )}
         </Collapse>
       )}
     </>

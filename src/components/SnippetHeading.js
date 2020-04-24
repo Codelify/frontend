@@ -6,8 +6,7 @@ import {
   Collapse,
   ButtonGroup,
   Button,
-  IconButton,
-  Stack
+  IconButton
 } from "@chakra-ui/core";
 import SnippetContext from "../context/SnippetContext";
 import ContentEditable from "react-contenteditable";
