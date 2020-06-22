@@ -4,8 +4,8 @@ import GoogleLogin from "react-google-login";
 import { Button, useToast } from "@chakra-ui/core";
 import { navigate } from "@reach/router";
 import { useMutation } from "@apollo/react-hooks";
-import { CREATE_SNIPPET, LOGIN_WITH_GOOGLE } from "../graphql/mutation";
-import { handleRouteChange } from "../utils/handleRouteChange";
+import { CREATE_SNIPPET, LOGIN_WITH_GOOGLE } from "../../graphql/mutation";
+import { handleRouteChange } from "../../utils/handleRouteChange";
 
 export default function GoogleButton() {
   const [ isLoading, setIsLoading] = React.useState(false)

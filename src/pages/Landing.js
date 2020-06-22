@@ -13,19 +13,19 @@ import {
   useColorMode,
   Stack
 } from "@chakra-ui/core";
-import Header from "../components/Header";
+import Header from "../components/Header/Header";
 import Footer from "../components/Footer";
 import Feature from "../components/Features";
 import Container from "../components/Container";
-import GoogleButton from "../components/GoogleButton";
-import GithubButton from "../components/GithubButton";
+import GoogleButton from "../components/Auth/GoogleButton";
+import GithubButton from "../components/Auth/GithubButton";
 import {
   MdBookmark,
   MdFindInPage,
   MdDescription,
   MdExplore
 } from "react-icons/md";
-import SlackButton from "../components/SlackButton";
+import SlackButton from "../components/Auth/SlackButton";
 import Img from "react-image";
 import isLoggedIn from "../utils/auth";
 import { navigate } from "@reach/router";

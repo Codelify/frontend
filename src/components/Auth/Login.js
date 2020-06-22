@@ -3,8 +3,8 @@ import {
   Flex,
   Heading
 } from "@chakra-ui/core";
-import { PageView } from "./~common/Tracking";
-import MainLayout from "../layouts/AppLayout";
+import { PageView } from "../~common/Tracking";
+import MainLayout from "../../layouts/AppLayout";
 import LoginForm from './LoginForm'
 
 const Login = () => {

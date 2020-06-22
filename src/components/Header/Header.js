@@ -2,10 +2,10 @@ import React from "react";
 import { Box, Flex, IconButton, useColorMode, Button } from "@chakra-ui/core";
 import ProfileMenu from "./ProfileMenu";
 import AddSnippetMenu from "./AddSnippetMenu";
-import Logo from "./Logo";
+import Logo from "../Logo";
 import SearchBox from "./SearchBox";
 import { navigate } from "@reach/router";
-import { handleRouteChange } from "../utils/handleRouteChange";
+import { handleRouteChange } from "../../utils/handleRouteChange";
 
 const AppHeader = props => {
   const { landing, isLoggedIn, appView } = props;

@@ -7,7 +7,7 @@ import {
   CSSReset,
   Spinner
 } from "@chakra-ui/core";
-import Header from "../components/Header";
+import Header from "../components/Header/Header";
 import UserBio from "../components/UserBio";
 import Footer from "../components/Footer";
 import CodeSnippet from "../components/CodeSnippet";

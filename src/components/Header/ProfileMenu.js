@@ -12,7 +12,12 @@ import {
 import { FaUserAlt, FaRegUser } from "react-icons/fa";
 import { AiOutlineLogout } from "react-icons/ai";
 import { navigate } from "@reach/router";
-import useUserData from "./~common/useUserData";
+import useUserData from "../~common/useUserData";
+
+/**
+ * Render the Profile Menu/option from the avatar icon in the header
+ * Does not that any paramters
+ */
 
 const ProfileMenu = () => {
   const { results } = useUserData();

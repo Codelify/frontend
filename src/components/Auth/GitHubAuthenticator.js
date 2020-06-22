@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import queryString from 'query-string';
 import axios from 'axios';
-import config from '../utils/config';
-import Spinner from '../components/~common/Spinner';
+import config from '../../utils/config';
+import Spinner from '../../components/~common/Spinner';
 import { Box } from '@chakra-ui/core';
-import useOAuth from '../hooks/useOAuth'
-import { PageView } from './~common/Tracking';
+import useOAuth from '../../hooks/useOAuth'
+import { PageView } from '../~common/Tracking';
 
 export default function GitHubAuthenticator(props) {
   

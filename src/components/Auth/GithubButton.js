@@ -8,8 +8,8 @@ import {
 import { FaGithub } from 'react-icons/fa'
 import GitHubLogin from 'react-github-login';
 import axios from 'axios';
-import config from '../utils/config'
-import useOAUth from '../hooks/useOAuth'
+import config from '../../utils/config'
+import useOAUth from '../../hooks/useOAuth'
 const GithubButton = () => {
   const [ isLoading, setIsLoading ] = useState(false);
   const [login] = useOAUth()

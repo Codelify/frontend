@@ -9,8 +9,8 @@ import {
   MenuItem,
   Text
 } from "@chakra-ui/core";
-import NewSnippet from "./NewSnippet";
-import DialogModal from "./DialogModal";
+import NewSnippet from "../NewSnippet";
+import DialogModal from "../DialogModal";
 import { MdAdd } from "react-icons/md";
 import {
   FaRegNewspaper,
@@ -18,8 +18,13 @@ import {
   FaSurprise,
   FaSmile
 } from "react-icons/fa";
-import useUserData from "./~common/useUserData";
-import useSyncGist from "../hooks/useSyncGist";
+import useUserData from "../~common/useUserData";
+import useSyncGist from "../../hooks/useSyncGist";
+
+/**
+ * Render the New Snippets Menu/option from the "+" icon in the header
+ * Does not that any paramters
+ */
 
 const AddSnippetMenu = () => {
   const { results } = useUserData();

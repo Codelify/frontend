@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { AppContext } from "../context/AppContext";
+import { AppContext } from "../../context/AppContext";
 import {
   Icon,
   Input,
@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/core";
 import matchSorter from "match-sorter";
 import Downshift from "downshift";
-import { DropDown, DropDownItem, Root } from "../utils/searchStyles/Dropdown";
+import { DropDown, DropDownItem, Root } from "../../utils/searchStyles/Dropdown";
 
 // const filteredSnippets = (e, setFilteredSnippets, snippetsData) => {
 //   let inputValue = e.target.value;
