@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./App.css";
+import "./css/App.css";
 import { Helmet } from "react-helmet";
 import Default from "./components/Default";
 import Login from "./components/Auth/Login";
