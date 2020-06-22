@@ -5,7 +5,7 @@ import CodeSnippetSkeleton from "./Snippet/CodeSnippetSkeleton"
 import SnippetList from "./Snippet/SnippetList";
 import { useQuery } from "@apollo/react-hooks";
 import { MY_SNIPPETs } from "../graphql/query";
-import { PageView, initGA } from "./~common/Tracking";
+import { PageView, initGA } from "../utils/Tracking";
 import config from "../utils/config";
 
 const Default = () => {

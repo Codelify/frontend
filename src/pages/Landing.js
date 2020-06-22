@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Event, PageView, initGA } from "../components/~common/Tracking";
+import { Event, PageView, initGA } from "../utils/Tracking";
 import config from "../utils/config";
 import {
   ThemeProvider,

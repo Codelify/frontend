@@ -11,7 +11,7 @@ import SingleSnippet from "./pages/SingleSnippet";
 import TwitterSnippetImage from "./components/TwitterSnippetImage";
 import { Router } from "@reach/router";
 import SlackAuthenticator from "./components/Auth/SlackAuthenticator";
-import { initGA } from "./components/~common/Tracking";
+import { initGA } from "./utils/Tracking";
 import config from "./utils/config";
 import isLoggedIn from "./utils/auth";
 import { useLocation } from "@reach/router";

@@ -6,9 +6,9 @@ import { useMutation } from "@apollo/react-hooks";
 import { useToast } from "@chakra-ui/core";
 import { navigate } from "@reach/router";
 import { LOGIN_WITH_GOOGLE, CREATE_SNIPPET } from "../../graphql/mutation";
-import Spinner from "../../components/~common/Spinner";
+import Spinner from "../Elements/Spinner";
 import { Box } from "@chakra-ui/core";
-import { PageView } from "../~common/Tracking";
+import { PageView } from "../../utils/Tracking";
 import { handleRouteChange } from "../../utils/handleRouteChange";
 
 export default function SlackAuthenticator(props) {
