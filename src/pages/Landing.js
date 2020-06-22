@@ -14,7 +14,7 @@ import {
   Stack
 } from "@chakra-ui/core";
 import Header from "../components/Header/Header";
-import Footer from "../components/Footer";
+import Footer from "../components/Elements/Footer";
 import Feature from "../components/Features";
 import Container from "../components/Container";
 import GoogleButton from "../components/Auth/GoogleButton";

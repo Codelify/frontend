@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/core";
 import Header from "../components/Header/Header";
 import UserBio from "../components/UserBio";
-import Footer from "../components/Footer";
+import Footer from "../components/Elements/Footer";
 import CodeSnippet from "../components/CodeSnippet";
 import SnippetContext from "../context/SnippetContext";
 import { useQuery } from "@apollo/react-hooks";
