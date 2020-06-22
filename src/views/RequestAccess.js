@@ -17,7 +17,7 @@ import {
     Alert,
     AlertIcon
 } from "@chakra-ui/core";
-import config from '../../utils/config'
+import config from '../../../utils/config'
 
 const RequestAccess = ({isOpen, onClose})=>{
     const [ formData, setFormData ] = useState({});

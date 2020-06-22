@@ -27,7 +27,7 @@ import useUserData from "../components/~common/useUserData";
 import { FaTwitter, FaLinkedin, FaEdit, FaRegSadTear, FaRegSmileWink } from "react-icons/fa";
 import { MdMail } from "react-icons/md";
 import { useMutation } from "@apollo/react-hooks";
-import { UPDATE_PROFILE } from "../graphql/mutation";
+import { UPDATE_PROFILE } from "../../../graphql/mutation";
 
 function Profile() {
   const [description, setDescription] = useState("");

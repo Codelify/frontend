@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, Box, IconButton, useDisclosure } from "@chakra-ui/core";
-import NewSnippet from "../Snippet/NewSnippet";
+import NewSnippet from "../../Snippet/NewSnippet";
 import { MdAddCircle } from "react-icons/md";
 import { FaRegSadTear, FaRegStar } from "react-icons/fa";
 import { FiArchive } from "react-icons/fi";
