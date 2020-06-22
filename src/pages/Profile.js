@@ -29,7 +29,7 @@ import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_PROFILE } from "../graphql/mutation";
 
 import appImg from "../assets/img/app-shot-dark.png";
-import MetaTags from "../utils/MetaTags";
+import MetaTags from "../utils/metaTags";
 
 // import { MdVpnKey } from "react-icons/md";
 

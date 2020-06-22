@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Event, PageView, initGA } from "../utils/Tracking";
+import { Event, PageView, initGA } from "../utils/tracking";
 import config from "../utils/config";
 import {
   ThemeProvider,
@@ -30,7 +30,7 @@ import Img from "react-image";
 import isLoggedIn from "../utils/auth";
 import { navigate } from "@reach/router";
 
-import MetaTags from "../utils/MetaTags";
+import MetaTags from "../utils/metaTags";
 
 function Landing({auth}) {
   const { colorMode } = useColorMode();

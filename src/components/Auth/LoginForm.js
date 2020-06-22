@@ -11,7 +11,7 @@ import {
     InputRightElement,
     Divider,
 } from "@chakra-ui/core";
-import { PageView } from "../../utils/Tracking";
+import { PageView } from "../../utils/tracking";
 import GoogleButton from "./GoogleButton";
 import SlackButton from "./SlackButton";
 
