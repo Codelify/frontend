@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/core";
 import Header from "../components/Elements/Header/Header";
 import Footer from "../components/Elements/Footer";
-import Feature from "../components/Features";
+import Feature from "../components/Elements/Features";
 import Container from "../components/Elements/Container";
 import GoogleButton from "../components/Auth/GoogleButton";
 import GithubButton from "../components/Auth/GithubButton";
@@ -30,7 +30,7 @@ import Img from "react-image";
 import isLoggedIn from "../utils/auth";
 import { navigate } from "@reach/router";
 
-import MetaTags from "../components/MetaTags";
+import MetaTags from "../utils/MetaTags";
 
 function Landing({auth}) {
   const { colorMode } = useColorMode();

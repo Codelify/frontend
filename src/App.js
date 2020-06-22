@@ -8,7 +8,7 @@ import AccessDenied from "./pages/AccessDenied";
 import PageNotFound from "./pages/PageNotFound";
 import Profile from "./pages/Profile";
 import SingleSnippet from "./pages/SingleSnippet";
-import TwitterSnippetImage from "./components/TwitterSnippetImage";
+import TwitterSnippetImage from "./components/Snippet/TwitterSnippetImage";
 import { Router } from "@reach/router";
 import SlackAuthenticator from "./components/Auth/SlackAuthenticator";
 import { initGA } from "./utils/Tracking";

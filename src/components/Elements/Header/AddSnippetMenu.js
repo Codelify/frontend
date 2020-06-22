@@ -18,7 +18,7 @@ import {
   FaSurprise,
   FaSmile
 } from "react-icons/fa";
-import useUserData from "../../~common/useUserData";
+import useUserData from "../../../utils/useUserData";
 import useSyncGist from "../../../hooks/useSyncGist";
 
 /**

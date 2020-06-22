@@ -8,7 +8,7 @@ import {
   Spinner
 } from "@chakra-ui/core";
 import Header from "../components/Elements/Header/Header";
-import UserBio from "../components/UserBio";
+import UserBio from "../components/Elements/UserBio";
 import Footer from "../components/Elements/Footer";
 import CodeSnippet from "../components/Snippet/CodeSnippet";
 import SnippetContext from "../context/SnippetContext";

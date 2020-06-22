@@ -5,7 +5,7 @@ import AddSnippetMenu from "./AddSnippetMenu";
 import Logo from "../Logo";
 import SearchBox from "./SearchBox";
 import { navigate } from "@reach/router";
-import { handleRouteChange } from "../../../utils/handleRouteChange";
+import { handleRouteChange } from "../../../utils/routes/handleRouteChange";
 
 const AppHeader = props => {
   const { landing, isLoggedIn, appView } = props;

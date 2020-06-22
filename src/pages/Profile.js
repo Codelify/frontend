@@ -22,14 +22,14 @@ import ContentEditable from "react-contenteditable";
 import { navigate } from "@reach/router";
 import Container from "../components/Elements/Container";
 import { IoIosArrowBack } from "react-icons/io";
-import useUserData from "../components/~common/useUserData";
+import useUserData from "../utils/useUserData";
 import { FaTwitter, FaLinkedin, FaEdit, FaRegSmileWink, FaRegSadTear, FaGithub } from "react-icons/fa";
 import { MdMail } from "react-icons/md";
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_PROFILE } from "../graphql/mutation";
 
 import appImg from "../assets/img/app-shot-dark.png";
-import MetaTags from "../components/MetaTags";
+import MetaTags from "../utils/MetaTags";
 
 // import { MdVpnKey } from "react-icons/md";
 

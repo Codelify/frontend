@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { USER_DETAILS } from "../../graphql/query";
+import { USER_DETAILS } from "../graphql/query";
 
 function useDataFetching() {
   const [results, setResults] = useState([]);

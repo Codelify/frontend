@@ -9,7 +9,7 @@ import { LOGIN_WITH_GOOGLE, CREATE_SNIPPET } from "../../graphql/mutation";
 import Spinner from "../Elements/Spinner";
 import { Box } from "@chakra-ui/core";
 import { PageView } from "../../utils/Tracking";
-import { handleRouteChange } from "../../utils/handleRouteChange";
+import { handleRouteChange } from "../../utils/routes/handleRouteChange";
 
 export default function SlackAuthenticator(props) {
   const [loginWithSlack] = useMutation(LOGIN_WITH_GOOGLE);

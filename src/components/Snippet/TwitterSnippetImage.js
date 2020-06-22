@@ -7,14 +7,14 @@ import {
   Spinner,
   Tooltip
 } from "@chakra-ui/core";
-import CodeLangageBar from "../components/Snippet/CodeLangageBar";
-import SnippetContent from "../components/Snippet/SnippetContent";
-import DialogModal from "./Elements/DialogModal"
-import SnippetContext from "../context/SnippetContext";
+import CodeLangageBar from "./CodeLangageBar";
+import SnippetContent from "./SnippetContent";
+import DialogModal from "../Elements/DialogModal"
+import SnippetContext from "../../context/SnippetContext";
 import { useQuery } from "@apollo/react-hooks";
-import { GET_SNIPPET } from "../graphql/query";
+import { GET_SNIPPET } from "../../graphql/query";
 import { FaTwitter, FaSurprise } from "react-icons/fa";
-import config from "../utils/config";
+import config from "../../utils/config";
 import domtoimage from "dom-to-image";
 import axios from "axios";
 import { navigate } from "@reach/router";

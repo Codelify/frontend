@@ -30,7 +30,7 @@ import { navigate } from "@reach/router";
 import { useMutation } from "@apollo/react-hooks";
 import { CREATE_SNIPPET } from "../../graphql/mutation";
 import { MY_SNIPPETs } from "../../graphql/query";
-import { handleRouteChange } from "../../utils/handleRouteChange";
+import { handleRouteChange } from "../../utils/routes/handleRouteChange";
 import CodeLangageBar from './CodeLangageBar'
 
 const NewSnippet = props => {

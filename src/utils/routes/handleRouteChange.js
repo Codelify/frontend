@@ -1,4 +1,4 @@
-import localstorage from "./localstorage";
+import localstorage from "../localstorage";
 const currentView = localstorage.get();
 
 export const handleRouteChange = () => {
