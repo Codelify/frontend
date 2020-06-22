@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useCallback } from "react";
 import { AppContext } from "../context/AppContext";
 import MainLayout from "../layouts/AppLayout";
-import CodeSnippetSkeleton from "./CodeSnippetSkeleton"
+import CodeSnippetSkeleton from "./Snippet/CodeSnippetSkeleton"
 import SnippetList from "./List";
 import { useQuery } from "@apollo/react-hooks";
 import { MY_SNIPPETs } from "../graphql/query";

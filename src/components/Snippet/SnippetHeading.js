@@ -2,35 +2,28 @@ import React, { useState, useContext } from "react";
 import {
   Alert,
   AlertIcon,
-  Text,
+  Heading,
   Collapse,
   ButtonGroup,
   Button,
-  IconButton
+  IconButton,
+  Text
 } from "@chakra-ui/core";
-import SnippetContext from "../context/SnippetContext";
+import SnippetContext from "../../context/SnippetContext";
 import ContentEditable from "react-contenteditable";
 import { useMutation } from "@apollo/react-hooks";
-import { UPDATE_SNIPPET } from "../graphql/mutation";
+import { UPDATE_SNIPPET } from "../../graphql/mutation";
 
-const Description = ({ id, description, styledEdit }) => {
-  const [snippetDescription, setSnippetDescription] = useState(
-    description || "No description"
-  );
+const SnippetHeading = ({ id, title, styledEdit }) => {
   const disableEdit = useContext(SnippetContext);
+  const [snippetTitle, setSnippetTitle] = useState(title || "No title");
   const [updateSnippet] = useMutation(UPDATE_SNIPPET);
   const [isUpdating, setIsUpdating] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  const [show, setShow] = useState(false);
-
-  const handleToggle = newShow => {
-    setShow(newShow);
-  };
-
   const handleEdit = event => {
     let dataWithUpdate = event.target && event.target.value;
-    setSnippetDescription(dataWithUpdate);
+    setSnippetTitle(dataWithUpdate);
   };
 
   const handleUpdate = async () => {
@@ -41,9 +34,10 @@ const Description = ({ id, description, styledEdit }) => {
       const {} = await updateSnippet({
         variables: {
           snippetId: id,
-          snippetInfo: { description: snippetDescription },
+          snippetInfo: { title: snippetTitle },
           token: token
         }
+        //refetchQueries: [{ query: MY_SNIPPETs, variables: { token } }]
       });
       handleClose();
     } catch (error) {
@@ -54,38 +48,45 @@ const Description = ({ id, description, styledEdit }) => {
   };
 
   const handleClose = () => {
-    document.getElementById(descriptionId).classList.remove("edited-div");
+    document.getElementById(titleId).classList.remove("edited-div");
     handleToggle(false);
     if (isError) {
       setIsError(false);
     }
   };
 
-  const descriptionId = `description_${id}`;
+  const [show, setShow] = useState(false);
+
+  const handleToggle = newShow => {
+    setShow(newShow);
+  };
+
+  const titleId = `title_${id}`;
+
   return (
     <>
-      <Text as="div" mb="5px" contenteditable="true" fontSize="md">
+      <Heading mb="5px" as="h3" size="lg">
         <ContentEditable
-          html={snippetDescription}
+          onChange={e => handleEdit(e, "title")}
+          html={snippetTitle}
           disabled={disableEdit}
-          id={descriptionId}
-          onChange={e => handleEdit(e)}
-          onFocus={styledEdit}
+          id={titleId}
           onClick={() => {
             handleToggle(true);
           }}
+          onFocus={styledEdit}
           style={{
             outline: "none"
           }}
         />
-      </Text>
+      </Heading>
       {!disableEdit && (
         <Collapse mt={0} isOpen={show}>
           <ButtonGroup mb="10px" justifyContent="center" size="sm">
             <Button
               isLoading={isUpdating}
               variantColor="teal"
-              onMouseDown={() => handleUpdate("description")}
+              onMouseDown={() => handleUpdate()}
             >
               Save
             </Button>
@@ -105,4 +106,4 @@ const Description = ({ id, description, styledEdit }) => {
   );
 };
 
-export default Description;
+export default SnippetHeading;

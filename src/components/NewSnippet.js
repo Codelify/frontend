@@ -31,7 +31,7 @@ import { useMutation } from "@apollo/react-hooks";
 import { CREATE_SNIPPET } from "../graphql/mutation";
 import { MY_SNIPPETs } from "../graphql/query";
 import { handleRouteChange } from "../utils/handleRouteChange";
-import CodeLangageBar from './CodeLangageBar'
+import CodeLangageBar from './Snippet/CodeLangageBar'
 
 const NewSnippet = props => {
   const { isOpen, onClose, firstField, btnRef, size } = props;

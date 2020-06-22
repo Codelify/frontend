@@ -7,10 +7,10 @@ import {
   CSSReset,
   Spinner
 } from "@chakra-ui/core";
-import Header from "../components/Header/Header";
+import Header from "../components/Elements/Header/Header";
 import UserBio from "../components/UserBio";
 import Footer from "../components/Elements/Footer";
-import CodeSnippet from "../components/CodeSnippet";
+import CodeSnippet from "../components/Snippet/CodeSnippet";
 import SnippetContext from "../context/SnippetContext";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_SNIPPET } from "../graphql/query";

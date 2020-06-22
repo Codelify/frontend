@@ -11,14 +11,14 @@ import {
   Stack,
   Text
 } from "@chakra-ui/core";
-import SnippetContext from "../context/SnippetContext";
+import SnippetContext from "../../context/SnippetContext";
 import { LiveProvider, LiveEditor, withLive } from "react-live";
 import theme from "prism-react-renderer/themes/nightOwl";
 import { MdContentCopy } from "react-icons/md";
 import { FaRegStar } from "react-icons/fa";
 import SnippetMenu from "./SnippetMenu";
 import { useMutation } from "@apollo/react-hooks";
-import { UPDATE_SNIPPET } from "../graphql/mutation";
+import { UPDATE_SNIPPET } from "../../graphql/mutation";
 
 const SnippetContent = ({
   content,

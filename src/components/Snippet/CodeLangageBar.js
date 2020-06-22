@@ -5,11 +5,11 @@ import {
     TagIcon,
     useColorMode
 } from '@chakra-ui/core';
-import SnippetContext from '../context/SnippetContext';
+import SnippetContext from '../../context/SnippetContext';
 import { IoMdRadioButtonOn } from 'react-icons/io';
-import DevIcon from './Elements/DevIcon';
+import DevIcon from '../Elements/DevIcon';
 import { useMutation } from "@apollo/react-hooks";
-import { UPDATE_SNIPPET } from "../graphql/mutation";
+import { UPDATE_SNIPPET } from "../../graphql/mutation";
 
 
 const CodeLangageBar = ({codeLangage, id}) => {

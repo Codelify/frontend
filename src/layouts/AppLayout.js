@@ -1,7 +1,7 @@
 import { Box, useColorMode, Flex } from "@chakra-ui/core";
 import React from "react";
-import Header from "../components/Header/Header";
-import SideNav from "../components/SideNav";
+import Header from "../components/Elements/Header/Header";
+import SideNav from "../components/Elements/SideMenu/SideNav";
 import Footer from "../components/Elements/Footer";
 import Container from "../components/Elements/Container";
 

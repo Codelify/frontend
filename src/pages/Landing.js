@@ -13,7 +13,7 @@ import {
   useColorMode,
   Stack
 } from "@chakra-ui/core";
-import Header from "../components/Header/Header";
+import Header from "../components/Elements/Header/Header";
 import Footer from "../components/Elements/Footer";
 import Feature from "../components/Features";
 import Container from "../components/Elements/Container";

@@ -7,8 +7,8 @@ import {
   Spinner,
   Tooltip
 } from "@chakra-ui/core";
-import CodeLangageBar from "../components/CodeLangageBar";
-import SnippetContent from "../components/SnippetContent";
+import CodeLangageBar from "../components/Snippet/CodeLangageBar";
+import SnippetContent from "../components/Snippet/SnippetContent";
 import DialogModal from "./Elements/DialogModal"
 import SnippetContext from "../context/SnippetContext";
 import { useQuery } from "@apollo/react-hooks";

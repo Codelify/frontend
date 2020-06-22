@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useContext } from "react";
-import { UPDATE_SNIPPET } from "../graphql/mutation";
-import { MY_SNIPPETs } from "../graphql/query";
+import { UPDATE_SNIPPET } from "../../graphql/mutation";
+import { MY_SNIPPETs } from "../../graphql/query";
 import { useMutation } from "@apollo/react-hooks";
 
 import {
@@ -14,7 +14,7 @@ import {
   Stack,
   Text
 } from "@chakra-ui/core";
-import SnippetContext from "../context/SnippetContext";
+import SnippetContext from "../../context/SnippetContext";
 import { MdAdd } from "react-icons/md";
 
 const SnippetTags = ({ id, tags }) => {

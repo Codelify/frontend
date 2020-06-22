@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
-import { AppContext } from "../context/AppContext";
+import { AppContext } from "../../../context/AppContext";
 import { Box, PseudoBox, Heading, useColorMode } from "@chakra-ui/core";
-import localstorage from "../utils/localstorage";
+import localstorage from "../../../utils/localstorage";
 import { FiArchive, FiHome, FiStar, FiTag } from "react-icons/fi";
 import { Link } from "@reach/router";
 

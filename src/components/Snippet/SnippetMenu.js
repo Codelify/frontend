@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { AppContext } from "../context/AppContext";
+import { AppContext } from "../../context/AppContext";
 import {
   IconButton,
   Menu,
@@ -10,14 +10,14 @@ import {
   Box,
   useToast,
 } from "@chakra-ui/core";
-import DialogModal from './Elements/DialogModal'
+import DialogModal from '../Elements/DialogModal'
 import { FiMoreHorizontal } from "react-icons/fi";
 import { FaStar, FaArchive, FaWindowRestore } from "react-icons/fa";
 import { IoMdAlert } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 import { useMutation } from "@apollo/react-hooks";
-import { UPDATE_SNIPPET, DELETE_SNIPPET } from "../graphql/mutation";
-import { MY_SNIPPETs } from "../graphql/query";
+import { UPDATE_SNIPPET, DELETE_SNIPPET } from "../../graphql/mutation";
+import { MY_SNIPPETs } from "../../graphql/query";
 
 const SnippetMenu = ({ isFav, id }) => {
   const [restoreSnippet, setRestoreSnippet] = useState(false);
