@@ -2,12 +2,12 @@ import React from 'react';
 import {
     Box
 } from '@chakra-ui/core'
-import { ReactComponent as JsIcon } from '../assets/icons/javascript-plain.svg';
-import { ReactComponent as ReactIcon } from '../assets/icons/react-original.svg';
-import { ReactComponent as PythonIcon } from '../assets/icons/python-plain.svg';
-import { ReactComponent as HtmlIcon } from '../assets/icons/html5-plain.svg';
-import { ReactComponent as GoIcon } from '../assets/icons/go-plain.svg';
-import { ReactComponent as RubyIcon } from '../assets/icons/ruby-plain.svg';
+import { ReactComponent as JsIcon } from '../../assets/icons/javascript-plain.svg';
+import { ReactComponent as ReactIcon } from '../../assets/icons/react-original.svg';
+import { ReactComponent as PythonIcon } from '../../assets/icons/python-plain.svg';
+import { ReactComponent as HtmlIcon } from '../../assets/icons/html5-plain.svg';
+import { ReactComponent as GoIcon } from '../../assets/icons/go-plain.svg';
+import { ReactComponent as RubyIcon } from '../../assets/icons/ruby-plain.svg';
 import { IoMdAlert } from 'react-icons/io';
 import { FaQuestionCircle } from 'react-icons/fa';
 

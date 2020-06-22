@@ -7,7 +7,7 @@ import {
 } from '@chakra-ui/core';
 import SnippetContext from '../context/SnippetContext';
 import { IoMdRadioButtonOn } from 'react-icons/io';
-import DevIcon from './DevIcon';
+import DevIcon from './Elements/DevIcon';
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_SNIPPET } from "../graphql/mutation";
 

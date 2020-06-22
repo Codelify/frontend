@@ -10,7 +10,7 @@ import {
   Text
 } from "@chakra-ui/core";
 import NewSnippet from "../NewSnippet";
-import DialogModal from "../DialogModal";
+import DialogModal from "../Elements/DialogModal";
 import { MdAdd } from "react-icons/md";
 import {
   FaRegNewspaper,

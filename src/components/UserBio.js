@@ -6,7 +6,7 @@ import {
     Avatar,
 } from "@chakra-ui/core";
 import ContentEditable from "react-contenteditable";
-import Container from "../components/Container";
+import Container from "./Elements/Container";
 
 function UserBio({owner}) {
     const [description, setDescription] = useState("");

@@ -3,7 +3,7 @@ import React from "react";
 import Header from "../components/Header/Header";
 import SideNav from "../components/SideNav";
 import Footer from "../components/Elements/Footer";
-import Container from "../components/Container";
+import Container from "../components/Elements/Container";
 
 const Main = props => <Box as="main" mb="3rem" {...props} />;
 

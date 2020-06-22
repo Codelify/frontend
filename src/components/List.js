@@ -3,7 +3,7 @@ import CodeSnippet from "./CodeSnippet";
 import MainLayout from "../layouts/AppLayout";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SnippetContext from '../context/SnippetContext'
-import EmptyView from "./EmptyView";
+import EmptyView from "./Elements/EmptyView";
 
 
 const SnippetList = props => {

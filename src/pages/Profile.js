@@ -20,7 +20,7 @@ import {
 } from "@chakra-ui/core";
 import ContentEditable from "react-contenteditable";
 import { navigate } from "@reach/router";
-import Container from "../components/Container";
+import Container from "../components/Elements/Container";
 import { IoIosArrowBack } from "react-icons/io";
 import useUserData from "../components/~common/useUserData";
 import { FaTwitter, FaLinkedin, FaEdit, FaRegSmileWink, FaRegSadTear, FaGithub } from "react-icons/fa";

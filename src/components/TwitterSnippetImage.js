@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/core";
 import CodeLangageBar from "../components/CodeLangageBar";
 import SnippetContent from "../components/SnippetContent";
-import DialogModal from "../components/DialogModal"
+import DialogModal from "./Elements/DialogModal"
 import SnippetContext from "../context/SnippetContext";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_SNIPPET } from "../graphql/query";
