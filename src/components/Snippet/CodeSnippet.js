@@ -3,7 +3,7 @@ import { Box, Flex, Stack, Link, Icon, Divider } from "@chakra-ui/core";
 import SnippetHeading from "./SnippetHeading";
 import Description from "./SnippetDescription";
 import SnippetTags from "./SnippetTags";
-import ShareOptions from "../ShareOptions";
+import ShareOptions from "./ShareOptions";
 import SnippetContent from "./SnippetContent";
 import CodeLangageBar from "./CodeLangageBar";
 

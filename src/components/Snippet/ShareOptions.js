@@ -10,15 +10,15 @@ import {
   Link
 } from "@chakra-ui/core";
 import { Link as ReachLink } from "@reach/router";
-import SnippetContext from "../context/SnippetContext";
+import SnippetContext from "../../context/SnippetContext";
 // import TwiiterShareView from '../'
 import { FaLink, FaEyeSlash, FaTwitter, FaGlobe } from "react-icons/fa";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { useMutation } from "@apollo/react-hooks";
-import { UPDATE_SNIPPET } from "../graphql/mutation";
-import { MY_SNIPPETs } from "../graphql/query";
-import config from "../utils/config";
-import isLoggedIn from "../utils/auth";
+import { UPDATE_SNIPPET } from "../../graphql/mutation";
+import { MY_SNIPPETs } from "../../graphql/query";
+import config from "../../utils/config";
+import isLoggedIn from "../../utils/auth";
 
 const Private = () => {
   return (

@@ -28,10 +28,10 @@ import { LiveProvider, LiveEditor } from "react-live";
 import theme from "prism-react-renderer/themes/nightOwl";
 import { navigate } from "@reach/router";
 import { useMutation } from "@apollo/react-hooks";
-import { CREATE_SNIPPET } from "../graphql/mutation";
-import { MY_SNIPPETs } from "../graphql/query";
-import { handleRouteChange } from "../utils/handleRouteChange";
-import CodeLangageBar from './Snippet/CodeLangageBar'
+import { CREATE_SNIPPET } from "../../graphql/mutation";
+import { MY_SNIPPETs } from "../../graphql/query";
+import { handleRouteChange } from "../../utils/handleRouteChange";
+import CodeLangageBar from './CodeLangageBar'
 
 const NewSnippet = props => {
   const { isOpen, onClose, firstField, btnRef, size } = props;

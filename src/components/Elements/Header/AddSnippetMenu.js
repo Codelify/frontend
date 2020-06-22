@@ -9,7 +9,7 @@ import {
   MenuItem,
   Text
 } from "@chakra-ui/core";
-import NewSnippet from "../../NewSnippet";
+import NewSnippet from "../../Snippet/NewSnippet";
 import DialogModal from "../DialogModal";
 import { MdAdd } from "react-icons/md";
 import {

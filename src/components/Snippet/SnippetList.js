@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import CodeSnippet from "./Snippet/CodeSnippet";
-import MainLayout from "../layouts/AppLayout";
+import CodeSnippet from "./CodeSnippet";
+import MainLayout from "../../layouts/AppLayout";
 import InfiniteScroll from "react-infinite-scroll-component";
-import SnippetContext from '../context/SnippetContext'
-import EmptyView from "./Elements/EmptyView";
+import SnippetContext from '../../context/SnippetContext'
+import EmptyView from "../Elements/EmptyView";
 
 
 const SnippetList = props => {
