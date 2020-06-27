@@ -37,6 +37,7 @@
     "react-image": "^2.4.0",
     "react-infinite-scroll-component": "^5.0.4",
     "react-live": "^2.2.2",
+    "react-markdown-editor-lite": "^1.1.5",
     "react-router-dom": "^5.1.2",
     "react-router-sitemap": "^1.2.0",
     "react-scripts": "3.4.0",
