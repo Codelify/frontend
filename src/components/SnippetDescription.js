@@ -64,6 +64,7 @@ const Description = ({ id, description, styledEdit }) => {
   const descriptionId = `description_${id}`;
   return (
     <>
+    
       <Text as="div" mb="5px" contenteditable="true" fontSize="md">
         <ContentEditable
           html={snippetDescription}
@@ -79,6 +80,8 @@ const Description = ({ id, description, styledEdit }) => {
           }}
         />
       </Text>
+
+
       {!disableEdit && (
         <Collapse mt={0} isOpen={show}>
           <ButtonGroup mb="10px" justifyContent="center" size="sm">

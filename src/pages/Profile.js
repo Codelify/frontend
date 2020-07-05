@@ -66,6 +66,7 @@ function Profile() {
   const updateUserProfile = async () => {
     setLoading(true);
     const token = window.localStorage.getItem("token");
+    console.log(token)
     try {
       // eslint-disable-next-line no-empty-pattern
       const {} = await updateProfile({
