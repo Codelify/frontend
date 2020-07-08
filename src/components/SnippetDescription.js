@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/core";
 import SnippetContext from "../context/SnippetContext";
 import ContentEditable from "react-contenteditable";
+import ReactMarkdown from "react-markdown";
 import { useMutation } from "@apollo/react-hooks";
 import { UPDATE_SNIPPET } from "../graphql/mutation";
 
@@ -66,6 +67,7 @@ const Description = ({ id, description, styledEdit }) => {
     <>
     
       <Text as="div" mb="5px" contenteditable="true" fontSize="md">
+        {/* <ReactMarkdown> */}
         <ContentEditable
           html={snippetDescription}
           disabled={disableEdit}
@@ -78,7 +80,8 @@ const Description = ({ id, description, styledEdit }) => {
           style={{
             outline: "none"
           }}
-        />
+          />
+          {/* </ReactMarkdown> */}
       </Text>
 
 
