@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 
-const Metatags = ({
+const metatags = ({
   title = "Codelify | Your code snippets library",
   description = "",
   canonical = "",
@@ -128,4 +128,4 @@ const Metatags = ({
   </Helmet>
 );
 
-export default Metatags;
+export default metatags;

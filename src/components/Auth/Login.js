@@ -3,7 +3,7 @@ import {
   Flex,
   Heading
 } from "@chakra-ui/core";
-import { PageView } from "../../utils/tracking";
+import { PageView } from "../../utils/traking";
 import MainLayout from "../../layouts/AppLayout";
 import LoginForm from './LoginForm'
 

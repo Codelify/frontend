@@ -8,7 +8,7 @@ import { navigate } from "@reach/router";
 import { LOGIN_WITH_GOOGLE, CREATE_SNIPPET } from "../../graphql/mutation";
 import Spinner from "../Elements/Spinner";
 import { Box } from "@chakra-ui/core";
-import { PageView } from "../../utils/tracking";
+import { PageView } from "../../utils/traking";
 import { handleRouteChange } from "../../utils/routes/handleRouteChange";
 
 export default function SlackAuthenticator(props) {

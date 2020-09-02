@@ -5,7 +5,7 @@ import config from '../../utils/config';
 import Spinner from '../../components/Elements/Spinner';
 import { Box } from '@chakra-ui/core';
 import useOAuth from '../../hooks/useOAuth'
-import { PageView } from '../../utils/tracking';
+import { PageView } from "../../utils/traking";
 
 export default function GitHubAuthenticator(props) {
   
