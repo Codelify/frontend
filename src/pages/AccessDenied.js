@@ -9,8 +9,8 @@ import {
     useDisclosure,
 } from "@chakra-ui/core";
 import { navigate } from "@reach/router";
-import Container from "../components/Container";
-import RequestAccess from "../components/RequestAccess";
+import Container from "../components/Elements/Container";
+import RequestAccess from "../components/Elements/views/RequestAccess";
 import { GiMinotaur } from 'react-icons/gi';
 import { IoIosArrowBack } from 'react-icons/io'
 
