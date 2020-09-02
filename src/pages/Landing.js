@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Event, PageView, initGA } from "../components/~common/Tracking";
+import { Event, PageView, initGA } from "../utils/traking";
 import config from "../utils/config";
 import {
   ThemeProvider,
@@ -13,24 +13,24 @@ import {
   useColorMode,
   Stack
 } from "@chakra-ui/core";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import Feature from "../components/Features";
-import Container from "../components/Container";
-import GoogleButton from "../components/GoogleButton";
-import GithubButton from "../components/GithubButton";
+import Header from "../components/Elements/Header/Header";
+import Footer from "../components/Elements/Footer";
+import Feature from "../components/Elements/Features";
+import Container from "../components/Elements/Container";
+import GoogleButton from "../components/Auth/GoogleButton";
+import GithubButton from "../components/Auth/GithubButton";
 import {
   MdBookmark,
   MdFindInPage,
   MdDescription,
   MdExplore
 } from "react-icons/md";
-import SlackButton from "../components/SlackButton";
+import SlackButton from "../components/Auth/SlackButton";
 import Img from "react-image";
 import isLoggedIn from "../utils/auth";
 import { navigate } from "@reach/router";
 
-import MetaTags from "../components/MetaTags";
+import MetaTags from "../utils/metaTags";
 
 function Landing({auth}) {
   const { colorMode } = useColorMode();

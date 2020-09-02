@@ -8,7 +8,7 @@ import {
     Button,
 } from "@chakra-ui/core";
 import { navigate } from "@reach/router";
-import Container from "../components/Container";
+import Container from "../components/Elements/Container";
 import { GiLandMine } from 'react-icons/gi';
 
 

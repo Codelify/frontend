@@ -4,7 +4,7 @@ import { useToast } from "@chakra-ui/core";
 import { navigate } from "@reach/router";
 import { LOGIN_WITH_GOOGLE, CREATE_SNIPPET } from "../graphql/mutation";
 
-import { handleRouteChange } from "../utils/handleRouteChange";
+import { handleRouteChange } from "../utils/routes/handleRouteChange";
 
 export default function useOAuth() {
   const [OAuth ] = useMutation(LOGIN_WITH_GOOGLE);
