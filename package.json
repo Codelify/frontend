@@ -14,7 +14,7 @@
     "apollo-boost": "^0.4.7",
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-cache-persist": "^0.1.1",
-    "axios": "^0.19.1",
+    "axios": "^0.21.1",
     "dom-to-image": "^2.6.0",
     "downshift": "^4.0.3",
     "emotion-theming": "^10.0.27",
